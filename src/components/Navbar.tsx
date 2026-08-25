@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 const SITE_TAGLINE = "REAL ESTATE";
 
 const NAV_LINKS = [
-  { href: "/home",             label: "Home"        },
+  { href: "/",                 label: "Home"        },
   { href: "/property",         label: "Properties"  },
   { href: "/owner",            label: "Buy"         },
   { href: "/interested-party", label: "Sell"        },
@@ -48,19 +48,17 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link
-          href="/home"
+          href="/"
           aria-label="Bossert Immobilien — Home"
           className="flex flex-col leading-none group"
         >
           <span
-            className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80"
-            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+            className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display"
           >
             BOSSERT
           </span>
           <span
-            className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5"
-            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+            className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display"
           >
             {SITE_TAGLINE}
           </span>
@@ -74,8 +72,7 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className={`nav-link-hero${isActive ? " active" : ""}`}
-                style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}
+                className={`nav-link-hero${isActive ? " active" : ""} font-body`}
                 aria-current={isActive ? "page" : undefined}
               >
                 {label}
@@ -89,8 +86,7 @@ export default function Navbar() {
           {/* Phone (Desktop Only) */}
           <a
             href={`tel:${PHONE.replace(/\s/g, "")}`}
-            className="hidden md:block text-[0.68rem] tracking-[0.10em] text-[rgba(254,252,246,0.75)] hover:text-[#FEFCF6] transition-colors"
-            style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}
+            className="hidden md:block text-[0.68rem] tracking-[0.10em] text-[rgba(254,252,246,0.75)] hover:text-[#FEFCF6] transition-colors font-body"
           >
             {PHONE}
           </a>
@@ -107,7 +103,7 @@ export default function Navbar() {
               <line x1="2" y1="12" x2="22" y2="12"></line>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            <div className="flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
+            <div className="flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em] font-body">
               <button className="text-[#FEFCF6] font-bold transition-colors hover:text-[#AF8C53] cursor-pointer">EN</button>
               <span className="text-[rgba(254,252,246,0.3)]">/</span>
               <button className="text-[rgba(254,252,246,0.6)] transition-colors hover:text-[#FEFCF6] cursor-pointer">DE</button>
@@ -156,8 +152,7 @@ export default function Navbar() {
                   <Link
                     href={href}
                     onClick={() => setMenuOpen(false)}
-                    className={`nav-link-hero text-base${isActive ? " active" : ""}`}
-                    style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}
+                    className={`nav-link-hero text-base${isActive ? " active" : ""} font-body`}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {label}
@@ -168,8 +163,7 @@ export default function Navbar() {
             <li className="pt-2 border-t border-[rgba(254,252,246,0.1)]">
               <a
                 href={`tel:${PHONE.replace(/\s/g, "")}`}
-                className="text-[0.75rem] tracking-[0.1em] text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6] transition-colors"
-                style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}
+                className="text-[0.75rem] tracking-[0.1em] text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6] transition-colors font-body"
               >
                 {PHONE}
               </a>

@@ -18,8 +18,8 @@
   --color-cream:         var(--cream);
   --color-bronze:        var(--bronze);
   --color-bronze-light:  var(--bronze-light);
-  --font-sans:           var(--font-playfair);
-  --font-serif:          var(--font-eb-garamond);
+  --font-display:        var(--font-playfair), Georgia, serif;
+  --font-body:           'Satoshi', sans-serif;
 }
 
 /* ── Base reset ─────────────────────────────────────────────────────────── */
@@ -30,15 +30,19 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
-/* ── EB Garamond utility ────────────────────────────────────────────────── */
+/* ── Font utilities ──────────────────────────────────────────────────────── */
 .font-body {
-  font-family: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
+  font-family: var(--font-body);
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* ── Hero Section ───────────────────────────────────────────────────────── */
@@ -56,9 +60,9 @@ body {
   inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(4, 36, 51, 0.78) 0%,
-    rgba(4, 36, 51, 0.45) 55%,
-    rgba(4, 36, 51, 0.18) 100%
+    rgba(7, 24, 34, 0.65) 0%,
+    rgba(7, 24, 34, 0.35) 55%,
+    rgba(7, 24, 34, 0.15) 100%
   );
 }
 
@@ -78,7 +82,7 @@ body {
 
 /* ── Hero typography ────────────────────────────────────────────────────── */
 .hero-title {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-style: italic;
   line-height: 0.90;
@@ -95,7 +99,7 @@ body {
   color: rgba(254, 252, 246, 0.72);
   transition: color 0.25s ease;
   text-decoration: none;
-  font-family: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
+  font-family: var(--font-body);
 }
 .nav-link-hero::after {
   content: '';
@@ -129,7 +133,7 @@ body {
   gap: 14px;
   background: var(--cream);
   color: var(--navy);
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-display);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -186,4 +190,20 @@ body {
 .delay-5 { animation-delay: 0.64s; }
 .delay-6 { animation-delay: 0.80s; }
 .delay-7 { animation-delay: 1.00s; }
+
+/* ── Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--navy);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(175, 140, 83, 0.4);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(175, 140, 83, 0.7);
+}
 

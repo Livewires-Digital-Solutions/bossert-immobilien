@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }) {
-  const bodyFont = bodyFontOverride || "var(--font-eb-garamond), 'EB Garamond', Georgia, serif";
+export default function Hero() {
   return (
     <section className="hero-section" aria-label="Hero">
 
@@ -29,8 +28,8 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
           {/* Pre-title line */}
           <div className="anim-fade-up flex items-center gap-4 mb-1 md:mb-2">
             <span
-              className="text-[0.65rem] md:text-[0.75rem] tracking-[0.25em] uppercase italic"
-              style={{ color: "var(--bronze)", fontFamily: bodyFont }}
+              className="text-[0.65rem] md:text-[0.75rem] tracking-[0.25em] uppercase italic font-body"
+              style={{ color: "var(--bronze)" }}
             >
               Since 1991
             </span>
@@ -52,10 +51,6 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
           {/* Tagline — EB Garamond body text */}
           <p
             className="anim-fade-up delay-3 font-body text-[rgba(254,252,246,0.70)] text-base md:text-lg leading-relaxed max-w-[280px] md:max-w-xs tracking-[0.04em]"
-            style={{
-              fontFamily: bodyFont,
-              fontStyle: "normal",
-            }}
           >
             Your partner for exclusive real estate in the Rhine-Main region since 1991.
           </p>
@@ -66,14 +61,14 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
             {/* Stat: Years */}
             <div className="anim-fade-in delay-4 stat-card px-5 py-4 min-w-[170px]">
               <p
-                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1"
-                style={{ color: "var(--bronze)", fontFamily: bodyFont }}
+                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
+                style={{ color: "var(--bronze)" }}
               >
                 Years of Experience
               </p>
               <p
-                className="text-3xl font-bold leading-none"
-                style={{ color: "var(--cream)", fontFamily: "var(--font-playfair), Georgia, serif" }}
+                className="text-3xl font-bold leading-none font-display"
+                style={{ color: "var(--cream)" }}
               >
                 30+
               </p>
@@ -82,14 +77,14 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
             {/* Stat: Properties */}
             <div className="anim-fade-in delay-5 stat-card px-5 py-4 min-w-[170px]">
               <p
-                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1"
-                style={{ color: "var(--bronze)", fontFamily: bodyFont }}
+                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
+                style={{ color: "var(--bronze)" }}
               >
                 Properties Sold
               </p>
               <p
-                className="text-3xl font-bold leading-none"
-                style={{ color: "var(--cream)", fontFamily: "var(--font-playfair), Georgia, serif" }}
+                className="text-3xl font-bold leading-none font-display"
+                style={{ color: "var(--cream)" }}
               >
                 500+
               </p>
@@ -98,14 +93,14 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
             {/* Stat: Portfolio */}
             <div className="anim-fade-in delay-6 stat-card px-5 py-4 min-w-[170px]">
               <p
-                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1"
-                style={{ color: "var(--bronze)", fontFamily: bodyFont }}
+                className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
+                style={{ color: "var(--bronze)" }}
               >
                 Portfolio Value
               </p>
               <p
-                className="text-3xl font-bold leading-none"
-                style={{ color: "var(--cream)", fontFamily: "var(--font-playfair), Georgia, serif" }}
+                className="text-3xl font-bold leading-none font-display"
+                style={{ color: "var(--cream)" }}
               >
                 €2B+
               </p>
@@ -120,10 +115,9 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
           {/* Scroll indicator */}
           <div className="anim-fade-in delay-7 flex flex-col items-start gap-3">
             <span
-              className="text-[0.65rem] tracking-[0.22em] uppercase"
+              className="text-[0.65rem] tracking-[0.22em] uppercase font-body"
               style={{
                 color: "rgba(254,252,246,0.45)",
-                fontFamily: bodyFont,
               }}
             >
               Scroll &amp; Discover
@@ -174,14 +168,13 @@ export default function Hero({ bodyFontOverride }: { bodyFontOverride?: string }
           ].map(({ label, value }) => (
             <div key={label} className="stat-card px-4 py-3 flex-shrink-0 min-w-[110px]">
               <p
-                className="text-[0.52rem] tracking-[0.2em] uppercase mb-1"
-                style={{ color: "var(--bronze)", fontFamily: bodyFont }}
+                className="text-[0.52rem] tracking-[0.2em] uppercase mb-1 font-body"
+                style={{ color: "var(--bronze)" }}
               >
                 {label}
               </p>
               <p
-                className="text-xl font-bold leading-none"
-                style={{ color: "var(--cream)", fontFamily: "var(--font-playfair), Georgia, serif" }}
+                className="text-xl font-bold leading-none font-display text-cream"
               >
                 {value}
               </p>

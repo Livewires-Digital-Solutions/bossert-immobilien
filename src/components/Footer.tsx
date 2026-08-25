@@ -1,103 +1,97 @@
 import Link from "next/link";
 
-// TODO: replace placeholders with real company info
 const COMPANY_NAME = "Bossert Immobilien";
-const ADDRESS_LINE_1 = "Musterstraße 1"; // TODO: real address
-const ADDRESS_LINE_2 = "12345 Musterstadt, Deutschland"; // TODO: real city/zip
-const CONTACT_EMAIL = "info@bossert-immobilien.de"; // TODO: real email
-const CONTACT_PHONE = "+49 (0) 000 000 0000"; // TODO: real phone
+const ADDRESS_LINE_1 = "Musterstraße 1";
+const ADDRESS_LINE_2 = "65183 Wiesbaden";
+const CONTACT_EMAIL = "info@bossert-immobilien.de";
+const CONTACT_PHONE = "+49 6196 560 97 0";
 
 const NAV_LINKS = [
-  { href: "/property", label: "Property" },
-  { href: "/owner", label: "Owner" },
-  { href: "/interested-party", label: "Interested Party" },
-  { href: "/evaluate", label: "Evaluate" },
-  { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
-] as const;
-
-// TODO: replace with real social URLs and proper SVG icon components
-const SOCIAL_LINKS = [
-  { href: "#", label: "Facebook", icon: "f" },
-  { href: "#", label: "Instagram", icon: "in" },
-  { href: "#", label: "LinkedIn", icon: "li" },
+  { href: "/", label: "Home" },
+  { href: "/property", label: "Properties" },
+  { href: "/owner", label: "Buy a Property" },
+  { href: "/interested-party", label: "Sell a Property" },
+  { href: "/evaluate", label: "Evaluate Property" },
+  { href: "/services", label: "About Us" },
 ] as const;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-foreground/10 bg-background mt-auto">
-      <div className="mx-auto max-w-7xl px-6 py-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Column 1 — Company info */}
-        <div className="flex flex-col gap-2">
-          {/* TODO: swap for logo image when asset is ready */}
-          <p className="text-base font-semibold">{COMPANY_NAME}</p>
-          <address className="not-italic font-body text-sm opacity-70 leading-relaxed">
-            {ADDRESS_LINE_1}
-            <br />
-            {ADDRESS_LINE_2}
-            <br />
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="hover:opacity-100 transition-opacity"
-            >
-              {CONTACT_EMAIL}
-            </a>
-            <br />
-            <a
-              href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
-              className="hover:opacity-100 transition-opacity"
-            >
-              {CONTACT_PHONE}
-            </a>
-          </address>
+    <footer className="bg-[#02121a] text-[var(--cream)] py-12 md:py-16 px-6 md:px-10 border-t border-[var(--cream)]/10">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+        
+        {/* Brand */}
+        <div className="col-span-1 md:col-span-1 flex flex-col items-start">
+          <Link href="/" className="flex flex-col leading-none group mb-6">
+            <span className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display">
+              BOSSERT
+            </span>
+            <span className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display">
+              REAL ESTATE
+            </span>
+          </Link>
+          <p className="font-body text-sm text-[rgba(254,252,246,0.6)] leading-relaxed max-w-xs">
+            Your partner for exclusive real estate in the Rhine-Main region since 1991.
+          </p>
         </div>
 
-        {/* Column 2 — Nav links */}
-        <nav aria-label="Footer navigation">
-          <p className="text-sm font-semibold mb-3 uppercase tracking-widest opacity-50">
-            Pages
-          </p>
-          <ul className="flex flex-col gap-2">
-            {NAV_LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="text-sm opacity-70 hover:opacity-100 transition-opacity"
-                >
-                  {label}
+        {/* Links */}
+        <div className="col-span-1 md:col-span-1">
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Navigation</h4>
+          <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="hover:text-[var(--cream)] transition-colors">
+                  {link.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </nav>
-
-        {/* Column 3 — Social icons */}
-        <div>
-          <p className="text-sm font-semibold mb-3 uppercase tracking-widest opacity-50">
-            Follow us
-          </p>
-          {/* TODO: replace letter placeholders with real SVG social icons */}
-          <div className="flex gap-3">
-            {SOCIAL_LINKS.map(({ href, label, icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-xs font-semibold opacity-70 hover:opacity-100 hover:border-foreground/60 transition-all"
-              >
-                {icon}
-              </a>
-            ))}
-          </div>
         </div>
+
+        {/* Contact */}
+        <div className="col-span-1 md:col-span-1">
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Contact</h4>
+          <address className="not-italic flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
+            <p>{COMPANY_NAME}</p>
+            <p>{ADDRESS_LINE_1}</p>
+            <p>{ADDRESS_LINE_2}</p>
+            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="hover:text-[var(--cream)] transition-colors mt-2">
+              {CONTACT_PHONE}
+            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[var(--cream)] transition-colors">
+              {CONTACT_EMAIL}
+            </a>
+          </address>
+        </div>
+
+        {/* Legal */}
+        <div className="col-span-1 md:col-span-1">
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Legal</h4>
+          <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
+            <li><Link href="/imprint" className="hover:text-[var(--cream)] transition-colors">Imprint</Link></li>
+            <li><Link href="/privacy" className="hover:text-[var(--cream)] transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/terms" className="hover:text-[var(--cream)] transition-colors">Terms & Conditions</Link></li>
+          </ul>
+        </div>
+
       </div>
 
-      {/* Bottom bar — copyright */}
-      <div className="border-t border-foreground/10">
-        <p className="mx-auto max-w-7xl px-6 py-4 text-xs opacity-50 font-body">
-          © {currentYear} {COMPANY_NAME}. All rights reserved.
+      {/* Bottom Bar */}
+      <div className="max-w-[1400px] mx-auto mt-16 pt-6 border-t border-[var(--cream)]/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-body text-[rgba(254,252,246,0.4)]">
+        <p>&copy; {currentYear} {COMPANY_NAME}. All rights reserved.</p>
+        <p>
+          Developed by{" "}
+          <a
+            href="https://livewiresdigitalsolutions.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[var(--cream)] transition-colors underline underline-offset-2 decoration-[rgba(254,252,246,0.2)] hover:decoration-[rgba(254,252,246,0.8)]"
+          >
+            LiveWires Digital Solutions
+          </a>
         </p>
       </div>
     </footer>

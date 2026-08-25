@@ -1,7 +1,19 @@
-import { redirect } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/home/Hero";
+import FeaturedProperties from "@/components/home/FeaturedProperties";
+import ServicesExcerpt from "@/components/home/ServicesExcerpt";
+import CallToAction from "@/components/home/CallToAction";
 
-// The home page lives at /home
-export default function RootPage() {
-  redirect("/home");
+export default function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <FeaturedProperties />
+        <ServicesExcerpt />
+        <CallToAction />
+      </main>
+    </>
+  );
 }
-
