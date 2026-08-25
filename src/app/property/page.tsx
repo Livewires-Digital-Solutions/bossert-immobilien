@@ -1,0 +1,13 @@
+// TODO: add content
+
+export default function PropertyPage() {
+  return (
+    <div className="mx-auto max-w-7xl px-6 py-16">
+      <h1 className="text-4xl font-bold mb-6">Property</h1>
+      {/* TODO: add content */}
+      <p className="font-body text-base opacity-70">
+        Property page — content coming soon.
+      </p>
+    </div>
+  );
+}
