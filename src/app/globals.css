@@ -1,54 +1,189 @@
 @import "tailwindcss";
 
-/* ── Design tokens ──────────────────────────────────────────────────────── */
+/* ── Brand tokens ───────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --navy:         #042433;
+  --cream:        #FEFCF6;
+  --bronze:       #AF8C53;
+  --bronze-light: #c9a96e;
+  --background:   #ffffff;
+  --foreground:   #171717;
 }
 
 /* ── Tailwind v4 theme — register CSS variables ─────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  /* Playfair Display → default / "sans" in Tailwind utility classes */
-  --font-sans: var(--font-playfair);
-
-  /* EB Garamond → "serif" in Tailwind utility classes */
-  --font-serif: var(--font-eb-garamond);
+  --color-background:    var(--background);
+  --color-foreground:    var(--foreground);
+  --color-navy:          var(--navy);
+  --color-cream:         var(--cream);
+  --color-bronze:        var(--bronze);
+  --color-bronze-light:  var(--bronze-light);
+  --font-sans:           var(--font-playfair);
+  --font-serif:          var(--font-eb-garamond);
 }
 
-/* ── Base styles ────────────────────────────────────────────────────────── */
+/* ── Base reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
   background: var(--background);
   color: var(--foreground);
-  /* Playfair Display is the project-wide default font */
   font-family: var(--font-playfair), Georgia, serif;
+  overflow-x: hidden;
 }
 
-/* ── EB Garamond utility — apply to body copy / paragraph text ──────────── */
-/*
- * Usage:
- *   <p className="font-body">…</p>
- *   or wrap a section: <div className="font-body">…</div>
- *
- * Mirrors the Google Fonts specimen embed snippet:
- *   .eb-garamond-<uniquifier> {
- *     font-family: "EB Garamond", serif;
- *     font-optical-sizing: auto;
- *     font-weight: <weight>;
- *     font-style: normal;
- *   }
- */
+/* ── EB Garamond utility ────────────────────────────────────────────────── */
 .font-body {
   font-family: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+/* ── Hero Section ───────────────────────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 620px;
+  overflow: hidden;
+  background-color: var(--navy);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(4, 36, 51, 0.78) 0%,
+    rgba(4, 36, 51, 0.45) 55%,
+    rgba(4, 36, 51, 0.18) 100%
+  );
+}
+
+/* ── Transparent Header (sits over hero) ────────────────────────────────── */
+.header-transparent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(4, 36, 51, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(254, 252, 246, 0.10);
+  transition: background 0.3s ease;
+}
+
+/* ── Hero typography ────────────────────────────────────────────────────── */
+.hero-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.90;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+
+/* ── Nav links (transparent header) ────────────────────────────────────── */
+.nav-link-hero {
+  position: relative;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(254, 252, 246, 0.72);
+  transition: color 0.25s ease;
+  text-decoration: none;
+  font-family: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
+}
+.nav-link-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--bronze);
+  transition: width 0.3s ease;
+}
+.nav-link-hero:hover { color: var(--cream); }
+.nav-link-hero:hover::after,
+.nav-link-hero.active::after { width: 100%; }
+.nav-link-hero.active { color: var(--cream); }
+
+/* ── Stat card glassmorphism ────────────────────────────────────────────── */
+.stat-card {
+  background: rgba(4, 36, 51, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(175, 140, 83, 0.45);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* ── CTA Button ─────────────────────────────────────────────────────────── */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  padding: 12px 18px 12px 26px;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cta-btn:hover {
+  box-shadow: 0 8px 24px rgba(254, 252, 246, 0.15);
+}
+.cta-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: var(--navy);
+  color: var(--cream);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cta-btn:hover .cta-btn-icon {
+  transform: translateX(4px);
+}
+
+/* ── Scroll indicator ───────────────────────────────────────────────────── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+.scroll-arrow { animation: scrollBounce 2s ease-in-out infinite; }
+
+/* ── Fade-in animations ────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.anim-fade-up { animation: fadeUp 0.85s ease both; }
+.anim-fade-in { animation: fadeIn 0.7s ease both; }
+.delay-1 { animation-delay: 0.10s; }
+.delay-2 { animation-delay: 0.22s; }
+.delay-3 { animation-delay: 0.36s; }
+.delay-4 { animation-delay: 0.50s; }
+.delay-5 { animation-delay: 0.64s; }
+.delay-6 { animation-delay: 0.80s; }
+.delay-7 { animation-delay: 1.00s; }
+
