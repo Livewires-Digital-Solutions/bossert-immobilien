@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname, Link, useRouter } from "@/i18n/routing";
 import { useState, useEffect, useTransition } from "react";
 import { useTranslations, useLocale } from 'next-intl';
@@ -17,8 +18,6 @@ const NAV_LINKS_KEYS = [
   { href: "/knowledge",   key: "knowledge"   },
   { href: "/contact",     key: "contact"     },
 ] as const;
-
-const PHONE = "+49 6196 560 97 0";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -64,18 +63,27 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label="Bossert Immobilien — Home"
-          className="flex flex-col leading-none group"
+          className="flex items-center gap-4 group"
         >
-          <span
-            className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display"
-          >
-            BOSSERT
-          </span>
-          <span
-            className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display"
-          >
-            {SITE_TAGLINE}
-          </span>
+          <Image 
+            src="/logo.webp" 
+            alt="Bossert Logo" 
+            width={48} 
+            height={48} 
+            className="opacity-90 group-hover:opacity-100 transition-opacity object-contain"
+          />
+          <div className="flex flex-col leading-none">
+            <span
+              className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display"
+            >
+              BOSSERT
+            </span>
+            <span
+              className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display"
+            >
+              {SITE_TAGLINE}
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
@@ -95,18 +103,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right: Phone, Lang Switcher & Mobile Hamburger */}
+        {/* Right: Lang Switcher & Mobile Hamburger */}
         <div className="flex items-center gap-4 md:gap-5">
-          {/* Phone (Desktop Only) */}
-          <a
-            href={`tel:${PHONE.replace(/\s/g, "")}`}
-            className="hidden md:block text-[0.68rem] tracking-[0.10em] text-[rgba(254,252,246,0.75)] hover:text-[#FEFCF6] transition-colors font-body"
-          >
-            {PHONE}
-          </a>
-
-          <span className="hidden md:block h-4 w-px bg-[rgba(254,252,246,0.2)]" />
-
           {/* Language Switcher (Desktop Only) */}
           <div 
             className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group" 
@@ -200,12 +198,6 @@ export default function Navbar() {
                   DE
                 </button>
               </div>
-              <a
-                href={`tel:${PHONE.replace(/\s/g, "")}`}
-                className="text-[0.75rem] tracking-[0.1em] text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6] transition-colors font-body"
-              >
-                {PHONE}
-              </a>
             </li>
           </ul>
         </nav>
