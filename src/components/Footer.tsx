@@ -1,19 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { COMPANY } from "@/config";
+import { useTranslations } from "next-intl";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/properties", label: "Properties" },
-  { href: "/for-owners", label: "For Owners" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/references", label: "References" },
-  { href: "/knowledge", label: "Knowledge" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", key: "home" },
+  { href: "/properties", key: "properties" },
+  { href: "/for-owners", key: "forOwners" },
+  { href: "/services", key: "services" },
+  { href: "/about", key: "about" },
+  { href: "/references", key: "references" },
+  { href: "/knowledge", key: "knowledge" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
 export default function Footer() {
+  const t = useTranslations("Footer");
   const currentYear = new Date().getFullYear();
 
   return (
@@ -32,18 +34,18 @@ export default function Footer() {
             />
           </Link>
           <p className="font-body text-sm text-[rgba(254,252,246,0.6)] leading-relaxed max-w-xs">
-            Your partner for exclusive real estate in the Rhine-Main region since {COMPANY.since}.
+            {t("brandDescription", { year: COMPANY.since })}
           </p>
         </div>
 
         {/* Links */}
         <div className="col-span-1 md:col-span-1">
-          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Navigation</h4>
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">{t("navigationTitle")}</h4>
           <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="hover:text-[var(--cream)] transition-colors">
-                  {link.label}
+                  {t(`links.${link.key}`)}
                 </Link>
               </li>
             ))}
@@ -52,7 +54,7 @@ export default function Footer() {
 
         {/* Contact */}
         <div className="col-span-1 md:col-span-1">
-          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Contact</h4>
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">{t("contactTitle")}</h4>
           <address className="not-italic flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
             <p>{COMPANY.name}</p>
             <p>{COMPANY.address.street}</p>
@@ -68,11 +70,11 @@ export default function Footer() {
 
         {/* Legal */}
         <div className="col-span-1 md:col-span-1">
-          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Legal</h4>
+          <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">{t("legalTitle")}</h4>
           <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
-            <li><Link href="/imprint" className="hover:text-[var(--cream)] transition-colors">Imprint</Link></li>
-            <li><Link href="/privacy" className="hover:text-[var(--cream)] transition-colors">Privacy Policy</Link></li>
-            <li><Link href="/terms" className="hover:text-[var(--cream)] transition-colors">Terms & Conditions</Link></li>
+            <li><Link href="/imprint" className="hover:text-[var(--cream)] transition-colors">{t("legalLinks.imprint")}</Link></li>
+            <li><Link href="/privacy" className="hover:text-[var(--cream)] transition-colors">{t("legalLinks.privacy")}</Link></li>
+            <li><Link href="/terms" className="hover:text-[var(--cream)] transition-colors">{t("legalLinks.terms")}</Link></li>
           </ul>
         </div>
 
@@ -80,9 +82,9 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="max-w-[1400px] mx-auto mt-16 pt-6 border-t border-[var(--cream)]/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-body text-[rgba(254,252,246,0.4)]">
-        <p>&copy; {currentYear} {COMPANY.name}. All rights reserved.</p>
+        <p>&copy; {currentYear} {COMPANY.name}. {t("allRightsReserved")}</p>
         <p>
-          Developed by{" "}
+          {t("developedBy")}{" "}
           <a
             href="https://livewiresdigitalsolutions.com"
             target="_blank"
