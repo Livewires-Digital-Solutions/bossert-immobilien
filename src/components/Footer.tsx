@@ -3,11 +3,13 @@ import { COMPANY } from "@/config";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/property", label: "Properties" },
-  { href: "/owner", label: "Buy a Property" },
-  { href: "/interested-party", label: "Sell a Property" },
-  { href: "/evaluate", label: "Evaluate Property" },
-  { href: "/services", label: "About Us" },
+  { href: "/properties", label: "Properties" },
+  { href: "/for-owners", label: "For Owners" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/references", label: "References" },
+  { href: "/knowledge", label: "Knowledge" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export default function Footer() {

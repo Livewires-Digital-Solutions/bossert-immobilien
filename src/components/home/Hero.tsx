@@ -143,7 +143,7 @@ export default function Hero() {
 
           {/* CTA Button */}
           <div className="anim-fade-in delay-6">
-            <Link href="/property" className="cta-btn" id="hero-cta-explore">
+            <Link href="/properties" className="cta-btn" id="hero-cta-explore">
               Explore Properties
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg

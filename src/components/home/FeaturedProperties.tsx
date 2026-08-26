@@ -18,7 +18,7 @@ export default function FeaturedProperties() {
             </h2>
           </div>
           <Link
-            href="/property"
+            href="/properties"
             className="reveal stagger-2 text-sm font-body uppercase tracking-[0.15em] border-b border-[var(--navy)] pb-1 text-[var(--navy)] hover:text-[var(--bronze)] hover:border-[var(--bronze)] transition-colors inline-block w-max"
           >
             View All Properties
@@ -27,7 +27,7 @@ export default function FeaturedProperties() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {featured.map((property, i) => (
-            <Link key={property.id} href="/property" className={`reveal stagger-${i + 1} group cursor-pointer`}>
+            <Link key={property.id} href={`/properties/${property.slug}`} className={`reveal stagger-${i + 1} group cursor-pointer`}>
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl mb-5 shadow-sm group-hover:shadow-xl transition-shadow duration-500">
                 <Image
                   src={property.image}

@@ -1,73 +1,90 @@
+import Link from "next/link";
 import Image from "next/image";
-import { TEAM_MEMBERS } from "@/config";
+import PageHero from "@/components/ui/PageHero";
+import SectionHeader from "@/components/ui/SectionHeader";
+import { SERVICES_DETAIL } from "@/config";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Our Services – Bossert Immobilien",
+  description:
+    "From brokerage and valuation to marketing and advisory — explore the full range of real estate services offered by Bossert Immobilien.",
+};
 
 export default function ServicesPage() {
   return (
     <div className="bg-[var(--background)] min-h-screen">
-      {/* Mini Hero */}
-      <section className="page-hero px-6">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-        <div className="relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-display text-[var(--cream)] mb-4">About Us</h1>
-          <p className="font-body text-[var(--cream)]/70 tracking-[0.2em] uppercase text-xs">
-            Excellence in Real Estate Since 1991
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Our Services"
+        subtitle="Full-Service Real Estate Excellence"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+      />
 
-      {/* Story Section */}
+      {/* ── Intro ──────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <span className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-4 block">
-              Our Heritage
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl text-[var(--navy)] mb-8">
-              Decades of trust, discretion, and market expertise.
-            </h2>
-            <p className="font-body text-[var(--foreground)]/70 text-base leading-relaxed mb-6">
-              Founded in 1991, Bossert Immobilien has established itself as one of the most prestigious real estate agencies in the Rhine-Main region. We specialize in the brokerage of high-end residential and commercial properties.
-            </p>
-            <p className="font-body text-[var(--foreground)]/70 text-base leading-relaxed">
-              Our philosophy is simple: We treat every property as if it were our own, and every client like family. This uncompromising commitment to quality and service has allowed us to build a vast network of satisfied clients and premium off-market properties.
-            </p>
-          </div>
-          <div className="relative aspect-square overflow-hidden rounded-2xl">
-            <Image
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
-              alt="Bossert Immobilien Office"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </div>
-      </section>
+        <div className="max-w-[1100px] mx-auto">
+          <SectionHeader
+            eyebrow="What We Do"
+            title="End-to-end expertise for every property journey."
+            description="Whether you are buying, selling, renting, or seeking strategic advice, our team delivers a level of service that matches the quality of the properties we represent."
+            align="center"
+            className="mb-20"
+          />
 
-      {/* Team Section */}
-      <section className="py-24 px-6 md:px-10 bg-[var(--cream)]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl text-[var(--navy)]">Our Leadership</h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-            {TEAM_MEMBERS.map((member, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center group cursor-pointer">
-                <div className="relative w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-transparent group-hover:border-[var(--bronze)] transition-colors duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {SERVICES_DETAIL.map((svc, i) => (
+              <Link
+                key={svc.slug}
+                href={`/services/${svc.slug}`}
+                className={`reveal stagger-${(i % 6) + 1} group block`}
+                id={`services-card-${svc.slug}`}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-6 shadow-sm group-hover:shadow-2xl transition-shadow duration-500">
                   <Image
-                    src={member.image}
-                    alt={member.name}
+                    src={svc.image}
+                    alt={svc.title}
                     fill
-                    className="object-cover"
-                    sizes="192px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 z-20">
+                    <span className="text-[0.62rem] tracking-[0.1em] uppercase font-body text-white/80">{svc.tagline}</span>
+                  </div>
                 </div>
-                <h3 className="font-display text-2xl text-[var(--navy)] mb-1">{member.name}</h3>
-                <p className="font-body text-[var(--bronze)] text-sm tracking-[0.1em] uppercase">{member.role}</p>
-              </div>
+                <div className="px-1">
+                  <h3 className="font-display text-2xl md:text-3xl text-[var(--navy)] mb-2 group-hover:text-[var(--bronze)] transition-colors duration-300">{svc.title}</h3>
+                  <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed mb-4">{svc.intro.slice(0, 110)}…</p>
+                  <span className="text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase border border-[var(--bronze)]/30 px-3 py-1 rounded-full group-hover:bg-[var(--bronze)] group-hover:text-[var(--navy)] transition-all duration-300 inline-block">
+                    Learn More
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── CTA Band ─────────────────────────────────────────────────────── */}
+      <section className="py-20 px-6 md:px-10 bg-[var(--navy)]">
+        <div className="max-w-[700px] mx-auto text-center">
+          <span className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-4 block">
+            Start Today
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl text-[var(--cream)] mb-6">
+            Not sure which service is right for you?
+          </h2>
+          <p className="font-body text-[var(--cream)]/70 text-base leading-relaxed mb-10">
+            Our advisors are happy to listen to your situation and recommend the most appropriate path forward — with no obligation.
+          </p>
+          <Link href="/contact" className="cta-btn" id="services-contact-cta">
+            Speak to an Advisor
+            <span className="cta-btn-icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </section>
     </div>
