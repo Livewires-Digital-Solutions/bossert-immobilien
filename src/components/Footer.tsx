@@ -1,19 +1,22 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { COMPANY } from "@/config";
+import { useTranslations } from 'next-intl';
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/properties", label: "Properties" },
-  { href: "/for-owners", label: "For Owners" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/references", label: "References" },
-  { href: "/knowledge", label: "Knowledge" },
-  { href: "/contact", label: "Contact" },
+const NAV_LINKS_KEYS = [
+  { href: "/", key: "home" },
+  { href: "/properties", key: "properties" },
+  { href: "/for-owners", key: "forOwners" },
+  { href: "/services", key: "services" },
+  { href: "/about", key: "about" },
+  { href: "/references", key: "references" },
+  { href: "/knowledge", key: "knowledge" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const tNav = useTranslations('Navbar');
+  const tFooter = useTranslations('Footer');
 
   return (
     <footer className="bg-[#02121a] text-[var(--cream)] py-12 md:py-16 px-6 md:px-10 border-t border-[var(--cream)]/10">
@@ -30,7 +33,7 @@ export default function Footer() {
             </span>
           </Link>
           <p className="font-body text-sm text-[rgba(254,252,246,0.6)] leading-relaxed max-w-xs">
-            Your partner for exclusive real estate in the Rhine-Main region since {COMPANY.since}.
+            {tFooter('tagline')}
           </p>
         </div>
 
@@ -38,10 +41,10 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1">
           <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Navigation</h4>
           <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS_KEYS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="hover:text-[var(--cream)] transition-colors">
-                  {link.label}
+                <Link href={link.href as any} className="hover:text-[var(--cream)] transition-colors">
+                  {tNav(link.key)}
                 </Link>
               </li>
             ))}
@@ -68,8 +71,8 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1">
           <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Legal</h4>
           <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
-            <li><Link href="/imprint" className="hover:text-[var(--cream)] transition-colors">Imprint</Link></li>
-            <li><Link href="/privacy" className="hover:text-[var(--cream)] transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/imprint" className="hover:text-[var(--cream)] transition-colors">{tFooter('links.imprint')}</Link></li>
+            <li><Link href="/privacy" className="hover:text-[var(--cream)] transition-colors">{tFooter('links.privacy')}</Link></li>
             <li><Link href="/terms" className="hover:text-[var(--cream)] transition-colors">Terms & Conditions</Link></li>
           </ul>
         </div>

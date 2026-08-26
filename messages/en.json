@@ -1,0 +1,42 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "properties": "Properties",
+    "forOwners": "For Owners",
+    "services": "Services",
+    "about": "About",
+    "references": "References",
+    "knowledge": "Knowledge",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "tagline": "Exclusive Real Estate in the Rhine-Main Region since 1991.",
+    "links": {
+      "imprint": "Imprint",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "Hero": {
+    "since": "Since 1991",
+    "titleLine1": "Your partner for",
+    "titleLine2": "residential real estate",
+    "subtitle": "Competence, Trust and Excellence",
+    "description": "For over 30 years, we have been your reliable partner for all aspects of real estate in the Rhine-Main area.",
+    "stats": {
+      "yearsLabel": "Years of Experience",
+      "yearsValue": "30+",
+      "propertiesLabel": "Properties Sold",
+      "propertiesValue": "500+",
+      "portfolioLabel": "Portfolio Value",
+      "portfolioValue": "€2B+"
+    },
+    "scroll": "Scroll & Discover",
+    "explore": "Explore Properties"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "returnHome": "Return to Home"
+  }
+}

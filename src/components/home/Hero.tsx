@@ -1,7 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from 'next-intl';
 
 export default function Hero() {
+  const t = useTranslations('Hero');
+
   return (
     <section className="hero-section" aria-label="Hero">
 
@@ -31,7 +34,7 @@ export default function Hero() {
               className="text-[0.65rem] md:text-[0.75rem] tracking-[0.25em] uppercase italic font-body"
               style={{ color: "var(--bronze)" }}
             >
-              Since 1991
+              {t('since')}
             </span>
             <span className="w-16 md:w-32 h-[1px]" style={{ backgroundColor: "var(--bronze)", opacity: 0.6 }}></span>
           </div>
@@ -42,22 +45,22 @@ export default function Hero() {
               className="hero-title"
               style={{ fontSize: "clamp(2rem, 6.5vw, 5.5rem)" }}
             >
-              Your partner for
+              {t('titleLine1')}
               <br />
-              residential real estate
+              {t('titleLine2')}
             </h1>
           </div>
 
           {/* Sub-headline */}
           <p className="anim-fade-up delay-2 font-body text-[var(--bronze)] text-[0.65rem] md:text-[0.75rem] tracking-[0.3em] uppercase">
-            Competence, Trust and Excellence
+            {t('subtitle')}
           </p>
 
           {/* Body tagline */}
           <p
             className="anim-fade-up delay-3 font-body text-[rgba(254,252,246,0.70)] text-base md:text-lg leading-relaxed max-w-[300px] md:max-w-sm tracking-[0.02em]"
           >
-            For over 30 years, we have been your reliable partner for all aspects of real estate in the Rhine-Main area.
+            {t('description')}
           </p>
 
           {/* ── Desktop stat cards — right side ─────────────────────── */}
@@ -69,13 +72,13 @@ export default function Hero() {
                 className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
                 style={{ color: "var(--bronze)" }}
               >
-                Years of Experience
+                {t('stats.yearsLabel')}
               </p>
               <p
                 className="text-3xl font-bold leading-none font-display"
                 style={{ color: "var(--cream)" }}
               >
-                30+
+                {t('stats.yearsValue')}
               </p>
             </div>
 
@@ -85,13 +88,13 @@ export default function Hero() {
                 className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
                 style={{ color: "var(--bronze)" }}
               >
-                Properties Sold
+                {t('stats.propertiesLabel')}
               </p>
               <p
                 className="text-3xl font-bold leading-none font-display"
                 style={{ color: "var(--cream)" }}
               >
-                500+
+                {t('stats.propertiesValue')}
               </p>
             </div>
 
@@ -101,13 +104,13 @@ export default function Hero() {
                 className="text-[0.58rem] tracking-[0.22em] uppercase mb-1 font-body"
                 style={{ color: "var(--bronze)" }}
               >
-                Portfolio Value
+                {t('stats.portfolioLabel')}
               </p>
               <p
                 className="text-3xl font-bold leading-none font-display"
                 style={{ color: "var(--cream)" }}
               >
-                €2B+
+                {t('stats.portfolioValue')}
               </p>
             </div>
 
@@ -125,7 +128,7 @@ export default function Hero() {
                 color: "rgba(254,252,246,0.45)",
               }}
             >
-              Scroll &amp; Discover
+              {t('scroll')}
             </span>
             <div className="scroll-arrow">
               <svg width="16" height="20" viewBox="0 0 16 20" fill="none" aria-hidden="true">
@@ -144,7 +147,7 @@ export default function Hero() {
           {/* CTA Button */}
           <div className="anim-fade-in delay-6">
             <Link href="/properties" className="cta-btn" id="hero-cta-explore">
-              Explore Properties
+              {t('explore')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg
                   width="12"
@@ -167,9 +170,9 @@ export default function Hero() {
         {/* ── Mobile stat cards ─────────────────────────────────────────── */}
         <div className="flex md:hidden gap-2.5 mt-4 overflow-x-auto pb-1">
           {[
-            { label: "Years",      value: "30+"  },
-            { label: "Properties", value: "500+" },
-            { label: "Portfolio",  value: "€2B+" },
+            { label: t('stats.yearsLabel'),      value: t('stats.yearsValue')  },
+            { label: t('stats.propertiesLabel'), value: t('stats.propertiesValue') },
+            { label: t('stats.portfolioLabel'),  value: t('stats.portfolioValue') },
           ].map(({ label, value }) => (
             <div key={label} className="stat-card px-4 py-3 flex-shrink-0 min-w-[110px]">
               <p
