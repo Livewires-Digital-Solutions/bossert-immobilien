@@ -46,7 +46,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
-          ? "top-3 left-4 right-4 md:left-10 md:right-10 rounded-full border border-[rgba(254,252,246,0.15)] shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
+          ? "top-3 left-4 right-4 md:left-10 md:right-10 rounded-md border border-[rgba(254,252,246,0.15)] shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
           : "top-0 left-0 right-0 border-transparent"
         }`}
       style={{
@@ -74,53 +74,34 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav */}
-        <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
+        {/* Desktop nav - White Block */}
+        <nav aria-label="Primary navigation" className="hidden lg:flex items-center bg-white rounded-md p-[5px] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
           {NAV_LINKS_KEYS.map(({ href, key }) => {
-            const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+            if (key === 'contact' || key === 'home') return null;
+            const isActive = pathname === href || pathname.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href as any}
-                className={`nav-link-hero${isActive ? " active" : ""} font-body`}
+                className={`text-[0.65rem] tracking-[0.1em] font-medium uppercase px-5 py-2.5 transition-colors rounded-md ${
+                  isActive ? "text-[var(--navy)] bg-gray-50" : "text-[#6B7280] hover:text-[var(--navy)]"
+                }`}
                 aria-current={isActive ? "page" : undefined}
               >
                 {t(key)}
               </Link>
             );
           })}
+          <Link
+            href="/contact"
+            className="bg-[#0B1E28] text-white text-[0.65rem] tracking-[0.1em] font-medium uppercase px-8 py-2.5 rounded-md ml-1 hover:bg-opacity-90 transition-colors flex items-center justify-center"
+          >
+            {t('contact')}
+          </Link>
         </nav>
 
-        {/* Right: Lang Switcher & Mobile Hamburger */}
-        <div className="flex items-center gap-4 md:gap-5">
-          {/* Language Switcher (Desktop Only) */}
-          <div
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group"
-            style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(254,252,246,0.7)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#AF8C53] transition-colors">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <div className={`flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em] font-body ${isPending ? 'opacity-50' : ''}`}>
-              <button
-                onClick={() => switchLocale('en')}
-                className={`transition-colors cursor-pointer font-bold ${locale === 'en' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
-              >
-                EN
-              </button>
-              <span className="text-[rgba(254,252,246,0.3)]">/</span>
-              <button
-                onClick={() => switchLocale('de')}
-                className={`transition-colors cursor-pointer font-bold ${locale === 'de' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
-              >
-                DE
-              </button>
-            </div>
-          </div>
-
-          {/* Hamburger (Mobile Only) */}
+        {/* Right: Mobile Hamburger */}
+        <div className="flex lg:hidden items-center gap-4">
           <button
             id="mobile-menu-toggle"
             type="button"
@@ -128,7 +109,7 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[rgba(254,252,246,0.25)] hover:border-[#AF8C53] transition-colors"
+            className="flex items-center justify-center w-9 h-9 rounded-full border border-[rgba(254,252,246,0.25)] hover:border-[#AF8C53] transition-colors"
           >
             {menuOpen ? (
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#FEFCF6" strokeWidth="1.8" strokeLinecap="round">
