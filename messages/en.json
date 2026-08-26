@@ -69,6 +69,10 @@
     "exploreGuides": "Explore Guides",
     "readArticle": "Read Article",
     "talkToExpert": "Have Questions? Talk to an Expert",
-    "sendMessage": "Send Message"
+    "sendMessage": "Send Message",
+    "discussYourProperty": "Discuss Your Property",
+    "discussThisTopic": "Discuss This Topic",
+    "subscribeNewsletter": "Subscribe to Newsletter",
+    "submitRequest": "Submit Request"
   }
 }

@@ -69,6 +69,10 @@
     "exploreGuides": "Ratgeber Entdecken",
     "readArticle": "Artikel Lesen",
     "talkToExpert": "Fragen? Sprechen Sie mit einem Experten",
-    "sendMessage": "Nachricht Senden"
+    "sendMessage": "Nachricht Senden",
+    "discussYourProperty": "Ihr Objekt Besprechen",
+    "discussThisTopic": "Dieses Thema Besprechen",
+    "subscribeNewsletter": "Newsletter Abonnieren",
+    "submitRequest": "Anfrage Senden"
   }
 }

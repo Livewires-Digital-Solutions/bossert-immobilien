@@ -77,7 +77,7 @@ export default function ReferencesPage() {
             Whether you are buying, selling, or renting — we would love to deliver you a result worth talking about.
           </p>
           <Link href="/for-owners" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="references-contact-cta">
-            {t('startYourSuccessStory')}
+            {t('startSuccessStory')}
             <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
