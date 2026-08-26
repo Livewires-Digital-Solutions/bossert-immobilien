@@ -36,23 +36,28 @@ export default function Hero() {
             <span className="w-16 md:w-32 h-[1px]" style={{ backgroundColor: "var(--bronze)", opacity: 0.6 }}></span>
           </div>
 
-          {/* Massive headline — Playfair Display */}
+          {/* Massive headline */}
           <div className="anim-fade-up delay-1">
             <h1
               className="hero-title"
-              style={{ fontSize: "clamp(3rem, 9.5vw, 8.5rem)" }}
+              style={{ fontSize: "clamp(2rem, 6.5vw, 5.5rem)" }}
             >
-              Elevated
+              Your partner for
               <br />
-              Living Spaces
+              residential real estate
             </h1>
           </div>
 
-          {/* Tagline — EB Garamond body text */}
+          {/* Sub-headline */}
+          <p className="anim-fade-up delay-2 font-body text-[var(--bronze)] text-[0.65rem] md:text-[0.75rem] tracking-[0.3em] uppercase">
+            Competence, Trust and Excellence
+          </p>
+
+          {/* Body tagline */}
           <p
-            className="anim-fade-up delay-3 font-body text-[rgba(254,252,246,0.70)] text-base md:text-lg leading-relaxed max-w-[280px] md:max-w-xs tracking-[0.04em]"
+            className="anim-fade-up delay-3 font-body text-[rgba(254,252,246,0.70)] text-base md:text-lg leading-relaxed max-w-[300px] md:max-w-sm tracking-[0.02em]"
           >
-            Your partner for exclusive real estate in the Rhine-Main region since 1991.
+            For over 30 years, we have been your reliable partner for all aspects of real estate in the Rhine-Main area.
           </p>
 
           {/* ── Desktop stat cards — right side ─────────────────────── */}

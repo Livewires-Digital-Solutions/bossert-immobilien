@@ -4,10 +4,10 @@ export default function CallToAction() {
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
       
       <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center">
-        <h2 className="font-display text-5xl md:text-6xl text-[var(--cream)] mb-6">
+        <h2 className="reveal font-display text-5xl md:text-6xl text-[var(--cream)] mb-6">
           Ready to find your dream home?
         </h2>
-        <p className="font-body text-[var(--cream)]/70 text-lg mb-10 max-w-xl">
+        <p className="reveal stagger-1 font-body text-[var(--cream)]/70 text-lg mb-10 max-w-xl">
           Contact our team of experts today. We are here to guide you through every step of your real estate journey.
         </p>
         <button className="cta-btn !bg-transparent border border-[var(--bronze)] !text-[var(--cream)] hover:!bg-[var(--bronze)]">

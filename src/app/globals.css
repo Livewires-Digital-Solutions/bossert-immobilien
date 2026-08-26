@@ -45,6 +45,21 @@ body {
   font-family: var(--font-display);
 }
 
+/* ── Page hero (inner pages) ─────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  width: 100%;
+  height: 52vh;
+  min-height: 460px;
+  max-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 5.5rem; /* clears the fixed navbar */
+  background-color: var(--navy);
+}
+
 /* ── Hero Section ───────────────────────────────────────────────────────── */
 .hero-section {
   position: relative;
@@ -190,6 +205,65 @@ body {
 .delay-5 { animation-delay: 0.64s; }
 .delay-6 { animation-delay: 0.80s; }
 .delay-7 { animation-delay: 1.00s; }
+
+/* ── Scroll-reveal animations ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-scale.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for scroll reveal */
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.12s; }
+.stagger-3 { transition-delay: 0.20s; }
+.stagger-4 { transition-delay: 0.28s; }
+.stagger-5 { transition-delay: 0.36s; }
+.stagger-6 { transition-delay: 0.44s; }
+
+/* ── Page transition wrapper ──────────────────────────────────────── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 /* ── Custom Scrollbar ───────────────────────────────────────────────────── */
 ::-webkit-scrollbar {

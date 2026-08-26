@@ -1,10 +1,5 @@
 import Link from "next/link";
-
-const COMPANY_NAME = "Bossert Immobilien";
-const ADDRESS_LINE_1 = "Musterstraße 1";
-const ADDRESS_LINE_2 = "65183 Wiesbaden";
-const CONTACT_EMAIL = "info@bossert-immobilien.de";
-const CONTACT_PHONE = "+49 6196 560 97 0";
+import { COMPANY } from "@/config";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -33,7 +28,7 @@ export default function Footer() {
             </span>
           </Link>
           <p className="font-body text-sm text-[rgba(254,252,246,0.6)] leading-relaxed max-w-xs">
-            Your partner for exclusive real estate in the Rhine-Main region since 1991.
+            Your partner for exclusive real estate in the Rhine-Main region since {COMPANY.since}.
           </p>
         </div>
 
@@ -55,14 +50,14 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1">
           <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Contact</h4>
           <address className="not-italic flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
-            <p>{COMPANY_NAME}</p>
-            <p>{ADDRESS_LINE_1}</p>
-            <p>{ADDRESS_LINE_2}</p>
-            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="hover:text-[var(--cream)] transition-colors mt-2">
-              {CONTACT_PHONE}
+            <p>{COMPANY.name}</p>
+            <p>{COMPANY.address.street}</p>
+            <p>{COMPANY.address.zip} {COMPANY.address.city}</p>
+            <a href={`tel:${COMPANY.phone.replace(/\s/g, "")}`} className="hover:text-[var(--cream)] transition-colors mt-2">
+              {COMPANY.phone}
             </a>
-            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[var(--cream)] transition-colors">
-              {CONTACT_EMAIL}
+            <a href={`mailto:${COMPANY.email}`} className="hover:text-[var(--cream)] transition-colors">
+              {COMPANY.email}
             </a>
           </address>
         </div>
@@ -81,7 +76,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="max-w-[1400px] mx-auto mt-16 pt-6 border-t border-[var(--cream)]/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-body text-[rgba(254,252,246,0.4)]">
-        <p>&copy; {currentYear} {COMPANY_NAME}. All rights reserved.</p>
+        <p>&copy; {currentYear} {COMPANY.name}. All rights reserved.</p>
         <p>
           Developed by{" "}
           <a

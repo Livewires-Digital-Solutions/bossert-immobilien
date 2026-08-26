@@ -7,12 +7,10 @@ import { useState, useEffect } from "react";
 const SITE_TAGLINE = "REAL ESTATE";
 
 const NAV_LINKS = [
-  { href: "/",                 label: "Home"        },
-  { href: "/property",         label: "Properties"  },
-  { href: "/owner",            label: "Buy"         },
-  { href: "/interested-party", label: "Sell"        },
-  { href: "/evaluate",         label: "Evaluate"    },
-  { href: "/services",         label: "About Us"    },
+  { href: "/",          label: "Home"       },
+  { href: "/services",  label: "About"      },
+  { href: "/property",  label: "Properties" },
+  { href: "/contact",   label: "Contact"    },
 ] as const;
 
 const PHONE = "+49 6196 560 97 0";
