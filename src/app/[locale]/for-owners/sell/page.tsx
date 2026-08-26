@@ -3,6 +3,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField, SelectField, FormSubmitButton } from "@/components/ui/FormField";
 import { SELLING_PROCESS } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Sell Your Property – Bossert Immobilien",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function SellPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -67,7 +69,7 @@ export default function SellPage() {
                   <TextField label="Approximate Size (sqm)" type="number" name="sqm" placeholder="250" />
                   <TextField label="Desired Timeframe" name="timeframe" placeholder="e.g. Within 6 months" />
                   <TextField label="Additional Notes" name="notes" rows={3} placeholder="Tell us anything else we should know…" />
-                  <FormSubmitButton label="Request Free Consultation" />
+                  <FormSubmitButton label={t('requestSellingConsultation')} />
                 </form>
               </div>
             </div>

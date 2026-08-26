@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "For Owners – Bossert Immobilien",
@@ -16,6 +17,7 @@ const OWNER_SERVICES = [
     title: "Sell Your Property",
     description:
       "Benefit from our exclusive buyer network, premium marketing, and discreet off-market placement to achieve the best possible price.",
+    ctaKey: "sellMyProperty",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -29,6 +31,7 @@ const OWNER_SERVICES = [
     title: "Rent Out Your Property",
     description:
       "From tenant screening to contract signing, we manage the entire lettings process on your behalf — attracting only the most qualified tenants.",
+    ctaKey: "rentOutMyProperty",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <rect x="1" y="3" width="15" height="13" rx="2" />
@@ -44,6 +47,7 @@ const OWNER_SERVICES = [
     title: "Property Valuation",
     description:
       "Get an accurate, market-driven assessment of your property's current value from our certified local experts — no obligation required.",
+    ctaKey: "getValuation",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="1" x2="12" y2="23" />
@@ -54,6 +58,7 @@ const OWNER_SERVICES = [
 ];
 
 export default function ForOwnersPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -89,8 +94,15 @@ export default function ForOwnersPage() {
                   <h2 className="font-display text-2xl md:text-3xl text-[var(--navy)] mb-4 group-hover:text-[var(--bronze)] transition-colors duration-300">{svc.title}</h2>
                   <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed">{svc.description}</p>
                 </div>
-                <span className="mt-auto text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase border border-[var(--bronze)]/30 px-4 py-2 rounded-full group-hover:bg-[var(--bronze)] group-hover:text-[var(--navy)] transition-all duration-300 inline-block w-fit">
-                  Learn More →
+                <span className="mt-auto cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2 w-max">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {t(svc.ctaKey as any)}
+                  <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="2" y1="6" x2="10" y2="6" />
+                      <polyline points="6.5,2.5 10,6 6.5,9.5" />
+                    </svg>
+                  </span>
                 </span>
               </Link>
             ))}

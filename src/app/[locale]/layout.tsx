@@ -57,8 +57,9 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <ScrollRevealProvider />
           <Navbar />

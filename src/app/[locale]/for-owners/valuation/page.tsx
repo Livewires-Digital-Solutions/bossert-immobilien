@@ -2,6 +2,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField, SelectField, FormSubmitButton } from "@/components/ui/FormField";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Property Valuation – Bossert Immobilien",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function ValuationPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -75,7 +77,7 @@ export default function ValuationPage() {
                   options={["Considering a Sale", "Refinancing", "Inheritance / Estate", "Legal Proceedings", "General Information"]}
                 />
                 <TextField label="Additional Notes" name="notes" rows={3} placeholder="Year built, recent renovations, or other details…" />
-                <FormSubmitButton label="Request Valuation" />
+                <FormSubmitButton label={t('getFreeValuation')} />
               </form>
             </div>
           </div>

@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { REFERENCES } from "@/config";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ReferenceDetailPage({ params }: Props) {
   const { id } = await params;
   const ref = REFERENCES.find((r) => r.slug === id);
+  const t = await getTranslations("CTA");
   if (!ref) notFound();
 
   return (
@@ -106,10 +108,18 @@ export default async function ReferenceDetailPage({ params }: Props) {
                 <p className="font-body text-sm text-[var(--foreground)]/80 leading-relaxed">{ref.result}</p>
               </div>
 
-              <div className="mt-8">
-                <Link href="/contact" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)] w-full justify-center" id={`ref-${ref.slug}-cta`}>
-                  Discuss Your Property
+              <div className="mt-8 flex flex-col gap-4">
+                <Link href="/for-owners" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)] w-full justify-center" id={`ref-${ref.slug}-cta`}>
+                  {t('startYourSuccessStory')}
                   <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+                    </svg>
+                  </span>
+                </Link>
+                <Link href="/for-owners" className="cta-btn cta-btn-ghost w-full justify-center" id={`ref-${ref.slug}-cta-sec`}>
+                  {t('discussYourProperty')}
+                  <span className="cta-btn-icon" aria-hidden="true">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
                     </svg>

@@ -1,8 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { PROPERTIES } from "@/config";
+import { useTranslations } from "next-intl";
 
 export default function FeaturedProperties() {
+  const t = useTranslations("CTA");
   const featured = PROPERTIES.slice(0, 3);
 
   return (
@@ -19,9 +21,15 @@ export default function FeaturedProperties() {
           </div>
           <Link
             href="/properties"
-            className="reveal stagger-2 text-sm font-body uppercase tracking-[0.15em] border-b border-[var(--navy)] pb-1 text-[var(--navy)] hover:text-[var(--bronze)] hover:border-[var(--bronze)] transition-colors inline-block w-max"
+            className="reveal stagger-2 cta-btn cta-btn-ghost"
           >
-            View All Properties
+            {t('viewAllProperties')}
+            <span className="cta-btn-icon" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="2" y1="6" x2="10" y2="6" />
+                <polyline points="6.5,2.5 10,6 6.5,9.5" />
+              </svg>
+            </span>
           </Link>
         </div>
 

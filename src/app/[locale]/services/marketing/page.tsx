@@ -1,19 +1,21 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SERVICES_DETAIL } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 const SLUG = "marketing";
 
 export const metadata: Metadata = {
-  title: "Property Marketing – Bossert Immobilien Services",
+  title: "Property Marketing – Bossert Immobilien",
   description:
-    "Premium photography, cinematic video, and targeted campaigns that position your property in front of the right buyers across digital and print channels.",
+    "Premium marketing strategies including cinematic video, bespoke exposés, and discreet off-market placements.",
 };
 
 export default function MarketingPage() {
+  const t = useTranslations("CTA");
   const svc = SERVICES_DETAIL.find((s) => s.slug === SLUG);
   if (!svc) notFound();
 
@@ -55,8 +57,8 @@ export default function MarketingPage() {
             Talk to us about your property and we will craft a bespoke marketing strategy to maximise its appeal.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="cta-btn" id="marketing-contact-cta">
-              Start a Conversation
+            <Link href={`/contact?source=${SLUG}`} className="cta-btn" id={`${SLUG}-contact-cta`}>
+              {t('discussNeeds')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

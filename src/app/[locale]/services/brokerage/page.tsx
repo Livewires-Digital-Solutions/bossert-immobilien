@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SERVICES_DETAIL } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 // This page handles /services/brokerage
 const SLUG = "brokerage";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function BrokeragePage() {
+  const t = useTranslations("CTA");
   const svc = SERVICES_DETAIL.find((s) => s.slug === SLUG);
   if (!svc) notFound();
 
@@ -62,8 +64,8 @@ export default function BrokeragePage() {
             Contact our team for a confidential, no-obligation consultation about your specific needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="cta-btn" id={`${SLUG}-contact-cta`}>
-              Get in Touch
+            <Link href={`/contact?source=${SLUG}`} className="cta-btn" id={`${SLUG}-contact-cta`}>
+              {t('discussNeeds')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

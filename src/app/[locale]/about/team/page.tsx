@@ -3,6 +3,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import TeamCard from "@/components/ui/TeamCard";
 import { TEAM_MEMBERS } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Our Team – Bossert Immobilien",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -54,7 +56,7 @@ export default function TeamPage() {
             If you share our commitment to excellence and discretion, we&apos;d love to hear from you.
           </p>
           <a href="mailto:careers@bossert-immobilien.de" className="cta-btn" id="team-careers-cta">
-            Send Us Your CV
+            {t('contactUs')}
             <span className="cta-btn-icon" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

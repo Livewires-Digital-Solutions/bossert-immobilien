@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import { TEAM_MEMBERS } from "@/config";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TeamMemberPage({ params }: Props) {
   const { slug } = await params;
   const member = TEAM_MEMBERS.find((m) => m.slug === slug);
+  const t = await getTranslations("CTA");
   if (!member) notFound();
 
   return (
@@ -88,7 +90,15 @@ export default async function TeamMemberPage({ params }: Props) {
             <div className="reveal stagger-3 border-t border-[var(--navy)]/10 pt-6">
               <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-3">Contact Directly</p>
               <a href={`tel:${member.phone.replace(/\s/g, "")}`} className="font-body text-sm text-[var(--foreground)]/70 hover:text-[var(--navy)] transition-colors block mb-1">{member.phone}</a>
-              <a href={`mailto:${member.email}`} className="font-body text-sm text-[var(--foreground)]/70 hover:text-[var(--navy)] transition-colors block">{member.email}</a>
+              <a href={`mailto:${member.email}`} className="font-body text-sm text-[var(--foreground)]/70 hover:text-[var(--navy)] transition-colors block mb-4">{member.email}</a>
+              <Link href={`/contact?agent=${slug}`} className="cta-btn cta-btn-ghost text-xs !px-4 !py-2 inline-flex w-max">
+                Contact {member.name.split(" ")[0]}
+                <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+                  </svg>
+                </span>
+              </Link>
             </div>
           </aside>
         </div>
@@ -103,8 +113,8 @@ export default async function TeamMemberPage({ params }: Props) {
             Reach out directly, or browse our current portfolio to find your next exceptional home.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="member-contact-cta">
-              Get in Touch
+            <Link href={`/contact?agent=${slug}`} className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="member-contact-cta">
+              Schedule a Meeting
               <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
@@ -112,7 +122,7 @@ export default async function TeamMemberPage({ params }: Props) {
               </span>
             </Link>
             <Link href="/properties" className="cta-btn" id="member-properties-cta">
-              Explore Properties
+              {t('exploreProperties')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

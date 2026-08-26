@@ -1,8 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { TeamMember } from "@/config";
+import { useTranslations } from "next-intl";
 
 export default function TeamCard({ member, index = 0 }: { member: TeamMember; index?: number }) {
+  const t = useTranslations("CTA");
   return (
     <Link
       href={`/about/team/${member.slug}`}
@@ -14,7 +16,15 @@ export default function TeamCard({ member, index = 0 }: { member: TeamMember; in
       <h3 className="font-display text-2xl text-[var(--navy)] mb-1 group-hover:text-[var(--bronze)] transition-colors">
         {member.name}
       </h3>
-      <p className="font-body text-[var(--bronze)] text-sm tracking-[0.1em] uppercase">{member.role}</p>
+      <p className="font-body text-[var(--bronze)] text-sm tracking-[0.1em] uppercase mb-4">{member.role}</p>
+      <span className="cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2">
+        {t('viewProfile')}
+        <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+          </svg>
+        </span>
+      </span>
     </Link>
   );
 }

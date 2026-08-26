@@ -1,8 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Reference } from "@/config";
+import { useTranslations } from "next-intl";
 
 export default function ReferenceCard({ reference, index = 0 }: { reference: Reference; index?: number }) {
+  const t = useTranslations("CTA");
   return (
     <Link
       href={`/references/${reference.slug}`}
@@ -30,8 +32,13 @@ export default function ReferenceCard({ reference, index = 0 }: { reference: Ref
           {reference.title}
         </h3>
         <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed mb-4">{reference.summary}</p>
-        <span className="text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase border border-[var(--bronze)]/30 px-3 py-1 rounded-full group-hover:bg-[var(--bronze)] group-hover:text-[var(--navy)] transition-all duration-300 inline-block">
-          View Case Study
+        <span className="cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2">
+          {t('readFullStory')}
+          <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+            </svg>
+          </span>
         </span>
       </div>
     </Link>

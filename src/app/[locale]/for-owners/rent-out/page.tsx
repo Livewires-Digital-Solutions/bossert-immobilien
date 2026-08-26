@@ -3,6 +3,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField, SelectField, FormSubmitButton } from "@/components/ui/FormField";
 import { RENTING_PROCESS } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Rent Out Your Property – Bossert Immobilien",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function RentOutPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -72,7 +74,7 @@ export default function RentOutPage() {
                     options={["Open", "1 Year", "2 Years", "3+ Years"]}
                   />
                   <TextField label="Additional Notes" name="notes" rows={3} placeholder="Any specific requirements or tenant preferences?" />
-                  <FormSubmitButton label="Request Free Assessment" />
+                  <FormSubmitButton label={t('requestRentalAppraisal')} />
                 </form>
               </div>
             </div>

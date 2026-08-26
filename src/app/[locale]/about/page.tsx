@@ -1,10 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { COMPANY, TEAM_MEMBERS } from "@/config";
 import TeamCard from "@/components/ui/TeamCard";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "About Bossert Immobilien – Our Story & Heritage",
@@ -31,6 +32,7 @@ const VALUES = [
 ];
 
 export default function AboutPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -53,7 +55,7 @@ export default function AboutPage() {
             </p>
             <div className="mt-10 flex gap-4 flex-wrap">
               <Link href="/about/team" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="about-meet-team">
-                Meet the Team
+                {t('meetOurTeam')}
                 <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
@@ -61,7 +63,7 @@ export default function AboutPage() {
                 </span>
               </Link>
               <Link href="/contact" className="cta-btn" id="about-contact">
-                Get in Touch
+                {t('getInTouch')}
                 <span className="cta-btn-icon" aria-hidden="true">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
@@ -116,7 +118,7 @@ export default function AboutPage() {
               title="The experts behind every transaction."
             />
             <Link href="/about/team" className="cta-btn shrink-0" id="about-all-team">
-              View Full Team
+              {t('meetOurTeam')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

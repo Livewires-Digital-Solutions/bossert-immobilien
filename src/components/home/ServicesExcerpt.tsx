@@ -1,4 +1,6 @@
 import { SERVICES } from "@/config";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 const serviceIcons: Record<string, React.ReactNode> = {
   buy: (
@@ -19,6 +21,7 @@ const serviceIcons: Record<string, React.ReactNode> = {
 };
 
 export default function ServicesExcerpt() {
+  const t = useTranslations("CTA");
   return (
     <section className="py-24 px-6 md:px-10 bg-white">
       <div className="max-w-[1400px] mx-auto text-center">
@@ -29,7 +32,7 @@ export default function ServicesExcerpt() {
           Comprehensive Real Estate Services in the Rhine-Main Region
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 max-w-5xl mx-auto mb-16">
           {SERVICES.map((service, idx) => (
             <div key={idx} className={`reveal stagger-${idx + 1} flex flex-col items-center text-center`}>
               <div className="w-16 h-16 rounded-full bg-[var(--cream)] border border-[var(--bronze)]/30 flex items-center justify-center mb-6 text-[var(--bronze)]">
@@ -39,6 +42,18 @@ export default function ServicesExcerpt() {
               <p className="font-body text-[var(--foreground)]/70 text-sm leading-relaxed max-w-xs">{service.description}</p>
             </div>
           ))}
+        </div>
+
+        <div className="reveal anim-fade-in delay-2 flex justify-center">
+          <Link href="/services" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]">
+            {t('exploreServices')}
+            <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="2" y1="6" x2="10" y2="6" />
+                <polyline points="6.5,2.5 10,6 6.5,9.5" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </div>
     </section>

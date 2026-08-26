@@ -1,13 +1,15 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import PageHero from "@/components/ui/PageHero";
 import PropertyCard from "@/components/ui/PropertyCard";
 import { PROPERTIES } from "@/config";
+import { getTranslations } from "next-intl/server";
 
 export default async function SearchResultsPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const t = await getTranslations("CTA");
   const params = await searchParams;
   const q = (typeof params.q === "string" ? params.q : "").toLowerCase();
   const location = typeof params.location === "string" ? params.location : "All Locations";
@@ -47,7 +49,7 @@ export default async function SearchResultsPage({
               href="/properties/search"
               className="text-sm font-body uppercase tracking-[0.15em] border-b border-[var(--navy)] pb-1 text-[var(--navy)] hover:text-[var(--bronze)] hover:border-[var(--bronze)] transition-colors inline-block w-max"
             >
-              Refine Search
+              {t('refineSearch')}
             </Link>
           </div>
 
@@ -56,7 +58,7 @@ export default async function SearchResultsPage({
               <p className="font-display text-3xl text-[var(--navy)]/40 mb-3">No properties found</p>
               <p className="font-body text-sm text-[var(--foreground)]/50 mb-8">Try adjusting your search criteria</p>
               <Link href="/properties/search" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]">
-                Back to Search
+                {t('refineSearch')}
                 <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="2" y1="6" x2="10" y2="6" />

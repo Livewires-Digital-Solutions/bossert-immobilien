@@ -2,6 +2,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField, SelectField, FormSubmitButton } from "@/components/ui/FormField";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Save Search Profile – Bossert Immobilien",
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default function SearchProfilePage() {
+  const t = useTranslations("CTA");
+
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -94,7 +97,7 @@ export default function SearchProfilePage() {
                   options={["Any", "2+", "3+", "4+", "5+", "6+"]}
                 />
                 <TextField label="Special Requirements" name="notes" rows={3} placeholder="Garden, pool, home office, proximity to schools…" />
-                <FormSubmitButton label="Save Search Profile" />
+                <FormSubmitButton label={t('saveSearchProfile')} />
               </form>
             </div>
           </div>

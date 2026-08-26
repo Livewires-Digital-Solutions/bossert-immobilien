@@ -1,19 +1,21 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SERVICES_DETAIL } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 const SLUG = "advisory";
 
 export const metadata: Metadata = {
-  title: "Advisory – Bossert Immobilien Services",
+  title: "Real Estate Advisory – Bossert Immobilien",
   description:
-    "Strategic real estate counsel for private clients, family offices, and investors across the Rhine-Main region — acquisition strategy, portfolio structuring, and market intelligence.",
+    "Strategic real estate advisory for portfolio optimization, project development, and complex inheritance situations.",
 };
 
 export default function AdvisoryPage() {
+  const t = useTranslations("CTA");
   const svc = SERVICES_DETAIL.find((s) => s.slug === SLUG);
   if (!svc) notFound();
 
@@ -55,8 +57,8 @@ export default function AdvisoryPage() {
             Our advisory engagements begin with a confidential conversation. Reach out to discuss how we can help structure your real estate strategy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="cta-btn" id="advisory-contact-cta">
-              Begin the Conversation
+            <Link href={`/contact?source=${SLUG}`} className="cta-btn" id={`${SLUG}-contact-cta`}>
+              {t('discussNeeds')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

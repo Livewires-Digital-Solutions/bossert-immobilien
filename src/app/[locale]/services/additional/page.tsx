@@ -1,19 +1,21 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SERVICES_DETAIL } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 const SLUG = "additional";
 
 export const metadata: Metadata = {
   title: "Additional Services – Bossert Immobilien",
   description:
-    "Interior design, financing partners, relocation support, and legal coordination — everything around the transaction, through our trusted partner network.",
+    "Explore our additional services, including architecture, financing, and property management partnerships.",
 };
 
 export default function AdditionalServicesPage() {
+  const t = useTranslations("CTA");
   const svc = SERVICES_DETAIL.find((s) => s.slug === SLUG);
   if (!svc) notFound();
 
@@ -55,8 +57,8 @@ export default function AdditionalServicesPage() {
             From the first conversation to move-in day, we connect you with the right experts at every stage.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="cta-btn" id="additional-contact-cta">
-              Get in Touch
+            <Link href={`/contact?source=${SLUG}`} className="cta-btn" id={`${SLUG}-contact-cta`}>
+              {t('discussNeeds')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

@@ -3,15 +3,17 @@
 import { notFound } from "next/navigation";
 import { use } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField, FormSubmitButton } from "@/components/ui/FormField";
 import { PROPERTIES } from "@/config";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useTranslations } from "next-intl";
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const t = useTranslations("CTA");
   useScrollReveal();
 
   const property = PROPERTIES.find((p) => p.slug === id);
@@ -121,10 +123,28 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 <TextField label="Email" type="email" name="email" placeholder="your@email.de" />
                 <TextField label="Phone" type="tel" name="phone" placeholder="+49 …" />
                 <TextField label="Message" name="message" rows={4} placeholder="I am interested in this property and would like to arrange a viewing…" />
-                <FormSubmitButton label="Send Enquiry" />
+                
+                <button type="submit" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)] w-full justify-center">
+                  {t('scheduleViewing')}
+                  <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="2" y1="6" x2="10" y2="6" />
+                      <polyline points="6.5,2.5 10,6 6.5,9.5" />
+                    </svg>
+                  </span>
+                </button>
+                <Link href={`/contact?source=property-inquiry&ref=${property.slug}`} className="cta-btn cta-btn-ghost w-full justify-center mt-2">
+                  {t('askAboutProperty')}
+                  <span className="cta-btn-icon" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="2" y1="6" x2="10" y2="6" />
+                      <polyline points="6.5,2.5 10,6 6.5,9.5" />
+                    </svg>
+                  </span>
+                </Link>
               </form>
 
-              <p className="font-body text-xs text-[var(--foreground)]/40 mt-4 text-center leading-relaxed">
+              <p className="font-body text-xs text-[var(--foreground)]/40 mt-6 text-center leading-relaxed">
                 Your enquiry will be handled with complete discretion.
               </p>
             </div>
@@ -137,7 +157,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         <div className="max-w-[1400px] mx-auto text-center">
           <SectionHeader eyebrow="Explore More" title="Similar Properties" align="center" className="mb-10" />
           <Link href="/properties" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="property-detail-more">
-            View All Properties
+            {t('viewAllProperties')}
             <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

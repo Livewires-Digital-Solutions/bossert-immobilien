@@ -1,8 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Article } from "@/config";
+import { useTranslations } from "next-intl";
 
 export default function ArticleCard({ article, index = 0 }: { article: Article; index?: number }) {
+  const t = useTranslations("CTA");
   return (
     <Link
       href={`/knowledge/${article.slug}`}
@@ -30,7 +32,15 @@ export default function ArticleCard({ article, index = 0 }: { article: Article; 
         <h3 className="font-display text-xl md:text-2xl text-[var(--navy)] mb-3 group-hover:text-[var(--bronze)] transition-colors duration-300">
           {article.title}
         </h3>
-        <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed">{article.excerpt}</p>
+        <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed mb-4">{article.excerpt}</p>
+        <span className="cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2">
+          {t('readArticle')}
+          <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+            </svg>
+          </span>
+        </span>
       </div>
     </Link>
   );

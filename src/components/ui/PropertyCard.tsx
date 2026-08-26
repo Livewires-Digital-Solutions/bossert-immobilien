@@ -1,8 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Property } from "@/config";
+import { useTranslations } from "next-intl";
 
 export default function PropertyCard({ property, index = 0 }: { property: Property; index?: number }) {
+  const t = useTranslations("CTA");
+
   return (
     <Link
       href={`/properties/${property.slug}`}
@@ -47,8 +50,14 @@ export default function PropertyCard({ property, index = 0 }: { property: Proper
         </div>
         <div className="flex items-center justify-between">
           <p className="font-body text-xl font-semibold text-[var(--navy)]">{property.price}</p>
-          <span className="text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase border border-[var(--bronze)]/30 px-3 py-1 rounded-full group-hover:bg-[var(--bronze)] group-hover:text-[var(--navy)] transition-all duration-300">
-            View Details
+          <span className="cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2">
+            {t('viewDetails')}
+            <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="2" y1="6" x2="10" y2="6" />
+                <polyline points="6.5,2.5 10,6 6.5,9.5" />
+              </svg>
+            </span>
           </span>
         </div>
       </div>

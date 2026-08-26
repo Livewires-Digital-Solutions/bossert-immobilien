@@ -180,6 +180,45 @@ body {
   transform: translateX(4px);
 }
 
+.cta-btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--bronze);
+}
+.cta-btn-ghost:hover {
+  background: var(--bronze);
+  color: var(--cream);
+  box-shadow: none;
+}
+.cta-btn-ghost .cta-btn-icon {
+  background: var(--bronze);
+  color: var(--cream);
+}
+.cta-btn-ghost:hover .cta-btn-icon {
+  background: var(--cream);
+  color: var(--bronze);
+}
+
+/* Ghost variant for dark backgrounds */
+.cta-btn-ghost-dark {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid var(--bronze);
+}
+.cta-btn-ghost-dark:hover {
+  background: var(--bronze);
+  color: var(--navy);
+  box-shadow: none;
+}
+.cta-btn-ghost-dark .cta-btn-icon {
+  background: var(--bronze);
+  color: var(--navy);
+}
+.cta-btn-ghost-dark:hover .cta-btn-icon {
+  background: var(--navy);
+  color: var(--bronze);
+}
+
 /* ── Scroll indicator ───────────────────────────────────────────────────── */
 @keyframes scrollBounce {
   0%, 100% { transform: translateY(0); }

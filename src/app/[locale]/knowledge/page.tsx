@@ -1,10 +1,11 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ArticleCard from "@/components/ui/ArticleCard";
 import { ARTICLES, KNOWLEDGE_CATEGORIES } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Knowledge Hub – Bossert Immobilien",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default function KnowledgePage() {
+  const t = useTranslations("CTA");
   const featured = ARTICLES.slice(0, 3);
 
   return (
@@ -44,7 +46,7 @@ export default function KnowledgePage() {
                 <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body">{cat.label}</span>
                 <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed">{cat.description}</p>
                 <span className="mt-auto text-[0.62rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase flex items-center gap-2 group-hover:gap-3 transition-all">
-                  Explore
+                  {t('exploreGuides')}
                   <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
                   </svg>
@@ -83,14 +85,24 @@ export default function KnowledgePage() {
               description="Our team produces in-depth quarterly reports on pricing trends, supply, and buyer demand across Wiesbaden, Frankfurt, Mainz, and the Taunus."
               dark
             />
-            <Link href="/knowledge/market" className="cta-btn mt-10 inline-flex" id="knowledge-market-outlook">
-              Read the Outlook
-              <span className="cta-btn-icon" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
-                </svg>
-              </span>
-            </Link>
+            <div className="mt-10 flex gap-4 flex-wrap">
+              <Link href="/knowledge/market" className="cta-btn inline-flex" id="knowledge-market-outlook">
+                Read the Outlook
+                <span className="cta-btn-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+                  </svg>
+                </span>
+              </Link>
+              <Link href="/contact?source=newsletter" className="cta-btn cta-btn-ghost inline-flex" id="knowledge-newsletter">
+                {t('subscribeNewsletter')}
+                <span className="cta-btn-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
             <Image

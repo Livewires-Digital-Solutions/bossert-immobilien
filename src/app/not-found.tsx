@@ -17,8 +17,8 @@ const inter = Inter({
 // This is the root not-found for URLs that don't match any locale
 export default function NotFound() {
   return (
-    <html lang="en" className={`${instrumentSerif.className} ${inter.className}`}>
-      <body className={`min-h-screen flex flex-col items-center justify-center bg-[#042433] text-center px-6 m-0 relative overflow-hidden ${inter.className}`}>
+    <html lang="en" className={`${instrumentSerif.className} ${inter.className}`} suppressHydrationWarning>
+      <body className={`min-h-screen flex flex-col items-center justify-center bg-[#042433] text-center px-6 m-0 relative overflow-hidden ${inter.className}`} suppressHydrationWarning>
         
         {/* Architectural Background Elements */}
         <div className="absolute inset-0 pointer-events-none z-0">

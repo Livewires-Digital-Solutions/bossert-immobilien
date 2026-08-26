@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { ARTICLES } from "@/config";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = ARTICLES.find((a) => a.slug === slug);
+  const t = await getTranslations("CTA");
   if (!article) notFound();
 
   const related = ARTICLES.filter((a) => a.category === article.category && a.slug !== slug).slice(0, 2);
@@ -108,8 +110,8 @@ export default async function ArticlePage({ params }: Props) {
               <div className="border border-[var(--navy)]/10 rounded-2xl p-6 bg-[var(--navy)]">
                 <p className="font-display text-lg text-[var(--cream)] mb-3">Need personalised advice?</p>
                 <p className="font-body text-sm text-[var(--cream)]/70 leading-relaxed mb-6">Our advisors are happy to discuss your specific situation in a confidential consultation.</p>
-                <Link href="/contact" className="cta-btn !text-[0.65rem] w-full justify-center" id="article-contact-cta">
-                  Speak to an Advisor
+                <Link href={`/contact?source=article&ref=${article.slug}`} className="cta-btn !text-[0.65rem] w-full justify-center" id="article-contact-cta">
+                  {t('discussThisTopic')}
                   <span className="cta-btn-icon" aria-hidden="true">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

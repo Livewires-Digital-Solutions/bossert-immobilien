@@ -3,6 +3,8 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import ReferenceCard from "@/components/ui/ReferenceCard";
 import { REFERENCES } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "References – Bossert Immobilien",
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function ReferencesPage() {
+  const t = useTranslations("CTA");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -73,14 +76,14 @@ export default function ReferencesPage() {
           <p className="font-body text-[var(--foreground)]/70 text-base leading-relaxed mb-10">
             Whether you are buying, selling, or renting — we would love to deliver you a result worth talking about.
           </p>
-          <a href="/contact" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="references-contact-cta">
-            Get in Touch
+          <Link href="/for-owners" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="references-contact-cta">
+            {t('startYourSuccessStory')}
             <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
               </svg>
             </span>
-          </a>
+          </Link>
         </div>
       </section>
     </div>

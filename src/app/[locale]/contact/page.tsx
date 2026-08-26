@@ -1,4 +1,6 @@
 import { COMPANY } from "@/config";
+import ContactForm from "@/components/ui/ContactForm";
+import { Suspense } from "react";
 
 export default function ContactPage() {
   return (
@@ -48,45 +50,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100">
-            <h3 className="font-display text-3xl text-[var(--navy)] mb-8">Send a Message</h3>
-            
-            <form className="font-body flex flex-col gap-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col">
-                  <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">First Name</label>
-                  <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="John" />
-                </div>
-                <div className="flex flex-col">
-                  <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Last Name</label>
-                  <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="Doe" />
-                </div>
-              </div>
-
-              <div className="flex flex-col">
-                <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Email Address</label>
-                <input type="email" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="john@example.com" />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Message</label>
-                <textarea rows={4} className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm resize-none" placeholder="How can we assist you?"></textarea>
-              </div>
-
-              <div className="mt-4">
-                <button type="button" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)] w-full justify-center">
-                  Send Message
-                  <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)] ml-2" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="2" y1="6" x2="10" y2="6" />
-                      <polyline points="6.5,2.5 10,6 6.5,9.5" />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-            </form>
-          </div>
+          <Suspense fallback={<div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-[var(--navy)]/10 h-96 animate-pulse" />}>
+            <ContactForm />
+          </Suspense>
 
         </div>
       </section>

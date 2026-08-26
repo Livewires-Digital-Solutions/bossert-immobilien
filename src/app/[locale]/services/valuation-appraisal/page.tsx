@@ -1,19 +1,22 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SERVICES_DETAIL } from "@/config";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 
+// This page handles /services/valuation-appraisal
 const SLUG = "valuation-appraisal";
 
 export const metadata: Metadata = {
   title: "Valuation & Appraisal – Bossert Immobilien Services",
   description:
-    "Certified, market-driven property appraisals for sale, financing, inheritance, and legal purposes across the Rhine-Main region.",
+    "Certified property valuations and market appraisals across Wiesbaden, Frankfurt, and the Rhine-Main region.",
 };
 
 export default function ValuationAppraisalPage() {
+  const t = useTranslations("CTA");
   const svc = SERVICES_DETAIL.find((s) => s.slug === SLUG);
   if (!svc) notFound();
 
@@ -55,8 +58,8 @@ export default function ValuationAppraisalPage() {
             Contact our team or submit a valuation request online — no obligation, complete confidentiality.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/for-owners/valuation" className="cta-btn" id="val-appraisal-request-cta">
-              Request Valuation
+            <Link href={`/contact?source=${SLUG}`} className="cta-btn" id={`${SLUG}-contact-cta`}>
+              {t('discussNeeds')}
               <span className="cta-btn-icon" aria-hidden="true">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />
