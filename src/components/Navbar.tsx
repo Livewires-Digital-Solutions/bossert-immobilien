@@ -62,27 +62,16 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label="Bossert Immobilien — Home"
-          className="flex items-center gap-4 group"
+          className="flex items-center group"
         >
-          <Image
-            src="/logo.webp"
-            alt="Bossert Logo"
-            width={48}
-            height={48}
-            className="opacity-90 group-hover:opacity-100 transition-opacity object-contain"
+          <Image 
+            src="/logo.webp" 
+            alt="Bossert Immobilien" 
+            width={180} 
+            height={56} 
+            className="opacity-90 group-hover:opacity-100 transition-opacity object-contain h-[40px] md:h-[50px] w-auto"
+            priority
           />
-          <div className="flex flex-col leading-none">
-            <span
-              className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display"
-            >
-              BOSSERT
-            </span>
-            <span
-              className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display"
-            >
-              {SITE_TAGLINE}
-            </span>
-          </div>
         </Link>
 
         {/* Desktop nav */}

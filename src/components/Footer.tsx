@@ -1,8 +1,9 @@
 import { Link } from "@/i18n/routing";
+import Image from "next/image";
 import { COMPANY } from "@/config";
 import { useTranslations } from 'next-intl';
 
-const NAV_LINKS_KEYS = [
+const NAV_LINKS = [
   { href: "/", key: "home" },
   { href: "/properties", key: "properties" },
   { href: "/for-owners", key: "forOwners" },
@@ -24,13 +25,14 @@ export default function Footer() {
         
         {/* Brand */}
         <div className="col-span-1 md:col-span-1 flex flex-col items-start">
-          <Link href="/" className="flex flex-col leading-none group mb-6">
-            <span className="text-[1.15rem] md:text-[1.3rem] font-bold tracking-[0.22em] text-[#FEFCF6] transition-opacity group-hover:opacity-80 font-display">
-              BOSSERT
-            </span>
-            <span className="text-[0.55rem] tracking-[0.3em] text-[#AF8C53] mt-0.5 font-display">
-              REAL ESTATE
-            </span>
+          <Link href="/" className="flex items-center group mb-6">
+            <Image 
+              src="/logo.webp" 
+              alt="Bossert Immobilien" 
+              width={180} 
+              height={56} 
+              className="opacity-90 group-hover:opacity-100 transition-opacity object-contain h-[48px] md:h-[56px] w-auto"
+            />
           </Link>
           <p className="font-body text-sm text-[rgba(254,252,246,0.6)] leading-relaxed max-w-xs">
             {tFooter('tagline')}
@@ -41,7 +43,7 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1">
           <h4 className="font-display text-lg mb-4 text-[var(--bronze)]">Navigation</h4>
           <ul className="flex flex-col gap-2 font-body text-sm text-[rgba(254,252,246,0.7)]">
-            {NAV_LINKS_KEYS.map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link href={link.href as any} className="hover:text-[var(--cream)] transition-colors">
                   {tNav(link.key)}
