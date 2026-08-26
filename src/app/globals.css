@@ -18,8 +18,8 @@
   --color-cream:         var(--cream);
   --color-bronze:        var(--bronze);
   --color-bronze-light:  var(--bronze-light);
-  --font-display:        var(--font-playfair), Georgia, serif;
-  --font-body:           'Satoshi', sans-serif;
+  --font-display:        var(--font-instrument), Georgia, serif;
+  --font-body:           var(--font-inter), sans-serif;
 }
 
 /* ── Base reset ─────────────────────────────────────────────────────────── */

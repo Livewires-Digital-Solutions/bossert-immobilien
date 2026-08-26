@@ -1,25 +1,31 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { usePathname, Link, useRouter } from "@/i18n/routing";
+import { useState, useEffect, useTransition } from "react";
+import { useTranslations, useLocale } from 'next-intl';
+import NextLink from "next/link"; // for non-localized links like logo if needed, but we can use the localized Link
 
 const SITE_TAGLINE = "REAL ESTATE";
 
-const NAV_LINKS = [
-  { href: "/",            label: "Home"        },
-  { href: "/properties",  label: "Properties"  },
-  { href: "/for-owners",  label: "For Owners"  },
-  { href: "/services",    label: "Services"    },
-  { href: "/about",       label: "About"       },
-  { href: "/references",  label: "References"  },
-  { href: "/knowledge",   label: "Knowledge"   },
-  { href: "/contact",     label: "Contact"     },
+const NAV_LINKS_KEYS = [
+  { href: "/",            key: "home"        },
+  { href: "/properties",  key: "properties"  },
+  { href: "/for-owners",  key: "forOwners"  },
+  { href: "/services",    key: "services"    },
+  { href: "/about",       key: "about"       },
+  { href: "/references",  key: "references"  },
+  { href: "/knowledge",   key: "knowledge"   },
+  { href: "/contact",     key: "contact"     },
 ] as const;
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('Navbar');
+  const [isPending, startTransition] = useTransition();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -30,6 +36,12 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const switchLocale = (newLocale: string) => {
+    startTransition(() => {
+      router.replace(pathname, { locale: newLocale });
+    });
+  };
 
   return (
     <header 
@@ -65,16 +77,16 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
-          {NAV_LINKS.map(({ href, label }) => {
-            const isActive = pathname === href || pathname.startsWith(href + "/");
+          {NAV_LINKS_KEYS.map(({ href, key }) => {
+            const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
             return (
               <Link
                 key={href}
-                href={href}
+                href={href as any}
                 className={`nav-link-hero${isActive ? " active" : ""} font-body`}
                 aria-current={isActive ? "page" : undefined}
               >
-                {label}
+                {t(key)}
               </Link>
             );
           })}
@@ -84,7 +96,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4 md:gap-5">
           {/* Language Switcher (Desktop Only) */}
           <div 
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group cursor-default" 
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group" 
             style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(254,252,246,0.7)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#AF8C53] transition-colors">
@@ -92,10 +104,20 @@ export default function Navbar() {
               <line x1="2" y1="12" x2="22" y2="12"></line>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            <div className="flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em] font-body">
-              <button className="text-[#FEFCF6] font-bold transition-colors hover:text-[#AF8C53] cursor-pointer">EN</button>
+            <div className={`flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em] font-body ${isPending ? 'opacity-50' : ''}`}>
+              <button 
+                onClick={() => switchLocale('en')}
+                className={`transition-colors cursor-pointer font-bold ${locale === 'en' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
+              >
+                EN
+              </button>
               <span className="text-[rgba(254,252,246,0.3)]">/</span>
-              <button className="text-[rgba(254,252,246,0.6)] transition-colors hover:text-[#FEFCF6] cursor-pointer">DE</button>
+              <button 
+                onClick={() => switchLocale('de')}
+                className={`transition-colors cursor-pointer font-bold ${locale === 'de' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
+              >
+                DE
+              </button>
             </div>
           </div>
 
@@ -134,21 +156,38 @@ export default function Navbar() {
           style={{ background: "rgba(4,36,51,0.96)", backdropFilter: "blur(12px)" }}
         >
           <ul className="flex flex-col px-6 py-6 gap-5">
-            {NAV_LINKS.map(({ href, label }) => {
-              const isActive = pathname === href;
+            {NAV_LINKS_KEYS.map(({ href, key }) => {
+              const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
               return (
                 <li key={href}>
                   <Link
-                    href={href}
+                    href={href as any}
                     onClick={() => setMenuOpen(false)}
                     className={`nav-link-hero text-base${isActive ? " active" : ""} font-body`}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {label}
+                    {t(key)}
                   </Link>
                 </li>
               );
             })}
+            <li className="pt-2 border-t border-[rgba(254,252,246,0.1)]">
+              <div className="flex items-center gap-3 mb-4">
+                 <button 
+                  onClick={() => switchLocale('en')}
+                  className={`text-xs font-bold ${locale === 'en' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)]'}`}
+                >
+                  EN
+                </button>
+                <span className="text-[rgba(254,252,246,0.3)] text-xs">/</span>
+                <button 
+                  onClick={() => switchLocale('de')}
+                  className={`text-xs font-bold ${locale === 'de' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)]'}`}
+                >
+                  DE
+                </button>
+              </div>
+            </li>
           </ul>
         </nav>
       )}

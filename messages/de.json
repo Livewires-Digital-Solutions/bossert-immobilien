@@ -1,0 +1,42 @@
+{
+  "Navbar": {
+    "home": "Startseite",
+    "properties": "Immobilien",
+    "forOwners": "Für Eigentümer",
+    "services": "Leistungen",
+    "about": "Über uns",
+    "references": "Referenzen",
+    "knowledge": "Wissen",
+    "contact": "Kontakt"
+  },
+  "Footer": {
+    "tagline": "Exklusive Immobilien im Rhein-Main-Gebiet seit 1991.",
+    "links": {
+      "imprint": "Impressum",
+      "privacy": "Datenschutz"
+    }
+  },
+  "Hero": {
+    "since": "Seit 1991",
+    "titleLine1": "Ihr Partner für",
+    "titleLine2": "Wohnimmobilien",
+    "subtitle": "Kompetenz, Vertrauen und Exzellenz",
+    "description": "Seit über 30 Jahren sind wir Ihr zuverlässiger Partner für alle Aspekte rund um Immobilien im Rhein-Main-Gebiet.",
+    "stats": {
+      "yearsLabel": "Jahre Erfahrung",
+      "yearsValue": "30+",
+      "propertiesLabel": "Verkaufte Immobilien",
+      "propertiesValue": "500+",
+      "portfolioLabel": "Portfolio-Wert",
+      "portfolioValue": "€2Mrd+"
+    },
+    "scroll": "Scrollen & Entdecken",
+    "explore": "Immobilien Entdecken"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Seite nicht gefunden",
+    "description": "Die Seite, nach der Sie suchen, existiert nicht oder wurde verschoben.",
+    "returnHome": "Zurück zur Startseite"
+  }
+}
