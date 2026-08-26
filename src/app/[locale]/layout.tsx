@@ -28,6 +28,9 @@ export const metadata: Metadata = {
   title: "Bossert Immobilien – Exclusive Real Estate in the Rhine-Main Region",
   description:
     "Your partner for exclusive real estate in the Rhine-Main region since 1991. Buy, sell, or evaluate – Bossert Immobilien.",
+  icons: {
+    icon: "/logo.webp",
+  },
 };
 
 export function generateStaticParams() {
@@ -37,10 +40,10 @@ export function generateStaticParams() {
 export default async function RootLayout({
   children,
   params
-}: {
+}: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
-}) {
+  params: Promise<{ locale: string }>;
+}>) {
   const {locale} = await params;
 
   if (!routing.locales.includes(locale as any)) {
