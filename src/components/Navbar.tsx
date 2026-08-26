@@ -77,8 +77,8 @@ export default function Navbar() {
         {/* Desktop nav - White Block */}
         <nav aria-label="Primary navigation" className="hidden lg:flex items-center bg-white rounded-md p-[5px] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
           {NAV_LINKS_KEYS.map(({ href, key }) => {
-            if (key === 'contact' || key === 'home') return null;
-            const isActive = pathname === href || pathname.startsWith(href);
+            if (key === 'contact') return null;
+            const isActive = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href);
             return (
               <Link
                 key={href}
