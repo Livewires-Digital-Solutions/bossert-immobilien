@@ -9,14 +9,14 @@ import NextLink from "next/link"; // for non-localized links like logo if needed
 const SITE_TAGLINE = "REAL ESTATE";
 
 const NAV_LINKS_KEYS = [
-  { href: "/",            key: "home"        },
-  { href: "/properties",  key: "properties"  },
-  { href: "/for-owners",  key: "forOwners"  },
-  { href: "/services",    key: "services"    },
-  { href: "/about",       key: "about"       },
-  { href: "/references",  key: "references"  },
-  { href: "/knowledge",   key: "knowledge"   },
-  { href: "/contact",     key: "contact"     },
+  { href: "/", key: "home" },
+  { href: "/properties", key: "properties" },
+  { href: "/for-owners", key: "forOwners" },
+  { href: "/services", key: "services" },
+  { href: "/about", key: "about" },
+  { href: "/references", key: "references" },
+  { href: "/knowledge", key: "knowledge" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
 export default function Navbar() {
@@ -44,16 +44,15 @@ export default function Navbar() {
   };
 
   return (
-    <header 
-      className={`fixed z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isScrolled 
-          ? "top-3 left-4 right-4 md:left-10 md:right-10 rounded-full border border-[rgba(254,252,246,0.15)] shadow-[0_12px_40px_rgba(0,0,0,0.3)]" 
+    <header
+      className={`fixed z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+          ? "top-3 left-4 right-4 md:left-10 md:right-10 rounded-full border border-[rgba(254,252,246,0.15)] shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
           : "top-0 left-0 right-0 border-transparent"
-      }`}
-      style={{ 
-        background: isScrolled ? "rgba(4, 36, 51, 0.70)" : "rgba(4, 36, 51, 0.15)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)"
+        }`}
+      style={{
+        background: isScrolled ? "rgba(4, 36, 51, 0.70)" : "transparent",
+        backdropFilter: isScrolled ? "blur(16px)" : "none",
+        WebkitBackdropFilter: isScrolled ? "blur(16px)" : "none"
       }}
       role="banner"
     >
@@ -65,11 +64,11 @@ export default function Navbar() {
           aria-label="Bossert Immobilien — Home"
           className="flex items-center gap-4 group"
         >
-          <Image 
-            src="/logo.webp" 
-            alt="Bossert Logo" 
-            width={48} 
-            height={48} 
+          <Image
+            src="/logo.webp"
+            alt="Bossert Logo"
+            width={48}
+            height={48}
             className="opacity-90 group-hover:opacity-100 transition-opacity object-contain"
           />
           <div className="flex flex-col leading-none">
@@ -106,8 +105,8 @@ export default function Navbar() {
         {/* Right: Lang Switcher & Mobile Hamburger */}
         <div className="flex items-center gap-4 md:gap-5">
           {/* Language Switcher (Desktop Only) */}
-          <div 
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group" 
+          <div
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(254,252,246,0.15)] hover:border-[#AF8C53] transition-colors group"
             style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(254,252,246,0.7)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#AF8C53] transition-colors">
@@ -116,14 +115,14 @@ export default function Navbar() {
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
             <div className={`flex items-center gap-1.5 text-[0.65rem] tracking-[0.15em] font-body ${isPending ? 'opacity-50' : ''}`}>
-              <button 
+              <button
                 onClick={() => switchLocale('en')}
                 className={`transition-colors cursor-pointer font-bold ${locale === 'en' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
               >
                 EN
               </button>
               <span className="text-[rgba(254,252,246,0.3)]">/</span>
-              <button 
+              <button
                 onClick={() => switchLocale('de')}
                 className={`transition-colors cursor-pointer font-bold ${locale === 'de' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)] hover:text-[#FEFCF6]'}`}
               >
@@ -184,14 +183,14 @@ export default function Navbar() {
             })}
             <li className="pt-2 border-t border-[rgba(254,252,246,0.1)]">
               <div className="flex items-center gap-3 mb-4">
-                 <button 
+                <button
                   onClick={() => switchLocale('en')}
                   className={`text-xs font-bold ${locale === 'en' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)]'}`}
                 >
                   EN
                 </button>
                 <span className="text-[rgba(254,252,246,0.3)] text-xs">/</span>
-                <button 
+                <button
                   onClick={() => switchLocale('de')}
                   className={`text-xs font-bold ${locale === 'de' ? 'text-[#AF8C53]' : 'text-[rgba(254,252,246,0.6)]'}`}
                 >

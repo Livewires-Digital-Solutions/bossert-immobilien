@@ -18,25 +18,28 @@
   },
   "Hero": {
     "since": "Since 1991",
-    "titleLine1": "Your partner for",
-    "titleLine2": "residential real estate",
-    "subtitle": "Competence, Trust and Excellence",
-    "description": "For over 30 years, we have been your reliable partner for all aspects of real estate in the Rhine-Main area.",
-    "stats": {
-      "yearsLabel": "Years of Experience",
-      "yearsValue": "30+",
-      "propertiesLabel": "Properties Sold",
-      "propertiesValue": "500+",
-      "portfolioLabel": "Portfolio Value",
-      "portfolioValue": "€2B+"
-    },
-    "scroll": "Scroll & Discover",
-    "explore": "Explore Properties"
+    "titleLine1": "A DIFFERENT",
+    "titleLine2": "Perspective",
+    "titleLine3": "On Real Estate.",
+    "topRightText": "Experience, perspective,\nand a personal approach\nto real estate.",
+    "bottomLeftText": "YOUR PARTNER FOR\nRESIDENTIAL REAL ESTATE\nIN THE RHINE-MAIN AREA.",
+    "scroll": "SCROLL & DISCOVER",
+    "explore": "EXPLORE PROPERTIES"
   },
   "NotFound": {
     "title": "404",
     "subtitle": "Page Not Found",
     "description": "The page you are looking for does not exist or has been moved.",
     "returnHome": "Return to Home"
+  },
+  "Stats": {
+    "experience": "Years Experience",
+    "properties": "Properties Sold",
+    "clients": "Happy Clients",
+    "volume": "Sales Volume",
+    "experienceValue": "30+",
+    "propertiesValue": "1,500+",
+    "clientsValue": "2,000+",
+    "volumeValue": "€500M+"
   }
 }

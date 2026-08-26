@@ -18,25 +18,28 @@
   },
   "Hero": {
     "since": "Seit 1991",
-    "titleLine1": "Ihr Partner für",
-    "titleLine2": "Wohnimmobilien",
-    "subtitle": "Kompetenz, Vertrauen und Exzellenz",
-    "description": "Seit über 30 Jahren sind wir Ihr zuverlässiger Partner für alle Aspekte rund um Immobilien im Rhein-Main-Gebiet.",
-    "stats": {
-      "yearsLabel": "Jahre Erfahrung",
-      "yearsValue": "30+",
-      "propertiesLabel": "Verkaufte Immobilien",
-      "propertiesValue": "500+",
-      "portfolioLabel": "Portfolio-Wert",
-      "portfolioValue": "€2Mrd+"
-    },
-    "scroll": "Scrollen & Entdecken",
-    "explore": "Immobilien Entdecken"
+    "titleLine1": "EINE ANDERE",
+    "titleLine2": "Perspektive",
+    "titleLine3": "Auf Immobilien.",
+    "topRightText": "Erfahrung, Perspektive,\nund ein persönlicher Ansatz\nfür Immobilien.",
+    "bottomLeftText": "IHR PARTNER FÜR\nWOHNIMMOBILIEN\nIM RHEIN-MAIN-GEBIET.",
+    "scroll": "SCROLLEN & ENTDECKEN",
+    "explore": "IMMOBILIEN ENTDECKEN"
   },
   "NotFound": {
     "title": "404",
     "subtitle": "Seite nicht gefunden",
     "description": "Die Seite, nach der Sie suchen, existiert nicht oder wurde verschoben.",
     "returnHome": "Zurück zur Startseite"
+  },
+  "Stats": {
+    "experience": "Jahre Erfahrung",
+    "properties": "Verkaufte Immobilien",
+    "clients": "Zufriedene Kunden",
+    "volume": "Verkaufsvolumen",
+    "experienceValue": "30+",
+    "propertiesValue": "1.500+",
+    "clientsValue": "2.000+",
+    "volumeValue": "€500 Mio+"
   }
 }
