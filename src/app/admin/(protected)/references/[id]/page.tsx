@@ -91,48 +91,14 @@ export default function ReferenceForm({ params }: { params: Promise<{ id: string
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white shadow-xl border border-[var(--navy)]/5 rounded-none p-10 space-y-10">
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Slug</label>
-            <input type="text" name="slug" required value={formData.slug} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Category</label>
-            <input type="text" name="category" required value={formData.category} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Title (EN)</label>
-            <input type="text" name="titleEn" required value={formData.titleEn} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Title (DE)</label>
-            <input type="text" name="titleDe" required value={formData.titleDe} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Location</label>
-            <input type="text" name="location" required value={formData.location} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Year</label>
-            <input type="text" name="year" required value={formData.year} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-6">
         <div className="grid grid-cols-2 gap-10">
           <div>
             <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Slug</label>
             <input type="text" name="slug" required value={formData.slug} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
           <div>
-            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Location</label>
-            <input type="text" name="location" required value={formData.location} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Category</label>
+            <input type="text" name="category" required value={formData.category} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
         </div>
 
@@ -149,12 +115,23 @@ export default function ReferenceForm({ params }: { params: Promise<{ id: string
 
         <div className="grid grid-cols-2 gap-10">
           <div>
-            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Property Type</label>
-            <input type="text" name="propertyType" required value={formData.propertyType} onChange={handleChange} placeholder="e.g. Villa" className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Location</label>
+            <input type="text" name="location" required value={formData.location} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
           <div>
             <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Year</label>
             <input type="text" name="year" required value={formData.year} onChange={handleChange} placeholder="e.g. 2024" className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-10">
+          <div>
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Summary (EN)</label>
+            <textarea name="summaryEn" required value={formData.summaryEn} onChange={handleChange} rows={3} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
+          </div>
+          <div>
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Summary (DE)</label>
+            <textarea name="summaryDe" required value={formData.summaryDe} onChange={handleChange} rows={3} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
         </div>
 
@@ -170,25 +147,25 @@ export default function ReferenceForm({ params }: { params: Promise<{ id: string
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Result</label>
-          <input type="text" name="result" required value={formData.result} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
+          <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Result</label>
+          <input type="text" name="result" required value={formData.result} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-10">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Testimonial Quote</label>
-            <textarea name="testimonialQuote" required value={formData.testimonialQuote} onChange={handleChange} rows={3} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Testimonial Quote</label>
+            <textarea name="testimonialQuote" required value={formData.testimonialQuote} onChange={handleChange} rows={3} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Testimonial Author</label>
-            <input type="text" name="testimonialAuthor" required value={formData.testimonialAuthor} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm" />
+            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Testimonial Author</label>
+            <input type="text" name="testimonialAuthor" required value={formData.testimonialAuthor} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
         </div>
 
         <div className="flex gap-4">
-          <label className="flex items-center">
-            <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} className="h-4 w-4 text-[#042433] focus:ring-[#042433] border-gray-300 rounded" />
-            <span className="ml-2 text-sm text-gray-700">Published</span>
+          <label className="flex items-center cursor-pointer">
+            <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} className="h-4 w-4 text-[var(--bronze)] focus:ring-[var(--bronze)] border-[var(--navy)]/20 rounded-sm" />
+            <span className="ml-2 text-sm text-[var(--navy)]/80 uppercase tracking-widest font-body">Published</span>
           </label>
         </div>
 

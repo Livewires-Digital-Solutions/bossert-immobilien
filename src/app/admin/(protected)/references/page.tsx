@@ -38,7 +38,7 @@ export default async function AdminReferencesPage() {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {references.map((r) => (
+            {references.map((r: any) => (
               <tr key={r.id}>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-[var(--navy)]/5">
                   <div className="text-sm font-medium text-[var(--navy)] font-display">

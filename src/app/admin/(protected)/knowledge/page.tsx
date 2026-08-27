@@ -41,7 +41,7 @@ export default async function AdminKnowledgePage() {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {articles.map((a) => (
+            {articles.map((a: any) => (
               <tr key={a.id}>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-[var(--navy)]/5">
                   <div className="text-sm font-medium text-[var(--navy)] font-display">

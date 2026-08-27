@@ -41,7 +41,7 @@ export default async function AdminBlogPage() {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {posts.map((p) => (
+            {posts.map((p: any) => (
               <tr key={p.id}>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-[var(--navy)]/5">
                   <div className="text-sm font-medium text-[var(--navy)] font-display">

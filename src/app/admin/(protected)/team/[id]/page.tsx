@@ -111,7 +111,7 @@ export default function TeamForm({ params }: { params: Promise<{ id: string }> }
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
             <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Email</label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
@@ -119,10 +119,6 @@ export default function TeamForm({ params }: { params: Promise<{ id: string }> }
           <div>
             <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">Phone</label>
             <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
-          </div>
-          <div>
-            <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60">LinkedIn URL</label>
-            <input type="text" name="linkedin" value={formData.linkedin} onChange={handleChange} className="mt-2 block w-full px-0 py-2 border-b border-[var(--navy)]/20 bg-transparent text-[var(--navy)] text-sm focus:outline-none focus:border-[var(--bronze)] focus:ring-0 transition-colors" />
           </div>
         </div>
 
@@ -156,9 +152,9 @@ export default function TeamForm({ params }: { params: Promise<{ id: string }> }
         </div>
 
         <div className="flex gap-4">
-          <label className="flex items-center">
-            <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} className="h-4 w-4 text-[#042433] focus:ring-[#042433] border-gray-300 rounded" />
-            <span className="ml-2 text-sm text-gray-700">Published</span>
+          <label className="flex items-center cursor-pointer">
+            <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} className="h-4 w-4 text-[var(--bronze)] focus:ring-[var(--bronze)] border-[var(--navy)]/20 rounded-sm" />
+            <span className="ml-2 text-sm text-[var(--navy)]/80 uppercase tracking-widest font-body">Published</span>
           </label>
         </div>
 
@@ -166,8 +162,8 @@ export default function TeamForm({ params }: { params: Promise<{ id: string }> }
           <label className="block text-xs font-body uppercase tracking-[0.1em] text-[var(--navy)]/60 mb-6">Profile Photo</label>
           <ImageUpload
             multiple={false}
-            value={formData.photo}
-            onChange={(val) => setFormData(prev => ({ ...prev, photo: val as string }))}
+            value={formData.image}
+            onChange={(val) => setFormData(prev => ({ ...prev, image: val as string }))}
           />
         </div>
 

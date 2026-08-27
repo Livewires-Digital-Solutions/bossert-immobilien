@@ -41,7 +41,7 @@ export default async function AdminTeamPage() {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {members.map((m) => (
+            {members.map((m: any) => (
               <tr key={m.id}>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-[var(--navy)]/5">
                   <div className="text-sm font-medium text-[var(--navy)] font-display">

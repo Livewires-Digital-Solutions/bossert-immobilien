@@ -41,7 +41,7 @@ export default async function AdminPropertiesPage() {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {properties.map((p) => (
+            {properties.map((p: any) => (
               <tr key={p.id}>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-[var(--navy)]/5">
                   <div className="flex items-center">
