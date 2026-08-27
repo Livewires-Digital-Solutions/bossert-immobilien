@@ -9,18 +9,20 @@ export default function Hero() {
     <section className="hero-section" aria-label="Hero">
 
       {/* Background image */}
-      <Image
-        src="/hero-bg.png"
-        alt="Luxury villa at sunset – Bossert Immobilien"
-        fill
-        priority
-        quality={90}
-        className="object-cover object-center scale-[1.03] animate-[imageScaleIn_2.5s_var(--ease-out-expo)_forwards]"
-        sizes="100vw"
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero-bg.png"
+          alt="Luxury villa at sunset – Bossert Immobilien"
+          fill
+          priority
+          quality={90}
+          className="object-cover object-center scale-[1.03] animate-[imageScaleIn_2.5s_var(--ease-out-expo)_forwards]"
+          sizes="100vw"
+        />
+      </div>
 
       {/* ── Hero content ──────────────────────────────────────────────── */}
-      <div className="relative z-10 flex flex-col justify-between h-full pt-[140px] pb-12 px-6 md:px-16 max-w-[1600px] mx-auto w-full">
+      <div className="relative z-10 flex flex-col justify-between flex-1 pt-[140px] pb-12 px-6 md:px-16 max-w-[1600px] mx-auto w-full">
 
         {/* Top Group (Since text + Title) */}
         <div className="flex flex-col w-full">

@@ -17,15 +17,17 @@ export default function DetailHero({
 }) {
   return (
     <section className="relative w-full min-h-[58vh] md:min-h-[64vh] flex items-end overflow-hidden bg-[var(--navy)]">
-      <Image
-        src={image}
-        alt={title}
-        fill
-        priority
-        className="object-cover object-center scale-[1.03] animate-[imageScaleIn_1.5s_var(--ease-out-expo)_forwards]"
-        sizes="100vw"
-      />
-      <div className="hero-overlay" aria-hidden="true" />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          priority
+          className="object-cover object-center scale-[1.03] animate-[imageScaleIn_1.5s_var(--ease-out-expo)_forwards]"
+          sizes="100vw"
+        />
+      </div>
+      <div className="hero-overlay absolute inset-0 z-[1]" aria-hidden="true" />
       <div className="relative z-10 w-full pt-28 pb-10 md:pb-14">
         <PageContainer>
           <div className="flex flex-col gap-6">
