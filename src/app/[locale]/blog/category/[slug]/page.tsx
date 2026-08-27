@@ -48,7 +48,7 @@ export default async function BlogCategoryPage({ params }: Props) {
       />
 
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="mb-16 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl text-[var(--navy)] mb-4">{category.label}</h2>
             <p className="font-body text-lg text-[var(--foreground)]/70 leading-relaxed">{category.description}</p>

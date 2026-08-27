@@ -27,7 +27,7 @@ export default function SearchProfilePage() {
 
       {/* ── Content ─────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           {/* Left: Pitch */}
           <div className="reveal-left">
             <SectionHeader

@@ -46,7 +46,7 @@ export default async function ReferenceDetailPage({ params }: Props) {
 
       {/* ── Content ─────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Main */}
           <div className="lg:col-span-2">
             <div className="reveal mb-12">
@@ -133,7 +133,7 @@ export default async function ReferenceDetailPage({ params }: Props) {
 
       {/* ── Back ─────────────────────────────────────────────────────────── */}
       <section className="py-12 px-6 md:px-10 bg-[var(--cream)] border-t border-[var(--navy)]/10">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <Link href="/references" className="font-body text-sm text-[var(--bronze)] hover:text-[var(--navy)] transition-colors flex items-center gap-2" id="ref-detail-back">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9,2 4,7 9,12" />

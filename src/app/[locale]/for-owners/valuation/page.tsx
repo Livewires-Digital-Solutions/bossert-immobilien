@@ -26,7 +26,7 @@ export default function ValuationPage() {
 
       {/* ── Intro + Form ────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div className="reveal-left">
             <SectionHeader
               eyebrow="Valuation Service"
@@ -86,7 +86,7 @@ export default function ValuationPage() {
 
       {/* ── What Makes Our Valuations Different ─────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-[var(--cream)]">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Our Methodology"
             title="Valuations you can defend."

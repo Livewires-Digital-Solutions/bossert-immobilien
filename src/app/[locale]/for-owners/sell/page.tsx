@@ -27,7 +27,7 @@ export default function SellPage() {
 
       {/* ── Intro + Process ─────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
             <div className="reveal-left">
               <SectionHeader
@@ -79,7 +79,7 @@ export default function SellPage() {
 
       {/* ── Why Sell with Bossert ────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-[var(--cream)]">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Our Advantages"
             title="Why owners choose Bossert."

@@ -49,7 +49,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* ── Article Content ─────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Article body */}
           <article className="lg:col-span-2">
             <div className="flex items-center gap-4 mb-8 pb-8 border-b border-[var(--navy)]/10">

@@ -69,7 +69,7 @@ export default function ForOwnersPage() {
 
       {/* ── Intro ──────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Owner Services"
             title="Everything you need, in one trusted partnership."
@@ -112,7 +112,7 @@ export default function ForOwnersPage() {
 
       {/* ── Why Bossert for Owners ──────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-[var(--navy)]">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <SectionHeader
               eyebrow="Our Approach"

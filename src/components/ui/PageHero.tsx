@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Breadcrumbs, { BreadcrumbItem } from "./Breadcrumbs";
+import PageContainer from "./PageContainer";
 
 export default function PageHero({
   title,
@@ -22,42 +23,51 @@ export default function PageHero({
           src={backgroundImage} 
           alt={title}
           fill 
-          className="object-cover object-center scale-[1.03] animate-[imageScaleIn_1.5s_var(--ease-out-expo)_forwards]"
+          className={`object-cover scale-[1.03] animate-[imageScaleIn_1.5s_var(--ease-out-expo)_forwards] ${
+            children ? "object-right md:object-[75%_center]" : "object-center"
+          }`}
           priority
           sizes="100vw"
         />
       </div>
 
       {/* Faded Gradient (Navy from left to transparent right) */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#042433] via-[#042433]/90 to-transparent pointer-events-none" />
+      <div className={`absolute inset-0 z-0 bg-gradient-to-r from-[#042433] ${children ? 'via-[#042433] to-transparent' : 'via-[#042433]/90 to-transparent'} pointer-events-none`} />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#042433]/50 via-transparent to-[#042433]/30 pointer-events-none" />
+      
+      {/* Extra contrast layer for extended height heroes */}
+      {children && (
+        <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_10%_40%,rgba(4,36,51,0.85)_0%,transparent_60%)]" />
+      )}
 
       {/* Content */}
-      <div className="relative z-10 w-full px-6 md:px-12 max-w-7xl mx-auto anim-fade-up">
-        <div className="flex flex-col gap-6 md:gap-8 border-l border-[var(--bronze)]/30 pl-6 md:pl-10">
-          {breadcrumbs && breadcrumbs.length > 0 && (
-            <div className="mb-2">
-              <Breadcrumbs items={breadcrumbs} />
-            </div>
-          )}
-          
-          <div className="space-y-5 max-w-4xl">
-            {subtitle && (
-              <p className="font-body text-[var(--bronze)] tracking-[0.3em] uppercase text-xs md:text-sm anim-fade-up delay-1">
-                {subtitle}
-              </p>
+      <div className="relative z-10 w-full anim-fade-up">
+        <PageContainer withBorder>
+          <div className="flex flex-col gap-6 md:gap-8">
+            {breadcrumbs && breadcrumbs.length > 0 && (
+              <div className="mb-2">
+                <Breadcrumbs items={breadcrumbs} />
+              </div>
             )}
-            <h1 className="text-5xl sm:text-6xl md:text-[6.5rem] font-display italic text-[var(--cream)] leading-[1.05] tracking-tight pr-4 drop-shadow-xl anim-fade-up delay-2">
-              {title}
-            </h1>
-          </div>
-
-          {children && (
-            <div className="w-full pt-4 md:pt-6">
-              {children}
+            
+            <div className="space-y-5 max-w-4xl">
+              {subtitle && (
+                <p className="font-body text-[var(--bronze)] tracking-[0.3em] uppercase text-xs md:text-sm anim-fade-up delay-1">
+                  {subtitle}
+                </p>
+              )}
+              <h1 className="text-5xl sm:text-6xl md:text-[6.5rem] font-display italic text-[var(--cream)] leading-[1.05] tracking-tight pr-4 drop-shadow-xl anim-fade-up delay-2">
+                {title}
+              </h1>
             </div>
-          )}
-        </div>
+
+            {children && (
+              <div className="w-full pt-4 md:pt-6">
+                {children}
+              </div>
+            )}
+          </div>
+        </PageContainer>
       </div>
 
       {/* Decorative vertical line on the right */}

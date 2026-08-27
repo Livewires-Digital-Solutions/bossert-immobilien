@@ -27,7 +27,7 @@ export default function KnowledgePage() {
 
       {/* ── Categories Grid ─────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Browse by Topic"
             title="Everything you need to know."
@@ -77,7 +77,7 @@ export default function KnowledgePage() {
 
       {/* ── Market Insight Banner ─────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-[var(--navy)]">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <SectionHeader
               eyebrow="Market Intelligence"

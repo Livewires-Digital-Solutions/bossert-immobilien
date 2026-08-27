@@ -34,7 +34,7 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
 
       {/* Featured Posts */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Featured Articles"
             title="Latest from our team."
@@ -89,7 +89,7 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
 
       {/* Categories */}
       <section className="py-20 px-6 md:px-10 bg-[var(--cream)]">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader eyebrow="Browse by Topic" title="Find what interests you." description="Our blog covers every angle of the property world — from hard data to lifestyle inspiration." className="mb-12" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {BLOG_CATEGORIES.map((cat, i) => (
@@ -108,7 +108,7 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
 
       {/* All Articles Grid */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
             <SectionHeader eyebrow="All Articles" title="More from the blog." />
           </div>
@@ -140,7 +140,7 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
 
       {/* Newsletter CTA */}
       <section className="py-24 px-6 md:px-10 bg-[var(--navy)]">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <SectionHeader eyebrow="Stay Informed" title="Get insights delivered to your inbox." description="Join over 2,000 property owners, buyers, and investors who receive our monthly market briefing — curated by the Bossert Immobilien team." dark />
             <div className="mt-10 flex gap-4 flex-wrap">

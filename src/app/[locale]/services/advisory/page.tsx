@@ -33,7 +33,7 @@ export default function AdvisoryPage() {
       />
 
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
             <div className="reveal-left">
               <SectionHeader eyebrow={svc.tagline} title={svc.title} description={svc.intro} />

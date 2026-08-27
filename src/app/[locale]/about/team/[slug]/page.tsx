@@ -45,7 +45,7 @@ export default async function TeamMemberPage({ params }: Props) {
 
       {/* ── Bio + Details ─────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
           {/* Main bio */}
           <div className="md:col-span-2">
             <span className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-4 block">

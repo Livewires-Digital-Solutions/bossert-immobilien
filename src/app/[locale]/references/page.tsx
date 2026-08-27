@@ -43,7 +43,7 @@ export default function ReferencesPage() {
 
       {/* ── Testimonials Band ────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-[var(--navy)]">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Client Words"
             title="What our clients say."

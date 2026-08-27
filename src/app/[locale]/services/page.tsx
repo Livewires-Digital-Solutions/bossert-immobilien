@@ -22,7 +22,7 @@ export default function ServicesPage() {
 
       {/* ── Intro ──────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="What We Do"
             title="End-to-end expertise for every property journey."

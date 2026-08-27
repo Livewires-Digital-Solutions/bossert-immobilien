@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       {/* ── Story Section ──────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="reveal-left">
             <SectionHeader
               eyebrow="Our Heritage"
@@ -136,7 +136,7 @@ export default function AboutPage() {
 
       {/* ── Company Details Band ────────────────────────────────────────── */}
       <section className="py-16 px-6 md:px-10 bg-white border-t border-[var(--navy)]/10">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
           <div className="reveal stagger-1">
             <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">Address</p>
             <p className="font-body text-sm text-[var(--foreground)]/70 leading-relaxed">

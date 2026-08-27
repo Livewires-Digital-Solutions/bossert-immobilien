@@ -30,7 +30,7 @@ export default function MapPage() {
 
       {/* ── Location Cards Grid ─────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader
             eyebrow="Our Locations"
             title="Where we operate."

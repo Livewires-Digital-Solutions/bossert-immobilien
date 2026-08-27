@@ -48,7 +48,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
       {/* ── Main Content ─────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Left: Details */}
           <div className="lg:col-span-2">
             {/* Key stats bar */}

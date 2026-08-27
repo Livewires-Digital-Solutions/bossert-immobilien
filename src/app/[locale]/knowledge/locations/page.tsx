@@ -31,7 +31,7 @@ export default function LocationsPage() {
 
       {/* ── Location Cards ──────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <SectionHeader eyebrow="Our Markets" title="The neighbourhoods we know best." className="mb-16" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             {LOCATIONS.map((loc, i) => (
