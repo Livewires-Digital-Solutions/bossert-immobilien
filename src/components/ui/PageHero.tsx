@@ -22,7 +22,7 @@ export default function PageHero({
           src={backgroundImage} 
           alt={title}
           fill 
-          className="object-cover object-center"
+          className="object-cover object-center scale-[1.03] animate-[imageScaleIn_1.5s_var(--ease-out-expo)_forwards]"
           priority
           sizes="100vw"
         />
@@ -41,13 +41,13 @@ export default function PageHero({
             </div>
           )}
           
-          <div className="space-y-4 max-w-4xl">
+          <div className="space-y-5 max-w-4xl">
             {subtitle && (
-              <p className="font-body text-[var(--bronze)] tracking-[0.3em] uppercase text-xs md:text-sm">
+              <p className="font-body text-[var(--bronze)] tracking-[0.3em] uppercase text-xs md:text-sm anim-fade-up delay-1">
                 {subtitle}
               </p>
             )}
-            <h1 className="text-5xl sm:text-6xl md:text-[6.5rem] font-display italic text-[var(--cream)] leading-[1.05] tracking-tight pr-4 drop-shadow-xl">
+            <h1 className="text-5xl sm:text-6xl md:text-[6.5rem] font-display italic text-[var(--cream)] leading-[1.05] tracking-tight pr-4 drop-shadow-xl anim-fade-up delay-2">
               {title}
             </h1>
           </div>

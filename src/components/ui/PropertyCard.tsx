@@ -9,14 +9,14 @@ export default function PropertyCard({ property, index = 0 }: { property: Proper
   return (
     <Link
       href={`/properties/${property.slug}`}
-      className={`reveal stagger-${Math.min(index + 1, 6)} group cursor-pointer block`}
+      className={`reveal stagger-${Math.min(index + 1, 6)} group cursor-pointer block transform transition-all duration-700 ease-out-expo hover:-translate-y-1`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-6 shadow-sm group-hover:shadow-2xl transition-shadow duration-500">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-6 shadow-sm group-hover:shadow-[0_20px_40px_rgba(4,36,51,0.12)] transition-shadow duration-[1.2s] ease-out-expo">
         <Image
           src={property.image}
           alt={property.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out-expo"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 

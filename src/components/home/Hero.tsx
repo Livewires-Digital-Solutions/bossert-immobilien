@@ -15,7 +15,7 @@ export default function Hero() {
         fill
         priority
         quality={90}
-        className="object-cover object-center"
+        className="object-cover object-center scale-[1.03] animate-[imageScaleIn_2.5s_var(--ease-out-expo)_forwards]"
         sizes="100vw"
       />
 

@@ -45,24 +45,36 @@ export default function ContactForm() {
       
       <form className="font-body flex flex-col gap-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex flex-col">
-            <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">First Name</label>
-            <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="John" />
+          <div className="flex flex-col relative group">
+            <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2 group-focus-within:text-[var(--navy)] transition-colors duration-500 ease-out-circ">First Name</label>
+            <div className="relative">
+              <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none w-full text-sm" placeholder="John" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[var(--bronze)] group-focus-within:w-full transition-all duration-700 ease-out-expo" />
+            </div>
           </div>
-          <div className="flex flex-col">
-            <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Last Name</label>
-            <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="Doe" />
+          <div className="flex flex-col relative group">
+            <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2 group-focus-within:text-[var(--navy)] transition-colors duration-500 ease-out-circ">Last Name</label>
+            <div className="relative">
+              <input type="text" className="border-b border-gray-300 py-2 bg-transparent outline-none w-full text-sm" placeholder="Doe" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[var(--bronze)] group-focus-within:w-full transition-all duration-700 ease-out-expo" />
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Email Address</label>
-          <input type="email" className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm" placeholder="john@example.com" />
+        <div className="flex flex-col relative group">
+          <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2 group-focus-within:text-[var(--navy)] transition-colors duration-500 ease-out-circ">Email Address</label>
+          <div className="relative">
+            <input type="email" className="border-b border-gray-300 py-2 bg-transparent outline-none w-full text-sm" placeholder="john@example.com" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[var(--bronze)] group-focus-within:w-full transition-all duration-700 ease-out-expo" />
+          </div>
         </div>
 
-        <div className="flex flex-col">
-          <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2">Message</label>
-          <textarea rows={4} className="border-b border-gray-300 py-2 bg-transparent outline-none focus:border-[var(--bronze)] transition-colors text-sm resize-none" placeholder="How can we assist you?"></textarea>
+        <div className="flex flex-col relative group">
+          <label className="text-[0.65rem] tracking-[0.1em] uppercase text-gray-500 mb-2 group-focus-within:text-[var(--navy)] transition-colors duration-500 ease-out-circ">Message</label>
+          <div className="relative">
+            <textarea rows={4} className="border-b border-gray-300 py-2 bg-transparent outline-none w-full text-sm resize-none" placeholder="How can we assist you?"></textarea>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[var(--bronze)] group-focus-within:w-full transition-all duration-700 ease-out-expo" />
+          </div>
         </div>
 
         <div className="mt-4">

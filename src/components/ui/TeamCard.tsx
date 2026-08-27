@@ -8,9 +8,9 @@ export default function TeamCard({ member, index = 0 }: { member: TeamMember; in
   return (
     <Link
       href={`/about/team/${member.slug}`}
-      className={`reveal stagger-${Math.min(index + 1, 6)} flex flex-col items-center text-center group cursor-pointer`}
+      className={`reveal stagger-${Math.min(index + 1, 6)} flex flex-col items-center text-center group cursor-pointer transform transition-all duration-700 ease-out-expo hover:-translate-y-1`}
     >
-      <div className="relative w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-transparent group-hover:border-[var(--bronze)] transition-colors duration-300">
+      <div className="relative w-48 h-48 rounded-full overflow-hidden mb-6 shadow-sm group-hover:shadow-[0_12px_24px_rgba(4,36,51,0.12)] border-4 border-transparent group-hover:border-[var(--bronze)] transition-all duration-500 ease-out">
         <Image src={member.image} alt={member.name} fill className="object-cover" sizes="192px" />
       </div>
       <h3 className="font-display text-2xl text-[var(--navy)] mb-1 group-hover:text-[var(--bronze)] transition-colors">

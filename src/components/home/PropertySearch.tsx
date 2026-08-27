@@ -50,7 +50,7 @@ export default function PropertySearch() {
 
   return (
     <section className="relative z-20 -mt-16 md:-mt-24 px-6 md:px-10 mb-20 max-w-[1300px] mx-auto anim-fade-up">
-      <form onSubmit={handleSearch} className="bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-[var(--navy)]/10 p-6 md:p-8 flex flex-col gap-6 w-full">
+      <form onSubmit={handleSearch} className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_24px_48px_rgba(4,36,51,0.08)] border border-white/40 p-6 md:p-8 flex flex-col gap-6 w-full relative z-30">
         
         {/* TOP ROW: Basic Search */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end relative">
@@ -66,7 +66,7 @@ export default function PropertySearch() {
                 type="text" 
                 name="location"
                 placeholder="Where are you looking?" 
-                className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] outline-none transition-colors text-sm text-[var(--navy)] placeholder:text-gray-400 rounded-t-md"
+                className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] focus:bg-white focus:shadow-sm outline-none transition-all duration-500 ease-out-circ text-sm text-[var(--navy)] placeholder:text-gray-400 rounded-t-md"
               />
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function PropertySearch() {
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--bronze)] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
               </span>
-              <select name="type" className="w-full pl-10 pr-10 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] outline-none transition-colors text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
+              <select name="type" className="w-full pl-10 pr-10 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] focus:bg-white focus:shadow-sm outline-none transition-all duration-500 ease-out-circ text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
                 <option value="">Any type</option>
                 <optgroup label="House" className="font-bold">
                   <option value="House">All Houses</option>
@@ -108,7 +108,7 @@ export default function PropertySearch() {
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--bronze)] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
               </span>
-              <select name="bedrooms" className="w-full pl-10 pr-8 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] outline-none transition-colors text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
+              <select name="bedrooms" className="w-full pl-10 pr-8 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] focus:bg-white focus:shadow-sm outline-none transition-all duration-500 ease-out-circ text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
                 <option value="">Any</option>
                 {[1,2,3,4,5,6,7,8].map(num => (
                   <option key={num} value={num}>{num}+</option>
@@ -127,7 +127,7 @@ export default function PropertySearch() {
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--bronze)] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
               </span>
-              <select name="yearBuilt" className="w-full pl-10 pr-8 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] outline-none transition-colors text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
+              <select name="yearBuilt" className="w-full pl-10 pr-8 py-3 bg-gray-50/50 border-b-2 border-gray-100 focus:border-[var(--bronze)] focus:bg-white focus:shadow-sm outline-none transition-all duration-500 ease-out-circ text-sm text-[var(--navy)] appearance-none cursor-pointer rounded-t-md">
                 <option value="">Any</option>
                 <option value="2020">2020+</option>
                 <option value="2010">2010+</option>
@@ -146,7 +146,7 @@ export default function PropertySearch() {
             <button 
               type="submit"
               disabled={isSearching}
-              className="h-[46px] w-full bg-[var(--navy)] hover:bg-[#06334a] disabled:bg-[var(--navy)]/70 text-[var(--cream)] rounded-md flex items-center justify-center gap-2 transition-all font-body text-sm font-medium tracking-wide shadow-lg shadow-[var(--navy)]/20 hover:shadow-xl hover:-translate-y-0.5"
+              className="h-[46px] w-full bg-[var(--navy)] hover:bg-[var(--bronze)] disabled:bg-[var(--navy)]/70 text-[var(--cream)] rounded-md flex items-center justify-center gap-2 transition-all duration-400 ease-out-circ font-body text-sm font-medium tracking-wide shadow-[0_4px_12px_rgba(4,36,51,0.1)] hover:shadow-[0_8px_20px_rgba(175,140,83,0.25)] hover:-translate-y-0.5"
             >
               {isSearching ? "Searching..." : "Search"}
               {!isSearching && (

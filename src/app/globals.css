@@ -20,6 +20,9 @@
   --color-bronze-light:  var(--bronze-light);
   --font-display:        var(--font-instrument), Georgia, serif;
   --font-body:           var(--font-inter), sans-serif;
+  --ease-out-expo:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-circ:       cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ease-in-out-quint:   cubic-bezier(0.83, 0, 0.17, 1);
 }
 
 /* ── Base reset ─────────────────────────────────────────────────────────── */
@@ -133,12 +136,12 @@ body {
 
 /* ── Stat card glassmorphism ────────────────────────────────────────────── */
 .stat-card {
-  background: rgba(4, 36, 51, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(175, 140, 83, 0.45);
+  background: rgba(4, 36, 51, 0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(175, 140, 83, 0.25);
   border-radius: 6px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* ── CTA Button ─────────────────────────────────────────────────────────── */
@@ -155,14 +158,16 @@ body {
   text-transform: uppercase;
   border-radius: 9999px;
   padding: 12px 18px 12px 26px;
-  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: background 0.4s var(--ease-out-circ), color 0.4s var(--ease-out-circ), transform 0.4s var(--ease-out-circ), box-shadow 0.4s var(--ease-out-circ);
   cursor: pointer;
   border: none;
   text-decoration: none;
   white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .cta-btn:hover {
-  box-shadow: 0 8px 24px rgba(254, 252, 246, 0.15);
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 16px 32px rgba(254, 252, 246, 0.2);
 }
 .cta-btn-icon {
   display: flex;
@@ -174,21 +179,23 @@ body {
   background: var(--navy);
   color: var(--cream);
   flex-shrink: 0;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s var(--ease-out-circ), background 0.4s var(--ease-out-circ), color 0.4s var(--ease-out-circ);
 }
 .cta-btn:hover .cta-btn-icon {
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
 .cta-btn-ghost {
   background: transparent;
   color: var(--navy);
   border: 1px solid var(--bronze);
+  box-shadow: none;
 }
 .cta-btn-ghost:hover {
   background: var(--bronze);
   color: var(--cream);
-  box-shadow: none;
+  box-shadow: 0 16px 32px rgba(175, 140, 83, 0.25);
+  border-color: var(--bronze);
 }
 .cta-btn-ghost .cta-btn-icon {
   background: var(--bronze);
@@ -204,11 +211,13 @@ body {
   background: transparent;
   color: var(--cream);
   border: 1px solid var(--bronze);
+  box-shadow: none;
 }
 .cta-btn-ghost-dark:hover {
   background: var(--bronze);
   color: var(--navy);
-  box-shadow: none;
+  box-shadow: 0 16px 32px rgba(175, 140, 83, 0.3);
+  border-color: var(--bronze);
 }
 .cta-btn-ghost-dark .cta-btn-icon {
   background: var(--bronze);
@@ -249,8 +258,8 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.2s var(--ease-out-expo),
+              transform 1.2s var(--ease-out-expo);
 }
 .reveal.in-view {
   opacity: 1;
@@ -258,9 +267,9 @@ body {
 }
 .reveal-left {
   opacity: 0;
-  transform: translateX(-32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-40px);
+  transition: opacity 1.2s var(--ease-out-expo),
+              transform 1.2s var(--ease-out-expo);
 }
 .reveal-left.in-view {
   opacity: 1;
@@ -268,9 +277,9 @@ body {
 }
 .reveal-right {
   opacity: 0;
-  transform: translateX(32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(40px);
+  transition: opacity 1.2s var(--ease-out-expo),
+              transform 1.2s var(--ease-out-expo);
 }
 .reveal-right.in-view {
   opacity: 1;
@@ -278,30 +287,35 @@ body {
 }
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.94);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.96);
+  transition: opacity 1.2s var(--ease-out-expo),
+              transform 1.2s var(--ease-out-expo);
 }
 .reveal-scale.in-view {
   opacity: 1;
   transform: scale(1);
 }
 
-/* Stagger delays for scroll reveal */
+/* Stagger delays for scroll reveal - non-linear for natural fan-out */
 .stagger-1 { transition-delay: 0.05s; }
-.stagger-2 { transition-delay: 0.12s; }
-.stagger-3 { transition-delay: 0.20s; }
-.stagger-4 { transition-delay: 0.28s; }
-.stagger-5 { transition-delay: 0.36s; }
-.stagger-6 { transition-delay: 0.44s; }
+.stagger-2 { transition-delay: 0.15s; }
+.stagger-3 { transition-delay: 0.28s; }
+.stagger-4 { transition-delay: 0.44s; }
+.stagger-5 { transition-delay: 0.63s; }
+.stagger-6 { transition-delay: 0.85s; }
 
 /* ── Page transition wrapper ──────────────────────────────────────── */
 @keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 .page-enter {
-  animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: pageFadeIn 0.9s var(--ease-in-out-quint) both;
+}
+
+@keyframes imageScaleIn {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
 }
 
 /* ── Custom Scrollbar ───────────────────────────────────────────────────── */
