@@ -8,7 +8,7 @@ export default function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { ref: sectionRef, isVisible } = useSectionReveal(0.2);
   const t = useTranslations('Designer');
-  const testimonials = (t.raw('testimonials.list') as any[]);
+  const testimonials = t('testimonials.list');
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
