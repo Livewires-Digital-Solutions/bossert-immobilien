@@ -136,7 +136,10 @@ export default function PropertiesPage() {
               <p className="font-body text-sm text-[var(--foreground)]/50">Try adjusting your search or filters</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div 
+              key={`${search}-${location}-${type}-${price}`}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            >
               {filtered.map((property, idx) => (
                 <PropertyCard key={property.id} property={property} index={idx} />
               ))}

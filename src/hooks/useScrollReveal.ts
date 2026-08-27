@@ -41,7 +41,29 @@ export function useScrollReveal(containerRef?: React.RefObject<HTMLElement | nul
       );
 
       targets.forEach((el) => observer.observe(el));
-      return () => observer.disconnect();
+
+      // Observe newly added elements (e.g. from client-side filtering/pagination)
+      const mutationObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              if (node.matches(".reveal, .reveal-left, .reveal-right, .reveal-scale")) {
+                observer.observe(node);
+              }
+              node.querySelectorAll<HTMLElement>(".reveal, .reveal-left, .reveal-right, .reveal-scale").forEach((el) => {
+                observer.observe(el);
+              });
+            }
+          });
+        });
+      });
+
+      mutationObserver.observe(root === document ? document.body : root, { childList: true, subtree: true });
+
+      return () => {
+        observer.disconnect();
+        mutationObserver.disconnect();
+      };
     }, 50); // 50ms is enough for Next.js to paint the new page
 
     return () => clearTimeout(timer);

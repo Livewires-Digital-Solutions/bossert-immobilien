@@ -68,7 +68,10 @@ export default async function SearchResultsPage({
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div 
+              key={`${q}-${location}-${type}-${price}`}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            >
               {results.map((property, idx) => (
                 <PropertyCard key={property.id} property={property} index={idx} />
               ))}
