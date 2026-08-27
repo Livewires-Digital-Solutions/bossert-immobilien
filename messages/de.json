@@ -43,6 +43,16 @@
     "clientsValue": "2.000+",
     "volumeValue": "€500 Mio+"
   },
+  "Blog": {
+    "relatedArticles": "Ähnliche Artikel",
+    "backToBlog": "Zurück zum Blog",
+    "allArticles": "Alle Artikel",
+    "articlesIn": "Artikel in {category}",
+    "noArticlesFound": "Keine Artikel in dieser Kategorie gefunden.",
+    "writtenBy": "Geschrieben von {author}",
+    "publishedOn": "Veröffentlicht am {date}",
+    "readMore": "Mehr lesen"
+  },
   "CTA": {
     "exploreProperties": "Immobilien Entdecken",
     "viewAllProperties": "Alle Immobilien Ansehen",

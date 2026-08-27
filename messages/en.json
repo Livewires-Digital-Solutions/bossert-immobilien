@@ -43,6 +43,16 @@
     "clientsValue": "2,000+",
     "volumeValue": "€500M+"
   },
+  "Blog": {
+    "relatedArticles": "Related Articles",
+    "backToBlog": "Back to Blog",
+    "allArticles": "All Articles",
+    "articlesIn": "Articles in {category}",
+    "noArticlesFound": "No articles found in this category.",
+    "writtenBy": "Written by {author}",
+    "publishedOn": "Published on {date}",
+    "readMore": "Read More"
+  },
   "CTA": {
     "exploreProperties": "Explore Properties",
     "viewAllProperties": "View All Properties",

@@ -105,6 +105,26 @@ export interface Location {
   stats: { label: string; value: string }[];
 }
 
+export interface BlogCategory {
+  slug: string;
+  label: string;
+  description: string;
+}
+
+export interface BlogArticle {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  content: string[];
+  image: string;
+  date: string;
+  readTime: string;
+  author: string;
+  featured: boolean;
+}
+
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PROPERTIES
 // ─────────────────────────────────────────────────────────────────────────────
@@ -775,3 +795,147 @@ export const COMPANY = {
     saturday: "Saturday: By Appointment",
   },
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOG
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  { label: "Market Trends", slug: "market-trends", description: "In-depth analysis of price movements, supply and demand, and regional market conditions." },
+  { label: "Buying Tips", slug: "buying-tips", description: "Practical advice to guide you through every stage of purchasing a property in Germany." },
+  { label: "Selling Strategies", slug: "selling-strategies", description: "Expert perspectives on how to position and present your property for maximum value." },
+  { label: "Lifestyle & Region", slug: "lifestyle-region", description: "Discover what makes Wiesbaden, Frankfurt, Mainz, and the Taunus such desirable places to live." },
+  { label: "Legal & Finance", slug: "legal-finance", description: "Clear explanations of German property law, taxes, financing, and notary processes." },
+  { label: "Interior & Design", slug: "interior-design", description: "Inspiration and guidance on staging, renovation, and making the most of your space." },
+];
+
+export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: "rhine-main-market-outlook-2025",
+    category: "Market Trends",
+    title: "Rhine-Main Property Market: What to Expect in 2025",
+    excerpt: "After a period of repricing and recalibration, the Rhine-Main residential market is showing clear signs of stabilisation. We break down what buyers and sellers should prepare for.",
+    content: [
+      "The past 24 months have seen significant shifts in the German property market, driven largely by the European Central Bank's interest rate policies and evolving buyer preferences. However, as we look towards 2025, the Rhine-Main region — encompassing Frankfurt, Wiesbaden, Mainz, and the Taunus — is exhibiting a robust stabilization.",
+      "For buyers, the current market presents a rare window of opportunity. While peak prices from the low-interest era have recalibrated, the underlying fundamentals of the region remain exceptionally strong. Frankfurt's position as a financial hub continues to draw international talent, while the surrounding areas offer the high quality of life that affluent families seek.",
+      "Sellers must adapt to a more discerning buyer pool. Properties that are well-maintained, energy-efficient, and realistically priced are still moving quickly. However, those requiring significant renovation or carrying poor energy ratings (Energieausweis) are facing longer marketing periods and tougher negotiations.",
+      "Looking ahead, we anticipate a modest but steady appreciation in premium properties, particularly in prime locations like Wiesbaden's Nordost and the Taunus hills, where supply remains structurally constrained. Engaging an experienced local advisor is more critical than ever to navigate these nuanced conditions successfully."
+    ],
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+    date: "July 2025", readTime: "6 min read", author: "Thomas Bossert", featured: true,
+  },
+  {
+    slug: "wiesbaden-top-neighbourhoods-2025",
+    category: "Lifestyle & Region",
+    title: "Wiesbaden's Most Sought-After Neighbourhoods in 2025",
+    excerpt: "From the elegant Nordstadt to the leafy villas of Biebrich, we explore which districts are commanding premium prices and why buyers keep returning.",
+    content: [
+      "Wiesbaden has long been the crown jewel of the Rhine-Main region, renowned for its Belle Époque architecture, thermal springs, and unparalleled quality of life. For buyers looking to settle in the Hessian capital, choosing the right neighbourhood is paramount.",
+      "The **Nordost (North East)** remains the undisputed premier address. Known as the 'Villenviertel' (Villa Quarter), it boasts magnificent historic mansions, mature tree-lined avenues, and immediate proximity to the Kurpark. Properties here are generational assets and rarely change hands publicly, making off-market access essential.",
+      "**Sonnenberg** offers a slightly different appeal. Nestled against the Taunus hills, it provides a more suburban, tranquil atmosphere while still being minutes from the city centre. It is particularly popular with families seeking larger plots, modern amenities, and excellent local schools.",
+      "Finally, **Biebrich**, situated along the Rhine river, is experiencing a renaissance. The area around the Biebrich Palace offers a unique maritime flair, with beautifully restored historic apartments that appeal to young professionals and downsizers alike. As the city evolves, these three districts continue to offer the best blend of heritage, convenience, and long-term value retention."
+    ],
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
+    date: "June 2025", readTime: "5 min read", author: "Julia Meier", featured: true,
+  },
+  {
+    slug: "selling-your-property-in-germany",
+    category: "Selling Strategies",
+    title: "5 Steps to Selling Your Property for the Right Price in Germany",
+    excerpt: "The German property market rewards well-prepared sellers. Here is the step-by-step approach our advisors use to achieve above-asking results consistently.",
+    content: [
+      "Selling a premium property in Germany requires more than just listing it on a public portal. In today's market, maximizing value demands a strategic, highly professional approach from day one.",
+      "**1. Accurate Market Valuation:** The most common mistake sellers make is overpricing. An inflated initial price leads to extended time on the market, which ultimately devalues the property. A precise, data-driven valuation by a local expert sets the foundation for a successful sale.",
+      "**2. Flawless Presentation:** High-net-worth buyers expect perfection. This means investing in professional styling, high-end photography, and potentially minor cosmetic updates before the first viewing. An immaculate presentation can increase the final sale price by up to 10%.",
+      "**3. Document Preparation:** German real estate transactions are legally meticulous. Having all documents ready — including the Grundbuchauszug (land register excerpt), floor plans, building permits, and a valid Energieausweis (energy certificate) — prevents delays and builds buyer confidence.",
+      "**4. Targeted Marketing:** Premium properties often benefit from discreet, off-market placement. By leveraging a curated network of pre-qualified buyers, you can achieve excellent results without the privacy compromises of a public listing.",
+      "**5. Professional Negotiation:** The final stage requires tact, market knowledge, and experience. An expert broker will not only negotiate the price but also manage the notary process, ensuring a smooth, secure, and legally sound transaction."
+    ],
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    date: "May 2025", readTime: "7 min read", author: "Thomas Bossert", featured: true,
+  },
+  {
+    slug: "buying-first-property-frankfurt",
+    category: "Buying Tips",
+    title: "A First-Time Buyer's Guide to Frankfurt's Property Market",
+    excerpt: "Navigating a new property market can be daunting. Our Frankfurt specialists walk you through financing, notary procedures, and neighbourhood selection.",
+    content: [
+      "Purchasing your first property in Frankfurt is an exciting milestone, but the German real estate process has unique nuances that can catch international buyers off guard. Preparation is the key to a smooth transaction.",
+      "Firstly, understand your financing options before you start viewing. In Germany, it is highly recommended to obtain a financing certificate (Finanzierungsbestätigung) from your bank in advance. This demonstrates to sellers that you are a serious, qualified buyer, giving you a crucial edge in a competitive market.",
+      "Next, familiarize yourself with the additional purchase costs (Kaufnebenkosten). In Hessen, these include the property transfer tax (Grunderwerbsteuer) at 6%, notary fees (approx. 1.5%), and land registry fees (approx. 0.5%). These must be factored into your total budget from the outset.",
+      "Location strategy is also vital. While the Westend and Nordend are perennial favorites, emerging districts like the Ostend (near the ECB) offer excellent long-term potential. Working with a local advisor who understands the micro-markets can help you identify areas poised for growth that align with your lifestyle needs."
+    ],
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    date: "April 2025", readTime: "8 min read", author: "Sarah Hoffmann", featured: false,
+  },
+  {
+    slug: "grunderwerbsteuer-explained",
+    category: "Legal & Finance",
+    title: "Grunderwerbsteuer Explained: What Every Buyer Needs to Know",
+    excerpt: "Germany's property transfer tax can add 3-6% to your purchase cost. We explain how it works, when it applies, and how to budget for it correctly.",
+    content: [
+      "The Grunderwerbsteuer (Property Transfer Tax) is one of the most significant ancillary costs when buying real estate in Germany. Unlike the purchase price, this tax is non-negotiable and must be paid promptly after the purchase contract is notarized.",
+      "The tax rate varies by federal state. In Hessen (covering Frankfurt and Wiesbaden) and Rhineland-Palatinate (covering Mainz), the rate is currently set at 6.0% and 5.0% respectively. This means on a €2 million property in Frankfurt, you must budget an additional €120,000 just for this tax.",
+      "It is crucial to note that the tax is calculated on the total purchase price of the property, including the land and the building. However, certain movable assets included in the sale, such as a fitted kitchen (Einbauküche) or freestanding furniture, can sometimes be deducted from the taxable amount if explicitly stated and reasonably valued in the purchase contract.",
+      "The local tax authority (Finanzamt) will issue a tax assessment notice shortly after notarization. Only once this tax is paid will the tax office issue a clearance certificate (Unbedenklichkeitsbescheinigung), which is required for the final transfer of ownership in the land register (Grundbuch)."
+    ],
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    date: "March 2025", readTime: "5 min read", author: "Marcus Braun", featured: false,
+  },
+  {
+    slug: "staging-your-home-for-sale",
+    category: "Interior & Design",
+    title: "How to Stage Your Home for a Faster, Higher Sale",
+    excerpt: "First impressions sell properties. Our interior specialists share the proven staging techniques that help Bossert listings achieve premium results.",
+    content: [
+      "In the luxury real estate market, buyers are not just purchasing a structure; they are purchasing a lifestyle. Home staging is the art of presenting that lifestyle in its most appealing form, allowing potential buyers to instantly envision themselves living there.",
+      "The core principle of staging is depersonalization. Removing personal photographs, unique collections, and bold personal color choices creates a neutral canvas. This doesn't mean the space should feel sterile—rather, it should feel like a high-end boutique hotel: inviting, elegant, and universally appealing.",
+      "Lighting plays a disproportionate role in buyer psychology. Ensure every room is maximally lit during viewings. Clean all windows, open all blinds, and strategically place lamps in darker corners to create a warm, expansive atmosphere.",
+      "Finally, define the purpose of every room. A spare room filled with boxes and a treadmill confuses buyers. By staging it clearly as a stylish home office or a welcoming guest bedroom, you add tangible value to the property's narrative. At Bossert Immobilien, our interior partners frequently utilize these techniques to reduce time-on-market and increase final sale values."
+    ],
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
+    date: "February 2025", readTime: "4 min read", author: "Julia Meier", featured: false,
+  },
+  {
+    slug: "taunus-luxury-real-estate",
+    category: "Lifestyle & Region",
+    title: "Life in the Taunus: Why High-Net-Worth Buyers Are Moving Out of the City",
+    excerpt: "Sweeping views, fresh air, and a 20-minute commute to Frankfurt — the Taunus Hills are attracting a new generation of discerning buyers seeking space without sacrifice.",
+    content: [
+      "The pandemic fundamentally altered how we view our living spaces, but even as urban life has fully resumed, the appeal of the Taunus region continues to grow among affluent buyers. Towns like Kronberg, Königstein, and Bad Homburg offer a compelling alternative to Frankfurt's dense city center.",
+      "The primary draw is space. Buyers are prioritizing extensive private gardens, multiple home offices, and proximity to nature. The Taunus delivers this in abundance, with sweeping views over the Rhine-Main plain and immediate access to forested hiking trails.",
+      "Crucially, moving to the Taunus does not mean sacrificing convenience. The region boasts excellent international schools, prestigious golf and country clubs, and Michelin-starred dining. Furthermore, the commute to Frankfurt's financial district or the international airport rarely exceeds 25 minutes.",
+      "We are seeing a notable demographic shift, with younger, internationally mobile families driving demand for modernised heritage villas and contemporary architectural builds in the Taunus. This sustained demand makes the region not just a lifestyle upgrade, but a remarkably resilient investment."
+    ],
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    date: "January 2025", readTime: "6 min read", author: "Thomas Bossert", featured: false,
+  },
+  {
+    slug: "interest-rates-property-values",
+    category: "Market Trends",
+    title: "How Interest Rate Changes Are Reshaping German Property Values",
+    excerpt: "The ECB rate cycle has had a profound effect on affordability and buyer behaviour. We analyse the data and explain what it means for your portfolio.",
+    content: [
+      "The European Central Bank's monetary policy is the single largest macroeconomic driver of real estate values. After the rapid rate hikes that characterized recent years, the current stabilization is bringing renewed predictability to the German property market.",
+      "Higher borrowing costs have naturally compressed affordability for some segments of the market. However, in the luxury sector where Bossert Immobilien operates, the impact has been more nuanced. High-net-worth buyers often utilize higher equity ratios, insulating them somewhat from mortgage rate volatility.",
+      "What has changed is the negotiation dynamic. Buyers are more discerning and less willing to engage in aggressive bidding wars for properties that require significant capital expenditure, particularly regarding energy efficiency upgrades.",
+      "Conversely, 'turn-key' properties in prime locations (such as Frankfurt's Westend or Wiesbaden's Nordost) continue to command premium prices, as they offer immediate utility and act as a safe haven against inflation. Understanding this divergence is crucial for investors looking to optimize their portfolios in the current cycle."
+    ],
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
+    date: "December 2024", readTime: "7 min read", author: "Marcus Braun", featured: false,
+  },
+  {
+    slug: "off-market-properties-explained",
+    category: "Buying Tips",
+    title: "Off-Market Properties: How to Access Deals That Never Go Public",
+    excerpt: "The most desirable properties in the Rhine-Main region rarely reach a portal. We reveal how experienced buyers gain access to the discreet side of the market.",
+    content: [
+      "In the premium real estate sector, a significant portion of transactions occur entirely out of the public eye. These 'off-market' sales are preferred by high-profile sellers who value discretion, security, and a highly controlled sales process over mass exposure.",
+      "For buyers, off-market properties represent exclusive opportunities to acquire exceptional assets without the pressure of public bidding wars. However, accessing this hidden inventory requires strategy and the right connections.",
+      "The key to unlocking off-market deals is establishing a relationship with a well-connected, specialized broker. At Bossert Immobilien, we maintain a highly curated, confidential database of pre-qualified buyers. When a discreet listing becomes available, we match it directly with buyers whose profiles align with the property.",
+      "To position yourself effectively, ensure your financing is pre-approved and clearly communicate your specific requirements to your broker. By acting decisively and maintaining confidentiality, you become a preferred candidate for these exclusive, non-public opportunities."
+    ],
+    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
+    date: "November 2024", readTime: "5 min read", author: "Sarah Hoffmann", featured: false,
+  },
+];
