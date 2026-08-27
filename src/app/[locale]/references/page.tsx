@@ -1,9 +1,9 @@
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ReferenceCard from "@/components/ui/ReferenceCard";
-import { REFERENCES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 export const metadata: Metadata = {
@@ -12,8 +12,34 @@ export const metadata: Metadata = {
     "A selection of completed transactions and client success stories from Bossert Immobilien — demonstrating our track record across villas, penthouses, and estate sales.",
 };
 
-export default function ReferencesPage() {
-  const t = useTranslations("CTA");
+export default async function ReferencesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CTA" });
+
+  const dbReferences = await prisma.reference.findMany({
+    where: { published: true },
+    include: { images: { orderBy: { order: "asc" } } },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const references = dbReferences.map(r => ({
+    id: r.id,
+    slug: r.slug,
+    title: locale === 'de' ? r.titleDe : r.titleEn,
+    category: r.category as any,
+    location: r.location,
+    year: r.year,
+    summary: locale === 'de' ? r.summaryDe : r.summaryEn,
+    description: locale === 'de' ? r.descriptionDe : r.descriptionEn,
+    result: r.result,
+    testimonial: {
+      quote: r.testimonialQuote,
+      author: r.testimonialAuthor,
+    },
+    image: r.images[0]?.url || "",
+    images: r.images.map(img => img.url),
+  }));
+
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -34,7 +60,7 @@ export default function ReferencesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {REFERENCES.map((ref, idx) => (
+            {references.map((ref, idx) => (
               <ReferenceCard key={ref.id} reference={ref} index={idx} />
             ))}
           </div>
@@ -52,8 +78,8 @@ export default function ReferencesPage() {
             className="mb-16"
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {REFERENCES.map((ref, i) => (
-              <div key={ref.id} className={`reveal stagger-${i + 1} stat-card px-8 py-10`}>
+            {references.map((ref, i) => (
+              <div key={ref.id} className={`reveal stagger-${i + 1} stat-card px-8 py-10`} id={`reference-stat-${ref.slug}`}>
                 <blockquote>
                   <p className="font-display text-lg text-[var(--cream)] italic leading-relaxed mb-6">
                     &ldquo;{ref.testimonial.quote}&rdquo;

@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
-import { BLOG_CATEGORIES, BLOG_ARTICLES } from "@/config";
+import { BLOG_CATEGORIES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -30,7 +31,22 @@ export default async function BlogCategoryPage({ params }: Props) {
   
   if (!category) notFound();
 
-  const articles = BLOG_ARTICLES.filter((a) => a.category === category.label);
+  const dbArticles = await prisma.blogPost.findMany({
+    where: { category: category.label, published: true },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const articles = dbArticles.map((p) => ({
+    slug: p.slug,
+    category: p.category,
+    title: locale === 'de' ? p.titleDe : p.titleEn,
+    excerpt: locale === 'de' ? p.excerptDe : p.excerptEn,
+    image: p.image,
+    date: p.date,
+    readTime: p.readTime,
+    author: p.author,
+  }));
+
   const tBlog = await getTranslations({ locale, namespace: "Blog" });
   const t = await getTranslations({ locale, namespace: "CTA" });
 

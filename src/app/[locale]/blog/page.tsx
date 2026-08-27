@@ -11,10 +11,8 @@ export const metadata: Metadata = {
     "Stories, market insights, and expert perspectives from the Bossert Immobilien team. Explore our latest articles on real estate trends, lifestyle, and the Rhine-Main region.",
 };
 
-import { BLOG_CATEGORIES, BLOG_ARTICLES } from "@/config";
-
-const featured = BLOG_ARTICLES.filter((p) => p.featured);
-const rest = BLOG_ARTICLES.filter((p) => !p.featured);
+import { BLOG_CATEGORIES } from "@/config";
+import { prisma } from "@/lib/prisma";
 
 export default async function BlogPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
@@ -22,6 +20,26 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
   const t = await getTranslations({ locale, namespace: "CTA" });
   const tBlog = await getTranslations({ locale, namespace: "Blog" });
   const tNav = await getTranslations({ locale, namespace: "Navbar" });
+
+  const dbPosts = await prisma.blogPost.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" }
+  });
+
+  const posts = dbPosts.map(p => ({
+    slug: p.slug,
+    category: p.category,
+    title: locale === 'de' ? p.titleDe : p.titleEn,
+    excerpt: locale === 'de' ? p.excerptDe : p.excerptEn,
+    image: p.image,
+    date: p.date,
+    readTime: p.readTime,
+    author: p.author,
+    featured: p.featured,
+  }));
+
+  const featured = posts.filter((p) => p.featured);
+  const rest = posts.filter((p) => !p.featured);
 
   return (
     <div className="bg-[var(--background)] min-h-screen">

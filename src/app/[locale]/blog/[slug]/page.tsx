@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
-import { BLOG_ARTICLES, BLOG_CATEGORIES } from "@/config";
+import { BLOG_CATEGORIES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -11,23 +12,26 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return BLOG_ARTICLES.map((a) => ({ slug: a.slug }));
+  const posts = await prisma.blogPost.findMany({ select: { slug: true } });
+  return posts.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = BLOG_ARTICLES.find((a) => a.slug === slug);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { slug } = params;
+  const article = await prisma.blogPost.findUnique({ where: { slug } });
   if (!article) return {};
   return {
-    title: `${article.title} – Blog – Bossert Immobilien`,
-    description: article.excerpt,
+    title: `${params.locale === 'de' ? article.titleDe : article.titleEn} – Blog – Bossert Immobilien`,
+    description: params.locale === 'de' ? article.excerptDe : article.excerptEn,
   };
 }
 
-export default async function BlogArticlePage({ params }: Props) {
-  const { slug, locale } = await params;
-  const article = BLOG_ARTICLES.find((a) => a.slug === slug);
+export default async function BlogArticlePage(props: Props) {
+  const params = await props.params;
+  const { slug, locale } = params;
   
+  const article = await prisma.blogPost.findUnique({ where: { slug } });
   if (!article) notFound();
 
   const t = await getTranslations({ locale, namespace: "CTA" });
@@ -36,19 +40,27 @@ export default async function BlogArticlePage({ params }: Props) {
   const category = BLOG_CATEGORIES.find((c) => c.label === article.category);
   const categorySlug = category ? category.slug : article.category.toLowerCase().replace(/\s+/g, '-');
 
-  const related = BLOG_ARTICLES.filter((a) => a.category === article.category && a.slug !== slug).slice(0, 3);
+  const related = await prisma.blogPost.findMany({
+    where: { category: article.category, slug: { not: slug }, published: true },
+    take: 3
+  });
+
+  const title = locale === 'de' ? article.titleDe : article.titleEn;
+  const excerpt = locale === 'de' ? article.excerptDe : article.excerptEn;
+  // content is stored as JSON array in DB
+  const content = (locale === 'de' ? article.contentDe : article.contentEn) as string[];
 
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <DetailHero
         image={article.image}
         eyebrow={`${article.category} · ${article.readTime}`}
-        title={article.title}
+        title={title}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Blog", href: "/blog" },
           { label: article.category, href: `/blog/category/${categorySlug}` },
-          { label: article.title },
+          { label: title },
         ]}
       />
 
@@ -66,9 +78,9 @@ export default async function BlogArticlePage({ params }: Props) {
 
             <div className="flex flex-col gap-6">
               <p className="font-body text-lg text-[var(--navy)] font-medium leading-[1.7] mb-4">
-                {article.excerpt}
+                {excerpt}
               </p>
-              {article.content.map((para, i) => {
+              {content.map((para: string, i: number) => {
                 // simple markdown bold parsing for text
                 const parts = para.split(/(\*\*.*?\*\*)/g);
                 return (
@@ -108,9 +120,9 @@ export default async function BlogArticlePage({ params }: Props) {
                       <li key={r.slug}>
                         <Link href={`/blog/${r.slug}`} className="group flex gap-3 items-start" id={`article-related-${r.slug}`}>
                           <div className="relative w-16 h-12 rounded-lg overflow-hidden shrink-0">
-                            <Image src={r.image} alt={r.title} fill className="object-cover" sizes="64px" />
+                            <Image src={r.image} alt={r.titleEn} fill className="object-cover" sizes="64px" />
                           </div>
-                          <p className="font-body text-sm text-[var(--navy)] group-hover:text-[var(--bronze)] transition-colors leading-snug">{r.title}</p>
+                          <p className="font-body text-sm text-[var(--navy)] group-hover:text-[var(--bronze)] transition-colors leading-snug">{locale === 'de' ? r.titleDe : r.titleEn}</p>
                         </Link>
                       </li>
                     ))}

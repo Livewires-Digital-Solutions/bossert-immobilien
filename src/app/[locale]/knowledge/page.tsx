@@ -3,9 +3,10 @@ import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ArticleCard from "@/components/ui/ArticleCard";
-import { ARTICLES, KNOWLEDGE_CATEGORIES } from "@/config";
+import { KNOWLEDGE_CATEGORIES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Knowledge Hub – Bossert Immobilien",
@@ -13,9 +14,27 @@ export const metadata: Metadata = {
     "Practical guidance, market insights, and expert advice from the Bossert Immobilien team. Explore guides on buying, selling, valuation, renting, and more.",
 };
 
-export default function KnowledgePage() {
-  const t = useTranslations("CTA");
-  const featured = ARTICLES.slice(0, 3);
+export default async function KnowledgePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CTA" });
+
+  const dbArticles = await prisma.knowledgeArticle.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+    take: 3
+  });
+
+  const featured = dbArticles.map(p => ({
+    slug: p.slug,
+    category: p.category as any,
+    title: locale === 'de' ? p.titleDe : p.titleEn,
+    excerpt: locale === 'de' ? p.excerptDe : p.excerptEn,
+    image: p.image,
+    date: p.date,
+    readTime: p.readTime,
+    author: p.author,
+    content: [],
+  }));
 
   return (
     <div className="bg-[var(--background)] min-h-screen">

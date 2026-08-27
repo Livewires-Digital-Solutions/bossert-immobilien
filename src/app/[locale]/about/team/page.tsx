@@ -1,9 +1,9 @@
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import TeamCard from "@/components/ui/TeamCard";
-import { TEAM_MEMBERS } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Our Team – Bossert Immobilien",
@@ -11,8 +11,27 @@ export const metadata: Metadata = {
     "Meet the expert advisors behind Bossert Immobilien — three decades of combined local market knowledge, discretion, and proven results.",
 };
 
-export default function TeamPage() {
-  const t = useTranslations("CTA");
+export default async function TeamPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CTA" });
+
+  const dbMembers = await prisma.teamMember.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+  });
+
+  const members = dbMembers.map(m => ({
+    slug: m.slug,
+    name: m.name,
+    role: m.role,
+    image: m.image,
+    bio: locale === 'de' ? m.bioDe : m.bioEn,
+    email: m.email,
+    phone: m.phone,
+    languages: m.languages as string[],
+    specialties: m.specialties as string[],
+  }));
+
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
@@ -36,8 +55,8 @@ export default function TeamPage() {
             className="mb-16"
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-            {TEAM_MEMBERS.map((member, idx) => (
-              <TeamCard key={member.slug} member={member} index={idx} />
+            {members.map((member, idx) => (
+              <TeamCard key={member.slug} member={member as any} index={idx} />
             ))}
           </div>
         </div>

@@ -3,44 +3,56 @@ import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { REFERENCES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
-  return REFERENCES.map((r) => ({ id: r.slug }));
+  const references = await prisma.reference.findMany({ select: { slug: true } });
+  return references.map((r) => ({ id: r.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const ref = REFERENCES.find((r) => r.slug === id);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { id } = params;
+  const ref = await prisma.reference.findUnique({ where: { slug: id } });
   if (!ref) return {};
   return {
-    title: `${ref.title} – References – Bossert Immobilien`,
-    description: ref.summary,
+    title: `${params.locale === 'de' ? ref.titleDe : ref.titleEn} – References – Bossert Immobilien`,
+    description: params.locale === 'de' ? ref.summaryDe : ref.summaryEn,
   };
 }
 
-export default async function ReferenceDetailPage({ params }: Props) {
-  const { id } = await params;
-  const ref = REFERENCES.find((r) => r.slug === id);
-  const t = await getTranslations("CTA");
+export default async function ReferenceDetailPage(props: Props) {
+  const params = await props.params;
+  const { id, locale } = params;
+  
+  const ref = await prisma.reference.findUnique({ 
+    where: { slug: id },
+    include: { images: { orderBy: { order: "asc" } } }
+  });
+  
+  const t = await getTranslations({ locale, namespace: "CTA" });
   if (!ref) notFound();
+
+  const title = locale === 'de' ? ref.titleDe : ref.titleEn;
+  const description = locale === 'de' ? ref.descriptionDe : ref.descriptionEn;
+  const images = ref.images.map(img => img.url);
 
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <DetailHero
-        image={ref.images[0]}
+        image={images[0]}
         eyebrow={`${ref.category} · ${ref.location} · ${ref.year}`}
-        title={ref.title}
+        title={title}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "References", href: "/references" },
-          { label: ref.title },
+          { label: title },
         ]}
       />
 
@@ -51,19 +63,19 @@ export default async function ReferenceDetailPage({ params }: Props) {
           <div className="lg:col-span-2">
             <div className="reveal mb-12">
               <SectionHeader eyebrow="Case Study" title="What We Did" className="mb-6" />
-              <p className="font-body text-base text-[var(--foreground)]/70 leading-relaxed">{ref.description}</p>
+              <p className="font-body text-base text-[var(--foreground)]/70 leading-relaxed">{description}</p>
             </div>
 
             {/* Gallery */}
-            {ref.images.length > 1 && (
+            {images.length > 1 && (
               <div className="reveal mb-12">
                 <h3 className="font-display text-2xl text-[var(--navy)] mb-6">Property Gallery</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {ref.images.slice(1).map((img, i) => (
+                  {images.slice(1).map((img: string, i: number) => (
                     <div key={i} className="relative aspect-[4/3] overflow-hidden rounded-xl">
                       <Image
                         src={img}
-                        alt={`${ref.title} — gallery ${i + 2}`}
+                        alt={`${title} — gallery ${i + 2}`}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-700"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -78,10 +90,10 @@ export default async function ReferenceDetailPage({ params }: Props) {
             <div className="reveal border-l-2 border-[var(--bronze)] pl-8 py-2">
               <blockquote>
                 <p className="font-display text-xl italic text-[var(--navy)] leading-relaxed mb-4">
-                  &ldquo;{ref.testimonial.quote}&rdquo;
+                  &ldquo;{ref.testimonialQuote}&rdquo;
                 </p>
                 <footer>
-                  <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body">{ref.testimonial.author}</span>
+                  <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body">{ref.testimonialAuthor}</span>
                 </footer>
               </blockquote>
             </div>

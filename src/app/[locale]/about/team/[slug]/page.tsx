@@ -1,33 +1,42 @@
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
-import { TEAM_MEMBERS } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
-  return TEAM_MEMBERS.map((m) => ({ slug: m.slug }));
+  const members = await prisma.teamMember.findMany({ select: { slug: true } });
+  return members.map((m) => ({ slug: m.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const member = TEAM_MEMBERS.find((m) => m.slug === slug);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { slug } = params;
+  const member = await prisma.teamMember.findUnique({ where: { slug } });
   if (!member) return {};
   return {
     title: `${member.name} – Bossert Immobilien`,
-    description: member.bio.slice(0, 155),
+    description: (params.locale === 'de' ? member.bioDe : member.bioEn).slice(0, 155),
   };
 }
 
-export default async function TeamMemberPage({ params }: Props) {
-  const { slug } = await params;
-  const member = TEAM_MEMBERS.find((m) => m.slug === slug);
-  const t = await getTranslations("CTA");
+export default async function TeamMemberPage(props: Props) {
+  const params = await props.params;
+  const { slug, locale } = params;
+  
+  const member = await prisma.teamMember.findUnique({ where: { slug } });
   if (!member) notFound();
+
+  const t = await getTranslations({ locale, namespace: "CTA" });
+
+  const bio = locale === 'de' ? member.bioDe : member.bioEn;
+  const specialties = member.specialties as string[];
+  const languages = member.languages as string[];
 
   return (
     <div className="bg-[var(--background)] min-h-screen">
@@ -55,7 +64,7 @@ export default async function TeamMemberPage({ params }: Props) {
               {member.name}
             </h2>
             <p className="font-body text-[var(--foreground)]/70 text-base leading-relaxed mb-6">
-              {member.bio}
+              {bio}
             </p>
           </div>
 
@@ -65,7 +74,7 @@ export default async function TeamMemberPage({ params }: Props) {
             <div className="reveal stagger-1">
               <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-3">Specialties</p>
               <ul className="flex flex-col gap-2">
-                {member.specialties.map((s) => (
+                {specialties.map((s) => (
                   <li key={s} className="flex items-center gap-2 font-body text-sm text-[var(--foreground)]/75">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--bronze)] shrink-0" />
                     {s}
@@ -78,7 +87,7 @@ export default async function TeamMemberPage({ params }: Props) {
             <div className="reveal stagger-2">
               <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-3">Languages</p>
               <div className="flex flex-wrap gap-2">
-                {member.languages.map((lang) => (
+                {languages.map((lang) => (
                   <span key={lang} className="text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.1em] uppercase border border-[var(--bronze)]/30 px-3 py-1 rounded-full">
                     {lang}
                   </span>

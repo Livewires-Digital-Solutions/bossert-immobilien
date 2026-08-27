@@ -1,20 +1,18 @@
 import { COMPANY } from "@/config";
 import ContactForm from "@/components/ui/ContactForm";
+import PageHero from "@/components/ui/PageHero";
 import { Suspense } from "react";
 
 export default function ContactPage() {
   return (
     <div className="bg-[var(--background)] min-h-screen">
-      {/* Mini Hero */}
-      <section className="page-hero px-6">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-        <div className="relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-display text-[var(--cream)] mb-4">Get in Touch</h1>
-          <p className="font-body text-[var(--cream)]/70 tracking-[0.2em] uppercase text-xs">
-            We are here for you
-          </p>
-        </div>
-      </section>
+      {/* Hero */}
+      <PageHero
+        title="Get in Touch"
+        subtitle="We are here for you"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+        backgroundImage="https://images.unsplash.com/photo-1577493340887-b7bfff550145?auto=format&fit=crop&q=80&w=2000"
+      />
 
       <section className="py-24 px-6 md:px-10 bg-[var(--cream)]">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">

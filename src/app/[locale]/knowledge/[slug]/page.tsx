@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
-import SectionHeader from "@/components/ui/SectionHeader";
-import { ARTICLES } from "@/config";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -12,38 +11,49 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return ARTICLES.map((a) => ({ slug: a.slug }));
+  const articles = await prisma.knowledgeArticle.findMany({ select: { slug: true } });
+  return articles.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = ARTICLES.find((a) => a.slug === slug);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const { slug } = params;
+  const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
   if (!article) return {};
   return {
-    title: `${article.title} – Knowledge – Bossert Immobilien`,
-    description: article.excerpt,
+    title: `${article.titleEn} – Knowledge – Bossert Immobilien`,
+    description: article.excerptEn,
   };
 }
 
-export default async function ArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const article = ARTICLES.find((a) => a.slug === slug);
-  const t = await getTranslations("CTA");
+export default async function ArticlePage(props: Props & { params: Promise<{ slug: string, locale: string }> }) {
+  const params = await props.params;
+  const { slug, locale } = params;
+  
+  const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
   if (!article) notFound();
 
-  const related = ARTICLES.filter((a) => a.category === article.category && a.slug !== slug).slice(0, 2);
+  const t = await getTranslations({ locale, namespace: "CTA" });
+
+  const related = await prisma.knowledgeArticle.findMany({
+    where: { category: article.category, slug: { not: slug }, published: true },
+    take: 2
+  });
+
+  const title = locale === 'de' ? article.titleDe : article.titleEn;
+  const content = (locale === 'de' ? article.contentDe : article.contentEn) as string[];
 
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <DetailHero
         image={article.image}
         eyebrow={`${article.category} · ${article.readTime}`}
-        title={article.title}
+        title={title}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Knowledge", href: "/knowledge" },
           { label: article.category, href: `/knowledge/${article.category.toLowerCase()}` },
-          { label: article.title },
+          { label: title },
         ]}
       />
 
@@ -60,7 +70,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
 
             <div className="flex flex-col gap-6">
-              {article.content.map((para, i) => (
+              {content.map((para: string, i: number) => (
                 <p key={i} className="font-body text-base text-[var(--foreground)]/75 leading-[1.8]">
                   {para}
                 </p>
@@ -91,9 +101,9 @@ export default async function ArticlePage({ params }: Props) {
                       <li key={r.slug}>
                         <Link href={`/knowledge/${r.slug}`} className="group flex gap-3 items-start" id={`article-related-${r.slug}`}>
                           <div className="relative w-16 h-12 rounded-lg overflow-hidden shrink-0">
-                            <Image src={r.image} alt={r.title} fill className="object-cover" sizes="64px" />
+                            <Image src={r.image} alt={r.titleEn} fill className="object-cover" sizes="64px" />
                           </div>
-                          <p className="font-body text-sm text-[var(--navy)] group-hover:text-[var(--bronze)] transition-colors leading-snug">{r.title}</p>
+                          <p className="font-body text-sm text-[var(--navy)] group-hover:text-[var(--bronze)] transition-colors leading-snug">{locale === 'de' ? r.titleDe : r.titleEn}</p>
                         </Link>
                       </li>
                     ))}

@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Admin User ─────────────────────────────────────────────────────────────
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String   // bcrypt hash
+  createdAt DateTime @default(now())
+}
+
+// ─── Properties ─────────────────────────────────────────────────────────────
+model Property {
+  id            Int             @id @default(autoincrement())
+  slug          String          @unique
+  titleEn       String
+  titleDe       String
+  type          PropertyType
+  location      String
+  city          String
+  sqm           Int
+  plotSqm       Int?
+  rooms         Int
+  bathrooms     Int
+  yearBuilt     Int
+  energyClass   String
+  price         String
+  status        PropertyStatus
+  descriptionEn String          @db.Text
+  descriptionDe String          @db.Text
+  agent         String
+  featured      Boolean         @default(false)
+  published     Boolean         @default(true)
+  images        PropertyImage[]
+  features      PropertyFeature[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model PropertyImage {
+  id         Int      @id @default(autoincrement())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int
+  url        String
+  order      Int      @default(0)
+}
+
+model PropertyFeature {
+  id         Int      @id @default(autoincrement())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int
+  textEn     String
+  textDe     String
+  order      Int      @default(0)
+}
+
+enum PropertyType {
+  Villa
+  Penthouse
+  Apartment
+  House
+}
+
+enum PropertyStatus {
+  ForSale
+  Reserved
+  Sold
+}
+
+// ─── Blog Posts ──────────────────────────────────────────────────────────────
+model BlogPost {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  category  String
+  titleEn   String
+  titleDe   String
+  excerptEn String   @db.Text
+  excerptDe String   @db.Text
+  contentEn Json     // String[] - array of paragraphs
+  contentDe Json
+  image     String
+  date      String
+  readTime  String
+  author    String
+  featured  Boolean  @default(false)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Knowledge Articles ───────────────────────────────────────────────────────
+model KnowledgeArticle {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  category  String
+  titleEn   String
+  titleDe   String
+  excerptEn String   @db.Text
+  excerptDe String   @db.Text
+  contentEn Json     // String[] - array of paragraphs
+  contentDe Json
+  image     String
+  date      String
+  readTime  String
+  author    String
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── References ───────────────────────────────────────────────────────────────
+model Reference {
+  id                Int              @id @default(autoincrement())
+  slug              String           @unique
+  titleEn           String
+  titleDe           String
+  category          String
+  location          String
+  year              String
+  summaryEn         String           @db.Text
+  summaryDe         String           @db.Text
+  descriptionEn     String           @db.Text
+  descriptionDe     String           @db.Text
+  result            String           @db.Text
+  testimonialQuote  String           @db.Text
+  testimonialAuthor String
+  published         Boolean          @default(true)
+  images            ReferenceImage[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model ReferenceImage {
+  id          Int       @id @default(autoincrement())
+  reference   Reference @relation(fields: [referenceId], references: [id], onDelete: Cascade)
+  referenceId Int
+  url         String
+  order       Int       @default(0)
+}
+
+// ─── Team Members ─────────────────────────────────────────────────────────────
+model TeamMember {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  name        String
+  role        String
+  image       String
+  bioEn       String   @db.Text
+  bioDe       String   @db.Text
+  email       String
+  phone       String
+  languages   Json     // String[]
+  specialties Json     // String[]
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
