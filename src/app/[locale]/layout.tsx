@@ -3,7 +3,6 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollRevealProvider from "@/components/ScrollRevealProvider";
-import SmoothScroll from "@/components/SmoothScroll";
 import "../globals.css";
 
 import {NextIntlClientProvider} from 'next-intl';
@@ -62,12 +61,10 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
-          <SmoothScroll>
-            <ScrollRevealProvider />
-            <Navbar />
-            {children}
-            <Footer />
-          </SmoothScroll>
+          <ScrollRevealProvider />
+          <Navbar />
+          {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
