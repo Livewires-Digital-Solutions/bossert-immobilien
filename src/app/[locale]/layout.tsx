@@ -63,9 +63,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ScrollRevealProvider />
           <Navbar />
-          <div className="page-enter flex flex-col flex-1">
-            {children}
-          </div>
+          {children}
           <Footer />
         </NextIntlClientProvider>
       </body>
