@@ -6,11 +6,13 @@ export default function PageHero({
   subtitle,
   breadcrumbs,
   backgroundImage = "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2000",
+  children,
 }: {
   title: string;
   subtitle?: string;
   breadcrumbs?: BreadcrumbItem[];
   backgroundImage?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <section className="relative w-full min-h-[45vh] md:min-h-[55vh] flex items-end pb-16 md:pb-24 overflow-hidden pt-[8rem] bg-[var(--navy)]">
@@ -49,6 +51,12 @@ export default function PageHero({
               {title}
             </h1>
           </div>
+
+          {children && (
+            <div className="w-full pt-4 md:pt-6">
+              {children}
+            </div>
+          )}
         </div>
       </div>
 

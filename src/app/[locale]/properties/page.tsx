@@ -6,6 +6,7 @@ import { useState } from "react";
 import { PROPERTIES } from "@/config";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import PropertyCard from "@/components/ui/PropertyCard";
+import PageHero from "@/components/ui/PageHero";
 
 const LOCATIONS = ["All Locations", "Wiesbaden", "Frankfurt", "Mainz", "Kronberg"];
 const TYPES = ["All Types", "Villa", "Penthouse", "Apartment", "House"];
@@ -44,36 +45,16 @@ export default function PropertiesPage() {
   return (
     <div className="bg-[var(--background)] min-h-screen">
       {/* ── Premium Search Hero ──────────────────────────────────────── */}
-      <section className="relative w-full min-h-[65vh] md:min-h-[75vh] flex flex-col justify-center bg-[var(--navy)] overflow-hidden pt-32 pb-20 px-6 md:px-12">
-        
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000" 
-            alt="Luxury Property Background" 
-            fill 
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Faded Gradient (Navy from left to transparent right) */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#042433] via-[#042433]/90 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#042433]/50 via-transparent to-[#042433]/30 pointer-events-none" />
-
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto flex flex-col items-start text-left">
-          <p className="anim-fade-up font-body text-[var(--bronze)] text-[0.7rem] md:text-xs tracking-[0.3em] uppercase mb-4 pl-1 border-l-2 border-[var(--bronze)] ml-1">
-            Exclusive Portfolio
-          </p>
-
-          <h1
-            className="anim-fade-up delay-1 font-display text-[var(--cream)] mb-10 italic pr-4 max-w-2xl"
-            style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", lineHeight: 1.05 }}
-          >
-            Find Your Property
-          </h1>
-
+      <div className="relative w-full">
+        <PageHero
+          title="Find Your Property"
+          subtitle="Exclusive Portfolio"
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Properties" },
+          ]}
+          backgroundImage="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000"
+        >
           <div className="anim-fade-up delay-2 relative w-full max-w-2xl mb-6">
             <div className="relative flex items-center">
               <svg className="absolute left-5 text-[var(--cream)]/50 shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -139,12 +120,12 @@ export default function PropertiesPage() {
               </Link>
             ))}
           </div>
-        </div>
+        </PageHero>
 
-        <div className="absolute bottom-6 right-6 md:right-12 z-10 font-body text-[var(--cream)] text-xs tracking-[0.15em] bg-[#02121A]/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[var(--cream)]/10">
+        <div className="absolute bottom-6 right-6 md:right-12 z-20 font-body text-[var(--cream)] text-xs tracking-[0.15em] bg-[#02121A]/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[var(--cream)]/10 pointer-events-none">
           {filtered.length} {filtered.length === 1 ? "property" : "properties"} found
         </div>
-      </section>
+      </div>
 
       {/* ── Property Grid ───────────────────────────────────────────── */}
       <section className="py-20 px-6 md:px-10 bg-[var(--cream)]">
