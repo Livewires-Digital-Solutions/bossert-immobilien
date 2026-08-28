@@ -84,7 +84,9 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: true,
     images: [
-      { url: '/card3.jpg', order: 1 }
+      { url: '/card3.jpg', order: 1 },
+      { url: '/card1.jpg', order: 2 },
+      { url: '/card4.jpg', order: 3 }
     ],
     features: [
       { textEn: 'Rooftop Terrace', textDe: 'Dachterrasse', order: 1 },
@@ -113,7 +115,9 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: true,
     images: [
-      { url: '/card2.jpg', order: 1 }
+      { url: '/card2.jpg', order: 1 },
+      { url: '/test_bg_villa.jpg', order: 2 },
+      { url: '/test_bg_estate.jpg', order: 3 }
     ],
     features: [
       { textEn: 'Balcony', textDe: 'Balkon', order: 1 }
@@ -141,7 +145,9 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: true,
     images: [
-      { url: '/test_bg_estate.jpg', order: 1 }
+      { url: '/test_bg_estate.jpg', order: 1 },
+      { url: '/card4.jpg', order: 2 },
+      { url: '/card3.jpg', order: 3 }
     ],
     features: [
       { textEn: 'Large Garden', textDe: 'Großer Garten', order: 1 },
@@ -170,7 +176,10 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: false,
     images: [
-      { url: '/card4.jpg', order: 1 }
+      { url: '/card4.jpg', order: 1 },
+      { url: '/test_bg_villa.jpg', order: 2 },
+      { url: '/card1.jpg', order: 3 },
+      { url: '/card2.jpg', order: 4 }
     ],
     features: [
       { textEn: 'Historic Details', textDe: 'Historische Details', order: 1 }
@@ -198,7 +207,9 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: false,
     images: [
-      { url: '/test_bg_villa.jpg', order: 1 }
+      { url: '/test_bg_villa.jpg', order: 1 },
+      { url: '/card1.jpg', order: 2 },
+      { url: '/card2.jpg', order: 3 }
     ],
     features: [
       { textEn: 'Smart Home', textDe: 'Smart Home', order: 1 }

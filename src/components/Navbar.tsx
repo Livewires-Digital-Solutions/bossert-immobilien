@@ -91,6 +91,28 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <div className="flex items-center gap-3 px-6 mr-1">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => switchLocale('en')}
+                className={`text-[0.75rem] font-bold transition-colors ${locale === 'en' ? 'text-[var(--navy)]' : 'text-[#6B7280] hover:text-[var(--navy)]'}`}
+              >
+                EN
+              </button>
+              <span className="text-[#6B7280]/40 text-[0.75rem] font-light">|</span>
+              <button
+                onClick={() => switchLocale('de')}
+                className={`text-[0.75rem] font-bold transition-colors ${locale === 'de' ? 'text-[var(--navy)]' : 'text-[#6B7280] hover:text-[var(--navy)]'}`}
+              >
+                DE
+              </button>
+            </div>
+          </div>
           <Link
             href="/contact"
             className="bg-[#0B1E28] text-white text-[0.75rem] tracking-[0.1em] font-medium uppercase px-8 py-3 rounded-md ml-1 hover:bg-opacity-90 transition-colors flex items-center justify-center"
