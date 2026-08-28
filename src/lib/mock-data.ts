@@ -54,8 +54,8 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: true,
     images: [
-      { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80', order: 1 },
-      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80', order: 2 }
+      { url: '/test_bg_villa.jpg', order: 1 },
+      { url: '/card1.jpg', order: 2 }
     ],
     features: [
       { textEn: 'Swimming Pool', textDe: 'Schwimmbad', order: 1 },
@@ -84,11 +84,68 @@ export const mockProperties: MockProperty[] = [
     published: true,
     featured: true,
     images: [
-      { url: 'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1600&q=80', order: 1 }
+      { url: '/card3.jpg', order: 1 }
     ],
     features: [
       { textEn: 'Rooftop Terrace', textDe: 'Dachterrasse', order: 1 },
       { textEn: 'Underground Parking', textDe: 'Tiefgarage', order: 2 }
+    ]
+  },
+  {
+    id: 3,
+    slug: 'city-apartment-berlin',
+    titleEn: 'Modern City Apartment in Berlin',
+    titleDe: 'Modernes Stadtapartment in Berlin',
+    type: 'Apartment',
+    location: 'Mitte',
+    city: 'Berlin',
+    price: '1200000',
+    rooms: 3,
+    bathrooms: 2,
+    sqm: 120,
+    plotSqm: null,
+    yearBuilt: 2020,
+    energyClass: 'A',
+    status: 'AVAILABLE',
+    descriptionEn: 'A beautiful and bright apartment in the heart of Berlin.',
+    descriptionDe: 'Ein schönes und helles Apartment im Herzen von Berlin.',
+    agent: 'Markus Weber',
+    published: true,
+    featured: true,
+    images: [
+      { url: '/card2.jpg', order: 1 }
+    ],
+    features: [
+      { textEn: 'Balcony', textDe: 'Balkon', order: 1 }
+    ]
+  },
+  {
+    id: 4,
+    slug: 'country-house-bavaria',
+    titleEn: 'Charming Country House in Bavaria',
+    titleDe: 'Charmantes Landhaus in Bayern',
+    type: 'House',
+    location: 'Starnberg',
+    city: 'Munich',
+    price: '4500000',
+    rooms: 6,
+    bathrooms: 3,
+    sqm: 350,
+    plotSqm: 2000,
+    yearBuilt: 1995,
+    energyClass: 'B',
+    status: 'AVAILABLE',
+    descriptionEn: 'A classic Bavarian country house with a large garden and lake access.',
+    descriptionDe: 'Ein klassisches bayerisches Landhaus mit großem Garten und Seezugang.',
+    agent: 'Klaus Bossert',
+    published: true,
+    featured: true,
+    images: [
+      { url: '/test_bg_estate.jpg', order: 1 }
+    ],
+    features: [
+      { textEn: 'Large Garden', textDe: 'Großer Garten', order: 1 },
+      { textEn: 'Lake Access', textDe: 'Seezugang', order: 2 }
     ]
   }
 ];
@@ -131,6 +188,66 @@ export const mockReferences: MockReference[] = [
     published: true,
     images: [
       { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=80', order: 1 }
+    ]
+  },
+  {
+    id: 2,
+    slug: 'berlin-penthouse-sale',
+    titleEn: 'Record Sale in Berlin Mitte',
+    titleDe: 'Rekordverkauf in Berlin Mitte',
+    category: 'Penthouses',
+    location: 'Berlin',
+    year: '2024',
+    summaryEn: 'Successfully marketed a luxury penthouse in the heart of Berlin.',
+    summaryDe: 'Erfolgreiche Vermarktung eines Luxus-Penthouses im Herzen von Berlin.',
+    descriptionEn: 'We handled the sale of this stunning property with a tailored marketing strategy, attracting international buyers.',
+    descriptionDe: 'Wir haben den Verkauf dieser atemberaubenden Immobilie mit einer maßgeschneiderten Marketingstrategie abgewickelt.',
+    result: 'Sold above asking price within 2 weeks.',
+    testimonialQuote: 'Professional, reliable, and exceeded all our expectations. Highly recommended.',
+    testimonialAuthor: 'M. Müller',
+    published: true,
+    images: [
+      { url: '/card3.jpg', order: 1 }
+    ]
+  },
+  {
+    id: 3,
+    slug: 'munich-villa-acquisition',
+    titleEn: 'Acquisition of a Historic Villa',
+    titleDe: 'Erwerb einer historischen Villa',
+    category: 'Villas & Estates',
+    location: 'Munich',
+    year: '2023',
+    summaryEn: 'Assisted an international client in acquiring a prime villa.',
+    summaryDe: 'Unterstützung eines internationalen Kunden beim Erwerb einer erstklassigen Villa.',
+    descriptionEn: 'Our advisory team facilitated the acquisition, handling all negotiations and due diligence.',
+    descriptionDe: 'Unser Beratungsteam erleichterte den Erwerb und übernahm alle Verhandlungen und Due-Diligence-Prüfungen.',
+    result: 'Successfully negotiated a 15% reduction from initial asking price.',
+    testimonialQuote: 'Their market knowledge and negotiation skills saved us a fortune.',
+    testimonialAuthor: 'James W.',
+    published: true,
+    images: [
+      { url: '/test_bg_villa.jpg', order: 1 }
+    ]
+  },
+  {
+    id: 4,
+    slug: 'frankfurt-commercial-lease',
+    titleEn: 'Leasing of Premium Office Space',
+    titleDe: 'Vermietung von Premium-Büroflächen',
+    category: 'Commercial',
+    location: 'Frankfurt',
+    year: '2025',
+    summaryEn: 'Leased 2,000 sqm of premium office space in the financial district.',
+    summaryDe: 'Vermietung von 2.000 qm Premium-Bürofläche im Bankenviertel.',
+    descriptionEn: 'We successfully matched a top-tier tech firm with their ideal headquarters.',
+    descriptionDe: 'Wir haben erfolgreich ein erstklassiges Technologieunternehmen mit ihrem idealen Hauptsitz zusammengebracht.',
+    result: 'Long-term lease secured ahead of schedule.',
+    testimonialQuote: 'A seamless process from start to finish. Bossert Immobilien is our go-to partner.',
+    testimonialAuthor: 'Sarah K., CEO',
+    published: true,
+    images: [
+      { url: '/card4.jpg', order: 1 }
     ]
   }
 ];
