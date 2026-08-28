@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname, Link, useRouter } from "@/i18n/routing";
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import { useTranslations, useLocale } from 'next-intl';
 import NextLink from "next/link"; // for non-localized links like logo if needed, but we can use the localized Link
 
@@ -27,14 +27,46 @@ export default function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      // Smart hide/show
+      if (currentScrollY > 300) {
+        if (currentScrollY > lastScrollY.current && !menuOpen) {
+          setIsHidden(true); // scrolling down
+        } else if (currentScrollY < lastScrollY.current) {
+          setIsHidden(false); // scrolling up
+        }
+      } else {
+        setIsHidden(false); // near top
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [menuOpen]);
+
+  // Mobile drawer scroll lock
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+    
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const switchLocale = (newLocale: string) => {
     startTransition(() => {
@@ -47,7 +79,7 @@ export default function Navbar() {
       className={`fixed z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
           ? "top-3 left-4 right-4 md:left-10 md:right-10 rounded-md border border-[rgba(254,252,246,0.15)] shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
           : "top-0 left-0 right-0 border-transparent"
-        }`}
+        } ${isHidden ? "-translate-y-[150%] opacity-0 pointer-events-none" : "translate-y-0 opacity-100"}`}
       style={{
         background: isScrolled ? "rgba(4, 36, 51, 0.70)" : "transparent",
         backdropFilter: isScrolled ? "blur(16px)" : "none",
@@ -153,7 +185,8 @@ export default function Navbar() {
         <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
-          className="md:hidden border-t border-[rgba(254,252,246,0.10)]"
+          data-lenis-prevent="true"
+          className="md:hidden border-t border-[rgba(254,252,246,0.10)] overflow-y-auto max-h-[80vh]"
           style={{ background: "rgba(4,36,51,0.96)", backdropFilter: "blur(12px)" }}
         >
           <ul className="flex flex-col px-6 py-6 gap-5">
