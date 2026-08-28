@@ -9,14 +9,12 @@ import NextLink from "next/link"; // for non-localized links like logo if needed
 const SITE_TAGLINE = "REAL ESTATE";
 
 const NAV_LINKS_KEYS = [
-  { href: "/", key: "home" },
   { href: "/properties", key: "properties" },
   { href: "/for-owners", key: "forOwners" },
   { href: "/services", key: "services" },
   { href: "/about", key: "about" },
   { href: "/references", key: "references" },
   { href: "/knowledge", key: "knowledge" },
-  { href: "/blog", key: "blog" },
   { href: "/contact", key: "contact" },
 ] as const;
 
@@ -70,7 +68,7 @@ export default function Navbar() {
             alt="Bossert Immobilien" 
             width={180} 
             height={56} 
-            className="opacity-90 group-hover:opacity-100 transition-opacity object-contain h-[40px] md:h-[50px] w-auto"
+            className="opacity-90 group-hover:opacity-100 transition-opacity object-contain h-[48px] md:h-[56px] w-auto"
             priority
           />
         </Link>
@@ -79,12 +77,12 @@ export default function Navbar() {
         <nav aria-label="Primary navigation" className="hidden lg:flex items-center bg-white rounded-md p-[5px] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
           {NAV_LINKS_KEYS.map(({ href, key }) => {
             if (key === 'contact') return null;
-            const isActive = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href);
+            const isActive = pathname === href || pathname.startsWith(href);
             return (
               <Link
                 key={href}
                 href={href as any}
-                className={`text-[0.65rem] tracking-[0.1em] font-medium uppercase px-5 py-2.5 transition-colors rounded-md ${
+                className={`text-[0.75rem] tracking-[0.1em] font-medium uppercase px-6 py-3 transition-colors rounded-md ${
                   isActive ? "text-[var(--navy)] bg-gray-50" : "text-[#6B7280] hover:text-[var(--navy)]"
                 }`}
                 aria-current={isActive ? "page" : undefined}
@@ -95,7 +93,7 @@ export default function Navbar() {
           })}
           <Link
             href="/contact"
-            className="bg-[#0B1E28] text-white text-[0.65rem] tracking-[0.1em] font-medium uppercase px-8 py-2.5 rounded-md ml-1 hover:bg-opacity-90 transition-colors flex items-center justify-center"
+            className="bg-[#0B1E28] text-white text-[0.75rem] tracking-[0.1em] font-medium uppercase px-8 py-3 rounded-md ml-1 hover:bg-opacity-90 transition-colors flex items-center justify-center"
           >
             {t('contact')}
           </Link>
@@ -138,7 +136,7 @@ export default function Navbar() {
         >
           <ul className="flex flex-col px-6 py-6 gap-5">
             {NAV_LINKS_KEYS.map(({ href, key }) => {
-              const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+              const isActive = pathname === href || pathname.startsWith(href);
               return (
                 <li key={href}>
                   <Link
