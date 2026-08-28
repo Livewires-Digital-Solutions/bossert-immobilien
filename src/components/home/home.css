@@ -3,6 +3,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -15,16 +16,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/HERO BG.png');
-  background-size: cover;
-  background-position: center;
-  animation: bgScaleIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   z-index: 0;
+}
+
+.hero-bg-animation {
+  animation: bgScaleIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 @keyframes bgScaleIn {
   0% { transform: scale(1.1); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.01); opacity: 1; }
 }
 
 @keyframes fadeSlideDown {

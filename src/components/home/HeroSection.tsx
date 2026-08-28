@@ -4,13 +4,22 @@ import React from 'react';
 import StatsCard from './StatsCard';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import Image from 'next/image';
 
 export default function HeroSection() {
   const t = useTranslations('home.hero');
 
   return (
     <div className="hero-section">
-      <div className="hero-bg-image"></div>
+      <div className="hero-bg-image">
+        <Image 
+          src="/HERO BG.png" 
+          alt="Hero Background" 
+          fill
+          priority
+          className="hero-bg-animation object-cover"
+        />
+      </div>
       <div className="hero-overlay"></div>
       
       <div className="hero-content">
