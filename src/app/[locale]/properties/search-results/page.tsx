@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import PropertyCard from "@/components/ui/PropertyCard";
 import { mockProperties } from "@/lib/mock-data";
 import { getTranslations } from "next-intl/server";
+import { PropertyType, PropertyStatus } from "@/config";
 
 export default async function SearchResultsPage({
   searchParams,
@@ -23,17 +24,17 @@ export default async function SearchResultsPage({
     id: p.id,
     slug: p.slug,
     title: p.titleEn, // Using English as default for search
-    type: p.type,
+    type: p.type as PropertyType,
     location: p.location,
     city: p.city,
     sqm: p.sqm,
-    plotSqm: p.plotSqm,
+    plotSqm: p.plotSqm ?? undefined,
     rooms: p.rooms,
     bathrooms: p.bathrooms,
     yearBuilt: p.yearBuilt,
     energyClass: p.energyClass,
     price: p.price,
-    status: p.status,
+    status: p.status as PropertyStatus,
     description: p.descriptionEn,
     agent: p.agent,
     image: p.images[0]?.url || "",

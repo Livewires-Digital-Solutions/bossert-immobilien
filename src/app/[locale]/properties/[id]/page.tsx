@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { mockProperties } from "@/lib/mock-data";
 import PropertyDetailView from "./PropertyDetailView";
 import { notFound } from "next/navigation";
+import { PropertyType, PropertyStatus } from "@/config";
 
 export default async function PropertyDetailPage({ params }: { params: Promise<{ locale: string, id: string }> }) {
   const { locale, id } = await params;
@@ -23,17 +24,17 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
     id: p.id,
     slug: p.slug,
     title: locale === 'de' ? p.titleDe : p.titleEn,
-    type: p.type,
+    type: p.type as PropertyType,
     location: p.location,
     city: p.city,
     sqm: p.sqm,
-    plotSqm: p.plotSqm,
+    plotSqm: p.plotSqm ?? undefined,
     rooms: p.rooms,
     bathrooms: p.bathrooms,
     yearBuilt: p.yearBuilt,
     energyClass: p.energyClass,
     price: p.price,
-    status: p.status,
+    status: p.status as PropertyStatus,
     description: locale === 'de' ? p.descriptionDe : p.descriptionEn,
     agent: p.agent,
     image: p.images[0]?.url || "",
