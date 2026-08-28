@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-1 flex flex-col items-start">
           <Link href="/" className="flex items-center group mb-6">
             <Image 
-              src="/logo.webp" 
+              src="/logo.png" 
               alt="Bossert Immobilien" 
               width={180} 
               height={56} 

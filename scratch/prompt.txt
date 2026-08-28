@@ -1,0 +1,5349 @@
+<USER_REQUEST>
+# Codebase Extraction
+
+## /eslint.config.mjs
+```
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+
+```
+
+## /next.config.ts
+```
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+
+```
+
+## /package.json
+```
+{
+  "name": "temp-immo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "lenis": "^1.3.26",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+```
+
+## /postcss.config.mjs
+```
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+
+```
+
+## /tsconfig.json
+```
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+```
+
+## /README.md
+```
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```
+
+## /src/app/globals.css
+```css
+:root {
+  --navy: #042433;
+  --cream: #FEFCF6;
+  --bronze: #AF8C53;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  color: var(--white);
+  background-color: var(--navy);
+  letter-spacing: -0.03em;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/HERO%20BG.png');
+  background-size: cover;
+  background-position: center;
+  animation: bgScaleIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  z-index: 0;
+}
+
+@keyframes bgScaleIn {
+  0% { transform: scale(1.1); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeSlideDown {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right, 
+    rgba(4, 36, 51, 0.7) 0%, 
+    rgba(4, 36, 51, 0.2) 40%, 
+    rgba(4, 36, 51, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 100;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8rem 4rem 2rem 4rem;
+}
+
+/* --- Navbar --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 2rem 4rem;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, padding 0.4s ease;
+}
+
+.navbar.fixed {
+  padding: 1.5rem 4rem;
+  background: linear-gradient(to bottom, rgba(14, 21, 26, 0.6) 0%, rgba(14, 21, 26, 0) 100%);
+}
+
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-instrument), serif;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+}
+
+.logo-img {
+  width: 115px;
+  height: auto;
+  object-fit: contain;
+}
+
+.nav-links {
+  background: var(--white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+  gap: 0.5rem;
+}
+
+.desktop-nav {
+  opacity: 0;
+  animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
+}
+
+.nav-item {
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  padding: 1.1rem 1.2rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  color: var(--navy);
+  background-color: rgba(4, 36, 51, 0.08);
+}
+
+.contact-btn {
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 1.1rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.contact-btn:hover {
+  background-color: var(--cream);
+  color: var(--navy);
+  border-color: var(--navy);
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-family: var(--font-inter), sans-serif;
+  margin: 0 0.5rem;
+  color: var(--navy);
+}
+
+.lang-btn {
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  color: rgba(4, 36, 51, 0.4);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.lang-btn.active {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.lang-btn:hover {
+  color: var(--navy);
+}
+
+.lang-divider {
+  color: rgba(4, 36, 51, 0.2);
+  font-size: 0.7rem;
+}
+
+/* --- Main Content --- */
+.main-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2vh;
+  margin-bottom: auto;
+  align-items: flex-start;
+}
+
+.left-content {
+  max-width: 60%;
+}
+
+.since-text {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: -0.5px;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.headline-top {
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: -3px;
+  margin-bottom: -1rem;
+  mix-blend-mode: exclusion;
+}
+
+.headline-middle {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 8rem;
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: -1rem;
+}
+
+.headline-bottom {
+  font-size: 4.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  letter-spacing: -3px;
+}
+.headline-bottom span:first-child {
+  font-weight: 400;
+  mix-blend-mode: exclusion;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4rem;
+  max-width: 300px;
+}
+
+.experience-text {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  opacity: 0.8;
+  text-align: left;
+  max-width: 220px;
+  word-wrap: break-word;
+}
+
+.stats-card {
+  padding: 1.5rem;
+  width: 100%;
+  transition: transform 0.4s ease;
+  color: var(--white);
+}
+
+.ios-glass {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(40px) saturate(1) brightness(50) displace(0.5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.8) brightness(0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.1),
+    0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+}
+
+.stats-number {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  letter-spacing: -3px;
+  line-height: 1;
+}
+
+.stats-desc {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+/* --- Footer Area --- */
+.bottom-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.partner-text {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  max-width: 250px;
+  opacity: 0.8;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  opacity: 0.15 !important;
+}
+.scroll-icon {
+  width: 16px;
+  height: 24px;
+  border: 1px solid var(--white);
+  border-radius: 10px;
+  position: relative;
+}
+.scroll-icon::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 2px;
+  animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 8px); opacity: 0; }
+}
+
+.explore-btn {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  color: var(--navy);
+  padding: 0.4rem 0.4rem 0.4rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  gap: 2rem;
+  transition: all 0.3s ease;
+}
+
+.explore-icon-wrapper {
+  background: var(--navy);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.explore-icon-wrapper svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--white);
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.explore-btn:hover .explore-icon-wrapper {
+  background: var(--white);
+}
+.explore-btn:hover .explore-icon-wrapper svg {
+  stroke: var(--navy);
+  transform: translate(2px, -2px);
+}
+
+/* --- Services Section --- */
+.services-section {
+  display: flex;
+  height: 100vh;
+  padding: 4rem;
+  background-color: var(--cream);
+  color: var(--navy);
+  gap: 4rem;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.services-left {
+  flex: 0 0 35%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+  height: 80%;
+  position: relative;
+}
+
+.services-subtitle {
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--bronze);
+  border-radius: 50%;
+}
+
+.services-headline {
+  margin-bottom: 2rem;
+}
+.headline-top-s {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+.headline-mid-s {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: clamp(3.5rem, 5vw, 6rem);
+  line-height: 0.8;
+  font-weight: 400;
+  letter-spacing: -3px;
+  margin-left: 0;
+  white-space: nowrap;
+}
+.headline-bot-s {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -3px;
+}
+.headline-bot-s span {
+  font-weight: 400;
+}
+
+.services-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  opacity: 0.8;
+  margin-bottom: 3rem;
+}
+
+.services-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.2);
+}
+
+.services-right {
+  flex: 1.5;
+  display: flex;
+  gap: 0.5rem;
+  height: 80%;
+}
+
+.accordion-card {
+  flex: 1 1 0%;
+  min-width: 0; /* Prevents flex children from overflowing the window horizontally */
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.accordion-card:hover {
+  flex: 1.8;
+}
+
+.accordion-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 800px;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(4, 36, 51, 0.3) 0%, rgba(4, 36, 51, 0) 20%, rgba(4, 36, 51, 0) 60%, rgba(4, 36, 51, 0.6) 100%);
+  z-index: 1;
+}
+
+.card-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  color: var(--white);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  white-space: normal;
+}
+
+.card-watermark {
+  position: absolute;
+  bottom: 2rem;
+  right: -1rem;
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 10rem;
+  color: rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.card-bottom {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: align-items 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-size: clamp(1.4rem, 2vw, 2.2rem);
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+  letter-spacing: -1px;
+  white-space: normal;
+  max-width: 100%;
+  line-height: 1.1;
+}
+
+.card-subtitle {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  white-space: normal;
+  max-width: 100%;
+  line-height: 1.3;
+}
+
+.card-desc-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s cubic-bezier(0.25, 1, 0.5, 1), margin 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.accordion-card:hover .card-desc-wrapper {
+  grid-template-rows: 1fr;
+  margin-bottom: 1.5rem;
+}
+
+.card-desc {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: normal;
+  line-height: 1.5;
+  width: 100%;
+  transform: translateY(10px);
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.accordion-card:hover .card-desc {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.card-top, .card-watermark, .card-subtitle, .card-link {
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateY(0);
+}
+
+.accordion-container:hover .accordion-card:not(:hover) .card-top,
+.accordion-container:hover .accordion-card:not(:hover) .card-watermark,
+.accordion-container:hover .accordion-card:not(:hover) .card-subtitle,
+.accordion-container:hover .accordion-card:not(:hover) .card-link,
+.accordion-container:hover .accordion-card:not(:hover) .card-desc {
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+}
+
+.accordion-container:hover .accordion-card:not(:hover) .card-bottom {
+  align-items: center;
+}
+
+.card-link {
+  font-size: 0.6rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.accordion-card:hover .card-link {
+  opacity: 1;
+}
+
+/* --- Search Section --- */
+.search-section {
+  width: 100vw;
+  padding: 0 4rem 6rem 4rem;
+  background-color: var(--cream);
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+.search-container {
+  width: 100%;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(4, 36, 51, 0.12), 0 8px 16px rgba(4, 36, 51, 0.08); /* Upgraded premium shadow */
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.search-header h2 {
+  font-family: var(--font-instrument), serif;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.search-header p {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: var(--navy);
+  opacity: 0.6;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(4, 36, 51, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.search-filter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  position: relative;
+}
+.search-filter.clickable:hover {
+  background-color: rgba(4, 36, 51, 0.04);
+  cursor: pointer;
+}
+
+.filter-label {
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: var(--navy);
+  opacity: 0.7;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.filter-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--navy);
+}
+
+.filter-input-row svg {
+  opacity: 0.5;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--navy);
+  width: 100%;
+}
+.search-input::placeholder {
+  color: var(--navy);
+  opacity: 0.5;
+}
+
+.search-value {
+  font-size: 0.9rem;
+  font-weight: 400;
+  flex: 1;
+}
+
+.search-chevron {
+  opacity: 0.3;
+  transition: transform 0.2s ease;
+}
+.search-chevron.up {
+  transform: rotate(180deg);
+}
+
+.search-divider {
+  width: 1px;
+  height: 40px;
+  background-color: rgba(4, 36, 51, 0.1);
+}
+
+.search-btn {
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 1.1rem 2.5rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+}
+.search-btn:hover {
+  background-color: var(--cream);
+  color: var(--navy);
+  border-color: var(--navy);
+}
+.search-btn.hidden-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.95);
+}
+
+.advanced-search {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.custom-checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(4, 36, 51, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.custom-checkbox:checked {
+  background-color: var(--navy);
+  border-color: var(--navy);
+}
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.advanced-search label {
+  font-size: 0.85rem;
+  color: var(--navy);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.advanced-search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.advanced-filters-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55), padding 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55), margin 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55);
+  overflow: hidden;
+  border-top: 1px solid transparent;
+}
+.advanced-filters-wrapper.open {
+  grid-template-rows: 1fr;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+  padding-top: 2rem;
+  margin-top: 0.5rem;
+  overflow: visible;
+}
+.advanced-filters-content {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.advanced-filters-wrapper.open .advanced-filters-content {
+  opacity: 1;
+  transition-delay: 0.05s;
+}
+
+.adv-grid-top {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.adv-filter-box {
+  position: relative;
+}
+
+.adv-grid-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.custom-dropdown-menu.align-right {
+  left: auto;
+  right: 0;
+}
+
+.adv-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy);
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.adv-input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 6px;
+  padding: 0.6rem;
+  gap: 0.5rem;
+  background: var(--white);
+}
+.adv-input-group input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--navy);
+  outline: none;
+  min-width: 0;
+}
+.adv-input-group input::placeholder {
+  color: var(--navy);
+  opacity: 0.5;
+}
+.adv-input-group span {
+  font-size: 0.8rem;
+  color: var(--navy);
+  opacity: 0.5;
+}
+
+.adv-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+.adv-dropdown svg {
+  opacity: 0.4;
+}
+
+.adv-features {
+  flex: 1;
+}
+
+.adv-checkboxes {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.adv-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+.adv-checkboxes input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(4, 36, 51, 0.2);
+  border-radius: 3px;
+  appearance: none;
+  cursor: pointer;
+}
+.adv-checkboxes input[type="checkbox"]:checked {
+  background-color: var(--navy);
+  border-color: var(--navy);
+}
+.adv-checkboxes label svg {
+  opacity: 0.6;
+}
+
+.adv-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+}
+
+.adv-reset {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.adv-results {
+  font-size: 0.85rem;
+  color: var(--navy);
+}
+
+.adv-submit {
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 1.1rem 2.5rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.adv-submit:hover {
+  background-color: var(--cream);
+  color: var(--navy);
+  border-color: var(--navy);
+}
+
+/* Custom Dropdown Menus */
+@keyframes dropdown-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(4, 36, 51, 0.05);
+  min-width: 250px;
+  padding: 0.8rem 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  overflow-y: auto;
+  cursor: default;
+  transform-origin: top center;
+  animation: dropdown-pop 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55) forwards;
+}
+.dropdown-item {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.dropdown-item:hover {
+  background: rgba(4, 36, 51, 0.04);
+}
+.dropdown-header {
+  padding: 1rem 1.5rem 0.2rem 1.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+.dropdown-item.sub-item {
+  padding-left: 2.5rem;
+  position: relative;
+}
+.dropdown-item.sub-item::before {
+  content: '—';
+  position: absolute;
+  left: 1.2rem;
+  opacity: 0.5;
+}
+
+/* --- EXPLORE SECTION --- */
+.explore-section {
+  padding: 4rem 4rem 8rem 4rem;
+  background-color: var(--cream);
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.explore-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.15);
+}
+
+.explore-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.explore-header-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.explore-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: var(--bronze);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.explore-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.explore-headline .italic-serif {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 5.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.explore-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--navy);
+  opacity: 0.8;
+  max-width: 450px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.explore-btn-dark {
+  background: var(--navy);
+  color: var(--white);
+  border: 1px solid var(--navy);
+  margin-bottom: 0;
+}
+
+.explore-btn-dark .explore-icon-wrapper {
+  background: var(--white);
+}
+
+.explore-btn-dark .explore-icon-wrapper svg {
+  stroke: var(--navy);
+}
+
+.explore-btn-dark:hover {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+.explore-btn-dark:hover .explore-icon-wrapper {
+  background: var(--navy);
+}
+
+.explore-btn-dark:hover .explore-icon-wrapper svg {
+  stroke: var(--white);
+}
+
+.explore-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-pill {
+  background: transparent;
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--navy);
+}
+
+.filter-pill.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+/* Property Card */
+.property-card {
+  position: relative;
+  border-radius: 12px;
+  background-color: #f4f4f4;
+  box-shadow: 0 10px 40px rgba(4, 36, 51, 0.05);
+  display: block;
+  aspect-ratio: 16/11;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(4, 36, 51, 0.1);
+}
+
+.property-image {
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.property-card:hover .property-image {
+  transform: scale(1.05);
+}
+
+/* White data block */
+.property-details-box {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 1.2rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease;
+}
+
+.property-card:hover .property-details-box {
+  transform: translateY(-3px);
+}
+
+.property-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  padding-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.1);
+}
+
+.property-location {
+  color: var(--navy);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+}
+
+.property-specs {
+  color: var(--navy);
+  font-weight: 300;
+  opacity: 0.7;
+}
+
+.property-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.property-type {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -1px;
+  color: var(--navy);
+  line-height: 1;
+  margin: 0;
+}
+
+.property-action-group {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.property-price-tag {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.property-arrow-box {
+  background: var(--navy);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.property-arrow-box svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--white);
+  transition: all 0.3s ease;
+}
+
+.property-card:hover .property-arrow-box {
+  background: var(--cream);
+  border-color: var(--navy);
+}
+
+.property-card:hover .property-arrow-box svg {
+  stroke: var(--navy);
+  transform: translate(2px, -2px);
+}
+
+/* --- WHY BOSSERT SECTION --- */
+.why-section {
+  padding: 10rem 4rem;
+  background-color: var(--cream);
+  color: var(--navy);
+  border-top: 1px solid rgba(4, 36, 51, 0.15);
+}
+
+.why-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+}
+
+.why-left-col {
+  position: relative;
+}
+
+.why-header-sticky {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.why-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: 4rem;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.why-headline .italic-serif {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 7rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.why-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--navy);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 450px;
+}
+
+.why-editorial-phrase {
+  font-family: var(--font-instrument), serif;
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--bronze);
+  opacity: 0.9;
+}
+
+.why-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.why-stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 5rem 0;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.15);
+}
+
+.why-stat-block:first-child {
+  padding-top: 0;
+}
+
+.why-stat-number {
+  font-family: var(--font-instrument), serif;
+  font-size: 8rem;
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.why-stat-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--navy);
+  opacity: 0.8;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* --- Testimonial Section --- */
+.testimonial-section {
+  width: 100vw;
+  background-color: var(--navy);
+  color: var(--cream);
+  padding: 6rem 4rem 8rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.test-header-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  gap: 4rem;
+}
+
+.test-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--cream);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.test-headline .italic-serif {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.test-header-right p {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(246, 243, 238, 0.7);
+  max-width: 450px;
+  margin-top: 1rem;
+}
+
+.test-card-container {
+  width: 100%;
+  height: 450px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.test-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 3s ease-out;
+  transform: scale(1.05);
+}
+
+.test-bg-image.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.test-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.test-index {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--white);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.test-progress-bar {
+  width: 100px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.test-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--white);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.test-inner-box {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  transform: none;
+  width: 700px;
+  background-color: var(--white);
+  border-radius: 16px;
+  padding: 3rem; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pins top content up, footer down */
+  z-index: 10;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.test-box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.test-author-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.test-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(4, 36, 51, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 1.1rem;
+}
+
+.test-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.test-author-info strong {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+}
+
+.test-author-info span {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  color: rgba(4, 36, 51, 0.5);
+}
+
+.test-property-purchased {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: var(--navy);
+  padding-bottom: 0.5rem;
+}
+
+.test-property-purchased strong {
+  font-weight: 600;
+}
+
+.test-quote {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(4, 36, 51, 0.85);
+}
+
+.test-box-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+  padding-top: 1.5rem;
+  margin-top: 1rem; 
+}
+
+.test-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.star-rating {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--navy);
+  margin-left: 0.5rem;
+}
+
+.test-nav-arrows {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.test-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(4, 36, 51, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prev-btn {
+  background: transparent;
+  color: var(--navy);
+}
+
+.prev-btn:hover {
+  background-color: rgba(4, 36, 51, 0.05);
+}
+
+.next-btn {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+.next-btn:hover {
+  background-color: var(--cream);
+  color: var(--navy);
+}
+
+@media (max-width: 1024px) {
+  .test-header-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .test-card-container {
+    height: auto;
+    min-height: 500px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .test-inner-box {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    margin: 1rem;
+    padding: 2rem;
+  }
+  
+  .test-indicator {
+    top: 1.5rem;
+    bottom: auto;
+    left: 1.5rem;
+  }
+}
+
+/* --- CTA / Contact Section (Editorial Portrait) --- */
+.cta-section {
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--cream);
+}
+
+.cta-image-col {
+  width: 50%;
+  background-image: url('/HERO%20BG.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
+}
+
+.cta-form-col {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 4rem;
+  background-color: var(--cream);
+}
+
+.cta-form-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.cta-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -3px;
+  margin-bottom: 2rem;
+}
+
+.cta-headline .italic-serif {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.cta-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.7);
+  max-width: 400px;
+  margin-bottom: 3rem;
+}
+
+/* Form Styles */
+.cta-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.cta-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.cta-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-input, .cta-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.2);
+  padding: 1rem 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.cta-input::placeholder, .cta-textarea::placeholder {
+  color: rgba(4, 36, 51, 0.5);
+  font-weight: 300;
+}
+
+.cta-input:focus, .cta-textarea:focus {
+  border-bottom-color: var(--navy);
+}
+
+.cta-textarea {
+  resize: vertical;
+  min-height: 40px;
+}
+
+.cta-submit-margin {
+  align-self: flex-start;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .cta-section {
+    flex-direction: column;
+  }
+  .cta-image-col {
+    width: 100%;
+    min-height: 400px;
+  }
+  .cta-form-col {
+    width: 100%;
+    padding: 4rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-form-row {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* --- Newsletter Section --- */
+.newsletter-section {
+  width: 100vw;
+  background-color: var(--cream);
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.newsletter-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+.news-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -3px;
+  margin-bottom: 1.5rem;
+}
+
+.news-headline .italic-serif {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.news-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.7);
+  max-width: 500px;
+  margin: 0 auto 3rem auto;
+}
+
+.news-form {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.news-input-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.4);
+  padding-bottom: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.news-input-wrapper:focus-within {
+  border-bottom-color: var(--navy);
+}
+
+.news-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  color: var(--navy);
+  outline: none;
+}
+
+.news-input::placeholder {
+  color: rgba(4, 36, 51, 0.4);
+  font-weight: 300;
+}
+
+.news-submit-btn {
+  background: transparent;
+  border: none;
+  color: var(--navy);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+}
+
+.news-submit-btn:hover {
+  transform: translateX(4px);
+  opacity: 1;
+}
+/* --- Footer Section --- */
+.site-footer-wrapper {
+  width: 100vw;
+}
+
+.site-footer {
+  width: 100%;
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 4rem 4rem 2rem 4rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left Column */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
+/* Middle Column */
+.footer-middle-col {
+  padding-left: 2rem;
+}
+
+.footer-col-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+}
+
+.footer-subscribe-form {
+  display: flex;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 0.25rem;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.footer-subscribe-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.8rem;
+  color: var(--navy);
+  outline: none;
+}
+
+.footer-subscribe-input::placeholder {
+  color: rgba(26, 34, 40, 0.4);
+}
+
+.footer-subscribe-btn {
+  flex-shrink: 0;
+  background-color: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.footer-subscribe-btn:hover {
+  opacity: 0.9;
+}
+
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-phone {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.footer-email {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Right Column */
+.footer-right-col {
+  padding-left: 4rem;
+}
+
+.footer-address p {
+  margin: 0 0 0.2rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+.footer-hours {
+  margin-top: 1.5rem !important;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.footer-socials a {
+  color: var(--white);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.footer-socials a:hover {
+  opacity: 1;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+}
+
+.footer-copyright {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  .site-footer {
+    padding: 4rem 2rem 2rem 2rem;
+  }
+  .footer-middle-col, .footer-right-col {
+    padding-left: 0;
+  }
+}
+
+/* =============================================
+   MOBILE NAV — Hamburger & Drawer
+   ============================================= */
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-btn.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger-btn.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile right-side group (lang + hamburger) */
+.mobile-nav-right {
+  display: none; /* hidden on desktop */
+  opacity: 0;
+  animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-lang-inline {
+  color: var(--white);
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--navy);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5rem 2.5rem 3rem 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+/* Close button inside drawer */
+.mobile-drawer-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: rgba(246, 243, 238, 0.1);
+  border: 1px solid rgba(246, 243, 238, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--cream);
+  transition: background 0.3s ease;
+}
+
+.mobile-drawer-close:hover {
+  background: rgba(246, 243, 238, 0.2);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-item {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: rgba(246, 243, 238, 0.85);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  border-bottom: 1px solid rgba(246, 243, 238, 0.08);
+  padding: 1rem 0;
+  transition: color 0.2s ease, padding-left 0.3s ease;
+}
+
+.mobile-nav-item:hover {
+  color: var(--cream);
+  padding-left: 0.5rem;
+}
+
+.mobile-nav-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-contact-btn {
+  display: inline-block;
+  background-color: var(--cream);
+  color: var(--navy);
+  padding: 1.2rem 2.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-contact-btn:hover {
+  opacity: 0.9;
+}
+
+.mobile-lang {
+  color: rgba(246, 243, 238, 0.6);
+}
+
+/* =============================================
+   TABLET — max-width: 1024px
+   ============================================= */
+@media (max-width: 1024px) {
+
+  /* Hero */
+  .hero-content {
+    padding: 1.5rem 2rem;
+  }
+  .main-grid {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .left-content {
+    max-width: 100%;
+  }
+  .headline-middle {
+    font-size: 6rem;
+  }
+  .right-content {
+    max-width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .bottom-area {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  /* Services */
+  .services-section {
+    height: auto;
+    flex-direction: column;
+    padding: 4rem 2rem;
+    gap: 3rem;
+  }
+  .services-left {
+    flex: none;
+    max-width: 100%;
+    height: auto;
+  }
+  .services-footer {
+    position: static;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(4, 36, 51, 0.2);
+    padding-top: 1rem;
+  }
+  .services-right {
+    height: 500px;
+    width: 100%;
+  }
+
+  /* Search */
+  .search-section {
+    padding: 0 2rem 4rem 2rem;
+  }
+  .search-bar {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .search-filter {
+    flex: 1 1 45%;
+  }
+  .search-divider {
+    display: none;
+  }
+  .adv-grid-top {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Explore */
+  .explore-section {
+    padding: 4rem 2rem 6rem 2rem;
+  }
+  .explore-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .explore-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  /* Why */
+  .why-section {
+    padding: 6rem 2rem;
+  }
+  .why-container {
+    grid-template-columns: 1fr;
+    gap: 5rem;
+  }
+  .why-header-sticky {
+    position: static;
+  }
+  .why-stat-number {
+    font-size: 6rem;
+  }
+
+}
+
+/* =============================================
+   MOBILE — max-width: 768px
+   ============================================= */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 1.5rem 1.5rem;
+  }
+  .navbar.fixed {
+    padding: 1rem 1.5rem;
+  }
+  
+  .desktop-nav {
+    display: none;
+  }
+  .mobile-nav-right {
+    display: flex;
+  }
+  .hamburger-btn {
+    display: flex;
+  }
+
+  /* Hero */
+  .hero-content {
+    padding: 6rem 1.5rem 1.5rem 1.5rem;
+  }
+  .main-grid {
+    flex-direction: column;
+    margin-top: 1.5rem;
+    gap: 2rem;
+  }
+  .left-content {
+    max-width: 100%;
+  }
+  .headline-top {
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+  }
+  .headline-middle {
+    font-size: clamp(3.5rem, 18vw, 6rem);
+  }
+  .headline-bottom {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+  .right-content {
+    display: none;
+  }
+  .bottom-area {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .explore-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* Services */
+  .services-section {
+    height: auto;
+    flex-direction: column;
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+  }
+  .services-left {
+    flex: none;
+    max-width: 100%;
+    height: auto;
+  }
+  .headline-mid-s {
+    white-space: normal;
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    letter-spacing: -1px;
+  }
+  .headline-bot-s {
+    letter-spacing: -1px;
+  }
+  .services-right {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .accordion-card {
+    flex: none;
+    height: 160px;
+    width: 100%;
+    transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .accordion-card:hover {
+    flex: none;
+    height: 260px;
+  }
+  .accordion-bg {
+    width: 100%;
+    height: 100%;
+  }
+  .card-watermark {
+    display: none;
+  }
+  .card-title {
+    white-space: normal;
+  }
+  .card-subtitle {
+    white-space: normal;
+  }
+  .services-footer {
+    position: static;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(4, 36, 51, 0.2);
+    padding-top: 1rem;
+  }
+
+  /* Search */
+  .search-section {
+    padding: 0 1.5rem 3rem 1.5rem;
+  }
+  .search-container {
+    padding: 1.5rem !important;
+    gap: 1rem;
+  }
+  .search-header h2 {
+    font-size: 1.6rem;
+  }
+  .search-bar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    border: none !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    overflow: visible;
+  }
+  .search-filter {
+    flex: none !important;
+    width: 100% !important;
+    padding: 0.9rem 0 !important;
+    border-bottom: 1px solid rgba(4, 36, 51, 0.08) !important;
+    border-radius: 0 !important;
+  }
+  .search-divider {
+    display: none !important;
+  }
+  .search-btn {
+    width: 100% !important;
+    justify-content: center;
+    margin-left: 0 !important;
+    margin-top: 1rem;
+    border-radius: 8px;
+  }
+  /* Advanced filters */
+  .adv-grid-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .adv-grid-bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .adv-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .adv-submit {
+    width: 100%;
+    text-align: center;
+  }
+  .adv-checkboxes {
+    gap: 1rem;
+  }
+
+  /* Explore */
+  .explore-section {
+    padding: 3rem 1.5rem 4rem 1.5rem;
+  }
+  .explore-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+  .explore-headline {
+    font-size: 2.5rem;
+  }
+  .explore-headline .italic-serif {
+    font-size: 3.5rem;
+  }
+  .explore-filters {
+    gap: 0.5rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar visually */
+    scrollbar-width: none;
+  }
+  .explore-filters::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-pill {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.75rem;
+  }
+  .explore-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .explore-btn.explore-btn-dark {
+    width: auto;
+    align-self: flex-start;
+  }
+
+  /* Property cards — details sit below image on mobile */
+  .property-card {
+    aspect-ratio: unset;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: 0 4px 24px rgba(4, 36, 51, 0.08);
+  }
+  .property-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 220px !important;
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+    display: block;
+  }
+  .property-details-box {
+    position: static;
+    border-radius: 0 0 12px 12px;
+    box-shadow: none;
+    border-top: 1px solid rgba(4, 36, 51, 0.08);
+  }
+  .property-type {
+    font-size: 1.4rem;
+  }
+  .property-price-tag {
+    font-size: 0.85rem;
+  }
+  .why-section {
+    padding: 4rem 1.5rem;
+  }
+  .why-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .why-header-sticky {
+    position: static;
+    gap: 1.5rem;
+  }
+  .why-headline {
+    font-size: 2.5rem;
+  }
+  .why-headline .italic-serif {
+    font-size: 4.5rem;
+    display: inline-block;
+    margin-left: 0.2rem;
+  }
+  .why-stat-number {
+    font-size: 5rem;
+  }
+  .why-stat-text {
+    font-size: 1rem;
+  }
+  .why-stat-block {
+    text-align: center;
+  }
+
+  /* Testimonial */
+  .testimonial-section {
+    padding: 3rem 1.5rem 4rem 1.5rem;
+  }
+  .test-header-row {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .test-header-right p {
+    max-width: 100%;
+    margin-top: 0;
+  }
+  .test-card-container {
+    height: auto;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .test-inner-box {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: calc(100% - 1rem);
+    margin: auto 0.5rem 0.5rem 0.5rem;
+    padding: 1.5rem;
+  }
+  .test-quote {
+    font-size: 0.9rem;
+  }
+  .test-indicator {
+    top: 1rem;
+    bottom: auto;
+    left: 1rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    flex-direction: column;
+  }
+  .cta-image-col {
+    width: 100%;
+    min-height: 280px;
+  }
+  .cta-form-col {
+    width: 100%;
+    padding: 3rem 1.5rem;
+  }
+  .cta-form-row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Footer */
+  .site-footer-wrapper {
+    padding: 0;
+  }
+  .site-footer {
+    padding: 3rem 1.5rem 2rem 1.5rem;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .footer-subscribe-form {
+    max-width: 100%;
+  }
+  .footer-bottom-bar {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================================================
+   GLOBAL SCROLL ANIMATIONS
+   ========================================================================== */
+
+.reveal-base {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up {
+  transform: translateY(30px);
+}
+
+.reveal-scale {
+  transform: translateY(30px) scale(0.96);
+}
+
+.reveal-left {
+  transform: translateX(-30px);
+}
+
+.reveal-right {
+  transform: translateX(30px);
+}
+
+/* When active, clear transforms and opacity */
+.is-revealed {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Delay utilities for staggered animations */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+```
+
+## /src/app/layout.tsx
+```tsx
+import type { Metadata, Viewport } from "next";
+import { Inter, Instrument_Serif } from "next/font/google";
+import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
+export const metadata: Metadata = {
+  title: "Bossert Immobilien | Premium Real Estate Rhein-Main",
+  description: "Bossert Immobilien — Discretion and precision in every transaction. Premium residential real estate in the Rhein-Main region since 1991.",
+};
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+});
+
+import SmoothScroll from "@/components/SmoothScroll";
+import { LanguageProvider } from "@/context/LanguageContext";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable} ${instrumentSerif.variable}`}>
+        <LanguageProvider>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+        </LanguageProvider>
+      </body>
+    </html>
+  );
+}
+
+```
+
+## /src/app/page.tsx
+```tsx
+import HeroSection from '@/components/HeroSection';
+import SearchSection from '@/components/SearchSection';
+import ServicesSection from '@/components/ServicesSection';
+import ExploreSection from '@/components/ExploreSection';
+import WhySection from '@/components/WhySection';
+import TestimonialSection from '@/components/TestimonialSection';
+import CtaSection from '@/components/CtaSection';
+import Footer from '@/components/Footer';
+
+export default function Home() {
+  return (
+    <main>
+      <HeroSection />
+      <ServicesSection />
+      <SearchSection />
+      <ExploreSection />
+      <WhySection />
+      <TestimonialSection />
+      <CtaSection />
+      <Footer />
+    </main>
+  );
+}
+
+```
+
+## /src/components/AccordionCard.tsx
+```tsx
+import React from 'react';
+
+interface AccordionCardProps {
+  number: string;
+  category: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  linkText: string;
+  bgImage: string;
+  className?: string;
+}
+
+export default function AccordionCard({ number, category, title, subtitle, description, linkText, bgImage, className = "" }: AccordionCardProps) {
+  return (
+    <div className={`accordion-card ${className}`}>
+      <div className="accordion-bg" style={{ backgroundImage: `url('${bgImage}')` }}></div>
+      <div className="card-overlay"></div>
+      <div className="card-top">
+        <span>{number}</span>
+        <span>{category}</span>
+      </div>
+      <div className="card-watermark">{number}</div>
+      <div className="card-bottom">
+        <h3 className="card-title">{title}</h3>
+        <p className="card-subtitle">{subtitle}</p>
+        <div className="card-desc-wrapper">
+          <p className="card-desc">{description}</p>
+        </div>
+        <a href="#" className="card-link">{linkText} &rarr;</a>
+      </div>
+    </div>
+  );
+}
+
+```
+
+## /src/components/CtaSection.tsx
+```tsx
+'use client';
+
+import React, { useState } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function CtaSection() {
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.2);
+  const { t } = useLanguage();
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    
+    if (form.checkValidity()) {
+      setStatus('submitting');
+      // Simulate API call
+      setTimeout(() => {
+        setStatus('success');
+        form.reset();
+        setTimeout(() => setStatus('idle'), 5000);
+      }, 1000);
+    } else {
+      form.reportValidity();
+    }
+  };
+
+  return (
+    <section className="cta-section" ref={sectionRef}>
+      {/* Left Column: Portrait Image */}
+      <div className={`cta-image-col reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`}></div>
+
+      {/* Right Column: Form Block */}
+      <div className="cta-form-col">
+        <div className={`cta-form-container reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+          <h2 className="cta-headline">
+            {t.cta.headline}<br/>
+            <span className="italic-serif">{t.cta.headlineSerif}</span>
+          </h2>
+          <p className="cta-subhead">
+            {t.cta.subhead}
+          </p>
+          
+          <form className="cta-form" onSubmit={handleSubmit} noValidate>
+            <div className="cta-form-row">
+              <div className="cta-input-group">
+                <input 
+                  type="text" 
+                  id="name" 
+                  placeholder={t.cta.namePlaceholder} 
+                  className="cta-input" 
+                  required 
+                  minLength={2} 
+                  maxLength={50}
+                  pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s\-\']+$"
+                  title="Please enter a valid name (letters only)."
+                  onInput={(e) => {
+                    e.currentTarget.value = e.currentTarget.value.replace(/[0-9]/g, '');
+                  }}
+                />
+              </div>
+              <div className="cta-input-group">
+                <input 
+                  type="email" 
+                  id="email" 
+                  placeholder={t.cta.emailPlaceholder} 
+                  className="cta-input" 
+                  required 
+                  maxLength={100} 
+                />
+              </div>
+            </div>
+            
+            <div className="cta-input-group">
+              <textarea 
+                id="message" 
+                placeholder={t.cta.msgPlaceholder} 
+                className="cta-textarea" 
+                required 
+                minLength={10}
+                maxLength={1000}
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit" 
+              className="explore-btn explore-btn-dark cta-submit-margin"
+              disabled={status === 'submitting'}
+              style={{ opacity: status === 'submitting' ? 0.7 : 1 }}
+            >
+              {status === 'idle' && t.cta.btnIdle}
+              {status === 'submitting' && t.cta.btnSending}
+              {status === 'success' && t.cta.btnSent}
+              {status === 'idle' && (
+                <div className="explore-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
+                </div>
+              )}
+            </button>
+            {status === 'success' && (
+              <p style={{ color: 'var(--bronze)', marginTop: '1rem', fontSize: '0.85rem' }}>
+                {t.cta.success}
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/ExploreSection.tsx
+```tsx
+"use client";
+
+import React, { useState } from 'react';
+import PropertyCard from './PropertyCard';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function ExploreSection() {
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
+  const { t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filters = [
+    { id: 'all', label: t.explore.filters.all },
+    { id: 'villas', label: t.explore.filters.villas },
+    { id: 'penthouses', label: t.explore.filters.penthouses },
+    { id: 'historic', label: t.explore.filters.historic },
+    { id: 'apartments', label: t.explore.filters.apartments },
+    { id: 'waterfront', label: t.explore.filters.waterfront },
+    { id: 'offMarket', label: t.explore.filters.offMarket },
+  ];
+
+  return (
+    <section className="explore-section" ref={sectionRef}>
+      <div className="explore-container">
+        
+        {/* Top Header */}
+        <div className="explore-header">
+          <div className={`explore-header-left reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+            <div className="explore-subtitle">
+              <span className="dot"></span> {t.explore.tag}
+            </div>
+            <h2 className="explore-headline">
+              {t.explore.headline} <br /><span className="italic-serif">{t.explore.headlineSerif}</span>
+            </h2>
+          </div>
+          
+          <div className={`explore-header-right reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+            <p className="explore-subhead">
+              {t.explore.subhead}
+            </p>
+            <a href="#" className="explore-btn explore-btn-dark">
+              {t.explore.btn}
+              <div className="explore-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        {/* Category Filters */}
+        <div className="explore-filters">
+          {filters.map((filter) => (
+            <button 
+              key={filter.id}
+              className={`filter-pill ${activeFilter === filter.id ? 'active' : ''}`}
+              onClick={() => setActiveFilter(filter.id)}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+        
+        {/* Bottom Functional Grid */}
+        <div className="explore-grid">
+          <PropertyCard 
+            imageSrc="/images/prop_villa_1787771383699.jpg"
+            type="Luxury Villa"
+            price="€ 4,250,000"
+            location="Los Angeles, CA"
+            specs="5 Beds • 6 Baths • 650 m²"
+          />
+          <PropertyCard 
+            imageSrc="/images/prop_estate_1787771411381.jpg"
+            type="Historic Estate"
+            price="€ 8,900,000"
+            location="Cotswolds, UK"
+            specs="8 Beds • 10 Baths • 1,200 m²"
+          />
+          <PropertyCard 
+            imageSrc="/images/prop_penthouse_1787771396787.jpg"
+            type="Penthouse"
+            price="€ 3,100,000"
+            location="London, UK"
+            specs="3 Beds • 3 Baths • 280 m²"
+          />
+          <PropertyCard 
+            imageSrc="/images/prop_apartment_new.jpg"
+            type="Modern Apartment"
+            price="€ 1,850,000"
+            location="Malibu, CA"
+            specs="2 Beds • 2 Baths • 160 m²"
+          />
+        </div>
+        
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/Footer.tsx
+```tsx
+"use client";
+
+import React, { useState } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function Footer() {
+  const { ref: footerRef, isVisible } = useScrollReveal(0.1);
+  const { t } = useLanguage();
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      setSubscribing(true);
+      setTimeout(() => {
+        setSubscribing(false);
+        setSubscribed(true);
+        form.reset();
+        setTimeout(() => setSubscribed(false), 3000);
+      }, 800);
+    } else {
+      form.reportValidity();
+    }
+  };
+
+  return (
+    <footer className="site-footer-wrapper" ref={footerRef}>
+      <div className="site-footer">
+        <div className="footer-grid">
+          
+          {/* Left Column: Navigation */}
+          <div className={`footer-col reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+            <ul className="footer-links">
+            <li><a href="#">{t.nav.properties}</a></li>
+            <li><a href="#">{t.nav.forOwners}</a></li>
+            <li><a href="#">{t.nav.services}</a></li>
+            <li><a href="#">{t.nav.about}</a></li>
+            <li><a href="#">{t.nav.references}</a></li>
+            <li><a href="#">{t.nav.knowledge}</a></li>
+            <li><a href="#">{t.nav.contact}</a></li>
+            <li style={{ marginTop: '1rem' }}><a href="#" style={{ opacity: 0.6 }}>{t.footer.privacy}</a></li>
+            <li><a href="#" style={{ opacity: 0.6 }}>{t.footer.imprint}</a></li>
+          </ul>
+          </div>
+
+          {/* Middle Column: Newsletter & Contact */}
+          <div className={`footer-col footer-middle-col reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+            <h4 className="footer-col-title">{t.footer.updates}</h4>
+            <form className="footer-subscribe-form" onSubmit={handleSubscribe} noValidate>
+              <input 
+                type="email" 
+                placeholder={t.footer.emailPlaceholder} 
+                required 
+                maxLength={100}
+                className="footer-subscribe-input" 
+                disabled={subscribing} 
+              />
+              <button type="submit" className="footer-subscribe-btn" disabled={subscribing}>
+                {subscribing ? '...' : subscribed ? t.footer.done : t.footer.subscribe}
+              </button>
+            </form>
+            {subscribed && <p style={{ color: 'var(--bronze)', fontSize: '0.8rem', marginTop: '0.5rem' }}>{t.footer.success}</p>}
+
+            <div className="footer-contact-block">
+              <a href="tel:+49691234567" className="footer-phone">+49 (0) 69 1234 567</a>
+              <a href="mailto:inquiry@bossert-immo.de" className="footer-email">inquiry@bossert-immo.de</a>
+            </div>
+          </div>
+
+          {/* Right Column: Address & Socials */}
+          <div className={`footer-col footer-right-col reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+            <div className="footer-address">
+              <p>{t.footer.address1}</p>
+              <p>{t.footer.address2}</p>
+              <p className="footer-hours">{t.footer.hours}</p>
+            </div>
+            <div className="footer-socials">
+              <a href="#" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" aria-label="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+              <a href="#" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4.2V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom-bar">
+          <div className="footer-copyright">
+            <span className="footer-logo">Bossert Immobilien</span>
+            <span>© 2026 Bossert Immobilien. All rights reserved.</span>
+          </div>
+          <div className="footer-credits">
+            Created by Bossert
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+```
+
+## /src/components/HeroSection.tsx
+```tsx
+"use client";
+
+import React from 'react';
+import Navbar from './Navbar';
+import StatsCard from './StatsCard';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function HeroSection() {
+  const { ref: heroRef, isVisible } = useScrollReveal(0.1);
+  const { t } = useLanguage();
+
+  return (
+    <div className="hero-section" ref={heroRef}>
+      <div className="hero-bg-image"></div>
+      <div className="hero-overlay"></div>
+      
+      <Navbar />
+      <div className="hero-content">
+
+        {/* Main Content */}
+        <div className="main-grid">
+          <div className="left-content">
+            <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>{t.hero.since}</div>
+            <div className={`headline-top reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>{t.hero.headlineTop}</div>
+            <div className={`headline-middle reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>{t.hero.headlineMiddle}</div>
+            <div className={`headline-bottom reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
+              <span>{t.hero.headlineBottom}</span> {t.hero.headlineBottom2}
+            </div>
+          </div>
+          
+          <div className="right-content">
+            <div className={`experience-text reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.hero.experience}
+            </div>
+            
+            <div className={`reveal-base reveal-scale delay-400 ${isVisible ? 'is-revealed' : ''}`}>
+              <StatsCard />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Area */}
+        <div className="bottom-area">
+          <div className="bottom-left">
+            <div className={`partner-text reveal-base reveal-up delay-500 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.hero.partner}
+            </div>
+            <div className={`scroll-indicator reveal-base reveal-up delay-600 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.hero.scroll}
+              <div className="scroll-icon"></div>
+            </div>
+          </div>
+          
+          <div className={`bottom-right reveal-base reveal-up delay-500 ${isVisible ? 'is-revealed' : ''}`}>
+            <a href="#" className="explore-btn">
+              EXPLORE PROPERTIES
+              <div className="explore-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+```
+
+## /src/components/Navbar.tsx
+```tsx
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, setLang, t } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // If we've scrolled past the top
+      if (currentScrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+      
+      // Hide on scroll down, show on scroll up
+      if (currentScrollY > lastScrollY && currentScrollY > 300) {
+        setIsHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        setIsHidden(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  return (
+    <>
+      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''}`}>
+        <div className="logo">
+          <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+        </div>
+
+        {/* Desktop Nav */}
+        <div className="nav-links desktop-nav">
+          <a href="#" className="nav-item">{t.nav.properties}</a>
+          <a href="#" className="nav-item">{t.nav.forOwners}</a>
+          <a href="#" className="nav-item">{t.nav.services}</a>
+          <a href="#" className="nav-item">{t.nav.about}</a>
+          <a href="#" className="nav-item">{t.nav.references}</a>
+          <a href="#" className="nav-item">{t.nav.knowledge}</a>
+          
+          <div className="lang-toggle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span 
+              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+              onClick={() => setLang('en')}
+            >
+              EN
+            </span>
+            <span className="lang-sep">|</span>
+            <span 
+              className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
+              onClick={() => setLang('de')}
+            >
+              DE
+            </span>
+          </div>
+
+          <a href="#" className="contact-btn">{t.nav.contact}</a>
+        </div>
+
+        {/* Mobile Right Side: Lang Toggle + Hamburger */}
+        <div className="mobile-nav-right">
+          <div className="lang-toggle mobile-lang-inline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.7 }}>
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span 
+              className={`lang-btn ${lang === 'en' ? 'active' : ''}`} 
+              onClick={() => setLang('en')}
+              style={{ color: lang === 'en' ? 'var(--white)' : 'rgba(255,255,255,0.5)' }}
+            >EN</span>
+            <span className="lang-divider" style={{ color: 'rgba(255,255,255,0.3)' }}>|</span>
+            <span 
+              className={`lang-btn ${lang === 'de' ? 'active' : ''}`} 
+              onClick={() => setLang('de')}
+              style={{ color: lang === 'de' ? 'var(--white)' : 'rgba(255,255,255,0.5)' }}
+            >DE</span>
+          </div>
+
+          <button
+            className={`hamburger-btn ${menuOpen ? 'open' : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Drawer */}
+      <div className={`mobile-drawer ${menuOpen ? 'open' : ''}`} data-lenis-prevent>
+
+        {/* Close button inside drawer */}
+        <button
+          className="mobile-drawer-close"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div className="mobile-nav-links">
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.properties}</a>
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.forOwners}</a>
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.services}</a>
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.about}</a>
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.references}</a>
+          <a href="#" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.knowledge}</a>
+        </div>
+        <div className="mobile-nav-footer">
+          <a href="#" className="mobile-contact-btn" onClick={() => setMenuOpen(false)}>{t.nav.contact}</a>
+        </div>
+      </div>
+    </>
+  );
+}
+
+```
+
+## /src/components/NewsletterSection.tsx
+```tsx
+"use client";
+
+import React from 'react';
+
+export default function NewsletterSection() {
+  return (
+    <section className="newsletter-section">
+      <div className="newsletter-container">
+        
+        <h2 className="news-headline">
+          Market<br />
+          <span className="italic-serif">Intelligence.</span>
+        </h2>
+        
+        <p className="news-subhead">
+          Subscribe to receive expert real estate knowledge, exclusive market insights, and our latest property updates directly to your inbox.
+        </p>
+        
+        <form className="news-form" onSubmit={(e) => e.preventDefault()}>
+          <div className="news-input-wrapper">
+            <input 
+              type="email" 
+              className="news-input" 
+              placeholder="Your email address" 
+              required
+            />
+            <button type="submit" className="news-submit-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/PropertyCard.tsx
+```tsx
+import React from 'react';
+import Image from 'next/image';
+
+interface PropertyCardProps {
+  imageSrc: string;
+  type: string;
+  price: string;
+  location: string;
+  specs: string;
+  className?: string;
+}
+
+export default function PropertyCard({ imageSrc, type, price, location, specs, className = "" }: PropertyCardProps) {
+  return (
+    <a href="#" className={`property-card ${className}`}>
+      <Image src={imageSrc} alt={location} fill className="property-image" sizes="(max-width: 768px) 100vw, 50vw" />
+      
+      <div className="property-details-box">
+        <div className="property-info-row">
+          <span className="property-location">{location}</span>
+          <span className="property-specs">{specs}</span>
+        </div>
+        <div className="property-bottom-row">
+          <h3 className="property-type">{type}</h3>
+          <div className="property-action-group">
+            <div className="property-price-tag">{price}</div>
+            <div className="property-arrow-box">
+              <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+}
+
+```
+
+## /src/components/SearchSection.tsx
+```tsx
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function SearchSection() {
+  const { t } = useLanguage();
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  
+  const [propertyType, setPropertyType] = useState('Any');
+  const [bedrooms, setBedrooms] = useState('Any');
+  const [yearBuilt, setYearBuilt] = useState('Any');
+  const [advBathrooms, setAdvBathrooms] = useState('Any');
+  const [energyRating, setEnergyRating] = useState('Any');
+  const [availability, setAvailability] = useState('Any');
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Use the new reusable hook
+  const { ref: searchBarRef, isVisible } = useScrollReveal(0.2);
+
+  // Close dropdowns if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Element;
+      if (!target.closest('.search-filter')) {
+        setActiveDropdown(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleDropdown = (dropdown: string) => {
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+  };
+
+  const handleSelect = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    setActiveDropdown(null);
+  };
+
+  const handleReset = () => {
+    setPropertyType('Any');
+    setBedrooms('Any');
+    setYearBuilt('Any');
+    setAdvBathrooms('Any');
+    setEnergyRating('Any');
+    setAvailability('Any');
+    
+    if (containerRef.current) {
+      const inputs = containerRef.current.querySelectorAll('input');
+      inputs.forEach(input => {
+        if (input.type === 'checkbox' && input.id !== 'advancedSearch') {
+          input.checked = false;
+        } else if (input.type === 'number' || input.type === 'text') {
+          input.value = '';
+        }
+      });
+    }
+  };
+
+  return (
+    <section className="search-section">
+      <div className={`search-container reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`} ref={(el) => {
+        searchBarRef.current = el;
+        if (el) containerRef.current = el;
+      }}>
+        
+        <div className="search-header">
+          <h2>{t.search.headline}</h2>
+          <p>{t.search.subhead}</p>
+        </div>
+
+        {/* Main Search Bar */}
+        <div className="search-bar">
+          <div className="search-filter">
+            <div className="filter-label">{t.search.location}</div>
+            <div className="filter-input-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <input type="text" placeholder={t.search.placeholder} className="search-input" />
+            </div>
+          </div>
+          <div className="search-divider"></div>
+          
+          <div className="search-filter clickable" onClick={() => toggleDropdown('propertyType')}>
+            <div className="filter-label">{t.search.type}</div>
+            <div className="filter-input-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <span className="search-value">{propertyType}</span>
+              <svg className={`search-chevron ${activeDropdown === 'propertyType' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            {activeDropdown === 'propertyType' && (
+              <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                <div className="dropdown-item" onClick={() => handleSelect(setPropertyType, 'Any')}>Any</div>
+                <div className="dropdown-header">House</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Bungalow')}>Bungalow</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Semi-detached house')}>Semi-detached house</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Single-family house')}>Single-family house</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'End-of-terrace house')}>End-of-terrace house</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Terraced house')}>Terraced house</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Two-family house')}>Two-family house</div>
+                <div className="dropdown-header">Apartment</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Penthouse apartment')}>Penthouse apartment</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Apartment')}>Apartment</div>
+                <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Maisonette apartment')}>Maisonette apartment</div>
+              </div>
+            )}
+          </div>
+          
+          <div className="search-divider"></div>
+          
+          <div className="search-filter clickable" onClick={() => toggleDropdown('bedrooms')}>
+            <div className="filter-label">{t.search.bedrooms}</div>
+            <div className="filter-input-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
+              <span className="search-value">{bedrooms}</span>
+              <svg className={`search-chevron ${activeDropdown === 'bedrooms' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            {activeDropdown === 'bedrooms' && (
+              <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                {['Any', '1+', '2+', '3+', '4+', '5+', '6+', '7+', '8+'].map(val => (
+                  <div key={val} className="dropdown-item" onClick={() => handleSelect(setBedrooms, val)}>{val}</div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <div className="search-divider"></div>
+          
+          <div className="search-filter clickable" onClick={() => toggleDropdown('yearBuilt')}>
+            <div className="filter-label">{t.search.yearBuilt}</div>
+            <div className="filter-input-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span className="search-value">{yearBuilt}</span>
+              <svg className={`search-chevron ${activeDropdown === 'yearBuilt' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            {activeDropdown === 'yearBuilt' && (
+              <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                {['Any year', 'Before 1900', '1900 – 1949', '1950 – 1979', '1980 – 1999', '2000 – 2009', '2010 – 2019', '2020 – 2024', '2025 or newer'].map(val => (
+                  <div key={val} className="dropdown-item" onClick={() => handleSelect(setYearBuilt, val)}>{val}</div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <button className={`search-btn ${isAdvancedOpen ? 'hidden-btn' : ''}`}>
+            {t.search.searchBtn}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+        
+        {/* Advanced Search Header */}
+        <div className="advanced-search-header">
+          <div className="advanced-search">
+            <input 
+              type="checkbox" 
+              id="advancedSearch" 
+              className="custom-checkbox"
+              checked={isAdvancedOpen}
+              onChange={(e) => setIsAdvancedOpen(e.target.checked)}
+            />
+            <label htmlFor="advancedSearch">{t.search.advancedBtn}</label>
+          </div>
+        </div>
+
+        {/* Expandable Advanced Area */}
+        <div className={`advanced-filters-wrapper ${isAdvancedOpen ? 'open' : ''}`}>
+          <div className="advanced-filters-content">
+            
+            {/* Top Grid: Ranges and Dropdowns */}
+            <div className="adv-grid-top">
+              <div className="adv-filter-box">
+                <div className="adv-label">{t.search.price}</div>
+                <div className="adv-input-group">
+                  <input type="number" min="0" placeholder={t.search.filters.minPrice} />
+                  <span>{t.search.to}</span>
+                  <input type="number" min="0" placeholder={t.search.filters.maxPrice} />
+                </div>
+              </div>
+              <div className="adv-filter-box">
+                <div className="adv-label">{t.search.size}</div>
+                <div className="adv-input-group">
+                  <input type="number" min="0" placeholder={t.search.filters.minSqm} />
+                  <span>{t.search.to}</span>
+                  <input type="number" min="0" placeholder={t.search.filters.maxSqm} />
+                </div>
+              </div>
+              <div className="adv-filter-box">
+                <div className="adv-label">{t.search.landArea}</div>
+                <div className="adv-input-group">
+                  <input type="number" min="0" placeholder={t.search.filters.minSqm} />
+                  <span>{t.search.to}</span>
+                  <input type="number" min="0" placeholder={t.search.filters.maxSqm} />
+                </div>
+              </div>
+              <div className="adv-filter-box clickable" onClick={() => toggleDropdown('advBathrooms')}>
+                <div className="adv-label">{t.search.bathrooms}</div>
+                <div className="adv-dropdown">
+                  <span>{advBathrooms === 'Any' ? t.search.any : advBathrooms}</span> 
+                  <svg className={`search-chevron ${activeDropdown === 'advBathrooms' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                {activeDropdown === 'advBathrooms' && (
+                  <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                    {['Any', '1+', '2+', '3+', '4+'].map(val => (
+                      <div key={val} className="dropdown-item" onClick={() => handleSelect(setAdvBathrooms, val)}>
+                        {val === 'Any' ? t.search.any : val}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="adv-filter-box clickable" onClick={() => toggleDropdown('energyRating')}>
+                <div className="adv-label">{t.search.energyRating}</div>
+                <div className="adv-dropdown">
+                  <span>{energyRating === 'Any' ? t.search.any : energyRating}</span> 
+                  <svg className={`search-chevron ${activeDropdown === 'energyRating' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                {activeDropdown === 'energyRating' && (
+                  <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
+                    {['Any', 'A+', 'A', 'B', 'C', 'D', 'E'].map(val => (
+                      <div key={val} className="dropdown-item" onClick={() => handleSelect(setEnergyRating, val)}>
+                        {val === 'Any' ? t.search.any : val}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Bottom Grid: Features and Availability */}
+            <div className="adv-grid-bottom">
+              <div className="adv-features">
+                <div className="adv-label">{t.search.features}</div>
+                <div className="adv-checkboxes">
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="14" width="18" height="8" rx="2" ry="2"></rect><path d="M3 14h18M5 14v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"></path></svg> {t.search.filters.balcony}</label>
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 20A7 7 0 0 1 14 6h7v7a7 7 0 0 1-10 7z"></path></svg> {t.search.filters.garden}</label>
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a2 2 0 0 0-1.6-.8H9.3a2 2 0 0 0-1.6.8L5 11l-5.16.86a1 1 0 0 0-.84.99V16h3m10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0zM5 16a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"></path></svg> {t.search.filters.garage}</label>
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 22h20M12 2v20M6 10c0-4 3-8 6-8s6 4 6 8"></path></svg> {t.search.filters.terrace}</label>
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><polyline points="12 6 12 18"></polyline><polyline points="9 9 12 6 15 9"></polyline><polyline points="9 15 12 18 15 15"></polyline></svg> {t.search.filters.elevator}</label>
+                  <label><input type="checkbox"/> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> {t.search.filters.fireplace}</label>
+                </div>
+              </div>
+
+              <div className="adv-filter-box clickable" style={{ maxWidth: '250px' }} onClick={() => toggleDropdown('availability')}>
+                <div className="adv-label">{t.search.availability}</div>
+                <div className="adv-dropdown">
+                  <span>{availability === 'Any' ? t.search.any : availability}</span> 
+                  <svg className={`search-chevron ${activeDropdown === 'availability' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                {activeDropdown === 'availability' && (
+                  <div className="custom-dropdown-menu align-right" onClick={(e) => e.stopPropagation()}>
+                    {['Any', 'Available immediately', 'By agreement', 'Rented', 'Reserved'].map(val => (
+                      <div key={val} className="dropdown-item" onClick={() => handleSelect(setAvailability, val)}>
+                        {val === 'Any' ? t.search.any : val}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Footer row */}
+            <div className="adv-footer">
+              <button className="adv-reset" onClick={handleReset}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg> 
+                {t.search.reset}
+              </button>
+              <div className="adv-results">{t.search.found}</div>
+              <button className="adv-submit">{t.search.show} &rarr;</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/ServicesSection.tsx
+```tsx
+"use client";
+
+import React from 'react';
+import AccordionCard from './AccordionCard';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function ServicesSection() {
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
+  const { t } = useLanguage();
+
+  const cards = [
+    {
+      number: "01",
+      category: t.services.cards[0].category,
+      title: t.services.cards[0].title,
+      subtitle: t.services.cards[0].subtitle,
+      description: t.services.cards[0].description,
+      linkText: t.services.cards[0].linkText,
+      bgImage: "/card1.jpg"
+    },
+    {
+      number: "02",
+      category: t.services.cards[1].category,
+      title: t.services.cards[1].title,
+      subtitle: t.services.cards[1].subtitle,
+      description: t.services.cards[1].description,
+      linkText: t.services.cards[1].linkText,
+      bgImage: "/card2.jpg"
+    },
+    {
+      number: "03",
+      category: t.services.cards[2].category,
+      title: t.services.cards[2].title,
+      subtitle: t.services.cards[2].subtitle,
+      description: t.services.cards[2].description,
+      linkText: t.services.cards[2].linkText,
+      bgImage: "/card3.jpg"
+    },
+    {
+      number: "04",
+      category: t.services.cards[3].category,
+      title: t.services.cards[3].title,
+      subtitle: t.services.cards[3].subtitle,
+      description: t.services.cards[3].description,
+      linkText: t.services.cards[3].linkText,
+      bgImage: "/card4.jpg"
+    }
+  ];
+
+  return (
+    <section className="services-section" ref={sectionRef}>
+      <div className={`services-left reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`}>
+        <div className="services-subtitle">
+          <span className="dot"></span> {t.services.tag}
+        </div>
+        <div className="services-headline">
+          <div className="headline-top-s">{t.services.headline}</div>
+          <div className="headline-mid-s">{t.services.headlineMid}</div>
+          <div className="headline-bot-s"><span>{t.services.headlineSerif}</span> {t.services.headlineBot}</div>
+        </div>
+        <div className="services-desc">
+          {t.services.subhead}
+        </div>
+        <div className="services-footer">
+          {t.services.footer}
+        </div>
+      </div>
+
+      <div className="services-right accordion-container">
+        {cards.map((card, idx) => (
+          <AccordionCard key={idx} {...card} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/SmoothScroll.tsx
+```tsx
+"use client";
+
+import { useEffect } from 'react';
+import Lenis from 'lenis';
+
+export default function SmoothScroll({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  return <>{children}</>;
+}
+
+```
+
+## /src/components/StatsCard.tsx
+```tsx
+import React from 'react';
+import GlassSurface from './ui/GlassSurface';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function StatsCard() {
+  const { t } = useLanguage();
+
+  return (
+    <GlassSurface
+      width="100%"
+      height="auto"
+      borderRadius={24}
+      opacity={0.8}
+      blur={11}
+      displace={0.5}
+      distortionScale={-180}
+      redOffset={0}
+      greenOffset={10}
+      blueOffset={20}
+      brightness={10}
+      mixBlendMode="screen"
+    >
+      <div className="stats-card" style={{ background: 'transparent', backdropFilter: 'none', border: 'none', boxShadow: 'none' }}>
+        <div className="stats-number">{t.hero.statsNumber}</div>
+        <div className="stats-desc" style={{ whiteSpace: 'pre-line' }}>
+          {t.hero.statsDesc}
+        </div>
+      </div>
+    </GlassSurface>
+  );
+}
+
+```
+
+## /src/components/TestimonialSection.tsx
+```tsx
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function TestimonialSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.2);
+  const { t } = useLanguage();
+  const testimonials = t.testimonials.list;
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % testimonials.length);
+    }, 7000); // Auto-advance every 7 seconds
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  return (
+    <section className="testimonial-section" ref={sectionRef}>
+      <div className="test-header-row">
+        <div className={`test-header-left reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+          <h2 className="test-headline">
+            {t.testimonials.headline}
+            <span className="italic-serif"> {t.testimonials.headlineSerif}</span>
+          </h2>
+        </div>
+        <div className={`test-header-right reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+          <p>{t.testimonials.subhead}</p>
+        </div>
+      </div>
+
+      <div className={`test-card-container reveal-base reveal-scale delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+        {/* Background Images */}
+        {testimonials.map((test, index) => (
+          <div 
+            key={index} 
+            className={`test-bg-image ${index === activeIndex ? 'active' : ''}`} 
+            style={{ backgroundImage: `url(${test.image})` }}
+          />
+        ))}
+
+        {/* Bottom Left Slide Indicator */}
+        <div className="test-indicator">
+          <span className="test-index">0{activeIndex + 1} / 0{testimonials.length}</span>
+          <div className="test-progress-bar">
+            <div 
+              className="test-progress-fill" 
+              style={{ width: `${((activeIndex + 1) / testimonials.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Inner Overlay Box */}
+        <div className="test-inner-box">
+          
+          <div className="test-box-content" key={activeIndex}>
+            <div className="test-author-row">
+              <div className="test-avatar">
+                {testimonials[activeIndex].author.substring(0, 2)}
+              </div>
+              <div className="test-author-info">
+                <strong>{testimonials[activeIndex].author}</strong>
+                <span>Private Client</span>
+              </div>
+            </div>
+            
+            <div className="test-property-purchased">
+              <strong>Property:</strong> {testimonials[activeIndex].location}
+            </div>
+            
+            <div className="test-quote">
+              "{testimonials[activeIndex].quote}"
+            </div>
+          </div>
+          
+          <div className="test-box-footer">
+            <div className="test-stars">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span className="star-rating">5.0</span>
+            </div>
+            
+            <div className="test-nav-arrows">
+              <button onClick={prevSlide} className="test-arrow-btn prev-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button onClick={nextSlide} className="test-arrow-btn next-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/components/ui/GlassSurface.css
+```css
+.glass-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.26s ease-out;
+}
+
+.glass-surface__filter {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.glass-surface__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-surface--svg {
+  background: rgba(0, 0, 0, calc(0.25 * var(--fallback-opacity, 1)));
+  backdrop-filter: blur(var(--fallback-blur, 30px)) var(--filter-id) saturate(var(--glass-saturation, 1));
+
+  box-shadow:
+    0 0 2px 1px light-dark(color-mix(in oklch, black, transparent 85%), color-mix(in oklch, white, transparent 65%))
+      inset,
+    0 0 10px 4px light-dark(color-mix(in oklch, black, transparent 90%), color-mix(in oklch, white, transparent 85%))
+      inset,
+    0px 4px 16px rgba(17, 17, 26, 0.05),
+    0px 8px 24px rgba(17, 17, 26, 0.05),
+    0px 16px 56px rgba(17, 17, 26, 0.05),
+    0px 4px 16px rgba(17, 17, 26, 0.05) inset,
+    0px 8px 24px rgba(17, 17, 26, 0.05) inset,
+    0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+}
+
+.glass-surface--fallback {
+  background: rgba(0, 0, 0, calc(0.25 * var(--fallback-opacity, 1)));
+  backdrop-filter: blur(var(--fallback-blur, 20px)) saturate(1.5) brightness(var(--fallback-brightness, 1));
+  -webkit-backdrop-filter: blur(var(--fallback-blur, 20px)) saturate(1.5) brightness(var(--fallback-brightness, 1));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 20px 0 rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-surface--fallback {
+    background: rgba(0, 0, 0, calc(0.3 * var(--fallback-opacity, 1)));
+    backdrop-filter: blur(var(--fallback-blur, 20px)) saturate(1.5) brightness(var(--fallback-brightness, 0.9));
+    -webkit-backdrop-filter: blur(var(--fallback-blur, 20px)) saturate(1.5) brightness(var(--fallback-brightness, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-surface--fallback {
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-surface--fallback::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: inherit;
+    z-index: -1;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  @media (prefers-color-scheme: dark) {
+    .glass-surface--fallback {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-surface--fallback::before {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.glass-surface:focus-visible {
+  outline: 2px solid light-dark(#007aff, #0a84ff);
+  outline-offset: 2px;
+}
+
+```
+
+## /src/components/ui/GlassSurface.tsx
+```tsx
+"use client";
+
+import React, { useEffect, useRef, useState, useId } from 'react';
+import './GlassSurface.css';
+
+export interface GlassSurfaceProps {
+  children?: React.ReactNode;
+  width?: number | string;
+  height?: number | string;
+  borderRadius?: number;
+  borderWidth?: number;
+  brightness?: number;
+  opacity?: number;
+  blur?: number;
+  displace?: number;
+  backgroundOpacity?: number;
+  saturation?: number;
+  distortionScale?: number;
+  redOffset?: number;
+  greenOffset?: number;
+  blueOffset?: number;
+  xChannel?: 'R' | 'G' | 'B';
+  yChannel?: 'R' | 'G' | 'B';
+  mixBlendMode?:
+    | 'normal'
+    | 'multiply'
+    | 'screen'
+    | 'overlay'
+    | 'darken'
+    | 'lighten'
+    | 'color-dodge'
+    | 'color-burn'
+    | 'hard-light'
+    | 'soft-light'
+    | 'difference'
+    | 'exclusion'
+    | 'hue'
+    | 'saturation'
+    | 'color'
+    | 'luminosity'
+    | 'plus-darker'
+    | 'plus-lighter';
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const GlassSurface: React.FC<GlassSurfaceProps> = ({
+  children,
+  width = 200,
+  height = 80,
+  borderRadius = 20,
+  borderWidth = 0.07,
+  brightness = 50,
+  opacity = 0.93,
+  blur = 11,
+  displace = 0.5,
+  backgroundOpacity = 0.1,
+  saturation = 1,
+  distortionScale = -180,
+  redOffset = 0,
+  greenOffset = 10,
+  blueOffset = 20,
+  xChannel = 'R',
+  yChannel = 'G',
+  mixBlendMode = 'difference',
+  className = '',
+  style = {}
+}) => {
+  const id = useId();
+  const filterId = `glass-filter-${id}`;
+  const redGradId = `red-grad-${id}`;
+  const blueGradId = `blue-grad-${id}`;
+
+  const [svgSupported, setSvgSupported] = useState<boolean>(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const feImageRef = useRef<SVGFEImageElement>(null);
+  const redChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const greenChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
+
+  const generateDisplacementMap = () => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    const actualWidth = rect?.width || 400;
+    const actualHeight = rect?.height || 200;
+    const edgeSize = Math.min(actualWidth, actualHeight) * (borderWidth * 0.5);
+
+    const svgContent = `
+      <svg viewBox="0 0 ${actualWidth} ${actualHeight}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="${redGradId}" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#0000"/>
+            <stop offset="100%" stop-color="red"/>
+          </linearGradient>
+          <linearGradient id="${blueGradId}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0000"/>
+            <stop offset="100%" stop-color="blue"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" fill="black"></rect>
+        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${redGradId})" />
+        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${blueGradId})" style="mix-blend-mode: ${mixBlendMode}" />
+        <rect x="${edgeSize}" y="${edgeSize}" width="${actualWidth - edgeSize * 2}" height="${actualHeight - edgeSize * 2}" rx="${borderRadius}" fill="hsl(0 0% ${brightness}% / ${opacity})" style="filter:blur(${blur}px)" />
+      </svg>
+    `;
+
+    return `data:image/svg+xml,${encodeURIComponent(svgContent)}`;
+  };
+
+  const [mapHref, setMapHref] = useState<string>('');
+
+  const updateDisplacementMap = () => {
+    setMapHref(generateDisplacementMap());
+  };
+
+  useEffect(() => {
+    updateDisplacementMap();
+    [
+      { ref: redChannelRef, offset: redOffset },
+      { ref: greenChannelRef, offset: greenOffset },
+      { ref: blueChannelRef, offset: blueOffset }
+    ].forEach(({ ref, offset }) => {
+      if (ref.current) {
+        ref.current.setAttribute('scale', (distortionScale + offset).toString());
+        ref.current.setAttribute('xChannelSelector', xChannel);
+        ref.current.setAttribute('yChannelSelector', yChannel);
+      }
+    });
+
+    gaussianBlurRef.current?.setAttribute('stdDeviation', displace.toString());
+  }, [
+    width,
+    height,
+    borderRadius,
+    borderWidth,
+    brightness,
+    opacity,
+    blur,
+    displace,
+    distortionScale,
+    redOffset,
+    greenOffset,
+    blueOffset,
+    xChannel,
+    yChannel,
+    mixBlendMode
+  ]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      setTimeout(updateDisplacementMap, 0);
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTimeout(updateDisplacementMap, 0);
+  }, [width, height]);
+
+  const supportsSVGFilters = () => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return false;
+    }
+    const div = document.createElement('div');
+    div.style.cssText = `
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+    `;
+    return div.style.backdropFilter !== '';
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
+    setSvgSupported(supportsSVGFilters());
+  }, []);
+
+  const containerStyle: React.CSSProperties = {
+    ...style,
+    width: typeof width === 'number' ? `${width}px` : width,
+    height: typeof height === 'number' ? `${height}px` : height,
+    borderRadius: `${borderRadius}px`,
+    '--glass-frost': backgroundOpacity,
+    '--glass-saturation': saturation,
+    '--filter-id': `url(#${filterId})`,
+    '--fallback-blur': `${blur}px`,
+    '--fallback-opacity': opacity
+  } as React.CSSProperties;
+
+  return (
+    <div
+      ref={containerRef}
+      className={`glass-surface ${svgSupported && mapHref ? 'glass-surface--svg' : 'glass-surface--fallback'} ${className}`}
+      style={containerStyle}
+    >
+      <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+            <feImage x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" href={mapHref || undefined} />
+
+            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
+            <feColorMatrix
+              in="dispRed"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="red"
+            />
+
+            <feDisplacementMap
+              ref={greenChannelRef}
+              in="SourceGraphic"
+              in2="map"
+              id="greenchannel"
+              result="dispGreen"
+            />
+            <feColorMatrix
+              in="dispGreen"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 1 0 0 0
+                      0 0 0 0 0
+                      0 0 0 1 0"
+              result="green"
+            />
+
+            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
+            <feColorMatrix
+              in="dispBlue"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 1 0 0
+                      0 0 0 1 0"
+              result="blue"
+            />
+
+            <feBlend in="red" in2="green" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+            <feGaussianBlur ref={gaussianBlurRef} in="output" stdDeviation="0.7" />
+          </filter>
+        </defs>
+      </svg>
+
+      <div className="glass-surface__content">{children}</div>
+    </div>
+  );
+};
+
+export default GlassSurface;
+
+```
+
+## /src/components/WhySection.tsx
+```tsx
+"use client";
+
+import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
+
+export default function WhySection() {
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.3);
+  const { t } = useLanguage();
+
+  return (
+    <section className="why-section" ref={sectionRef}>
+      <div className="why-container">
+        
+        {/* Left Column: Sticky Headline */}
+        <div className="why-left-col">
+          <div className="why-header-sticky">
+            <p className={`services-subtitle reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '1rem' }}>
+              <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.why.tag}
+            </p>
+            <h2 className={`why-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.why.headline} <br /><span className="italic-serif">{t.why.headlineSerif}</span>
+            </h2>
+            <p className={`why-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.why.desc1}
+            </p>
+            <div className={`why-editorial-phrase reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`} style={{ marginTop: '1rem' }}>
+              {t.why.desc2}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Numbers & Philosophy */}
+        <div className="why-right-col">
+          
+          <div className="why-stat-block">
+            <div className={`why-stat-number reveal-base reveal-scale delay-100 ${isVisible ? 'is-revealed' : ''}`}>€1.2B</div>
+            <div className={`why-stat-text reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.why.stat1}
+            </div>
+          </div>
+          
+          <div className="why-stat-block">
+            <div className={`why-stat-number reveal-base reveal-scale delay-200 ${isVisible ? 'is-revealed' : ''}`}>0%</div>
+            <div className={`why-stat-text reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.why.stat2}
+            </div>
+          </div>
+          
+          <div className="why-stat-block">
+            <div className={`why-stat-number reveal-base reveal-scale delay-300 ${isVisible ? 'is-revealed' : ''}`}>14</div>
+            <div className={`why-stat-text reveal-base reveal-up delay-400 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.why.stat3}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+```
+
+## /src/context/LanguageContext.tsx
+```tsx
+"use client";
+
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { en } from '../locales/en';
+import { de } from '../locales/de';
+
+type Language = 'en' | 'de';
+type Dictionary = typeof en;
+
+interface LanguageContextType {
+  lang: Language;
+  setLang: (lang: Language) => void;
+  t: Dictionary;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+  const [lang, setLang] = useState<Language>('en');
+
+  // Persist language preference
+  useEffect(() => {
+    const saved = localStorage.getItem('bossert-lang');
+    if (saved === 'en' || saved === 'de') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLang(saved);
+    }
+  }, []);
+
+  const handleSetLang = (newLang: Language) => {
+    setLang(newLang);
+    localStorage.setItem('bossert-lang', newLang);
+  };
+
+  const t = lang === 'en' ? en : de;
+
+  return (
+    <LanguageContext.Provider value={{ lang, setLang: handleSetLang, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
+
+```
+
+## /src/hooks/useScrollReveal.ts
+```ts
+"use client";
+
+import { useEffect, useState, useRef } from 'react';
+
+/**
+ * useScrollReveal
+ * @param threshold - Number between 0 and 1 indicating how much of the element must be visible before triggering
+ * @param triggerOnce - If true, the animation only runs once when first scrolled into view
+ * @returns [ref, isVisible] - Attach the ref to the element, and apply classes based on isVisible
+ */
+export function useScrollReveal(threshold = 0.15, triggerOnce = true) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<any>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]: IntersectionObserverEntry[]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (triggerOnce && ref.current) {
+            observer.unobserve(ref.current);
+          }
+        }
+      },
+      {
+        threshold,
+        rootMargin: '0px 0px -50px 0px', // Triggers slightly before it fully crosses the bottom
+      }
+    );
+
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [threshold, triggerOnce]);
+
+  return { ref, isVisible };
+}
+
+```
+
+## /src/locales/de.ts
+```ts
+export const de = {
+  nav: {
+    properties: 'IMMOBILIEN',
+    forOwners: 'FÜR EIGENTÜMER',
+    services: 'LEISTUNGEN',
+    about: 'ÜBER UNS',
+    references: 'REFERENZEN',
+    knowledge: 'WISSEN',
+    contact: 'KONTAKT',
+  },
+  hero: {
+    since: 'Seit 1991',
+    headlineTop: 'EINE ANDERE',
+    headlineMiddle: 'Perspektive',
+    headlineBottom: 'Auf',
+    headlineBottom2: 'Immobilien.',
+    experience: 'Über 30 Jahre Exzellenz in Premium-Immobilien in der gesamten Rhein-Main-Region.',
+    statsNumber: '500+',
+    statsDesc: 'Erfolgreiche innovative Projekte\nausgeliefert im gesamten Rhein-\nMain-Gebiet seit 1991.',
+    partner: 'IHR PARTNER FÜR\nWOHNIMMOBILIEN\nIM RHEIN-MAIN-GEBIET.',
+    scroll: 'SCROLLEN & ENTDECKEN'
+  },
+  search: {
+    headline: 'Finden Sie Ihre Traumimmobilie.',
+    subhead: 'Durchsuchen Sie Premium-Angebote im gesamten Rhein-Main-Gebiet.',
+    location: 'STANDORT',
+    placeholder: 'Wo suchen Sie?',
+    type: 'IMMOBILIENTYP',
+    typeAny: 'Alle Typen',
+    price: 'PREIS',
+    priceAny: 'Beliebiger Preis',
+    size: 'WOHNFLÄCHE',
+    bedrooms: 'SCHLAFZIMMER',
+    bedroomsAny: 'Beliebig',
+    yearBuilt: 'BAUJAHR',
+    yearBuiltAny: 'Beliebiges Jahr',
+    features: 'Ausstattung',
+    btn: 'IMMOBILIEN SUCHEN',
+    searchBtn: 'Suchen',
+    advancedBtn: 'Erweiterte Suche',
+    bathrooms: 'BADEZIMMER',
+    landArea: 'GRUNDSTÜCK',
+    energyRating: 'ENERGIEKLASSE',
+    availability: 'VERFÜGBARKEIT',
+    any: 'Beliebig',
+    to: 'bis',
+    reset: 'Filter zurücksetzen',
+    found: '128 Immobilien gefunden',
+    show: 'Immobilien anzeigen',
+    filters: {
+      minPrice: 'Min Preis',
+      maxPrice: 'Max Preis',
+      minSqm: 'Min m²',
+      maxSqm: 'Max m²',
+      balcony: 'Balkon',
+      garden: 'Garten',
+      garage: 'Garage / Stellplatz',
+      terrace: 'Terrasse',
+      elevator: 'Aufzug',
+      fireplace: 'Kamin'
+    }
+  },
+  services: {
+    tag: 'WAS WIR TUN',
+    headline: 'EIN ÜBERLEGTERER WEG',
+    headlineMid: 'um',
+    headlineSerif: 'Immobilien',
+    headlineBot: 'zu navigieren.',
+    subhead: 'Von der Suche nach der richtigen Immobilie bis zum Verständnis ihres Wertes vereint Bossert lokale Expertise, persönliche Beratung und ein komplettes Angebot an Immobiliendienstleistungen — vom ersten Gespräch bis zur finalen Übergabe.',
+    footer: 'Rhein-Main-Gebiet • Seit 1991',
+    cards: [
+      {
+        category: 'FINDEN',
+        title: 'Entdecken',
+        subtitle: 'Immobilien, die es wert sind, gekannt zu werden',
+        description: 'Sorgfältig ausgewählt im gesamten Rhein-Main-Gebiet, abgestimmt auf das, was Ihnen wichtig ist.',
+        linkText: 'IMMOBILIEN ENTDECKEN'
+      },
+      {
+        category: 'FÜR EIGENTÜMER',
+        title: 'Verkaufen',
+        subtitle: 'Eine Strategie, die um Ihre Immobilie aufgebaut ist',
+        description: 'Von der Bewertung über die Präsentation bis zur Verhandlung — Ihre Immobilie, richtig positioniert.',
+        linkText: 'IMMOBILIE VERKAUFEN'
+      },
+      {
+        category: 'BEWERTUNG',
+        title: 'Wert',
+        subtitle: 'Kennen Sie den Wert, bevor Sie den Schritt machen',
+        description: 'Lokale Marktkenntnis, aktuelle Daten und drei Jahrzehnte praktischer Erfahrung.',
+        linkText: 'BEWERTUNG ANFORDERN'
+      },
+      {
+        category: 'BERATUNG',
+        title: 'Beraten',
+        subtitle: 'Eine lokale Perspektive, auf die Sie sich verlassen können',
+        description: 'Persönliche Begleitung vom ersten Gespräch bis zur finalen Übergabe.',
+        linkText: 'UNSEREN ANSATZ ENTDECKEN'
+      }
+    ]
+  },
+  explore: {
+    tag: 'EXKLUSIVE ANGEBOTE',
+    headline: 'Ausgewählte',
+    headlineSerif: 'Immobilien.',
+    subhead: 'Entdecken Sie eine kuratierte Sammlung außergewöhnlicher Häuser, zugeschnitten auf Ihren Lebensstil. Jede Immobilie wurde handverlesen.',
+    btn: 'ALLE IMMOBILIEN ANSEHEN',
+    filters: {
+      all: 'Alle Immobilien',
+      villas: 'Villen',
+      penthouses: 'Penthouses',
+      historic: 'Historische Anwesen',
+      apartments: 'Apartments',
+      waterfront: 'Am Wasser',
+      offMarket: 'Off-Market',
+    },
+    noProps: 'Zurzeit keine Immobilien in dieser Kategorie gefunden.'
+  },
+  why: {
+    tag: 'WARUM BOSSERT',
+    headline: 'Der Standard ist',
+    headlineSerif: 'absolut.',
+    desc1: 'Wir jagen keinem Volumen nach; wir kuratieren Bedeutung. Unsere private Vertretung stellt sicher, dass Ihre Immobilienziele mit kompromissloser Diskretion und unübertroffenem architektonischen Scharfsinn erreicht werden.',
+    desc2: 'Warum Bossert die einzige Wahl ist.',
+    btn: 'UNSERE GESCHICHTE LESEN',
+    stat1: 'Gesamtwert der kuratierten Vermögenswerte, die derzeit unter unserer exklusiven privaten Verwaltung stehen. Wir jagen keinem Volumen nach; wir kuratieren Bedeutung.',
+    stat2: 'Off-Market-Ausfallquote. Unser Prüfungsprozess ist unerbittlich. Wenn wir das Mandat zur Vertretung Ihrer Immobilie annehmen, platzieren wir sie.',
+    stat3: 'Globale Ultra-High-Net-Worth Family Offices in unserem direkten Netzwerk. Wir umgehen den öffentlichen Markt komplett, wenn Diskretion es erfordert.'
+  },
+  testimonials: {
+    tag: 'KUNDENERFAHRUNGEN',
+    headline: 'Ein Erbe',
+    headlineSerif: 'außergewöhnlicher Ergebnisse.',
+    subhead: 'Erleben Sie Immobilien auf höchstem Niveau. Hören Sie direkt von denen, die uns ihre wertvollsten Vermögenswerte anvertraut haben, wo Diskretion und Präzision an erster Stelle stehen.',
+    list: [
+      {
+        quote: "Ein völlig anderes Serviceniveau. Die Diskretion und strategische Herangehensweise beim Verkauf unserer Immobilie waren unübertroffen.",
+        author: "M.K.",
+        location: "Villa im Taunus",
+        image: "/test_bg_villa.jpg"
+      },
+      {
+        quote: "Bossert versteht, dass wahrer Luxus Stille ist. Alles wurde privat, effizient und mit absoluter Präzision abgewickelt.",
+        author: "L.S.",
+        location: "Penthouse, Frankfurt",
+        image: "/test_bg_penthouse.jpg"
+      },
+      {
+        quote: "Ihr Netzwerk ist unsichtbar, aber immens leistungsstark. Sie brachten uns mit genau dem Käufer zusammen, den wir brauchten, noch bevor die Immobilie überhaupt gelistet war.",
+        author: "Dr. A.H.",
+        location: "Historisches Anwesen",
+        image: "/test_bg_estate.jpg"
+      }
+    ]
+  },
+  cta: {
+    headline: 'Kontakt',
+    headlineSerif: 'mit Bossert.',
+    subhead: 'Ob Sie eine Immobilie suchen, ein Projekt planen oder eine Off-Market-Gelegenheit besprechen möchten, wir bieten absolute Diskretion.',
+    namePlaceholder: 'Ihr Name',
+    emailPlaceholder: 'Ihre E-Mail',
+    msgPlaceholder: 'Wie können wir Ihnen helfen?',
+    btnIdle: 'ANFRAGE ABSENDEN',
+    btnSending: 'WIRD GESENDET...',
+    btnSent: 'NACHRICHT GESENDET',
+    success: 'Vielen Dank. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.'
+  },
+  footer: {
+    updates: 'Immobilien-Updates erhalten',
+    emailPlaceholder: 'e-mail',
+    subscribe: 'Abonnieren',
+    done: 'Fertig',
+    success: 'Erfolgreich abonniert.',
+    address1: 'Opernplatz 14, Suite 200',
+    address2: '60313 Frankfurt, Deutschland',
+    hours: 'Mo – Fr · 9:00 – 18:00 Uhr',
+    privacy: 'Datenschutz',
+    imprint: 'Impressum'
+  }
+};
+
+```
+
+## /src/locales/en.ts
+```ts
+export const en = {
+  nav: {
+    properties: 'PROPERTIES',
+    forOwners: 'FOR OWNERS',
+    services: 'SERVICES',
+    about: 'ABOUT',
+    references: 'REFERENCES',
+    knowledge: 'KNOWLEDGE',
+    contact: 'CONTACT',
+  },
+  hero: {
+    since: 'Since 1991',
+    headlineTop: 'A DIFFERENT',
+    headlineMiddle: 'Perspective',
+    headlineBottom: 'On',
+    headlineBottom2: 'Real Estate.',
+    experience: 'Over 30 years of excellence in premium real estate across the Rhein-Main region.',
+    statsNumber: '500+',
+    statsDesc: 'Successful innovative projects\ndelivered across the Rhine-\nMain area from 1991.',
+    partner: 'YOUR PARTNER FOR\nRESIDENTIAL REAL ESTATE\nIN THE RHINE-MAIN AREA.',
+    scroll: 'SCROLL & DISCOVER'
+  },
+  search: {
+    headline: 'Find your ideal property.',
+    subhead: 'Search premium listings across the Rhein-Main region.',
+    location: 'LOCATION',
+    placeholder: 'Where are you looking?',
+    type: 'PROPERTY TYPE',
+    typeAny: 'Any type',
+    price: 'PRICE',
+    priceAny: 'Any price',
+    size: 'LIVING AREA',
+    bedrooms: 'BEDROOMS',
+    bedroomsAny: 'Any',
+    yearBuilt: 'YEAR BUILT',
+    yearBuiltAny: 'Any year',
+    features: 'Key Features',
+    btn: 'SEARCH PROPERTIES',
+    searchBtn: 'Search',
+    advancedBtn: 'Advanced search',
+    bathrooms: 'BATHROOMS',
+    landArea: 'LAND AREA',
+    energyRating: 'ENERGY RATING',
+    availability: 'AVAILABILITY',
+    any: 'Any',
+    to: 'to',
+    reset: 'Reset filters',
+    found: '128 properties found',
+    show: 'Show properties',
+    filters: {
+      minPrice: 'Min price',
+      maxPrice: 'Max price',
+      minSqm: 'Min m²',
+      maxSqm: 'Max m²',
+      balcony: 'Balcony',
+      garden: 'Garden',
+      garage: 'Garage / Parking',
+      terrace: 'Terrace',
+      elevator: 'Elevator',
+      fireplace: 'Fireplace'
+    }
+  },
+  services: {
+    tag: 'WHAT WE DO',
+    headline: 'A MORE CONSIDERED WAY',
+    headlineMid: 'to navigate',
+    headlineSerif: 'real',
+    headlineBot: 'estate.',
+    subhead: 'From finding the right property to understanding its value, Bossert brings together local expertise, personal advice and a complete range of real-estate services — from the first conversation to the final handover.',
+    footer: 'Rhein-Main Region • Since 1991',
+    cards: [
+      {
+        category: 'FIND',
+        title: 'Discover',
+        subtitle: 'Properties worth knowing about',
+        description: 'Carefully selected across the Rhein-Main region, matched to what matters to you.',
+        linkText: 'EXPLORE PROPERTIES'
+      },
+      {
+        category: 'FOR OWNERS',
+        title: 'Sell',
+        subtitle: 'A strategy built around your property',
+        description: 'From valuation to presentation and negotiation — your property, properly positioned.',
+        linkText: 'SELL YOUR PROPERTY'
+      },
+      {
+        category: 'VALUATION',
+        title: 'Value',
+        subtitle: 'Know the value before you make the move',
+        description: 'Local market knowledge, current data and three decades of hands-on experience.',
+        linkText: 'REQUEST A VALUATION'
+      },
+      {
+        category: 'ADVISORY',
+        title: 'Advise',
+        subtitle: 'A local perspective you can rely on',
+        description: 'Personal guidance from the first conversation to the final handover.',
+        linkText: 'DISCOVER OUR APPROACH'
+      }
+    ]
+  },
+  explore: {
+    tag: 'FEATURED LISTINGS',
+    headline: 'Selected',
+    headlineSerif: 'properties.',
+    subhead: 'Discover a curated collection of exceptional homes tailored to your lifestyle. Every property is hand-selected for its architectural merit and premium location.',
+    btn: 'VIEW ALL PROPERTIES',
+    filters: {
+      all: 'All Properties',
+      villas: 'Villas',
+      penthouses: 'Penthouses',
+      historic: 'Historic Estates',
+      apartments: 'Apartments',
+      waterfront: 'Waterfront',
+      offMarket: 'Off-Market',
+    },
+    noProps: 'No properties found in this category currently.'
+  },
+  why: {
+    tag: 'WHY BOSSERT',
+    headline: 'The standard is',
+    headlineSerif: 'absolute.',
+    desc1: 'We do not chase volume; we curate significance. Our private representation ensures your real estate goals are met with uncompromising discretion and unmatched architectural acumen.',
+    desc2: 'Why Bossert is the singular choice.',
+    btn: 'READ OUR STORY',
+    stat1: 'Total value of curated assets currently under our exclusive private management. We do not chase volume; we curate significance.',
+    stat2: 'Off-market fail rate. Our vetting process is ruthless. If we accept the mandate to represent your property, we place it.',
+    stat3: 'Global ultra-high-net-worth family offices within our direct dial network. We bypass the public market entirely when discretion demands it.'
+  },
+  testimonials: {
+    tag: 'CLIENT EXPERIENCES',
+    headline: 'A legacy of',
+    headlineSerif: 'exceptional results.',
+    subhead: 'Experience real estate at the highest level. Hear directly from those who have entrusted us with their most valuable assets, where discretion and precision are paramount.',
+    list: [
+      {
+        quote: "An entirely different caliber of service. The discretion and strategic approach they brought to the sale of our property was unmatched.",
+        author: "M.K.",
+        location: "Villa in Taunus",
+        image: "/test_bg_villa.jpg"
+      },
+      {
+        quote: "Bossert understands that true luxury is silence. Everything was handled privately, efficiently, and with total precision.",
+        author: "L.S.",
+        location: "Penthouse, Frankfurt",
+        image: "/test_bg_penthouse.jpg"
+      },
+      {
+        quote: "Their network is invisible but immensely powerful. They connected us with the exact buyer we needed before the property was ever listed.",
+        author: "Dr. A.H.",
+        location: "Historic Estate",
+        image: "/test_bg_estate.jpg"
+      }
+    ]
+  },
+  cta: {
+    headline: 'Connect',
+    headlineSerif: 'with Bossert.',
+    subhead: 'Whether you are exploring a property, have a project in mind, or wish to discuss an off-market opportunity, we offer absolute discretion.',
+    namePlaceholder: 'Your Name',
+    emailPlaceholder: 'Your Email',
+    msgPlaceholder: 'How can we assist you?',
+    btnIdle: 'SUBMIT INQUIRY',
+    btnSending: 'SENDING...',
+    btnSent: 'MESSAGE SENT',
+    success: 'Thank you. We will be in touch shortly.'
+  },
+  footer: {
+    updates: 'Get listing updates',
+    emailPlaceholder: 'email',
+    subscribe: 'Subscribe',
+    done: 'Done',
+    success: 'Subscribed successfully.',
+    address1: 'Opernplatz 14, Suite 200',
+    address2: '60313 Frankfurt, Germany',
+    hours: 'Mon – Fri · 9:00 AM – 6:00 PM',
+    privacy: 'Privacy Policy',
+    imprint: 'Imprint'
+  }
+};
+
+```
+
+
+FEATURE — REBUILD HOMEPAGE ONLY TO MATCH DESIGNER'S UI/UX (full source provided)
+
+⚠️ CRITICAL SCOPE CONSTRAINT — READ FIRST
+
+This task affects ONLY the homepage. No other page in the sitemap (Properties, For Owners, Services, About, References, Knowledge, Blog, Contact, or any dynamic detail pages) may be visually, structurally, or behaviorally affected by this change — not even slightly. This includes:
+- Do NOT modify shared components in a way that changes their appearance/behavior on other pages. If Navbar, Footer, or any other shared component needs changes to match the designer's homepage design, you must either (a) confirm the change is safe and identical-looking on all other pages, or (b) create a homepage-specific variant instead of modifying the shared component, and clear this decision with me in the Phase 1 report before proceeding.
+- Do NOT change global design tokens, global font loading, or global CSS in `globals.css` in a way that cascades to other pages — any new CSS must be scoped specifically to homepage components/classes.
+- Do NOT change the site-wide left-edge alignment system, PageHero, DetailHero, or SectionHeader components that other pages depend on.
+- Do NOT change routing, middleware, or i18n configuration in a way that affects other locales/pages.
+- If adopting the `lenis` smooth-scroll library, note that wrapping it at the root layout level would affect scroll behavior SITE-WIDE, not just the homepage — this is explicitly called out below and requires my approval with full awareness of that tradeoff.
+
+If at any point implementing the designer's design requires touching a file also used by other pages, STOP and report back what the conflict is and what your options are (e.g. duplicate into a homepage-only component) rather than proceeding and risking a side effect elsewhere.
+
+CONTEXT
+
+I've extracted the designer's full homepage Next.js project as plain text (globals.css, layout.tsx, page.tsx, and every component: HeroSection, Navbar, ServicesSection, AccordionCard, SearchSection, ExploreSection, PropertyCard, WhySection, TestimonialSection, CtaSection, Footer, NewsletterSection, StatsCard, GlassSurface, SmoothScroll, useScrollReveal hook, LanguageContext, and locales/en.ts + de.ts) — pasted directly below this prompt, with each file's path marked. Save these into `_design-reference/designer-homepage/` in this repo, mirroring the given file paths exactly. This folder is reference-only and must NEVER be imported into or built as part of the live app.
+
+KNOWN CONFLICTS TO RESOLVE (confirm with me in Phase 1 — do not silently pick one side)
+
+1. I18N SYSTEM CONFLICT: The designer's project uses its own `LanguageContext.tsx` + `src/locales/en.ts`/`de.ts` with a manual EN/DE toggle and localStorage persistence. Our live site uses `next-intl` with `messages/en.json`/`de.json` and `[locale]` route-based switching, used across ALL pages. The designer's LanguageContext, locales files, and manual toggle button in his Navbar must be DISCARDED — do not bring them in. Extract every string from his `en.ts`/`de.ts` into our existing `messages/en.json`/`de.json` under a `home` namespace, and use our `next-intl` pattern in the rebuilt homepage components only. Do not touch how other pages consume next-intl.
+
+2. NEW DEPENDENCY — LENIS SMOOTH SCROLL: His project wraps the whole app in a `SmoothScroll` component using the `lenis` package. Because our root `layout.tsx` is shared across every page, adding this would affect scroll behavior site-wide — not just the homepage. Flag this to me explicitly and do NOT install/wire it in until I approve, given it cannot be homepage-scoped by nature (root-layout-level). If I don't approve it, recreate the visual "smoothness" feel using only per-section CSS/JS scroll-reveal timing on the homepage, without touching global scroll physics.
+
+3. HARDCODED CONTENT: PropertyCard listings, testimonial quotes/images, service card text, and stats numbers in his version are static placeholders. In our rebuild, homepage sections must pull from our existing Prisma/MySQL data (Properties, Stats, etc.) exactly as our current homepage does today — do not hardcode his placeholder content as real content.
+
+4. FONTS: Confirm what fonts are ACTUALLY live today across the site by checking our current `layout.tsx` and Tailwind/font config directly (there's a discrepancy in prior documentation between "Instrument Serif/Georgia + Inter" and "Playfair Display + Satoshi" — resolve this by reading the actual code, not by assuming). If the designer's fonts differ from what's live, do not silently swap the site's global fonts — flag it, since a font change would affect every page, not just home.
+
+5. GLASSMORPHISM COMPONENT: His `GlassSurface.tsx` is a complex SVG-filter-based glass effect (far more than our current CSS-only `.stat-card`). Evaluate whether to adopt it for the homepage stats card only, versus achieving a similar look with simpler CSS matching our existing `.stat-card` approach used elsewhere. This component, if built, must be homepage-scoped and not replace or alter the `.stat-card` styling used on other pages (if any other page reuses it).
+
+6. NAVBAR STRUCTURE DIFFERENCE: His Navbar has hide-on-scroll-down/show-on-scroll-up behavior and his own mobile drawer + lang-toggle (discard the lang-toggle per point 1). Our live Navbar is shared across ALL pages and already has the left-edge alignment fix applied site-wide. Do NOT modify the shared Navbar component to add his scroll-hide behavior or drawer styling, since that would change every page's nav — instead, propose in Phase 1 whether this behavior can be added as an homepage-only conditional (e.g. only active when on the homepage route) without altering Navbar's appearance/behavior elsewhere, or whether it's not worth pursuing given the risk.
+
+TASK — PHASE 1: AUDIT (report back before touching any live files)
+
+1. Read every file in `_design-reference/designer-homepage/` to understand structure, styling, and animation techniques.
+2. Compare section-by-section against our CURRENT live homepage only.
+3. Report back on all six conflict points above with your specific recommendation for each, explicitly noting for each one whether your proposed approach is 100% homepage-scoped or whether it risks touching shared code — and if it risks touching shared code, propose the homepage-scoped alternative instead.
+4. List every shared/global file (globals.css, Navbar.tsx, layout.tsx, next-intl config, etc.) that you believe you'll need to touch, and explain exactly how you'll make each change additive/scoped rather than replacing existing rules that other pages rely on.
+5. Do NOT proceed to implementation until I respond to your Phase 1 report.
+
+TASK — PHASE 2: REBUILD (only after my go-ahead, homepage files only)
+
+1. Rebuild ONLY our homepage's components/sections to match the designer's visual design, layout, section structure, hover/scroll animations, and interactions, per the decisions confirmed in Phase 1.
+2. Wire all content to our existing Prisma/MySQL data — no hardcoded placeholder content.
+3. Use our existing `next-intl` translation system, adding new keys under a `home` namespace only — no separate LanguageContext, no changes to how other pages/locales resolve translations.
+4. Preserve confirmed live design tokens/fonts, the site-wide left-edge alignment system, and Navbar/PageHero/DetailHero exactly as they behave on every other page — any homepage-specific visual flourishes must be scoped to homepage-only CSS classes/components, never global overrides.
+5. Recreate his scroll-reveal animation system using our EXISTING `useScrollReveal` hook, applied only to homepage components — do not modify the hook itself if other pages depend on its current behavior; extend it non-breakingly if needed.
+6. Delete/quarantine `_design-reference/` once the rebuild is verified complete.
+7. Run `npm run build` and `npx tsc --noEmit` — zero errors required.
+8. FINAL VERIFICATION: explicitly click through and confirm every other page (Properties, For Owners, Services, About, References, Knowledge, Blog, Contact, and at least one dynamic detail page) looks and behaves EXACTLY as it did before this change — report this check as part of your completion summary.
+
+Start with Phase 1 only.
+
+--- DESIGNER CODEBASE EXTRACTION BELOW ---
+
+[paste the full codebase extraction document here]
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-27T22:55:36+05:30.
+
+The user's current state is as follows:
+Active Document: e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\scripts\standardize-width.py (LANGUAGE_PYTHON)
+Cursor is on line: 4
+Other open documents:
+- e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\messages\de.json (LANGUAGE_JSON)
+- e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\src\components\Footer.tsx (LANGUAGE_TSX)
+- e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\src\app\admin\(protected)\team\[id]\page.tsx (LANGUAGE_TSX)
+- e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\src\app\admin\(protected)\knowledge\page.tsx (LANGUAGE_TSX)
+- e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien\src\components\ui\PageHero.tsx (LANGUAGE_TSX)
+Running terminal commands:
+- npm run dev (in e:\LIVEWIRE DIGITAL SOLUTIONS\Bossert-Immobilien, running for 2m36s)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

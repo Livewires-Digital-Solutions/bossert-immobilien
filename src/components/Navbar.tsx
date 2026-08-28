@@ -66,7 +66,7 @@ export default function Navbar() {
           className="flex items-center group"
         >
           <Image 
-            src="/logo.webp" 
+            src="/logo.png" 
             alt="Bossert Immobilien" 
             width={180} 
             height={56} 

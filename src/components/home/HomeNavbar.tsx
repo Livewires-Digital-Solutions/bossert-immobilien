@@ -69,7 +69,7 @@ export default function Navbar() {
       <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''}`}>
         <div className="logo">
           <Link href="/">
-            <Image src="/logo.webp" alt="Bossert Immobilien Logo" width={180} height={56} className="logo-img" />
+            <Image src="/logo.png" alt="Bossert Immobilien Logo" width={180} height={56} className="logo-img" />
           </Link>
         </div>
 

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   description:
     "Your partner for exclusive real estate in the Rhine-Main region since 1991. Buy, sell, or evaluate – Bossert Immobilien.",
   icons: {
-    icon: "/logo.webp",
+    icon: "/logo.png",
   },
 };
 
