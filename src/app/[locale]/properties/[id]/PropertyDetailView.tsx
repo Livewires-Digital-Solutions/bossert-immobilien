@@ -8,8 +8,10 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { TextField } from "@/components/ui/FormField";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useTranslations } from "next-intl";
+import { Property } from "@/config";
+import { formatPrice } from "@/lib/format";
 
-export default function PropertyDetailView({ property }: { property: any }) {
+export default function PropertyDetailView({ property }: { property: Property }) {
   const t = useTranslations("CTA");
   useScrollReveal();
 
@@ -32,7 +34,7 @@ export default function PropertyDetailView({ property }: { property: any }) {
             >
               {property.status}
             </span>
-            <span className="font-display text-2xl text-[var(--cream)]">{property.price}</span>
+            <span className="font-display text-2xl text-[var(--cream)]">{formatPrice(property.price)}</span>
           </div>
         }
         breadcrumbs={[
@@ -109,7 +111,7 @@ export default function PropertyDetailView({ property }: { property: any }) {
               <h3 className="font-display text-xl text-[var(--navy)] mb-6">{property.agent}</h3>
 
               <div className="mb-6 pb-6 border-b border-[var(--navy)]/10">
-                <p className="font-display text-3xl text-[var(--navy)]">{property.price}</p>
+                <p className="font-display text-3xl text-[var(--navy)]">{formatPrice(property.price)}</p>
                 <p className="font-body text-xs text-[var(--foreground)]/50 tracking-[0.1em] mt-1">{property.status}</p>
               </div>
 

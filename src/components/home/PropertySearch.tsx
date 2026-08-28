@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
-import { PROPERTIES } from "@/config";
+import { mockProperties } from "@/lib/mock-data";
 
 export default function PropertySearch() {
   const [advancedOpen, setAdvancedOpen] = useState(false);
@@ -290,7 +290,7 @@ export default function PropertySearch() {
                 Reset filters
               </button>
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
-                <span className="text-sm font-medium text-[var(--navy)]">{PROPERTIES.length} properties found</span>
+                <span className="text-sm font-medium text-[var(--navy)]">{mockProperties.length} properties found</span>
                 <button 
                   type="submit" 
                   disabled={isSearching}

@@ -147,6 +147,62 @@ export const mockProperties: MockProperty[] = [
       { textEn: 'Large Garden', textDe: 'Großer Garten', order: 1 },
       { textEn: 'Lake Access', textDe: 'Seezugang', order: 2 }
     ]
+  },
+  {
+    id: 5,
+    slug: 'historic-apartment-heidelberg',
+    titleEn: 'Historic Apartment in Heidelberg',
+    titleDe: 'Historisches Apartment in Heidelberg',
+    type: 'Apartment',
+    location: 'Altstadt',
+    city: 'Heidelberg',
+    price: '850000',
+    rooms: 4,
+    bathrooms: 1,
+    sqm: 110,
+    plotSqm: null,
+    yearBuilt: 1890,
+    energyClass: 'D',
+    status: 'AVAILABLE',
+    descriptionEn: 'A historic apartment overlooking the old town.',
+    descriptionDe: 'Ein historisches Apartment mit Blick auf die Altstadt.',
+    agent: 'Elena Bossert',
+    published: true,
+    featured: false,
+    images: [
+      { url: '/card4.jpg', order: 1 }
+    ],
+    features: [
+      { textEn: 'Historic Details', textDe: 'Historische Details', order: 1 }
+    ]
+  },
+  {
+    id: 6,
+    slug: 'modern-villa-stuttgart',
+    titleEn: 'Modern Villa in Stuttgart',
+    titleDe: 'Moderne Villa in Stuttgart',
+    type: 'Villa',
+    location: 'Killesberg',
+    city: 'Stuttgart',
+    price: '5200000',
+    rooms: 7,
+    bathrooms: 4,
+    sqm: 400,
+    plotSqm: 1500,
+    yearBuilt: 2022,
+    energyClass: 'A+',
+    status: 'AVAILABLE',
+    descriptionEn: 'A state-of-the-art villa with sustainable technology.',
+    descriptionDe: 'Eine hochmoderne Villa mit nachhaltiger Technologie.',
+    agent: 'Maximilian Bossert',
+    published: true,
+    featured: false,
+    images: [
+      { url: '/test_bg_villa.jpg', order: 1 }
+    ],
+    features: [
+      { textEn: 'Smart Home', textDe: 'Smart Home', order: 1 }
+    ]
   }
 ];
 

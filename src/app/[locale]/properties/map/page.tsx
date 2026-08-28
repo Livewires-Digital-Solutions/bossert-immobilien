@@ -6,6 +6,7 @@ import { PROPERTIES } from "@/config";
 import { LOCATIONS } from "@/config";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { formatPrice } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Map View – Properties – Bossert Immobilien",
@@ -102,7 +103,7 @@ export default function MapPage() {
                       <div>
                         <h4 className="font-display text-base text-[var(--navy)] group-hover:text-[var(--bronze)] transition-colors">{p.title}</h4>
                         <p className="font-body text-xs text-[var(--foreground)]/55">{p.sqm} sqm · {p.rooms} rooms</p>
-                        <p className="font-body text-sm font-semibold text-[var(--navy)] mt-1 mb-2">{p.price}</p>
+                        <p className="font-body text-sm font-semibold text-[var(--navy)] mt-1 mb-2">{formatPrice(p.price)}</p>
                         <span className="cta-btn cta-btn-ghost text-[0.6rem] !px-3 !py-1 inline-flex w-max">
                           {t('viewThisProperty')}
                           <span className="cta-btn-icon !w-5 !h-5" aria-hidden="true">

@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/routing";
 import PageHero from "@/components/ui/PageHero";
 import PropertyCard from "@/components/ui/PropertyCard";
-import { PROPERTIES } from "@/config";
+import { mockProperties } from "@/lib/mock-data";
 import { getTranslations } from "next-intl/server";
 
 export default async function SearchResultsPage({
@@ -16,16 +16,41 @@ export default async function SearchResultsPage({
   const type = typeof params.type === "string" ? params.type : "All Types";
   const price = typeof params.price === "string" ? params.price : "Any Price";
 
-  const results = PROPERTIES.filter((p) => {
+  const dbProperties = mockProperties;
+  // Map mockProperties to the expected format for PropertyCard
+  // We need to provide 'title', 'image', 'images' which are mapped in properties page usually.
+  const mappedProperties = dbProperties.map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.titleEn, // Using English as default for search
+    type: p.type,
+    location: p.location,
+    city: p.city,
+    sqm: p.sqm,
+    plotSqm: p.plotSqm,
+    rooms: p.rooms,
+    bathrooms: p.bathrooms,
+    yearBuilt: p.yearBuilt,
+    energyClass: p.energyClass,
+    price: p.price,
+    status: p.status,
+    description: p.descriptionEn,
+    agent: p.agent,
+    image: p.images[0]?.url || "",
+    images: p.images.map(img => img.url),
+    features: p.features.map(f => f.textEn),
+  }));
+
+  const results = mappedProperties.filter((p) => {
     const matchQ = !q || p.title.toLowerCase().includes(q) || p.city.toLowerCase().includes(q) || p.location.toLowerCase().includes(q);
     const matchLocation = location === "All Locations" || p.city === location;
     const matchType = type === "All Types" || p.type === type;
     const matchPrice = (() => {
       const num = parseFloat(p.price.replace(/[^0-9.]/g, ""));
       if (price === "Any Price") return true;
-      if (price === "Under €2M") return num < 2;
-      if (price === "€2M – €4M") return num >= 2 && num <= 4;
-      if (price === "Over €4M") return num > 4;
+      if (price === "Under €2M") return num < 2000000;
+      if (price === "€2M – €4M") return num >= 2000000 && num <= 4000000;
+      if (price === "Over €4M") return num > 4000000;
       return true;
     })();
     return matchQ && matchLocation && matchType && matchPrice;

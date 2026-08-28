@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { Property } from "@/config";
 import { useTranslations } from "next-intl";
+import { formatPrice } from "@/lib/format";
 
 export default function PropertyCard({ property, index = 0 }: { property: Property; index?: number }) {
   const t = useTranslations("CTA");
@@ -49,7 +50,7 @@ export default function PropertyCard({ property, index = 0 }: { property: Proper
           <span>{property.rooms} Rooms</span>
         </div>
         <div className="flex items-center justify-between">
-          <p className="font-body text-xl font-semibold text-[var(--navy)]">{property.price}</p>
+          <p className="font-body text-xl font-semibold text-[var(--navy)]">{formatPrice(property.price)}</p>
           <span className="cta-btn cta-btn-ghost text-[0.65rem] !px-4 !py-2">
             {t('viewDetails')}
             <span className="cta-btn-icon !w-6 !h-6" aria-hidden="true">
