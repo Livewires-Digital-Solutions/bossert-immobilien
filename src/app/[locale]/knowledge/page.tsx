@@ -5,6 +5,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import ArticleCard from "@/components/ui/ArticleCard";
 import { KNOWLEDGE_CATEGORIES } from "@/config";
 import { prisma } from "@/lib/prisma";
+import { mockKnowledgeArticles, MockKnowledgeArticle } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -18,13 +19,15 @@ export default async function KnowledgePage({ params }: { params: Promise<{ loca
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "CTA" });
 
-  const dbArticles = await prisma.knowledgeArticle.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-    take: 3
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbArticles = await prisma.knowledgeArticle.findMany({
+  //   where: { published: true },
+  //   orderBy: { createdAt: "desc" },
+  //   take: 3
+  // });
+  const dbArticles = mockKnowledgeArticles.slice(0, 3);
 
-  const featured = dbArticles.map(p => ({
+  const featured = dbArticles.map((p: MockKnowledgeArticle) => ({
     slug: p.slug,
     category: p.category as any,
     title: locale === 'de' ? p.titleDe : p.titleEn,

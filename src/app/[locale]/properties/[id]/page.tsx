@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
+import { mockProperties } from "@/lib/mock-data";
 import PropertyDetailView from "./PropertyDetailView";
 import { notFound } from "next/navigation";
 
@@ -7,10 +8,12 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const p = await prisma.property.findUnique({
-    where: { slug: id },
-    include: { images: { orderBy: { order: "asc" } }, features: { orderBy: { order: "asc" } } },
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const p = await prisma.property.findUnique({
+  //   where: { slug: id },
+  //   include: { images: { orderBy: { order: "asc" } }, features: { orderBy: { order: "asc" } } },
+  // });
+  const p = mockProperties.find(prop => prop.slug === id);
 
   if (!p) {
     notFound();
@@ -34,8 +37,8 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
     description: locale === 'de' ? p.descriptionDe : p.descriptionEn,
     agent: p.agent,
     image: p.images[0]?.url || "",
-    images: p.images.map(img => img.url),
-    features: p.features.map(f => locale === 'de' ? f.textDe : f.textEn),
+    images: p.images.map((img: any) => img.url),
+    features: p.features.map((f: any) => locale === 'de' ? f.textDe : f.textEn),
   };
 
   return <PropertyDetailView property={property} />;

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 import { BLOG_CATEGORIES } from "@/config";
 import { prisma } from "@/lib/prisma";
+import { mockBlogPosts, MockBlogPost } from "@/lib/mock-data";
 
 export default async function BlogPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
@@ -21,12 +22,14 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
   const tBlog = await getTranslations({ locale, namespace: "Blog" });
   const tNav = await getTranslations({ locale, namespace: "Navbar" });
 
-  const dbPosts = await prisma.blogPost.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" }
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbPosts = await prisma.blogPost.findMany({
+  //   where: { published: true },
+  //   orderBy: { createdAt: "desc" }
+  // });
+  const dbPosts = mockBlogPosts;
 
-  const posts = dbPosts.map(p => ({
+  const posts = dbPosts.map((p: MockBlogPost) => ({
     slug: p.slug,
     category: p.category,
     title: locale === 'de' ? p.titleDe : p.titleEn,
@@ -38,8 +41,8 @@ export default async function BlogPage(props: { params: Promise<{ locale: string
     featured: p.featured,
   }));
 
-  const featured = posts.filter((p) => p.featured);
-  const rest = posts.filter((p) => !p.featured);
+  const featured = posts.filter((p: any) => p.featured);
+  const rest = posts.filter((p: any) => !p.featured);
 
   return (
     <div className="bg-[var(--background)] min-h-screen">

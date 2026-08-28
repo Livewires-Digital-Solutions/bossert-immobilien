@@ -2,6 +2,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ReferenceCard from "@/components/ui/ReferenceCard";
 import { prisma } from "@/lib/prisma";
+import { mockReferences, MockReference } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -16,13 +17,15 @@ export default async function ReferencesPage({ params }: { params: Promise<{ loc
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "CTA" });
 
-  const dbReferences = await prisma.reference.findMany({
-    where: { published: true },
-    include: { images: { orderBy: { order: "asc" } } },
-    orderBy: { createdAt: "desc" },
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbReferences = await prisma.reference.findMany({
+  //   where: { published: true },
+  //   include: { images: { orderBy: { order: "asc" } } },
+  //   orderBy: { createdAt: "desc" },
+  // });
+  const dbReferences = mockReferences;
 
-  const references = dbReferences.map(r => ({
+  const references = dbReferences.map((r: MockReference) => ({
     id: r.id,
     slug: r.slug,
     title: locale === 'de' ? r.titleDe : r.titleEn,

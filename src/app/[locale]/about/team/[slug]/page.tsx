@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import DetailHero from "@/components/ui/DetailHero";
 import { prisma } from "@/lib/prisma";
+import { mockTeamMembers } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -10,14 +11,18 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const members = await prisma.teamMember.findMany({ select: { slug: true } });
-  return members.map((m) => ({ slug: m.slug }));
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const members = await prisma.teamMember.findMany({ select: { slug: true } });
+  // return members.map((m) => ({ slug: m.slug }));
+  return mockTeamMembers.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const { slug } = params;
-  const member = await prisma.teamMember.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const member = await prisma.teamMember.findUnique({ where: { slug } });
+  const member = mockTeamMembers.find(m => m.slug === slug);
   if (!member) return {};
   return {
     title: `${member.name} – Bossert Immobilien`,
@@ -29,7 +34,9 @@ export default async function TeamMemberPage(props: Props) {
   const params = await props.params;
   const { slug, locale } = params;
   
-  const member = await prisma.teamMember.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const member = await prisma.teamMember.findUnique({ where: { slug } });
+  const member = mockTeamMembers.find(m => m.slug === slug);
   if (!member) notFound();
 
   const t = await getTranslations({ locale, namespace: "CTA" });

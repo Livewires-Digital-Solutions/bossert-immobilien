@@ -3,6 +3,7 @@ import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import { prisma } from "@/lib/prisma";
+import { mockKnowledgeArticles } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -11,14 +12,18 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const articles = await prisma.knowledgeArticle.findMany({ select: { slug: true } });
-  return articles.map((a) => ({ slug: a.slug }));
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const articles = await prisma.knowledgeArticle.findMany({ select: { slug: true } });
+  // return articles.map((a) => ({ slug: a.slug }));
+  return mockKnowledgeArticles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const { slug } = params;
-  const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
+  const article = mockKnowledgeArticles.find(a => a.slug === slug);
   if (!article) return {};
   return {
     title: `${article.titleEn} – Knowledge – Bossert Immobilien`,
@@ -30,15 +35,19 @@ export default async function ArticlePage(props: Props & { params: Promise<{ slu
   const params = await props.params;
   const { slug, locale } = params;
   
-  const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const article = await prisma.knowledgeArticle.findUnique({ where: { slug } });
+  const article = mockKnowledgeArticles.find(a => a.slug === slug);
   if (!article) notFound();
 
   const t = await getTranslations({ locale, namespace: "CTA" });
 
-  const related = await prisma.knowledgeArticle.findMany({
-    where: { category: article.category, slug: { not: slug }, published: true },
-    take: 2
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const related = await prisma.knowledgeArticle.findMany({
+  //   where: { category: article.category, slug: { not: slug }, published: true },
+  //   take: 2
+  // });
+  const related = mockKnowledgeArticles.filter(p => p.category === article.category && p.slug !== slug).slice(0, 2);
 
   const title = locale === 'de' ? article.titleDe : article.titleEn;
   const content = (locale === 'de' ? article.contentDe : article.contentEn) as string[];

@@ -4,6 +4,7 @@ import Image from "next/image";
 import PageHero from "@/components/ui/PageHero";
 import { BLOG_CATEGORIES } from "@/config";
 import { prisma } from "@/lib/prisma";
+import { mockBlogPosts, MockBlogPost } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -31,12 +32,14 @@ export default async function BlogCategoryPage({ params }: Props) {
   
   if (!category) notFound();
 
-  const dbArticles = await prisma.blogPost.findMany({
-    where: { category: category.label, published: true },
-    orderBy: { createdAt: "desc" },
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbArticles = await prisma.blogPost.findMany({
+  //   where: { category: category.label, published: true },
+  //   orderBy: { createdAt: "desc" },
+  // });
+  const dbArticles = mockBlogPosts.filter(p => p.category === category.label);
 
-  const articles = dbArticles.map((p) => ({
+  const articles = dbArticles.map((p: MockBlogPost) => ({
     slug: p.slug,
     category: p.category,
     title: locale === 'de' ? p.titleDe : p.titleEn,

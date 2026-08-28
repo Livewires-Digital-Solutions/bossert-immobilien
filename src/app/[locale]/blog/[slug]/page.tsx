@@ -4,6 +4,7 @@ import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import { BLOG_CATEGORIES } from "@/config";
 import { prisma } from "@/lib/prisma";
+import { mockBlogPosts } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -12,14 +13,18 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const posts = await prisma.blogPost.findMany({ select: { slug: true } });
-  return posts.map((a) => ({ slug: a.slug }));
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const posts = await prisma.blogPost.findMany({ select: { slug: true } });
+  // return posts.map((a) => ({ slug: a.slug }));
+  return mockBlogPosts.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const { slug } = params;
-  const article = await prisma.blogPost.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const article = await prisma.blogPost.findUnique({ where: { slug } });
+  const article = mockBlogPosts.find(a => a.slug === slug);
   if (!article) return {};
   return {
     title: `${params.locale === 'de' ? article.titleDe : article.titleEn} – Blog – Bossert Immobilien`,
@@ -31,7 +36,9 @@ export default async function BlogArticlePage(props: Props) {
   const params = await props.params;
   const { slug, locale } = params;
   
-  const article = await prisma.blogPost.findUnique({ where: { slug } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const article = await prisma.blogPost.findUnique({ where: { slug } });
+  const article = mockBlogPosts.find(a => a.slug === slug);
   if (!article) notFound();
 
   const t = await getTranslations({ locale, namespace: "CTA" });
@@ -40,10 +47,12 @@ export default async function BlogArticlePage(props: Props) {
   const category = BLOG_CATEGORIES.find((c) => c.label === article.category);
   const categorySlug = category ? category.slug : article.category.toLowerCase().replace(/\s+/g, '-');
 
-  const related = await prisma.blogPost.findMany({
-    where: { category: article.category, slug: { not: slug }, published: true },
-    take: 3
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const related = await prisma.blogPost.findMany({
+  //   where: { category: article.category, slug: { not: slug }, published: true },
+  //   take: 3
+  // });
+  const related = mockBlogPosts.filter(p => p.category === article.category && p.slug !== slug).slice(0, 3);
 
   const title = locale === 'de' ? article.titleDe : article.titleEn;
   const excerpt = locale === 'de' ? article.excerptDe : article.excerptEn;

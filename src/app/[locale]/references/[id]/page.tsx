@@ -4,6 +4,7 @@ import Image from "next/image";
 import DetailHero from "@/components/ui/DetailHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { prisma } from "@/lib/prisma";
+import { mockReferences } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -12,14 +13,18 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const references = await prisma.reference.findMany({ select: { slug: true } });
-  return references.map((r) => ({ id: r.slug }));
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const references = await prisma.reference.findMany({ select: { slug: true } });
+  // return references.map((r) => ({ id: r.slug }));
+  return mockReferences.map((r) => ({ id: r.slug }));
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const { id } = params;
-  const ref = await prisma.reference.findUnique({ where: { slug: id } });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const ref = await prisma.reference.findUnique({ where: { slug: id } });
+  const ref = mockReferences.find(r => r.slug === id);
   if (!ref) return {};
   return {
     title: `${params.locale === 'de' ? ref.titleDe : ref.titleEn} – References – Bossert Immobilien`,
@@ -31,10 +36,12 @@ export default async function ReferenceDetailPage(props: Props) {
   const params = await props.params;
   const { id, locale } = params;
   
-  const ref = await prisma.reference.findUnique({ 
-    where: { slug: id },
-    include: { images: { orderBy: { order: "asc" } } }
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const ref = await prisma.reference.findUnique({ 
+  //   where: { slug: id },
+  //   include: { images: { orderBy: { order: "asc" } } }
+  // });
+  const ref = mockReferences.find(r => r.slug === id);
   
   const t = await getTranslations({ locale, namespace: "CTA" });
   if (!ref) notFound();

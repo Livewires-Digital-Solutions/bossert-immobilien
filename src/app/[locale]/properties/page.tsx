@@ -1,19 +1,21 @@
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
+import { mockProperties, MockProperty } from "@/lib/mock-data";
 import PropertiesView from "./PropertiesView";
 
 export default async function PropertiesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Fetch properties from database
-  const dbProperties = await prisma.property.findMany({
-    where: { published: true },
-    include: { images: { orderBy: { order: "asc" } }, features: { orderBy: { order: "asc" } } },
-    orderBy: { createdAt: "desc" },
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbProperties = await prisma.property.findMany({
+  //   where: { published: true },
+  //   include: { images: { orderBy: { order: "asc" } }, features: { orderBy: { order: "asc" } } },
+  //   orderBy: { createdAt: "desc" },
+  // });
+  const dbProperties = mockProperties;
 
-  const properties = dbProperties.map(p => ({
+  const properties = dbProperties.map((p: MockProperty) => ({
     id: p.id,
     slug: p.slug,
     title: locale === 'de' ? p.titleDe : p.titleEn,

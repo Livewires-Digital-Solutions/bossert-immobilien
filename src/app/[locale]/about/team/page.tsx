@@ -2,6 +2,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 import TeamCard from "@/components/ui/TeamCard";
 import { prisma } from "@/lib/prisma";
+import { mockTeamMembers, MockTeamMember } from "@/lib/mock-data";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -15,12 +16,14 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "CTA" });
 
-  const dbMembers = await prisma.teamMember.findMany({
-    where: { published: true },
-    orderBy: { order: "asc" },
-  });
+  // TEMP: DISABLED FOR STATIC DEPLOY — see mock-data.ts
+  // const dbMembers = await prisma.teamMember.findMany({
+  //   where: { published: true },
+  //   orderBy: { order: "asc" },
+  // });
+  const dbMembers = mockTeamMembers;
 
-  const members = dbMembers.map(m => ({
+  const members = dbMembers.map((m: MockTeamMember) => ({
     slug: m.slug,
     name: m.name,
     role: m.role,
