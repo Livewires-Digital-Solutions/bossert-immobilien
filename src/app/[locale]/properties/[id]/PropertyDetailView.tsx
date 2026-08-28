@@ -13,6 +13,7 @@ import { formatPrice } from "@/lib/format";
 
 export default function PropertyDetailView({ property }: { property: Property }) {
   const t = useTranslations("CTA");
+  const tGlobal = useTranslations();
   useScrollReveal();
 
   if (!property) notFound();
@@ -38,8 +39,8 @@ export default function PropertyDetailView({ property }: { property: Property })
           </div>
         }
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Properties", href: "/properties" },
+          { label: tGlobal("Navbar.home"), href: "/" },
+          { label: tGlobal("Navbar.properties"), href: "/properties" },
           { label: property.title },
         ]}
       />
@@ -52,12 +53,12 @@ export default function PropertyDetailView({ property }: { property: Property })
             {/* Key stats bar */}
             <div className="flex flex-wrap gap-6 mb-12 pb-8 border-b border-[var(--navy)]/10">
               {[
-                { label: "Size", value: `${property.sqm} sqm` },
-                { label: "Rooms", value: `${property.rooms}` },
-                { label: "Bathrooms", value: `${property.bathrooms}` },
-                { label: "Year Built", value: `${property.yearBuilt}` },
-                { label: "Energy Class", value: property.energyClass },
-                ...(property.plotSqm ? [{ label: "Plot", value: `${property.plotSqm} sqm` }] : []),
+                { label: tGlobal("Properties.size"), value: `${property.sqm} sqm` },
+                { label: tGlobal("Properties.rooms"), value: `${property.rooms}` },
+                { label: tGlobal("Properties.bathrooms"), value: `${property.bathrooms}` },
+                { label: tGlobal("Properties.yearBuilt"), value: `${property.yearBuilt}` },
+                { label: tGlobal("Properties.energyClass"), value: property.energyClass },
+                ...(property.plotSqm ? [{ label: tGlobal("Properties.plot"), value: `${property.plotSqm} sqm` }] : []),
               ].map((stat) => (
                 <div key={stat.label}>
                   <p className="text-[0.6rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-1">{stat.label}</p>
@@ -68,13 +69,13 @@ export default function PropertyDetailView({ property }: { property: Property })
 
             {/* Description */}
             <div className="reveal mb-12">
-              <SectionHeader eyebrow="About This Property" title="Property Overview" className="mb-6" />
+              <SectionHeader eyebrow={tGlobal("Properties.aboutProperty")} title={tGlobal("Properties.overview")} className="mb-6" />
               <p className="font-body text-base text-[var(--foreground)]/70 leading-relaxed">{property.description}</p>
             </div>
 
             {/* Features */}
             <div className="reveal mb-12">
-              <h3 className="font-display text-2xl text-[var(--navy)] mb-6">Key Features</h3>
+              <h3 className="font-display text-2xl text-[var(--navy)] mb-6">{tGlobal("Properties.keyFeatures")}</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {property.features.map((feat: string) => (
                   <li key={feat} className="flex items-start gap-3 font-body text-sm text-[var(--foreground)]/70">
@@ -87,7 +88,7 @@ export default function PropertyDetailView({ property }: { property: Property })
 
             {/* Image Gallery */}
             <div className="reveal">
-              <h3 className="font-display text-2xl text-[var(--navy)] mb-6">Gallery</h3>
+              <h3 className="font-display text-2xl text-[var(--navy)] mb-6">{tGlobal("Properties.gallery")}</h3>
               <div className="grid grid-cols-2 gap-3">
                 {property.images.slice(1).map((img: string, i: number) => (
                   <div key={i} className={`relative overflow-hidden rounded-xl ${i === 0 ? "col-span-2 aspect-[16/7]" : "aspect-[4/3]"}`}>
@@ -107,7 +108,7 @@ export default function PropertyDetailView({ property }: { property: Property })
           {/* Right: Contact Sidebar */}
           <aside className="lg:col-span-1">
             <div className="sticky top-28 border border-[var(--navy)]/10 rounded-2xl p-8 bg-white shadow-sm">
-              <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2 block">Listed by</span>
+              <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2 block">{tGlobal("Properties.listedBy")}</span>
               <h3 className="font-display text-xl text-[var(--navy)] mb-6">{property.agent}</h3>
 
               <div className="mb-6 pb-6 border-b border-[var(--navy)]/10">
@@ -116,11 +117,11 @@ export default function PropertyDetailView({ property }: { property: Property })
               </div>
 
               <form className="flex flex-col gap-5" id={`property-enquiry-${property.slug}`}>
-                <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body block">Enquire About This Property</span>
-                <TextField label="Full Name" name="name" placeholder="Your name" />
-                <TextField label="Email" type="email" name="email" placeholder="your@email.de" />
-                <TextField label="Phone" type="tel" name="phone" placeholder="+49 …" />
-                <TextField label="Message" name="message" rows={4} placeholder="I am interested in this property and would like to arrange a viewing…" />
+                <span className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body block">{tGlobal("Properties.enquire")}</span>
+                <TextField label={tGlobal("Properties.fullName")} name="name" placeholder="Your name" />
+                <TextField label={tGlobal("Properties.email")} type="email" name="email" placeholder="your@email.de" />
+                <TextField label={tGlobal("Properties.phone")} type="tel" name="phone" placeholder="+49 …" />
+                <TextField label={tGlobal("Properties.message")} name="message" rows={4} placeholder="I am interested in this property and would like to arrange a viewing…" />
                 
                 <button type="submit" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)] w-full justify-center">
                   {t('scheduleViewing')}
@@ -143,7 +144,7 @@ export default function PropertyDetailView({ property }: { property: Property })
               </form>
 
               <p className="font-body text-xs text-[var(--foreground)]/40 mt-6 text-center leading-relaxed">
-                Your enquiry will be handled with complete discretion.
+                {tGlobal("Properties.disclaimer")}
               </p>
             </div>
           </aside>
@@ -153,7 +154,7 @@ export default function PropertyDetailView({ property }: { property: Property })
       {/* ── More Properties ──────────────────────────────────────────────── */}
       <section className="py-20 px-6 md:px-10 bg-[var(--cream)]">
         <div className="max-w-[1400px] mx-auto text-center">
-          <SectionHeader eyebrow="Explore More" title="Similar Properties" align="center" className="mb-10" />
+          <SectionHeader eyebrow={tGlobal("Properties.exploreMore")} title={tGlobal("Properties.similarProperties")} align="center" className="mb-10" />
           <Link href="/properties" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="property-detail-more">
             {t('viewAllProperties')}
             <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">

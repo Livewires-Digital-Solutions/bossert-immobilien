@@ -12,9 +12,9 @@ const TYPES = ["All Types", "Villa", "Penthouse", "Apartment", "House"];
 const PRICES = ["Any Price", "Under €2M", "€2M – €4M", "Over €4M"];
 
 const QUICK_LINKS = [
-  { href: "/properties/search", label: "Advanced Search" },
-  { href: "/properties/map", label: "Map View" },
-  { href: "/properties/search-profile", label: "Save Search Profile" },
+  { href: "/properties/search", labelKey: "Properties.advancedSearch" },
+  { href: "/properties/map", labelKey: "Properties.mapView" },
+  { href: "/properties/search-profile", labelKey: "Properties.saveProfile" },
 ];
 
 export default function PropertiesView({ properties }: { properties: any[] }) {
@@ -22,6 +22,8 @@ export default function PropertiesView({ properties }: { properties: any[] }) {
   const [location, setLocation] = useState("All Locations");
   const [type, setType] = useState("All Types");
   const [price, setPrice] = useState("Any Price");
+
+  const t = useTranslations();
 
   useScrollReveal();
 
@@ -46,11 +48,11 @@ export default function PropertiesView({ properties }: { properties: any[] }) {
       {/* ── Premium Search Hero ──────────────────────────────────────── */}
       <div className="relative w-full">
         <PageHero
-          title="Find Your Property"
-          subtitle="Exclusive Portfolio"
+          title={t("Properties.title")}
+          subtitle={t("Properties.subtitle")}
           breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Properties" },
+            { label: t("Navbar.home"), href: "/" },
+            { label: t("Navbar.properties") },
           ]}
           backgroundImage="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000"
         >
@@ -63,11 +65,11 @@ export default function PropertiesView({ properties }: { properties: any[] }) {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by city, neighbourhood or property name…"
+                placeholder={t("Properties.searchPlaceholder")}
                 className="w-full pl-14 pr-36 py-4 md:py-5 bg-[#02121A]/60 backdrop-blur-md border border-[var(--cream)]/15 rounded-full text-[var(--cream)] placeholder-[var(--cream)]/40 font-body text-sm outline-none focus:border-[var(--bronze)]/70 focus:bg-[#02121A]/80 transition-all shadow-lg"
               />
               <button className="absolute right-2 bg-[var(--cream)] hover:bg-[var(--bronze)] text-[var(--navy)] hover:text-[var(--cream)] font-body text-[0.7rem] tracking-[0.15em] uppercase font-bold px-6 py-3 rounded-full transition-all">
-                Search
+                {t("Properties.searchBtnHome")}
               </button>
             </div>
           </div>
@@ -114,14 +116,14 @@ export default function PropertiesView({ properties }: { properties: any[] }) {
                 href={link.href}
                 className="text-[0.65rem] font-body text-[var(--cream)]/70 hover:text-[var(--bronze)] tracking-[0.14em] uppercase transition-colors"
               >
-                {link.label}
+                {t(link.labelKey)}
               </Link>
             ))}
           </div>
         </PageHero>
 
         <div className="absolute bottom-6 right-6 md:right-12 z-20 font-body text-[var(--cream)] text-xs tracking-[0.15em] bg-[#02121A]/60 backdrop-blur-sm px-4 py-2 rounded-full border border-[var(--cream)]/10 pointer-events-none">
-          {filtered.length} {filtered.length === 1 ? "property" : "properties"} found
+          {filtered.length} {filtered.length === 1 ? t("Properties.propertiesFound") : t("Properties.propertiesFoundPlural")}
         </div>
       </div>
 
@@ -129,8 +131,8 @@ export default function PropertiesView({ properties }: { properties: any[] }) {
         <div className="max-w-[1400px] mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-24">
-              <p className="font-display text-3xl text-[var(--navy)]/40 mb-3">No properties found</p>
-              <p className="font-body text-sm text-[var(--foreground)]/50">Try adjusting your search or filters</p>
+              <p className="font-display text-3xl text-[var(--navy)]/40 mb-3">{t("Properties.noProperties")}</p>
+              <p className="font-body text-sm text-[var(--foreground)]/50">{t("Properties.tryAdjusting")}</p>
             </div>
           ) : (
             <div 

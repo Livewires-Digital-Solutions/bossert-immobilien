@@ -33,12 +33,14 @@ const VALUES = [
 
 export default function AboutPage() {
   const t = useTranslations("CTA");
+  const tAbout = useTranslations("About");
+  const tNav = useTranslations("Navbar");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
-        title="About Bossert"
-        subtitle="Excellence in Real Estate Since 1991"
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        title={tAbout("title")}
+        subtitle={tAbout("subtitle")}
+        breadcrumbs={[{ label: tNav("home"), href: "/" }, { label: tNav("about") }]}
       />
 
       {/* ── Story Section ──────────────────────────────────────────────── */}
@@ -46,12 +48,12 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="reveal-left">
             <SectionHeader
-              eyebrow="Our Heritage"
-              title="Decades of trust, discretion, and market expertise."
-              description="Founded in 1991, Bossert Immobilien has established itself as one of the most prestigious real estate agencies in the Rhine-Main region. We specialize in the brokerage of high-end residential properties — from landmark villas to landmark penthouses."
+              eyebrow={tAbout("heritage")}
+              title={tAbout("heritageTitle")}
+              description={tAbout("heritageDesc1")}
             />
             <p className="font-body text-[var(--foreground)]/70 text-base leading-relaxed mt-6">
-              Our philosophy is simple: we treat every property as if it were our own, and every client like family. This uncompromising commitment to quality and service has allowed us to build a vast network of satisfied clients and a portfolio of exclusive off-market opportunities unavailable anywhere else.
+              {tAbout("heritageDesc2")}
             </p>
             <div className="mt-10 flex gap-4 flex-wrap">
               <Link href="/about/team" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]" id="about-meet-team">
@@ -88,8 +90,8 @@ export default function AboutPage() {
       <section className="py-24 px-6 md:px-10 bg-[var(--navy)]">
         <div className="max-w-[1400px] mx-auto">
           <SectionHeader
-            eyebrow="Why Bossert"
-            title="Built on results, relationships, and reputation."
+            eyebrow={tAbout("why")}
+            title={tAbout("whyTitle")}
             align="center"
             dark
             className="mb-16"
@@ -114,8 +116,8 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
             <SectionHeader
-              eyebrow="Our People"
-              title="The experts behind every transaction."
+              eyebrow={tAbout("people")}
+              title={tAbout("peopleTitle")}
             />
             <Link href="/about/team" className="cta-btn shrink-0" id="about-all-team">
               {t('meetOurTeam')}
@@ -138,7 +140,7 @@ export default function AboutPage() {
       <section className="py-16 px-6 md:px-10 bg-white border-t border-[var(--navy)]/10">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
           <div className="reveal stagger-1">
-            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">Address</p>
+            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">{tAbout("address")}</p>
             <p className="font-body text-sm text-[var(--foreground)]/70 leading-relaxed">
               {COMPANY.address.street}<br />
               {COMPANY.address.zip} {COMPANY.address.city}<br />
@@ -146,12 +148,12 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="reveal stagger-2">
-            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">Contact</p>
+            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">{tAbout("contact")}</p>
             <a href={`tel:${COMPANY.phone.replace(/\s/g, "")}`} className="font-body text-sm text-[var(--foreground)]/70 hover:text-[var(--navy)] transition-colors block">{COMPANY.phone}</a>
             <a href={`mailto:${COMPANY.email}`} className="font-body text-sm text-[var(--foreground)]/70 hover:text-[var(--navy)] transition-colors block">{COMPANY.email}</a>
           </div>
           <div className="reveal stagger-3">
-            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">Office Hours</p>
+            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-2">{tAbout("officeHours")}</p>
             <p className="font-body text-sm text-[var(--foreground)]/70 leading-relaxed">
               {COMPANY.hours.weekdays}<br />
               {COMPANY.hours.saturday}

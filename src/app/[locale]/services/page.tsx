@@ -11,22 +11,27 @@ export const metadata: Metadata = {
     "From brokerage and valuation to marketing and advisory — explore the full range of real estate services offered by Bossert Immobilien.",
 };
 
+import { useTranslations } from "next-intl";
+
 export default function ServicesPage() {
+  const t = useTranslations("CTA");
+  const tSvc = useTranslations("Services");
+  const tNav = useTranslations("Navbar");
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
-        title="Our Services"
-        subtitle="Full-Service Real Estate Excellence"
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        title={tSvc("title")}
+        subtitle={tSvc("subtitle")}
+        breadcrumbs={[{ label: tNav("home"), href: "/" }, { label: tNav("services") }]}
       />
 
       {/* ── Intro ──────────────────────────────────────────────────────── */}
       <section className="py-24 px-6 md:px-10 bg-white">
         <div className="max-w-[1400px] mx-auto">
           <SectionHeader
-            eyebrow="What We Do"
-            title="End-to-end expertise for every property journey."
-            description="Whether you are buying, selling, renting, or seeking strategic advice, our team delivers a level of service that matches the quality of the properties we represent."
+            eyebrow={tSvc("whatWeDo")}
+            title={tSvc("whatWeDoTitle")}
+            description={tSvc("whatWeDoDesc")}
             align="center"
             className="mb-20"
           />
@@ -56,7 +61,7 @@ export default function ServicesPage() {
                   <h3 className="font-display text-2xl md:text-3xl text-[var(--navy)] mb-2 group-hover:text-[var(--bronze)] transition-colors duration-300">{svc.title}</h3>
                   <p className="font-body text-sm text-[var(--foreground)]/65 leading-relaxed mb-4">{svc.intro.slice(0, 110)}…</p>
                   <span className="text-[0.65rem] font-body text-[var(--bronze)] tracking-[0.12em] uppercase border border-[var(--bronze)]/30 px-3 py-1 rounded-full group-hover:bg-[var(--bronze)] group-hover:text-[var(--navy)] transition-all duration-300 inline-block">
-                    Learn More
+                    {tSvc("learnMore")}
                   </span>
                 </div>
               </Link>
@@ -69,16 +74,16 @@ export default function ServicesPage() {
       <section className="py-20 px-6 md:px-10 bg-[var(--navy)]">
         <div className="max-w-[700px] mx-auto text-center">
           <span className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--bronze)] font-body mb-4 block">
-            Start Today
+            {tSvc("startToday")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl text-[var(--cream)] mb-6">
-            Not sure which service is right for you?
+            {tSvc("ctaTitle")}
           </h2>
           <p className="font-body text-[var(--cream)]/70 text-base leading-relaxed mb-10">
-            Our advisors are happy to listen to your situation and recommend the most appropriate path forward — with no obligation.
+            {tSvc("ctaDesc")}
           </p>
           <Link href="/contact" className="cta-btn" id="services-contact-cta">
-            Speak to an Advisor
+            {tSvc("speakToAdvisor")}
             <span className="cta-btn-icon" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="2" y1="6" x2="10" y2="6" /><polyline points="6.5,2.5 10,6 6.5,9.5" />

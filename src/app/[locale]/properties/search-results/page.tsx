@@ -2,7 +2,7 @@ import { Link } from "@/i18n/routing";
 import PageHero from "@/components/ui/PageHero";
 import PropertyCard from "@/components/ui/PropertyCard";
 import { mockProperties } from "@/lib/mock-data";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { PropertyType, PropertyStatus } from "@/config";
 
 export default async function SearchResultsPage({
@@ -11,6 +11,8 @@ export default async function SearchResultsPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const t = await getTranslations("CTA");
+  const tGlobal = await getTranslations();
+  const locale = await getLocale();
   const params = await searchParams;
   const q = (typeof params.q === "string" ? params.q : "").toLowerCase();
   const location = typeof params.location === "string" ? params.location : "All Locations";
@@ -23,7 +25,7 @@ export default async function SearchResultsPage({
   const mappedProperties = dbProperties.map((p) => ({
     id: p.id,
     slug: p.slug,
-    title: p.titleEn, // Using English as default for search
+    title: locale === 'de' ? p.titleDe : p.titleEn,
     type: p.type as PropertyType,
     location: p.location,
     city: p.city,
@@ -35,11 +37,11 @@ export default async function SearchResultsPage({
     energyClass: p.energyClass,
     price: p.price,
     status: p.status as PropertyStatus,
-    description: p.descriptionEn,
+    description: locale === 'de' ? p.descriptionDe : p.descriptionEn,
     agent: p.agent,
     image: p.images[0]?.url || "",
     images: p.images.map(img => img.url),
-    features: p.features.map(f => f.textEn),
+    features: p.features.map(f => locale === 'de' ? f.textDe : f.textEn),
   }));
 
   const results = mappedProperties.filter((p) => {
@@ -60,16 +62,16 @@ export default async function SearchResultsPage({
   return (
     <div className="bg-[var(--background)] min-h-screen">
       <PageHero
-        title="Search Results"
-        subtitle={`${results.length} ${results.length === 1 ? "Property" : "Properties"} Found`}
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Properties", href: "/properties" }, { label: "Search Results" }]}
+        title={locale === 'de' ? "Suchergebnisse" : "Search Results"}
+        subtitle={`${results.length} ${results.length === 1 ? tGlobal("Properties.propertiesFound") : tGlobal("Properties.propertiesFoundPlural")}`}
+        breadcrumbs={[{ label: tGlobal("Navbar.home"), href: "/" }, { label: tGlobal("Navbar.properties"), href: "/properties" }, { label: locale === 'de' ? "Suchergebnisse" : "Search Results" }]}
       />
 
       <section className="py-20 px-6 md:px-10 bg-[var(--cream)]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
             <p className="font-body text-sm text-[var(--foreground)]/60">
-              Showing results {q && <>for &ldquo;<span className="text-[var(--navy)]">{q}</span>&rdquo;</>}
+              {locale === 'de' ? "Zeige Ergebnisse" : "Showing results"} {q && <>{locale === 'de' ? "für" : "for"} &ldquo;<span className="text-[var(--navy)]">{q}</span>&rdquo;</>}
             </p>
             <Link
               href="/properties/search"
@@ -81,8 +83,8 @@ export default async function SearchResultsPage({
 
           {results.length === 0 ? (
             <div className="text-center py-24">
-              <p className="font-display text-3xl text-[var(--navy)]/40 mb-3">No properties found</p>
-              <p className="font-body text-sm text-[var(--foreground)]/50 mb-8">Try adjusting your search criteria</p>
+              <p className="font-display text-3xl text-[var(--navy)]/40 mb-3">{tGlobal("Properties.noProperties")}</p>
+              <p className="font-body text-sm text-[var(--foreground)]/50 mb-8">{tGlobal("Properties.tryAdjusting")}</p>
               <Link href="/properties/search" className="cta-btn !bg-[var(--navy)] !text-[var(--cream)]">
                 {t('refineSearch')}
                 <span className="cta-btn-icon !bg-[var(--cream)] !text-[var(--navy)]" aria-hidden="true">
