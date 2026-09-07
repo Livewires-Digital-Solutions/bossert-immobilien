@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --navy: #042433;
   --cream: #FEFCF6;
   --bronze: #AF8C53;
@@ -5317,3 +5317,11 @@ body {
 }
 
 /* Force HMR trigger to clear Turbopack cache */
+
+/* Force footer to always render dark navy */
+footer,
+footer[class*="footer"],
+[class*="site-footer"] {
+  background-color: #042433 !important;
+  color: #FEFCF6;
+}

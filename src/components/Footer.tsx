@@ -2,54 +2,60 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLanguage } from '../context/LanguageContext';
+import styles from './Footer.module.css';
+
+const NAVY = '#042433';
 
 export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="site-footer-wrapper">
+    <footer className={styles.footer} style={{ backgroundColor: NAVY }}>
 
       {/* ── Hero image band ── */}
-      <div className="footer-image-band" />
+      <div className={styles.imageBand} />
 
       {/* ── Wordmark block ── */}
-      <div className="footer-wordmark-block">
-        <div className="footer-wordmark">
+      <div className={styles.wordmarkBlock} style={{ backgroundColor: NAVY }}>
+        <div className={styles.wordmark}>
           {/* Logo image */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/logo.png"
             alt="Bossert Immobilien"
-            className="footer-logo-img"
+            width={52}
+            height={52}
+            className={styles.logoImg}
+            priority
           />
-          <span className="footer-wordmark-top">BOSSERT</span>
-          <span className="footer-wordmark-bottom">IMMOBILIEN</span>
+          <span className={styles.wordmarkTop}>BOSSERT</span>
+          <span className={styles.wordmarkBottom}>IMMOBILIEN</span>
         </div>
       </div>
 
       {/* ── Horizontal rule ── */}
-      <div className="footer-rule" />
+      <div className={styles.rule} style={{ backgroundColor: NAVY }} />
 
       {/* ── Nav links ── */}
-      <nav className="footer-nav-row" aria-label="Footer navigation">
-        <Link href="/properties">Property Listings</Link>
-        <Link href="/services">{t.nav.services}</Link>
-        <Link href="#">{t.nav.cancelContract}</Link>
-        <Link href="/about">Company</Link>
-        <Link href="/contact">{t.nav.contact}</Link>
+      <nav className={styles.navRow} style={{ backgroundColor: NAVY }} aria-label="Footer navigation">
+        <Link href="/properties" className={styles.navLink}>Property Listings</Link>
+        <Link href="/services" className={styles.navLink}>{t.nav.services}</Link>
+        <Link href="#" className={styles.navLink}>{t.nav.cancelContract}</Link>
+        <Link href="/about" className={styles.navLink}>Company</Link>
+        <Link href="/contact" className={styles.navLink}>{t.nav.contact}</Link>
       </nav>
 
       {/* ── Social icons ── */}
-      <div className="footer-socials-row">
-        <a href="#" aria-label="Instagram" className="footer-social-link">
+      <div className={styles.socialsRow} style={{ backgroundColor: NAVY }}>
+        <a href="#" aria-label="Instagram" className={styles.socialLink}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
           </svg>
         </a>
-        <a href="#" aria-label="Facebook" className="footer-social-link">
+        <a href="#" aria-label="Facebook" className={styles.socialLink}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4.2V7a1 1 0 0 1 1-1h3z" />
           </svg>
@@ -57,11 +63,11 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom bar ── */}
-      <div className="footer-bottom-bar">
-        <span className="footer-bottom-copy">Copywrite</span>
-        <div className="footer-bottom-right">
-          <span className="footer-bottom-sep">|</span>
-          <Link href="#" className="footer-bottom-link">Imprint</Link>
+      <div className={styles.bottomBar} style={{ backgroundColor: NAVY }}>
+        <span className={styles.copyText}>Copywrite</span>
+        <div className={styles.bottomRight}>
+          <span className={styles.sep}>|</span>
+          <Link href="#" className={styles.imprintLink}>Imprint</Link>
         </div>
       </div>
 

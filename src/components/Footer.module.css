@@ -1,0 +1,191 @@
+/* ── Full wrapper ── */
+.footer {
+  width: 100%;
+  background-color: #042433 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Full-width image band ── */
+.imageBand {
+  width: 100%;
+  height: 280px;
+  background-image: url('/HERO%20BG.png');
+  background-size: cover;
+  background-position: center 30%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.imageBand::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 36, 51, 0.3) 0%,
+    rgba(4, 36, 51, 0.7) 100%
+  );
+}
+
+/* ── Wordmark block ── */
+.wordmarkBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background-color: #042433 !important;
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+}
+
+.logoImg {
+  width: 52px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+  opacity: 0.95;
+  filter: brightness(0) invert(1);
+}
+
+.wordmarkTop {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 6px;
+  color: #FEFCF6 !important;
+  text-transform: uppercase;
+}
+
+.wordmarkBottom {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: #AF8C53 !important;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ── Horizontal rule ── */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: none;
+}
+
+/* ── Centered nav row ── */
+.navRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2rem 2rem;
+  background-color: #042433 !important;
+}
+
+.navLink {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: rgba(254, 252, 246, 0.75) !important;
+  text-decoration: none;
+  padding: 0.25rem 1.5rem;
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.navLink + .navLink::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 12px;
+  width: 1px;
+  background: rgba(254, 252, 246, 0.2);
+}
+
+.navLink:hover {
+  color: #FEFCF6 !important;
+}
+
+/* ── Social icons ── */
+.socialsRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2rem 2.5rem 2rem;
+  background-color: #042433 !important;
+}
+
+.socialLink {
+  color: rgba(254, 252, 246, 0.65) !important;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: flex;
+  align-items: center;
+}
+
+.socialLink:hover {
+  color: #FEFCF6 !important;
+  transform: translateY(-2px);
+}
+
+/* ── Bottom bar ── */
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.9rem 2rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.7rem;
+  color: rgba(254, 252, 246, 0.45) !important;
+  background-color: #042433 !important;
+}
+
+.copyText {
+  font-weight: 300;
+}
+
+.bottomRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sep {
+  color: rgba(254, 252, 246, 0.3);
+}
+
+.imprintLink {
+  color: rgba(254, 252, 246, 0.45) !important;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.imprintLink:hover {
+  color: #FEFCF6 !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .imageBand {
+    height: 200px;
+  }
+  .navLink {
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem;
+  }
+}
