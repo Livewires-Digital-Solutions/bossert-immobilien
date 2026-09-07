@@ -1,0 +1,94 @@
+.introWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+  perspective: 1800px;
+}
+
+.door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  background-color: var(--navy);
+  overflow: hidden;
+  transition: transform 3.2s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.leftDoor {
+  left: 0;
+  transform-origin: left center;
+}
+
+.rightDoor {
+  right: 0;
+  transform-origin: right center;
+}
+
+.logoContainer {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
+}
+
+.leftDoor .logoContainer {
+  left: 0;
+}
+
+.rightDoor .logoContainer {
+  left: -100%;
+}
+
+.logoImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 3.2s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leftDoor::after {
+  background: linear-gradient(to right, transparent 40%, rgba(255, 255, 255, 0.08) 95%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.rightDoor::after {
+  background: linear-gradient(to left, transparent 40%, rgba(255, 255, 255, 0.08) 95%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.doorOpenLeft::after,
+.doorOpenRight::after {
+  opacity: 1;
+}
+
+.doorOpenLeft {
+  transform: rotateY(-85deg) skewY(3deg);
+}
+
+.doorOpenRight {
+  transform: rotateY(85deg) skewY(-3deg);
+}
+
+@media (max-width: 768px) {
+  .logoImage {
+    width: 140px;
+  }
+}

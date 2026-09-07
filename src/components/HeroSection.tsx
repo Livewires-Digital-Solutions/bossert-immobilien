@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Navbar from './Navbar';
-import StatsCard from './StatsCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -21,31 +20,30 @@ export default function HeroSection() {
         {/* Main Content */}
         <div className="main-grid">
           <div className="left-content">
-            <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>{t.hero.since}</div>
-            <div className={`headline-top reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>{t.hero.headlineTop}</div>
-            <div className={`headline-middle reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>{t.hero.headlineMiddle}</div>
-            <div className={`headline-bottom reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
-              <span>{t.hero.headlineBottom}</span> {t.hero.headlineBottom2}
+            <div className="hero-top-group">
+              <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+                {t.hero.since}
+              </div>
+              <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+                {t.hero.headline}
+              </h1>
+            </div>
+            <div className={`hero-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.hero.subhead}
+            </div>
+            <div className={`hero-desc reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
+              {t.hero.desc}
             </div>
           </div>
           
           <div className="right-content">
-            <div className={`experience-text reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
-              {t.hero.experience}
-            </div>
-            
-            <div className={`reveal-base reveal-scale delay-400 ${isVisible ? 'is-revealed' : ''}`}>
-              <StatsCard />
-            </div>
+            {/* Carousel removed as requested */}
           </div>
         </div>
 
         {/* Footer Area */}
         <div className="bottom-area">
           <div className="bottom-left">
-            <div className={`partner-text reveal-base reveal-up delay-500 ${isVisible ? 'is-revealed' : ''}`}>
-              {t.hero.partner}
-            </div>
             <div className={`scroll-indicator reveal-base reveal-up delay-600 ${isVisible ? 'is-revealed' : ''}`}>
               {t.hero.scroll}
               <div className="scroll-icon"></div>

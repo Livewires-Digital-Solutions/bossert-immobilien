@@ -10,16 +10,12 @@ export const de = {
     cancelContract: 'Widerrufsrecht',
   },
   hero: {
-    since: 'Seit 1991',
-    headlineTop: 'EINE ANDERE',
-    headlineMiddle: 'Perspektive',
-    headlineBottom: 'Auf',
-    headlineBottom2: 'Immobilien.',
-    experience: 'Über 30 Jahre Exzellenz in Premium-Immobilien in der gesamten Rhein-Main-Region.',
-    statsNumber: '500+',
-    statsDesc: 'Erfolgreiche innovative Projekte\nausgeliefert im gesamten Rhein-\nMain-Gebiet seit 1991.',
-    partner: 'IHR PARTNER FÜR\nWOHNIMMOBILIEN\nIM RHEIN-MAIN-GEBIET.',
-    scroll: 'SCROLLEN & ENTDECKEN'
+    since: 'SEIT 1991',
+    headline: 'Ihr Partner für Wohnimmobilien im Rhein-Main-Gebiet.',
+    subhead: 'KOMPETENZ, VERTRAUEN UND EXZELLENZ',
+    desc: 'Seit über 30 Jahren sind wir Ihr verlässlicher Partner rund um Immobilien.',
+    partner: 'IHR PARTNER FÜR\nWOHNIMMOBILIEN\nIM RHEIN-MAIN GEBIET.',
+    scroll: 'SCROLL & DISCOVER'
   },
   search: {
     headline: 'Finden Sie Ihre ideale Immobilie.',

@@ -10,14 +10,10 @@ export const en = {
     cancelContract: 'Right of Withdrawal',
   },
   hero: {
-    since: 'Since 1991',
-    headlineTop: 'A DIFFERENT',
-    headlineMiddle: 'Perspective',
-    headlineBottom: 'On',
-    headlineBottom2: 'Real Estate.',
-    experience: 'Over 30 years of excellence in premium real estate across the Rhein-Main region.',
-    statsNumber: '500+',
-    statsDesc: 'Successful innovative projects\ndelivered across the Rhine-\nMain area from 1991.',
+    since: 'SEIT 1991',
+    headline: 'Your Trusted Partner for Residential Properties in the Rhine-Main Region.',
+    subhead: 'EXPERTISE, TRUST, EXCELLENCE',
+    desc: 'For more than 30 years, we have been your reliable partner for all matters related to property.',
     partner: 'YOUR PARTNER FOR\nRESIDENTIAL REAL ESTATE\nIN THE RHINE-MAIN AREA.',
     scroll: 'SCROLL & DISCOVER'
   },

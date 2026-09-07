@@ -74,51 +74,66 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
   return (
     <>
       <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass}`}>
-        <Link href="/" className="logo">
+        {/* Mobile Logo (hidden on desktop) */}
+        <Link href="/" className="logo mobile-only-logo">
           <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
         </Link>
 
         {/* Desktop Nav */}
-        <div className="nav-links desktop-nav">
-          <Link href="/properties" className={`nav-item ${pathname === '/properties' ? 'active' : ''}`}>{t.nav.properties}</Link>
-          <Link href="/owners" className={`nav-item ${pathname === '/owners' ? 'active' : ''}`}>{t.nav.forOwners}</Link>
-          <Link href="/services" className={`nav-item ${pathname === '/services' ? 'active' : ''}`}>{t.nav.services}</Link>
-          <Link href="/about" className={`nav-item ${pathname === '/about' ? 'active' : ''}`}>{t.nav.about}</Link>
-          <Link href="/references" className={`nav-item ${pathname === '/references' ? 'active' : ''}`}>{t.nav.references}</Link>
-          <Link href="/knowledge" className={`nav-item ${pathname === '/knowledge' ? 'active' : ''}`}>{t.nav.knowledge}</Link>
+        <div className="desktop-nav">
           
-          <div className="lang-toggle">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span 
-              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-              onClick={() => setLang('en')}
-            >
-              EN
-            </span>
-            <span className="lang-sep">|</span>
-            <span 
-              className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
-              onClick={() => setLang('de')}
-            >
-              DE
-            </span>
+          <div className="nav-left-section">
+            <div className="lang-toggle">
+              <span 
+                className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => setLang('en')}
+              >
+                EN
+              </span>
+              <span className="lang-sep">|</span>
+              <span 
+                className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
+                onClick={() => setLang('de')}
+              >
+                DE
+              </span>
+            </div>
+            
+            <div className="nav-links-inner">
+              <Link href="/properties" className={`nav-item ${pathname === '/properties' ? 'active' : ''}`}>{t.nav.properties.toUpperCase()}</Link>
+              <Link href="/owners" className={`nav-item ${pathname === '/owners' ? 'active' : ''}`}>{t.nav.forOwners.toUpperCase()}</Link>
+              <Link href="/services" className={`nav-item ${pathname === '/services' ? 'active' : ''}`}>{t.nav.services.toUpperCase()}</Link>
+            </div>
           </div>
 
-          <Link href="/contact" className="contact-btn">{t.nav.contact}</Link>
-          <Link href="/login" className="login-icon-btn" aria-label="Login">
-            {userInitial ? (
-              <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-instrument), serif', fontWeight: 400 }}>{userInitial}</span>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            )}
-          </Link>
+          <div className="nav-center-section">
+            <Link href="/" className="logo">
+              <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+            </Link>
+          </div>
+
+          <div className="nav-right-section">
+            <div className="nav-links-inner">
+              <Link href="/about" className={`nav-item ${pathname === '/about' ? 'active' : ''}`}>{t.nav.about.toUpperCase()}</Link>
+              <Link href="/references" className={`nav-item ${pathname === '/references' ? 'active' : ''}`}>{t.nav.references.toUpperCase()}</Link>
+              <Link href="/knowledge" className={`nav-item ${pathname === '/knowledge' ? 'active' : ''}`}>{t.nav.knowledge.toUpperCase()}</Link>
+            </div>
+
+            <div className="nav-actions">
+              <Link href="/contact" className="contact-btn">{t.nav.contact.toUpperCase()}</Link>
+              <Link href="/login" className="login-icon-btn" aria-label="Login">
+                {userInitial ? (
+                  <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-instrument), serif', fontWeight: 400 }}>{userInitial}</span>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                )}
+              </Link>
+            </div>
+          </div>
+
         </div>
 
         {/* Mobile Right Side: Lang Toggle + Hamburger */}
