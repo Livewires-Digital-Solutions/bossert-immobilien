@@ -25,7 +25,11 @@ export default function HeroSection() {
                 {t.hero.since}
               </div>
               <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
-                {t.hero.headline}
+                <span className="hero-headline-top">{t.hero.headlineTop}</span>
+                <span className="hero-headline-mid">{t.hero.headlineMid}</span>
+                <span className="hero-headline-bot">
+                  <span>{t.hero.headlineBotPre}</span> {t.hero.headlineBotBold}
+                </span>
               </h1>
             </div>
             <div className={`hero-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>

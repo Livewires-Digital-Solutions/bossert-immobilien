@@ -11,6 +11,10 @@ export const en = {
   },
   hero: {
     since: 'SEIT 1991',
+    headlineTop: 'YOUR TRUSTED PARTNER',
+    headlineMid: 'for residential',
+    headlineBotPre: 'real',
+    headlineBotBold: 'estate.',
     headline: 'Your Trusted Partner for Residential Properties in the Rhine-Main Region.',
     subhead: 'EXPERTISE, TRUST, EXCELLENCE',
     desc: 'For more than 30 years, we have been your reliable partner for all matters related to property.',
