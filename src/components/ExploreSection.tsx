@@ -59,8 +59,6 @@ export default function ExploreSection() {
   return (
     <section className="explore-section" ref={sectionRef}>
       <div className="explore-container">
-        <SearchSection hideHeader={true} embedded={true} />
-
         {/* Top Header */}
         <div className="explore-header">
           <div className={`explore-header-left reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
@@ -86,6 +84,8 @@ export default function ExploreSection() {
             </a>
           </div>
         </div>
+
+        <SearchSection hideHeader={true} embedded={true} />
 
         {/* Category Filters */}
         <div className="explore-filters">
