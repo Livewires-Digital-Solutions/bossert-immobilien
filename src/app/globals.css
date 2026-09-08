@@ -1482,7 +1482,7 @@ body {
 .accordion-card {
   flex: 1 1 0%;
   min-width: 0; /* Prevents flex children from overflowing the window horizontally */
-  border-radius: 12px;
+  border-radius: 4px;
   position: relative;
   overflow: hidden;
   transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
@@ -1522,9 +1522,9 @@ body {
   z-index: 2;
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   color: var(--white);
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   letter-spacing: 1px;
   font-weight: 600;
   white-space: normal;
@@ -1532,15 +1532,22 @@ body {
 
 .card-watermark {
   position: absolute;
-  bottom: 2rem;
-  right: -1rem;
-  font-family: var(--font-instrument), serif;
+  bottom: 11rem;
+  right: -0.5rem;
+  font-family: var(--font-serif), var(--font-instrument), serif;
   font-style: italic;
-  font-size: 10rem;
-  color: rgba(255, 255, 255, 0.1);
+  font-size: clamp(6.5rem, 8.5vw, 8.5rem);
+  color: rgba(255, 255, 255, 0.32);
+  text-shadow: 0 4px 20px rgba(4, 36, 51, 0.3);
   z-index: 2;
   pointer-events: none;
   line-height: 1;
+  user-select: none;
+  transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.accordion-card:hover .card-watermark {
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .card-bottom {
