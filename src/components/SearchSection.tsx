@@ -96,8 +96,10 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
     router.push('/properties?' + params.toString());
   };
 
+  const Tag = embedded ? 'div' : 'section';
+
   return (
-    <section className={`search-section ${isDarkBg ? 'search-section-dark' : ''} ${embedded ? 'search-section-embedded' : ''}`}>
+    <Tag className={`search-section ${isDarkBg ? 'search-section-dark' : ''} ${embedded ? 'search-section-embedded' : ''}`}>
       <div className={`search-container reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`} ref={(el) => {
         searchBarRef.current = el;
         if (el) containerRef.current = el;
@@ -402,6 +404,6 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
         )}
 
       </div>
-    </section>
+    </Tag>
   );
 }
