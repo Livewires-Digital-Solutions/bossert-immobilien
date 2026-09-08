@@ -406,15 +406,15 @@ export const de = {
         house: "Einfamilien- oder Mehrfamilienhaus",
         apartment: "Wohnung",
         commercial: "Gewerbe",
-        
+
         houseFormTitle: "Erzählen Sie uns kurz etwas über Ihre Immobilie",
         apartmentFormTitle: "Erzählen Sie uns kurz etwas über Ihre Immobilie",
         commercialFormTitle: "Erzählen Sie uns kurz etwas über Ihre Immobilie",
-        
+
         houseType: "Haustyp",
         apartmentType: "Wohnungstyp",
         commercialType: "Art der Gewerbeimmobilie",
-        
+
         yearBuilt: "Baujahr (ca.)",
         livingArea: "Wohnfläche (ca.)",
         plotArea: "Grundstücksfläche (ca.)",
@@ -424,19 +424,19 @@ export const de = {
         bathrooms: "Anzahl Badezimmer",
         parkingSpaces: "Anzahl Stellplätze",
         condition: "Zustand",
-        
+
         features: "Verfügt Ihre Immobilie über diese Ausstattungen?",
-        
+
         plans: "Ihre Pläne",
         sell: "Verkaufen",
         rentOut: "Vermieten",
-        
+
         timeframe: "Zeitrahmen",
         notDecided: "Noch nicht entschieden",
         laterPoint: "Zu einem späteren Zeitpunkt",
         fewMonths: "Innerhalb der nächsten Monate",
         yesSoon: "Ja, bald",
-        
+
         additional: "Was sollten wir sonst noch über Ihre Immobilie wissen?",
         location: "Standort",
         contactInfo: "Kontaktdaten",
@@ -444,10 +444,10 @@ export const de = {
         lastName: "Nachname",
         email: "E-Mail",
         phone: "Telefonnummer",
-        
+
         consent: "Ich habe die AGB und die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu.",
         submit: "Absenden ⟶",
-        
+
         rentalStatus: "Ist die Immobilie aktuell vermietet?",
         yes: "Ja",
         no: "Nein",

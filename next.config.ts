@@ -1,7 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      // onOffice photo CDN
+      {
+        protocol: 'https',
+        hostname: '**.onoffice.de',
+      },
+      {
+        protocol: 'https',
+        hostname: 'onoffice.de',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
