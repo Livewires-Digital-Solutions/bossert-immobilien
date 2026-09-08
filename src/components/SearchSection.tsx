@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function SearchSection({ hideHeader = false, isDarkBg = false, hideResultsCount = false }: { hideHeader?: boolean, isDarkBg?: boolean, hideResultsCount?: boolean }) {
+export default function SearchSection({ hideHeader = false, isDarkBg = false, hideResultsCount = false, embedded = false }: { hideHeader?: boolean, isDarkBg?: boolean, hideResultsCount?: boolean, embedded?: boolean }) {
   const { t } = useLanguage();
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -97,7 +97,7 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
   };
 
   return (
-    <section className={`search-section ${isDarkBg ? 'search-section-dark' : ''}`}>
+    <section className={`search-section ${isDarkBg ? 'search-section-dark' : ''} ${embedded ? 'search-section-embedded' : ''}`}>
       <div className={`search-container reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`} ref={(el) => {
         searchBarRef.current = el;
         if (el) containerRef.current = el;

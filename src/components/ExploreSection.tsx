@@ -5,6 +5,7 @@ import PropertyCard from './PropertyCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import { Property, mockProperties } from '../data/properties';
+import SearchSection from './SearchSection';
 
 export default function ExploreSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
@@ -58,6 +59,7 @@ export default function ExploreSection() {
   return (
     <section className="explore-section" ref={sectionRef}>
       <div className="explore-container">
+        <SearchSection hideHeader={true} embedded={true} />
 
         {/* Top Header */}
         <div className="explore-header">

@@ -1674,6 +1674,13 @@ body {
   padding-bottom: 2.5rem;
 }
 
+.search-section.search-section-embedded {
+  padding: 0;
+  margin-bottom: -1rem; /* Adjust if necessary, or just 0 */
+  background: transparent;
+  z-index: 20;
+}
+
 .search-container {
   width: 100%;
   max-width: 1320px;
