@@ -11,6 +11,10 @@ export const de = {
   },
   hero: {
     since: 'SEIT 1991',
+    headlineTop: 'IHR VERLÄSSLICHER PARTNER',
+    headlineMid: 'für anspruchsvolle',
+    headlineBotPre: 'Wohn',
+    headlineBotBold: 'immobilien.',
     headline: 'Ihr Partner für Wohnimmobilien im Rhein-Main-Gebiet.',
     subhead: 'KOMPETENZ, VERTRAUEN UND EXZELLENZ',
     desc: 'Seit über 30 Jahren sind wir Ihr verlässlicher Partner rund um Immobilien.',

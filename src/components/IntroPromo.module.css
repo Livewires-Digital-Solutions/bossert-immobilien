@@ -1,0 +1,289 @@
+/* ── Scroll Track: Provides height for the pinned scroll animation ── */
+.scrollTrack {
+  position: relative;
+  width: 100%;
+  height: 250vh;
+  background-color: #042433;
+}
+
+/* ── Sticky Viewport: Pins inside the track for the duration of the scroll ── */
+.stickyStage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #042433;
+  z-index: 10;
+}
+
+/* ── Vector Background Illustration ── */
+.vectorIllustration {
+  position: absolute;
+  inset: 0;
+  background-image: url('/aboutbg.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  /* Invert black drawing lines into vibrant off-white architectural line art */
+  filter: invert(1) brightness(1.3) contrast(1.15);
+  mix-blend-mode: screen;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+/* Subtle dark gradient overlay at top & bottom so it blends seamlessly into adjacent sections */
+.vectorVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(4, 36, 51, 0.2) 0%,
+    rgba(4, 36, 51, 0.75) 85%,
+    rgba(4, 36, 51, 0.95) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Expanding Content Box ── */
+/* Expands outward from 0 width & 0 height */
+.contentExpansionContainer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: width, height, clip-path, transform, opacity;
+  transform-origin: center center;
+}
+
+/* Elegant glassmorphic framed card with fine golden border */
+.contentCard {
+  width: 100%;
+  max-width: 860px;
+  background: rgba(4, 36, 51, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(175, 140, 83, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(175, 140, 83, 0.1);
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative corner accents */
+.contentCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-top: 2px solid #AF8C53;
+  border-left: 2px solid #AF8C53;
+}
+
+.contentCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-bottom: 2px solid #AF8C53;
+  border-right: 2px solid #AF8C53;
+}
+
+/* ── Typography & Elements ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #AF8C53;
+  font-weight: 500;
+}
+
+.tagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #AF8C53;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(175, 140, 83, 0.8);
+}
+
+.headline {
+  font-family: var(--font-instrument), serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #FEFCF6;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.subhead {
+  font-family: var(--font-instrument), serif;
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-style: italic;
+  color: #AF8C53;
+  line-height: 1.5;
+  max-width: 680px;
+  margin: 0;
+}
+
+.bodyText {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(254, 252, 246, 0.78);
+  max-width: 620px;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* ── Consultation CTA Button ── */
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+  padding: 1.05rem 2.5rem;
+  border: 1px solid #AF8C53;
+  color: #FEFCF6;
+  background: transparent;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #AF8C53;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.ctaButton:hover::before {
+  transform: scaleX(1);
+}
+
+.ctaButton:hover {
+  color: #FEFCF6;
+  border-color: #AF8C53;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(175, 140, 83, 0.25);
+}
+
+.ctaArrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.25s ease;
+}
+
+.ctaArrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.ctaButton:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ── Scroll Phase Indicator / Hint at bottom ── */
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 6;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.scrollTrackLine {
+  width: 60px;
+  height: 2px;
+  background: rgba(254, 252, 246, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scrollProgressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #AF8C53;
+  transition: width 0.1s linear;
+}
+
+.scrollHintText {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(254, 252, 246, 0.45);
+}
+
+/* ── Mobile responsiveness ── */
+@media (max-width: 768px) {
+  .scrollTrack {
+    height: 220vh;
+  }
+  
+  .contentCard {
+    padding: 2.25rem 1.5rem;
+    margin: 0 1.25rem;
+    gap: 1.2rem;
+  }
+  
+  .headline {
+    font-size: 1.85rem;
+  }
+  
+  .subhead {
+    font-size: 0.95rem;
+  }
+  
+  .bodyText {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
+  .ctaButton {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.68rem;
+  }
+}
