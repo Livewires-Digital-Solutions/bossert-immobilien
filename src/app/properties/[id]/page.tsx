@@ -45,6 +45,33 @@ export default async function PropertyDetailPage({ params }: PageProps) {
 
           <div className="property-details-grid">
             <div className="property-main-col">
+              {/* Key Facts Section */}
+              <section className="property-section">
+                <h2 className="property-section-title">Eckdaten</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                  {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
+                  {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
+                  {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
+                  {property.bedrooms && <div><strong>Schlafzimmer:</strong><br/>{property.bedrooms}</div>}
+                  {property.bathrooms && <div><strong>Badezimmer:</strong><br/>{property.bathrooms}</div>}
+                  {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
+                  {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
+                </div>
+              </section>
+
+              {/* Energy Details Section */}
+              {property.energy && (
+                <section className="property-section">
+                  <h2 className="property-section-title">Energie & Heizung</h2>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                    {property.energy.heatingType && <div><strong>Heizungsart:</strong><br/>{property.energy.heatingType}</div>}
+                    {property.energy.firing && <div><strong>Befeuerung:</strong><br/>{property.energy.firing}</div>}
+                    {property.energy.energyPassType && <div><strong>Energieausweistyp:</strong><br/>{property.energy.energyPassType}</div>}
+                    {property.energy.energyConsumption && <div><strong>Energieverbrauch:</strong><br/>{property.energy.energyConsumption}</div>}
+                  </div>
+                </section>
+              )}
+
               {/* Description Section */}
               {property.description && (
                 <section className="property-section">

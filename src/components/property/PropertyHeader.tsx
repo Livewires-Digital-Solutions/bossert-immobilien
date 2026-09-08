@@ -40,6 +40,11 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
       
       <div className="property-header-action">
         <div className="property-price">{property.price}</div>
+        {property.commission && (
+          <div className="property-commission" style={{ fontSize: '0.875rem', color: 'var(--blue-light)', marginBottom: '1rem', marginTop: '0.25rem' }}>
+            <strong>Käuferprovision:</strong> {property.commission}
+          </div>
+        )}
         <Button variant="dark">
           Request Viewing
         </Button>

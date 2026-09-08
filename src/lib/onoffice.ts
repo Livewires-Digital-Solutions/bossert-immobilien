@@ -40,8 +40,11 @@ const ESTATE_FIELDS = [
   'kaufpreis', 'kaltmiete', 'warmmiete',
   'ort', 'plz', 'strasse', 'lage',
   'wohnflaeche', 'nutzflaeche', 'grundstuecksflaeche',
-  'anzahl_zimmer',
-  'objektbeschreibung',
+  'anzahl_zimmer', 'anzahl_schlafzimmer', 'anzahl_badezimmer',
+  'baujahr', 'zustand',
+  'heizungsart', 'befeuerung', 'energieausweistyp', 'energieverbrauchskennwert', 'endenergiebedarf', 'energieausweisBaujahr', 'energietraeger',
+  'aussen_courtage', 'provisionshinweis',
+  'objektbeschreibung', 'ausstattungExpose',
   'breitengrad', 'laengengrad', 'objektnr_extern',
 ];
 
@@ -226,8 +229,23 @@ function mapEstateToProperty(
   const description =
     (el['objektbeschreibung'] as string) || (el['freitext_1'] as string) || '';
 
-  const amenityRaw = (el['ausstattungsbeschreibung'] as string) ?? '';
+  const amenityRaw = (el['ausstattungExpose'] as string) || (el['ausstattungsbeschreibung'] as string) || '';
   const amenities  = amenityRaw.split(/[,;\n]/).map((s) => s.trim()).filter(Boolean);
+
+  const livingArea = el['wohnflaeche'] ? `${parseFloat(String(el['wohnflaeche'])).toLocaleString('de-DE')} m²` : undefined;
+  const plotArea = el['grundstuecksflaeche'] ? `${parseFloat(String(el['grundstuecksflaeche'])).toLocaleString('de-DE')} m²` : undefined;
+  const roomsStr = el['anzahl_zimmer'] ? String(el['anzahl_zimmer']) : undefined;
+  const bedroomsStr = el['anzahl_schlafzimmer'] ? String(el['anzahl_schlafzimmer']) : undefined;
+  const bathroomsStr = el['anzahl_badezimmer'] ? String(el['anzahl_badezimmer']) : undefined;
+  const buildYear = el['baujahr'] ? String(el['baujahr']) : undefined;
+  const condition = el['zustand'] ? String(el['zustand']) : undefined;
+
+  const heatingType = el['heizungsart'] ? String(el['heizungsart']) : undefined;
+  const firing = el['befeuerung'] ? String(el['befeuerung']) : (el['energietraeger'] ? String(el['energietraeger']) : undefined);
+  const energyPassType = el['energieausweistyp'] ? String(el['energieausweistyp']) : undefined;
+  const energyConsumption = el['endenergiebedarf'] ? String(el['endenergiebedarf']) : (el['energieverbrauchskennwert'] ? String(el['energieverbrauchskennwert']) : undefined);
+
+  const commission = el['aussen_courtage'] ? String(el['aussen_courtage']) : (el['provisionshinweis'] ? String(el['provisionshinweis']) : undefined);
 
   return {
     id:            config.externalId,
@@ -240,6 +258,20 @@ function mapEstateToProperty(
     galleryImages: photos.length > 0 ? photos : undefined,
     description:   description || undefined,
     amenities:     amenities.length > 0 ? amenities : undefined,
+    livingArea,
+    plotArea,
+    rooms: roomsStr,
+    bedrooms: bedroomsStr,
+    bathrooms: bathroomsStr,
+    buildYear,
+    condition,
+    energy: (heatingType || firing || energyPassType || energyConsumption) ? {
+      heatingType,
+      firing,
+      energyPassType,
+      energyConsumption,
+    } : undefined,
+    commission,
   };
 }
 

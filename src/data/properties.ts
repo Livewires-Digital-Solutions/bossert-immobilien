@@ -22,6 +22,24 @@ export interface Property {
     propertyTax?: number;
     hoaFees?: number;
   };
+  // Detailed Facts
+  livingArea?: string;
+  plotArea?: string;
+  rooms?: string;
+  bedrooms?: string;
+  bathrooms?: string;
+  buildYear?: string;
+  condition?: string;
+  // Energy Details
+  energy?: {
+    heatingType?: string;
+    firing?: string;
+    energyPassType?: string;
+    energyConsumption?: string;
+    energyEfficiencyClass?: string;
+  };
+  // Commission
+  commission?: string;
 }
 
 const baseProperties: Property[] = [
