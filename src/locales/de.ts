@@ -22,8 +22,11 @@ export const de = {
     scroll: 'SCROLL & DISCOVER'
   },
   search: {
+    tag: 'PREMIUM LIVING',
     headline: 'Finden Sie Ihre ideale Immobilie.',
     subhead: 'Durchsuchen Sie erstklassige Angebote in der Rhein-Main-Region.',
+    moreOptions: 'WEITERE OPTIONEN',
+    slogan: 'EXZELLENTES WOHNEN. EINE GLÄNZENDE ZUKUNFT.',
     purchase: 'Kauf',
     rent: 'Miete',
     investment: 'Anlage',

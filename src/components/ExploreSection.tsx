@@ -4,23 +4,32 @@ import React, { useState, useEffect } from 'react';
 import PropertyCard from './PropertyCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
-import type { Property } from '../data/properties';
+import { Property, mockProperties } from '../data/properties';
+import SearchSection from './SearchSection';
 
 export default function ExploreSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
   const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // ── Fetch from onOffice API ──────────────────────────────────────────────
-  const [properties, setProperties] = useState<Property[]>([]);
+  // ── Fetch from onOffice API (with mock fallback) ───────────────────────────
+  const [properties, setProperties] = useState<Property[]>(mockProperties);
   const [loading, setLoading]       = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     fetch('/api/properties')
       .then((res) => res.ok ? res.json() as Promise<Property[]> : Promise.resolve([]))
-      .then((data) => { if (!cancelled) setProperties(data); })
-      .catch(() => { if (!cancelled) setProperties([]); })
+      .then((data) => {
+        if (!cancelled) {
+          if (Array.isArray(data) && data.length > 0) {
+            setProperties(data);
+          } else {
+            setProperties(mockProperties);
+          }
+        }
+      })
+      .catch(() => { if (!cancelled) setProperties(mockProperties); })
       .finally(() => { if (!cancelled) setLoading(false); });
 
     return () => { cancelled = true; };
@@ -50,7 +59,6 @@ export default function ExploreSection() {
   return (
     <section className="explore-section" ref={sectionRef}>
       <div className="explore-container">
-
         {/* Top Header */}
         <div className="explore-header">
           <div className={`explore-header-left reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
@@ -76,6 +84,8 @@ export default function ExploreSection() {
             </a>
           </div>
         </div>
+
+        <SearchSection hideHeader={true} embedded={true} />
 
         {/* Category Filters */}
         <div className="explore-filters">

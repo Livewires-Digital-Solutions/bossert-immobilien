@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import PropertyCard from './PropertyCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
-import type { Property } from '../data/properties';
+import { Property, mockProperties } from '../data/properties';
 
 export default function PropertiesGrid() {
   const { ref: gridRef, isVisible } = useScrollReveal(0);
@@ -14,8 +14,8 @@ export default function PropertiesGrid() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
-  // ── Fetch from onOffice API ──────────────────────────────────────────────
-  const [properties, setProperties] = useState<Property[]>([]);
+  // ── Fetch from onOffice API (with fallback) ────────────────────────────────
+  const [properties, setProperties] = useState<Property[]>(mockProperties);
   const [loading, setLoading]       = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
@@ -30,10 +30,18 @@ export default function PropertiesGrid() {
         return res.json() as Promise<Property[]>;
       })
       .then((data) => {
-        if (!cancelled) setProperties(data);
+        if (!cancelled) {
+          if (Array.isArray(data) && data.length > 0) {
+            setProperties(data);
+          } else {
+            setProperties(mockProperties);
+          }
+        }
       })
-      .catch((err: Error) => {
-        if (!cancelled) setFetchError(err.message ?? 'Failed to load');
+      .catch((_err: Error) => {
+        if (!cancelled) {
+          setProperties(mockProperties);
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);

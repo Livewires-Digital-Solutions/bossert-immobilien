@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { fetchOnOfficePropertyById, PROPERTY_CONFIGS } from '@/lib/onoffice';
+import { mockProperties } from '@/data/properties';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyGallery from '@/components/property/PropertyGallery';
@@ -23,7 +24,10 @@ export const revalidate = 300; // 5-minute ISR
 
 export default async function PropertyDetailPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const property = await fetchOnOfficePropertyById(resolvedParams.id);
+  let property = await fetchOnOfficePropertyById(resolvedParams.id);
+  if (!property) {
+    property = mockProperties.find((p) => p.id === resolvedParams.id) || null;
+  }
 
   if (!property) {
     notFound();

@@ -82,6 +82,9 @@ interface OnOfficeAction {
  * Returns the `data` object from the first result.
  */
 async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
+  if (!TOKEN || !SECRET) {
+    return null;
+  }
   const ts        = getTimestamp();
   const timestamp = ts.toString();
   const hmac      = generateHmac(SECRET, timestamp, TOKEN, action.resourcetype, action.actionid);
@@ -110,6 +113,7 @@ async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify(body),
     cache:   'no-store',
+    signal:  AbortSignal.timeout(5000),
   });
 
   if (!response.ok) {
@@ -274,6 +278,9 @@ async function fetchEstateById(
 
 /** Fetch all 3 configured properties from onOffice (parallel). */
 export async function fetchOnOfficeProperties(): Promise<Property[]> {
+  if (!TOKEN || !SECRET) {
+    return [];
+  }
   const results = await Promise.allSettled(
     PROPERTY_CONFIGS.map((config) => fetchEstateById(config)),
   );
@@ -293,6 +300,9 @@ export async function fetchOnOfficeProperties(): Promise<Property[]> {
 export async function fetchOnOfficePropertyById(
   externalId: string,
 ): Promise<Property | null> {
+  if (!TOKEN || !SECRET) {
+    return null;
+  }
   const config = PROPERTY_CONFIGS.find((c) => c.externalId === externalId);
   if (!config) return null;
 
