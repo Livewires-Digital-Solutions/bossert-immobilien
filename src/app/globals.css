@@ -1,8 +1,63 @@
+/* ── The Seasons Font Family Integration ── */
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons'), local('TheSeasons'), local('The Seasons Regular'),
+       url('/fonts/TheSeasons-Regular.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Reg.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Regular.woff') format('woff'),
+       url('/fonts/TheSeasons-Regular.otf') format('opentype'),
+       url('/fonts/TheSeasons-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Italic'), local('TheSeasons-Italic'),
+       url('/fonts/TheSeasons-Italic.woff2') format('woff2'),
+       url('/fonts/TheSeasons-It.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Italic.woff') format('woff'),
+       url('/fonts/TheSeasons-Italic.otf') format('opentype'),
+       url('/fonts/TheSeasons-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Bold'), local('TheSeasons-Bold'),
+       url('/fonts/TheSeasons-Bold.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Bd.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Bold.woff') format('woff'),
+       url('/fonts/TheSeasons-Bold.otf') format('opentype'),
+       url('/fonts/TheSeasons-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Light'), local('TheSeasons-Light'),
+       url('/fonts/TheSeasons-Light.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Lt.woff2') format('woff2'),
+       url('/fonts/TheSeasons-Light.woff') format('woff'),
+       url('/fonts/TheSeasons-Light.otf') format('opentype'),
+       url('/fonts/TheSeasons-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --navy: #042433;
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
+  --font-serif: 'The Seasons', var(--font-instrument), 'Didot', 'Bodoni MT', 'Cinzel', serif;
+  --font-instrument: 'The Seasons', var(--font-instrument), 'Didot', 'Bodoni MT', 'Cinzel', serif;
 }
 
 * {
