@@ -4,7 +4,18 @@ export interface Property {
   type: string;
   price: string;
   location: string;
-  specs: string;
+  specs: string; // Keep for legacy
+  title?: string;
+  summary?: string;
+  status?: string; // e.g., "Verfügbar"
+  transactionType?: string; // e.g., "Buy"
+  detailedSpecs?: {
+    livingArea?: number;
+    rooms?: number;
+    otherRooms?: number;
+    bathrooms?: number;
+    plotArea?: number;
+  };
   featured?: boolean;
   galleryImages?: string[];
   description?: string;
@@ -45,14 +56,19 @@ export interface Property {
 const baseProperties: Property[] = [
   {
     id: 'prop-base-1',
-    imageSrc: '/images/prop_villa_1787771383699.jpg',
+    imageSrc: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
     type: 'Luxury Villa',
-    price: '€ 4,250,000',
-    location: 'Los Angeles, CA',
+    title: 'Mehr Raum fürs Leben – gepflegter Bungalow mit großem Garten, Sauna & Teich an der B455',
+    summary: 'Ein Zuhause mit Charme, viel Platz und naturnaher Lage – ideal für Familien und Ruhesuchende.',
+    status: 'Verfügbar',
+    transactionType: 'Buy',
+    price: '649.000 €',
+    location: 'WIESBADEN / NAUROD',
     specs: '5 Beds • 6 Baths • 650 m²',
+    detailedSpecs: { livingArea: 125, rooms: 4, otherRooms: 5, bathrooms: 1, plotArea: 727 },
     featured: true,
     galleryImages: [
-      '/images/prop_villa_1787771383699.jpg',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
       '/test_bg_villa.jpg',
       '/background.jpg',
       '/images/prop_penthouse_1787771396787.jpg'
@@ -83,30 +99,51 @@ const baseProperties: Property[] = [
   },
   {
     id: 'prop-base-2',
-    imageSrc: '/images/prop_estate_1787771411381.jpg',
-    type: 'Historic Estate',
-    price: '€ 8,900,000',
-    location: 'Cotswolds, UK',
-    specs: '8 Beds • 10 Baths • 1,200 m²',
-    featured: true
+    imageSrc: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+    type: 'Penthouse',
+    title: 'Exklusives Penthouse mit Skyline-Blick und privater Dachterrasse',
+    summary: 'Ein Wohntraum über den Dächern der Stadt. Hochwertige Ausstattung und ein spektakulärer Ausblick.',
+    status: 'Verkauft',
+    transactionType: 'Buy',
+    price: '1.250.000 €',
+    location: 'FRANKFURT / WESTEND',
+    specs: '3 Beds • 2 Baths • 180 m²',
+    detailedSpecs: { livingArea: 180, rooms: 3, otherRooms: 1, bathrooms: 2, plotArea: 0 },
+    featured: true,
+    galleryImages: [
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+      '/test_bg_villa.jpg',
+      '/background.jpg',
+      '/images/prop_historic_1787771415250.jpg'
+    ]
   },
   {
     id: 'prop-base-3',
-    imageSrc: '/images/prop_penthouse_1787771396787.jpg',
-    type: 'Penthouse',
-    price: '€ 3,100,000',
-    location: 'London, UK',
-    specs: '3 Beds • 3 Baths • 280 m²',
+    imageSrc: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
+    type: 'Historic Estate',
+    title: 'Historische Stadtvilla mit zeitloser Eleganz',
+    summary: 'Einzigartiges Ambiente mit originalem Stuck, hohen Decken und einem idyllischen Garten.',
+    status: 'Verfügbar',
+    transactionType: 'Buy',
+    price: '2.100.000 €',
+    location: 'BAD HOMBURG',
+    specs: '7 Beds • 5 Baths • 850 m²',
+    detailedSpecs: { livingArea: 320, rooms: 8, otherRooms: 3, bathrooms: 3, plotArea: 1200 },
     featured: true
   },
   {
     id: 'prop-base-4',
-    imageSrc: '/images/prop_apartment_new.jpg',
+    imageSrc: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800',
     type: 'Modern Apartment',
-    price: '€ 1,850,000',
-    location: 'Malibu, CA',
-    specs: '2 Beds • 2 Baths • 160 m²',
-    featured: true
+    title: 'Modernes City-Apartment mit Smart-Home-Technik',
+    summary: 'Perfekt geschnitten, lichtdurchflutet und mit bester Anbindung an die Innenstadt.',
+    status: 'Reserviert',
+    transactionType: 'Rent',
+    price: '1.850 € / Monat',
+    location: 'MAINZ / ALTSTADT',
+    specs: '2 Beds • 2 Baths • 140 m²',
+    detailedSpecs: { livingArea: 95, rooms: 3, otherRooms: 1, bathrooms: 1, plotArea: 0 },
+    featured: false
   },
   {
     id: 'prop-base-5',

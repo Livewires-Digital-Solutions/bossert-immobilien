@@ -736,5 +736,25 @@ export const de = {
       backToLogin: 'Zurück zur Anmeldung',
       loading: 'Wird gesendet...'
     }
+  },
+  propertyCard: {
+    status: {
+      available: 'Verfügbar',
+      reserved: 'Reserviert',
+      sold: 'Verkauft'
+    },
+    transaction: {
+      buy: 'Kauf',
+      rent: 'Miete'
+    },
+    specs: {
+      livingArea: 'Wohnfläche',
+      rooms: 'Zimmer',
+      otherRooms: 'Weitere Räume',
+      bathrooms: 'Bäder',
+      plotArea: 'Grundstück'
+    },
+    priceLabel: 'KAUFPREIS',
+    btnAction: 'ZUM INSERAT ➔'
   }
 };

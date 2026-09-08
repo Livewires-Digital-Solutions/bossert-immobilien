@@ -87,18 +87,6 @@ export default function ExploreSection() {
 
         <SearchSection hideHeader={true} embedded={true} />
 
-        {/* Category Filters */}
-        <div className="explore-filters">
-          {filters.map((filter) => (
-            <button
-              key={filter.id}
-              className={`filter-pill ${activeFilter === filter.id ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter.id)}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
 
         {/* Bottom Grid */}
         <div className="explore-grid">
@@ -124,12 +112,7 @@ export default function ExploreSection() {
             filteredProperties.map((prop) => (
               <PropertyCard
                 key={prop.id}
-                id={prop.id}
-                imageSrc={prop.imageSrc}
-                type={prop.type}
-                price={prop.price}
-                location={prop.location}
-                specs={prop.specs}
+                {...prop}
               />
             ))
           )}

@@ -730,11 +730,31 @@ export const en = {
     },
     forgotPassword: {
       title: 'Reset Password',
-      email: 'Email Address',
-      submitBtn: 'Send Reset Link',
-      successMsg: 'If an account exists for this email, a reset link has been sent.',
+      email: 'Email address',
+      submitBtn: 'Send reset link',
+      successMsg: 'If an account exists for this email, a password reset link has been sent.',
       backToLogin: 'Back to login',
       loading: 'Sending...'
     }
+  },
+  propertyCard: {
+    status: {
+      available: 'Available',
+      reserved: 'Reserved',
+      sold: 'Sold'
+    },
+    transaction: {
+      buy: 'Buy',
+      rent: 'Rent'
+    },
+    specs: {
+      livingArea: 'Living Area',
+      rooms: 'Rooms',
+      otherRooms: 'Other Rooms',
+      bathrooms: 'Baths',
+      plotArea: 'Plot'
+    },
+    priceLabel: 'PURCHASE PRICE',
+    btnAction: 'TO LISTING'
   }
 };
