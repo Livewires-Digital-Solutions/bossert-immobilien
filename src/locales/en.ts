@@ -22,8 +22,11 @@ export const en = {
     scroll: 'SCROLL & DISCOVER'
   },
   search: {
+    tag: 'PREMIUM LIVING',
     headline: 'Find your ideal property.',
     subhead: 'Search premium listings across the Rhein-Main region.',
+    moreOptions: 'MORE OPTIONS',
+    slogan: 'EXCEPTIONAL HOMES. A BRIGHTER TOMORROW.',
     purchase: 'Purchase',
     rent: 'Rent',
     investment: 'Investment',

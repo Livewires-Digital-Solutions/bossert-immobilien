@@ -105,50 +105,82 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
         
         {!hideHeader && (
           <div className="search-header">
-            <h2>{t.search.headline}</h2>
-            <p>{t.search.subhead}</p>
+            <div className="search-eyebrow">
+              <span className="search-eyebrow-line"></span>
+              <span className="search-eyebrow-text">{t.search.tag || 'PREMIUM LIVING'}</span>
+              <span className="search-eyebrow-line"></span>
+            </div>
+            <h2 className="search-title">{t.search.headline}</h2>
+            <p className="search-subhead">{t.search.subhead}</p>
           </div>
         )}
 
         {/* Transaction Type Tabs */}
-        <div className="search-tabs-container">
-          <button 
-            className={`search-tab ${transactionType === 'purchase' ? 'active' : ''}`} 
-            onClick={() => setTransactionType('purchase')}
-          >
-            {t.search.purchase}
-          </button>
-          <button 
-            className={`search-tab ${transactionType === 'rent' ? 'active' : ''}`} 
-            onClick={() => setTransactionType('rent')}
-          >
-            {t.search.rent}
-          </button>
-          <button 
-            className={`search-tab ${transactionType === 'investment' ? 'active' : ''}`} 
-            onClick={() => setTransactionType('investment')}
-          >
-            {t.search.investment}
-          </button>
+        <div className="search-tabs-wrapper">
+          <div className="search-tabs-container">
+            <button 
+              type="button"
+              className={`search-tab ${transactionType === 'purchase' ? 'active' : ''}`} 
+              onClick={() => setTransactionType('purchase')}
+            >
+              {t.search.purchase}
+            </button>
+            <button 
+              type="button"
+              className={`search-tab ${transactionType === 'rent' ? 'active' : ''}`} 
+              onClick={() => setTransactionType('rent')}
+            >
+              {t.search.rent}
+            </button>
+            <button 
+              type="button"
+              className={`search-tab ${transactionType === 'investment' ? 'active' : ''}`} 
+              onClick={() => setTransactionType('investment')}
+            >
+              {t.search.investment}
+            </button>
+          </div>
         </div>
 
         {/* Main Search Bar */}
         <div className="search-bar">
-          <div className="search-filter">
-            <div className="filter-label">{t.search.location}</div>
-            <div className="filter-input-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              <input type="text" placeholder={t.search.placeholder} className="search-input" value={location} onChange={e => setLocation(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSearch()} />
+          {/* Location */}
+          <div className="search-filter filter-location">
+            <div className="filter-inner">
+              <svg className="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <div className="filter-text-col">
+                <span className="filter-label">{t.search.location}</span>
+                <input 
+                  type="text" 
+                  placeholder={t.search.placeholder} 
+                  className="search-input" 
+                  value={location} 
+                  onChange={e => setLocation(e.target.value)} 
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()} 
+                />
+              </div>
             </div>
           </div>
+
           <div className="search-divider"></div>
           
-          <div className="search-filter clickable" onClick={() => toggleDropdown('propertyType')}>
-            <div className="filter-label">{t.search.type}</div>
-            <div className="filter-input-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-              <span className="search-value">{propertyType}</span>
-              <svg className={`search-chevron ${activeDropdown === 'propertyType' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          {/* Property Type */}
+          <div className="search-filter filter-type clickable" onClick={() => toggleDropdown('propertyType')}>
+            <div className="filter-inner">
+              <svg className="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              <div className="filter-text-col">
+                <span className="filter-label">{t.search.type}</span>
+                <div className="filter-value-row">
+                  <span className="search-value">{propertyType}</span>
+                  <svg className={`search-chevron ${activeDropdown === 'propertyType' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
             </div>
             {activeDropdown === 'propertyType' && (
               <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
@@ -170,12 +202,19 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
           
           <div className="search-divider"></div>
           
-          <div className="search-filter clickable" onClick={() => toggleDropdown('bedrooms')}>
-            <div className="filter-label">{t.search.bedrooms}</div>
-            <div className="filter-input-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
-              <span className="search-value">{bedrooms}</span>
-              <svg className={`search-chevron ${activeDropdown === 'bedrooms' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          {/* Bedrooms */}
+          <div className="search-filter filter-bedrooms clickable" onClick={() => toggleDropdown('bedrooms')}>
+            <div className="filter-inner">
+              <svg className="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9" />
+              </svg>
+              <div className="filter-text-col">
+                <span className="filter-label">{t.search.bedrooms}</span>
+                <div className="filter-value-row">
+                  <span className="search-value">{bedrooms}</span>
+                  <svg className={`search-chevron ${activeDropdown === 'bedrooms' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
             </div>
             {activeDropdown === 'bedrooms' && (
               <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
@@ -188,12 +227,22 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
           
           <div className="search-divider"></div>
           
-          <div className="search-filter clickable" onClick={() => toggleDropdown('yearBuilt')}>
-            <div className="filter-label">{t.search.yearBuilt}</div>
-            <div className="filter-input-row">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <span className="search-value">{yearBuilt}</span>
-              <svg className={`search-chevron ${activeDropdown === 'yearBuilt' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          {/* Year Built */}
+          <div className="search-filter filter-year clickable" onClick={() => toggleDropdown('yearBuilt')}>
+            <div className="filter-inner">
+              <svg className="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <div className="filter-text-col">
+                <span className="filter-label">{t.search.yearBuilt}</span>
+                <div className="filter-value-row">
+                  <span className="search-value">{yearBuilt}</span>
+                  <svg className={`search-chevron ${activeDropdown === 'yearBuilt' ? 'up' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
             </div>
             {activeDropdown === 'yearBuilt' && (
               <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
@@ -204,15 +253,19 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
             )}
           </div>
           
-          <button className={`search-btn ${isAdvancedOpen ? 'hidden-btn' : ''}`} onClick={handleSearch}>
-            {t.search.searchBtn}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          {/* Search Button */}
+          <button type="button" className="search-submit-btn" onClick={handleSearch}>
+            <span>{t.search.searchBtn?.toUpperCase() || 'SEARCH'}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </button>
         </div>
         
-        {/* Advanced Search Header */}
-        <div className="advanced-search-header">
-          <div className="advanced-search">
+        {/* Controls Row Below Search Bar */}
+        <div className="search-sub-row">
+          <label className="advanced-search-checkbox" htmlFor="advancedSearch">
             <input 
               type="checkbox" 
               id="advancedSearch" 
@@ -220,8 +273,16 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
               checked={isAdvancedOpen}
               onChange={(e) => setIsAdvancedOpen(e.target.checked)}
             />
-            <label htmlFor="advancedSearch">{t.search.advancedBtn}</label>
-          </div>
+            <span>{t.search.advancedBtn}</span>
+          </label>
+
+          <button 
+            type="button" 
+            className="more-options-toggle" 
+            onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+          >
+            — {t.search.moreOptions || 'MORE OPTIONS'}
+          </button>
         </div>
 
         {/* Expandable Advanced Area */}
@@ -332,6 +393,13 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
 
           </div>
         </div>
+
+        {!hideHeader && (
+          <div className="search-bottom-brand">
+            <div className="search-brand-tick"></div>
+            <div className="search-brand-slogan">{t.search.slogan || 'EXCEPTIONAL HOMES. A BRIGHTER TOMORROW.'}</div>
+          </div>
+        )}
 
       </div>
     </section>
