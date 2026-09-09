@@ -30,5 +30,11 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "scratch-test-onoffice.ts",
+    "scratch-test-onoffice-full.ts",
+    "extract-fields.ts",
+    "src/lib/seed-properties.ts"
+  ]
 }

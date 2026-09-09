@@ -19,7 +19,9 @@ export const de = {
     subhead: 'KOMPETENZ, VERTRAUEN UND EXZELLENZ',
     desc: 'Seit über 30 Jahren sind wir Ihr verlässlicher Partner rund um Immobilien.',
     partner: 'IHR PARTNER FÜR\nWOHNIMMOBILIEN\nIM RHEIN-MAIN GEBIET.',
-    scroll: 'SCROLL & DISCOVER'
+    scroll: 'SCROLL & DISCOVER',
+    statsNumber: '30+',
+    statsDesc: 'Jahre\nErfahrung'
   },
   search: {
     tag: 'PREMIUM LIVING',
