@@ -62,6 +62,8 @@
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
+  --blue: #1e50c8;
+  --blue-dark: #1640a8;
   /* theSeasons is the font-family name Next.js compiles from next/font/local */
   --font-serif: 'theSeasons', 'The Seasons', 'FONTSPRING DEMO - The Seasons', Georgia, serif;
   --font-instrument: var(--font-serif);
@@ -1319,8 +1321,8 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--white, #fff);
-  background: #1e4fc8;
-  border: 1px solid #1e4fc8;
+  background: var(--blue, #1e50c8);
+  border: 1px solid var(--blue, #1e50c8);
   border-radius: 4px;
   padding: 0.45rem 1rem;
   align-self: stretch;
@@ -1332,8 +1334,8 @@ body {
 }
 
 .hsc2-btn:hover {
-  background: #1640a8;
-  border-color: #1640a8;
+  background: var(--blue-dark, #1640a8);
+  border-color: var(--blue-dark, #1640a8);
   color: var(--white, #fff);
 }
 
