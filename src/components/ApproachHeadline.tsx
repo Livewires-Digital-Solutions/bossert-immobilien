@@ -56,7 +56,7 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const fullText = l1 + s1 + l2 + ' ' + l3 + s2 + l4;
+  const fullText = (tag ? tag : '') + l1 + s1 + l2 + ' ' + l3 + s2 + l4;
   const totalChars = fullText.length;
   
   let currentIndex = 0;
@@ -147,10 +147,9 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
         )}
 
         {tag && (
-          <div style={{ textAlign: 'center', marginBottom: '4rem', opacity: progress > 0 ? (1 - progress * 2) : 1, transition: 'opacity 0.1s ease-out' }}>
-            <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span>
-            <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--navy)', marginLeft: '0.5rem' }}>
-              {tag}
+          <div style={{ textAlign: 'center', marginBottom: '4rem', display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontSize: '1.1rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--navy)' }}>
+              {renderChars(tag, false)}
             </span>
           </div>
         )}
