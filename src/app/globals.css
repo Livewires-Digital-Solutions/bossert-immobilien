@@ -1173,12 +1173,22 @@ body {
   - All cards: top 50% + translateY(-50%) → vertically centred in container
   - Nav arrows: left/right: -18px → outside the card area
 */
+/* Outer wrapper — flex column so controls sit below cards in normal flow */
+.hsc2-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 540px;
+  flex-shrink: 0;
+}
+
+/* Card stack area only — exactly card height */
 .hsc2-root {
   position: relative;
   width: 540px;
-  height: calc(var(--hsc2-h) + 90px); /* card + generous space + bottom controls */
+  height: var(--hsc2-h);
   flex-shrink: 0;
-  align-self: center;
 }
 
 /* ── Shared card shell ── */
@@ -1379,26 +1389,23 @@ body {
   transition: opacity 0.3s ease !important;
 }
 
-/* ── Bottom controls bar ── */
-
+/* ── Bottom controls — in-flow sibling, never clipped ── */
 .hsc2-controls {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
+  position: relative;
   z-index: 10;
 }
 
 /* Prev / Next buttons */
 .hsc2-ctrl-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
   color: var(--white, #fff);
   display: flex;
   align-items: center;
@@ -1409,7 +1416,7 @@ body {
 }
 
 .hsc2-ctrl-btn:hover {
-  background: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.3);
   border-color: var(--gold, #9a7d54);
   color: var(--gold, #9a7d54);
 }
@@ -1418,14 +1425,14 @@ body {
 .hsc2-dots {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 .hsc2-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(255,255,255,0.4);
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.45);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -1433,7 +1440,7 @@ body {
 }
 
 .hsc2-dot-active {
-  width: 22px;
+  width: 24px;
   background: var(--white, #fff);
 }
 

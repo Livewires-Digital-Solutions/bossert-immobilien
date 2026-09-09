@@ -76,17 +76,15 @@ function ServiceCard({ slide }: { slide: ServiceSlide }) {
 }
 
 export default function HeroServicesCarousel() {
-  const [active, setActive]         = useState(0);
+  const [active, setActive]           = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection]   = useState<'next' | 'prev'>('next');
+  const [direction, setDirection]     = useState<'next' | 'prev'>('next');
   const total = slides.length;
 
   const navigate = useCallback((dir: 'next' | 'prev') => {
     if (isAnimating) return;
     setDirection(dir);
     setIsAnimating(true);
-
-    // After the fade-out duration, swap content then fade back in
     setTimeout(() => {
       setActive(a => dir === 'next' ? (a + 1) % total : (a - 1 + total) % total);
       setIsAnimating(false);
@@ -96,7 +94,6 @@ export default function HeroServicesCarousel() {
   const next = useCallback(() => navigate('next'), [navigate]);
   const prev = useCallback(() => navigate('prev'), [navigate]);
 
-  // Auto-advance every 5s
   useEffect(() => {
     const t = setTimeout(next, 5000);
     return () => clearTimeout(t);
@@ -104,28 +101,31 @@ export default function HeroServicesCarousel() {
 
   const idx = (offset: number) => (active + offset + total) % total;
 
-  // Animation classes
-  const frontAnim   = isAnimating ? `hsc2-anim-out-${direction}` : '';
-  const behindAnim  = isAnimating ? 'hsc2-anim-behind' : '';
+  const frontAnim  = isAnimating ? `hsc2-anim-out-${direction}` : '';
+  const behindAnim = isAnimating ? 'hsc2-anim-behind' : '';
 
   return (
-    <div className="hsc2-root">
-      {/* Left behind card */}
-      <div className={`hsc2-behind hsc2-behind-left ${behindAnim}`} onClick={prev}>
-        <ServiceCard slide={slides[idx(-1)]} />
+    /* Outer wrapper: flex column so cards stack on top, controls sit below as a natural sibling */
+    <div className="hsc2-wrapper">
+      {/* Card stack area */}
+      <div className="hsc2-root">
+        {/* Left behind card */}
+        <div className={`hsc2-behind hsc2-behind-left ${behindAnim}`} onClick={prev}>
+          <ServiceCard slide={slides[idx(-1)]} />
+        </div>
+
+        {/* Right behind card */}
+        <div className={`hsc2-behind hsc2-behind-right ${behindAnim}`} onClick={next}>
+          <ServiceCard slide={slides[idx(1)]} />
+        </div>
+
+        {/* Front / active card */}
+        <div className={`hsc2-front ${frontAnim}`}>
+          <ServiceCard slide={slides[idx(0)]} />
+        </div>
       </div>
 
-      {/* Right behind card */}
-      <div className={`hsc2-behind hsc2-behind-right ${behindAnim}`} onClick={next}>
-        <ServiceCard slide={slides[idx(1)]} />
-      </div>
-
-      {/* Front / active card */}
-      <div className={`hsc2-front ${frontAnim}`}>
-        <ServiceCard slide={slides[idx(0)]} />
-      </div>
-
-      {/* Bottom controls: arrow · dots · arrow */}
+      {/* Controls — natural sibling in flex column, BELOW the stack, never clipped */}
       <div className="hsc2-controls">
         <button className="hsc2-ctrl-btn" onClick={prev} aria-label="Previous">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
