@@ -1,12 +1,9 @@
 /* ── The Seasons Font Family Integration ── */
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons'), local('TheSeasons'), local('The Seasons Regular'),
-       url('/fonts/TheSeasons-Regular.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Reg.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Regular.woff') format('woff'),
+  src: local('The Seasons Regular'), local('The Seasons'), local('TheSeasons-Reg'), local('FONTSPRING DEMO - The Seasons Regular'), local('FONTSPRING DEMO - The Seasons'),
        url('/fonts/TheSeasons-Regular.otf') format('opentype'),
-       url('/fonts/TheSeasons-Regular.ttf') format('truetype');
+       url('/fonts/TheSeasons-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,25 +11,19 @@
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Italic'), local('TheSeasons-Italic'),
-       url('/fonts/TheSeasons-Italic.woff2') format('woff2'),
-       url('/fonts/TheSeasons-It.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Italic.woff') format('woff'),
+  src: local('The Seasons Italic'), local('TheSeasons-Italic'), local('TheSeasons-It'), local('FONTSPRING DEMO - The Seasons Italic'),
        url('/fonts/TheSeasons-Italic.otf') format('opentype'),
-       url('/fonts/TheSeasons-Italic.ttf') format('truetype');
+       url('/fonts/TheSeasons-Italic.woff2') format('woff2');
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Bold'), local('TheSeasons-Bold'),
-       url('/fonts/TheSeasons-Bold.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Bd.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Bold.woff') format('woff'),
+  src: local('The Seasons Bold'), local('TheSeasons-Bold'), local('TheSeasons-Bd'), local('FONTSPRING DEMO - The Seasons Bold'),
        url('/fonts/TheSeasons-Bold.otf') format('opentype'),
-       url('/fonts/TheSeasons-Bold.ttf') format('truetype');
+       url('/fonts/TheSeasons-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -40,12 +31,27 @@
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Light'), local('TheSeasons-Light'),
-       url('/fonts/TheSeasons-Light.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Lt.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Light.woff') format('woff'),
+  src: local('The Seasons Bold Italic'), local('TheSeasons-BoldItalic'), local('TheSeasons-BdIt'), local('FONTSPRING DEMO - The Seasons Bold Italic'),
+       url('/fonts/TheSeasons-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Light'), local('TheSeasons-Light'), local('TheSeasons-Lt'), local('FONTSPRING DEMO - The Seasons Light Regular'),
        url('/fonts/TheSeasons-Light.otf') format('opentype'),
-       url('/fonts/TheSeasons-Light.ttf') format('truetype');
+       url('/fonts/TheSeasons-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Light Italic'), local('TheSeasons-LightItalic'), local('TheSeasons-LtIt'), local('FONTSPRING DEMO - The Seasons Light Italic'),
+       url('/fonts/TheSeasons-LightItalic.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -56,7 +62,9 @@
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
-  --font-serif: var(--font-instrument), 'The Seasons', 'Instrument Serif', Georgia, serif;
+  /* theSeasons is the font-family name Next.js compiles from next/font/local */
+  --font-serif: 'theSeasons', 'The Seasons', 'FONTSPRING DEMO - The Seasons', Georgia, serif;
+  --font-instrument: var(--font-serif);
 }
 
 * {
@@ -233,7 +241,7 @@ body {
 }
 
 .hc-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.8rem;
   font-weight: 400;
   color: var(--navy);
@@ -378,7 +386,7 @@ body {
 }
 
 .stat-number {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 4rem;
   color: var(--bronze);
   line-height: 1;
@@ -449,7 +457,7 @@ body {
 }
 
 .intro-promo-headline {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
@@ -459,9 +467,9 @@ body {
 }
 
 .intro-promo-sub {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(1rem, 2vw, 1.3rem);
-  font-style: italic;
+  font-style: normal;
   color: var(--bronze);
   line-height: 1.5;
   max-width: 680px;
@@ -670,8 +678,8 @@ body {
 }
 
 .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -930,7 +938,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   text-align: center;
   line-height: 1.1;
   letter-spacing: 1px;
@@ -1115,8 +1123,8 @@ body {
 }
 
 .headline-middle {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 8rem;
   line-height: 1.1;
   font-weight: 400;
@@ -1222,8 +1230,8 @@ body {
   line-height: 1.2;
 }
 .hero-headline-mid {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 6vw, 6rem);
   line-height: 0.85;
   font-weight: 400;
@@ -1261,8 +1269,8 @@ body {
   }
 }
 .hero-subhead {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 1.25rem;
   color: var(--bronze);
   letter-spacing: 0;
@@ -1434,8 +1442,8 @@ body {
   letter-spacing: -1px;
 }
 .headline-mid-s {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 5vw, 6rem);
   line-height: 0.8;
   font-weight: 400;
@@ -1533,8 +1541,8 @@ body {
   position: absolute;
   bottom: 11rem;
   right: -0.5rem;
-  font-family: var(--font-serif), var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(6.5rem, 8.5vw, 8.5rem);
   color: rgba(255, 255, 255, 0.32);
   text-shadow: 0 4px 20px rgba(4, 36, 51, 0.3);
@@ -1574,8 +1582,8 @@ body {
 }
 
 .card-subtitle {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 1.1rem;
   opacity: 0.8;
   margin-bottom: 1.5rem;
@@ -1732,7 +1740,7 @@ body {
 }
 
 .search-title {
-  font-family: var(--font-instrument), 'The Seasons', 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 400;
   color: var(--navy);
@@ -2389,8 +2397,8 @@ body {
 }
 
 .explore-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 5.5rem;
   font-weight: 400;
   letter-spacing: 0;
@@ -2691,8 +2699,8 @@ body {
 }
 
 .why-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 7rem;
   font-weight: 400;
   letter-spacing: 0;
@@ -2712,9 +2720,9 @@ body {
 }
 
 .why-editorial-phrase {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.75rem;
-  font-style: italic;
+  font-style: normal;
   color: var(--bronze);
   opacity: 0.9;
 }
@@ -2737,7 +2745,7 @@ body {
 }
 
 .why-stat-number {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 8rem;
   font-weight: 400;
   color: var(--navy);
@@ -2821,8 +2829,8 @@ body {
 }
 
 .testimonial-section .test-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -2927,8 +2935,8 @@ body {
 }
 
 .test-quote-text {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(1.2rem, 1.8vw, 1.45rem);
   line-height: 1.8;
   color: rgba(254, 252, 246, 0.85);
@@ -3101,8 +3109,8 @@ body {
 }
 
 .cta-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -3348,8 +3356,8 @@ body {
 }
 
 .news-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 6vw, 5.5rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -4708,7 +4716,7 @@ body {
 }
 
 .expertise-headline {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 3.5rem;
   font-weight: 300;
   letter-spacing: -1px;
@@ -5044,7 +5052,7 @@ body {
 }
 
 .property-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 3.5rem;
   font-weight: 300;
   color: var(--navy);
@@ -5085,7 +5093,7 @@ body {
 }
 
 .property-price {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2.5rem;
   font-weight: 300;
   color: var(--navy);
@@ -5124,7 +5132,7 @@ body {
 }
 
 .property-section-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2rem;
   font-weight: 300;
   color: var(--navy);
@@ -5170,7 +5178,7 @@ body {
 }
 
 .property-sidebar-widget h3 {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 1rem;
@@ -5349,7 +5357,7 @@ body {
 }
 
 .widget-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.8rem;
   font-weight: 300;
   margin-bottom: 1.5rem;
@@ -5433,7 +5441,7 @@ body {
 }
 
 .result-value {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2.5rem;
 }
 

@@ -423,7 +423,7 @@ export default function ForOwnersPage() {
                   }
                 }}
               >
-                <div className="step-circle" style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid var(--bronze)', color: 'var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontFamily: 'var(--font-instrument), serif', margin: '0 auto 2rem auto', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                <div className="step-circle" style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid var(--bronze)', color: 'var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontFamily: 'var(--font-serif)', margin: '0 auto 2rem auto', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
                   0{idx + 1}
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontWeight: 600 }}>{step.title}</h3>

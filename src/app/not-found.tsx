@@ -55,7 +55,7 @@ export default function NotFound() {
           left: '50%',
           transform: `translate(calc(-50% + ${mousePosition.x}px), calc(-50% + ${mousePosition.y}px))`,
           fontSize: '40vw',
-          fontFamily: 'var(--font-instrument)',
+          fontFamily: 'var(--font-serif)',
           fontWeight: 400,
           color: 'transparent',
           WebkitTextStroke: '2px rgba(255,255,255,0.12)',
