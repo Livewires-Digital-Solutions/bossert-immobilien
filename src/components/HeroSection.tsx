@@ -55,8 +55,9 @@ export default function HeroSection() {
 
         {/* Footer Area */}
         <div className="bottom-area">
-          <div className="bottom-left">
-            <div className={`scroll-indicator reveal-base reveal-up delay-600 ${isVisible ? 'is-revealed' : ''}`}>
+          <div className="bottom-left"></div>
+          <div className={`bottom-right reveal-base reveal-up delay-600 ${isVisible ? 'is-revealed' : ''}`}>
+            <div className="scroll-indicator">
               {t.hero.scroll}
               <div className="scroll-icon"></div>
             </div>
