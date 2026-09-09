@@ -1154,7 +1154,7 @@ body {
   justify-content: center;
   gap: 4rem;
   flex: 1;
-  max-width: 560px;
+  max-width: 600px;
   position: relative;
 }
 
@@ -1162,8 +1162,8 @@ body {
 
 /* Card dimensions — 3:4 ratio, slightly bigger */
 :root {
-  --hsc2-w: 240px;
-  --hsc2-h: 320px;
+  --hsc2-w: 270px;
+  --hsc2-h: 360px;
 }
 
 /*
@@ -1175,7 +1175,7 @@ body {
 */
 .hsc2-root {
   position: relative;
-  width: 480px;
+  width: 540px;
   height: var(--hsc2-h);
   flex-shrink: 0;
   align-self: center;
@@ -1262,7 +1262,7 @@ body {
 
 .hsc2-title {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.15;
   color: var(--navy, #0b1a2a);
@@ -1272,7 +1272,7 @@ body {
 .hsc2-title em { font-style: italic; }
 
 .hsc2-desc {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   line-height: 1.55;
   color: #555;
   margin: 0;
