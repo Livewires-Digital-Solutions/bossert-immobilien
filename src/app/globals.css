@@ -1097,9 +1097,10 @@ body {
 .main-grid {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 2vh;
   margin-bottom: auto;
-  align-items: flex-start;
+  gap: 3rem;
 }
 
 .left-content {
@@ -1150,8 +1151,236 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: center;
   gap: 4rem;
-  max-width: 300px;
+  flex: 1;
+  max-width: 560px;
+  position: relative;
+}
+
+/* ── Hero Services Carousel (3-card stacked) ────────────────────────── */
+.hsc-root {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 520px;
+  width: 100%;
+}
+
+/* Side cards */
+.hsc-side {
+  flex: 0 0 150px;
+  height: 420px;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: flex 0.4s ease, opacity 0.4s ease;
+  opacity: 0.72;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.hsc-side:hover {
+  opacity: 0.9;
+}
+
+.hsc-side-img {
+  height: 48%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.hsc-side-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+/* Center / active card */
+.hsc-center {
+  flex: 1;
+  height: 520px;
+  background: var(--cream, #f5f0e8);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.35);
+  position: relative;
+  z-index: 2;
+}
+
+.hsc-center-img {
+  height: 52%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: background-image 0.6s ease;
+}
+
+.hsc-center-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.hsc-center-body {
+  flex: 1;
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--cream, #f5f0e8);
+  color: var(--navy, #0b1a2a);
+}
+
+/* Shared text styles */
+.hsc-counter {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.8);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hsc-side-body .hsc-counter {
+  color: rgba(255,255,255,0.6);
+}
+
+.hsc-tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
+  white-space: pre-line;
+  text-align: right;
+  line-height: 1.6;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hsc-category {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-inter), sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hsc-side-body .hsc-category {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.55rem;
+}
+
+.hsc-category::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.hsc-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--navy, #0b1a2a);
+  margin: 0;
+}
+
+.hsc-title em {
+  font-style: italic;
+}
+
+.hsc-side-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+
+.hsc-side-title em {
+  font-style: italic;
+  color: rgba(255,255,255,0.7);
+}
+
+.hsc-desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-muted, #555);
+  margin: 0;
+  flex: 1;
+}
+
+.hsc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--navy, #0b1a2a);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: color 0.3s ease, gap 0.3s ease;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hsc-btn:hover {
+  color: var(--gold, #9a7d54);
+  gap: 0.9rem;
+}
+
+.hsc-arrow {
+  font-size: 0.8rem;
+}
+
+/* Nav buttons */
+.hsc-nav {
+  position: absolute;
+  bottom: -2.5rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--white, #fff);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  z-index: 10;
+}
+
+.hsc-nav:hover {
+  border-color: var(--gold, #9a7d54);
+  color: var(--gold, #9a7d54);
+}
+
+.hsc-nav-prev {
+  right: 50px;
+}
+
+.hsc-nav-next {
+  right: 0;
 }
 
 .experience-text {

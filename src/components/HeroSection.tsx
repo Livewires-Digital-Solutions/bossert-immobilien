@@ -4,6 +4,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
+import HeroServicesCarousel from './HeroServicesCarousel';
 
 export default function HeroSection() {
   const { ref: heroRef, isVisible } = useScrollReveal(0.1);
@@ -41,7 +42,7 @@ export default function HeroSection() {
           </div>
           
           <div className="right-content">
-            {/* Carousel removed as requested */}
+            <HeroServicesCarousel />
           </div>
         </div>
 
