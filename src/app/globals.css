@@ -1318,8 +1318,9 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--navy, #0b1a2a);
-  border: 1px solid rgba(11, 26, 42, 0.45);
+  color: var(--white, #fff);
+  background: #1e4fc8;
+  border: 1px solid #1e4fc8;
   border-radius: 4px;
   padding: 0.45rem 1rem;
   align-self: stretch;
@@ -1331,9 +1332,9 @@ body {
 }
 
 .hsc2-btn:hover {
-  background: var(--navy, #0b1a2a);
+  background: #1640a8;
+  border-color: #1640a8;
   color: var(--white, #fff);
-  border-color: var(--navy, #0b1a2a);
 }
 
 .hsc2-arrow { font-size: 0.75rem; }
