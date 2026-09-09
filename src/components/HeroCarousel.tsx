@@ -60,11 +60,7 @@ export default function HeroCarousel() {
         <p className="hc-desc">{card.description}</p>
         <Link href={card.href} className="hc-btn" onClick={(e) => e.stopPropagation()}>
           <span className="hc-btn-text">{card.linkText}</span>
-          <span className="hc-btn-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </span>
+          <span className="hc-btn-icon">↗</span>
         </Link>
       </div>
     </>

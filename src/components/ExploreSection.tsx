@@ -76,11 +76,7 @@ export default function ExploreSection() {
             </p>
             <a href="/properties" className="explore-btn explore-btn-dark">
               {t.explore.btn}
-              <div className="explore-icon-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
+              <span className="btn-arrow">↗</span>
             </a>
           </div>
         </div>
