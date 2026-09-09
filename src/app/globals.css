@@ -1181,6 +1181,7 @@ body {
   gap: 2rem;
   width: 540px;
   flex-shrink: 0;
+  margin-top: 3rem;
 }
 
 /* Card stack area only — exactly card height */
