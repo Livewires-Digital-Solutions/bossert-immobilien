@@ -1,14 +1,28 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import HeroServicesCarousel from './HeroServicesCarousel';
 
 export default function HeroSection() {
-  const { ref: heroRef, isVisible } = useScrollReveal(0.1);
+  const { ref: heroRef, isVisible: scrollVisible } = useScrollReveal(0.1);
   const { t } = useLanguage();
+  const [gateReady, setGateReady] = useState(false);
+
+  useEffect(() => {
+    // If the intro gate is active, delay the text reveal so it gracefully animates
+    // into view as the doors swing open, rather than animating behind closed doors.
+    const hasGate = typeof document !== 'undefined' && !!document.querySelector('[class*="introWrapper"]');
+    const delay = hasGate ? 1300 : 80;
+    const timer = setTimeout(() => {
+      setGateReady(true);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isVisible = scrollVisible && gateReady;
 
   return (
     <div className="hero-section" ref={heroRef}>
