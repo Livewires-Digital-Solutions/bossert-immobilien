@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -23,83 +23,122 @@ interface Props {
   };
 }
 
-// Elegant Hover Card Component
-function ElegantCard({ item, index }: { item: GalleryItem, index: number }) {
-  const { ref, isVisible } = useScrollReveal(0.1);
+// Editorial Card Component
+function EditorialCard({ item, index }: { item: GalleryItem, index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  
+  // Determine layout based on index (create asymmetry)
+  const isEven = index % 2 === 0;
+  const colClass = isEven ? 'editorial-item-wide' : 'editorial-item-narrow';
+  const offsetClass = (!isEven && index !== 1) ? 'editorial-item-offset' : '';
+  const height = isEven ? '60vh' : '45vh';
 
-  // Determine height based on 'size'
-  const heightClass = item.size === 'tall' ? '600px' : item.size === 'large' ? '500px' : '400px';
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const start = windowHeight; // Element top enters bottom of screen
+      const end = windowHeight * 0.2; // Element top reaches 20% from top
+      const current = rect.top;
+
+      let progress = (start - current) / (start - end);
+      progress = Math.max(0, Math.min(1, progress));
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Parallax Y movement: starts 60px down, moves to 0px
+  const translateY = 60 * (1 - scrollProgress);
+  const opacity = Math.min(1, scrollProgress * 1.5);
 
   return (
     <div 
-      ref={ref}
-      className={`reveal-base reveal-up delay-${(index % 3 + 1) * 100} ${isVisible ? 'is-revealed' : ''}`}
-      style={{ marginBottom: '3rem' }}
+      ref={cardRef}
+      className={`${colClass} ${offsetClass}`}
+      style={{
+        opacity: opacity,
+        transform: `translateY(${translateY}px)`,
+        transition: 'none' // Disable CSS transitions for layout changes to ensure smooth scroll scrubbing
+      }}
     >
-      <Link href={`/references/${item.id}`} style={{ display: 'block' }}>
-        <div
-          className="reference-card-elegant"
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: heightClass,
-            borderRadius: '1rem',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            boxShadow: '0 10px 30px rgba(4,36,51,0.05)'
-          }}
+      <Link href={`/references/${item.id}`} style={{ display: 'block', textDecoration: 'none' }}>
+        <div 
+          className="editorial-card"
+          style={{ width: '100%', height, minHeight: '400px' }}
         >
-          <Image 
-            src={item.image} 
-            alt={item.title}
-            fill
-            className="reference-image"
-            style={{ objectFit: 'cover', transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }}
-          />
+          {/* Grayscale to Color Image */}
+          <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+            <Image 
+              src={item.image} 
+              alt={item.title}
+              fill
+              className="editorial-img"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
           
-          {/* Subtle Gradient Overlay */}
+          {/* Hover Overlay Gradient */}
           <div 
-            className="reference-overlay"
+            className="editorial-overlay"
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(to top, rgba(4,36,51,0.85) 0%, rgba(4,36,51,0) 60%)',
-              transition: 'background 0.5s ease'
+              background: 'linear-gradient(to top, rgba(4,36,51,0.9) 0%, rgba(4,36,51,0) 50%)',
+              opacity: 0.6,
+              transition: 'opacity 0.8s ease'
             }}
-          ></div>
+          />
 
-          {/* Content */}
+          {/* Typography */}
           <div 
-            className="reference-content"
+            className="editorial-content"
             style={{
               position: 'absolute',
               bottom: '2rem',
               left: '2rem',
               right: '2rem',
               color: 'var(--white)',
-              transform: 'translateY(10px)',
-              transition: 'transform 0.5s ease',
-              textShadow: '0 2px 10px rgba(0,0,0,0.2)'
+              transform: 'translateY(20px)',
+              transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
+              opacity: 0.8
             }}
           >
-            <p style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.9, marginBottom: '0.5rem' }}>
-              {item.type} • {item.location}
+            <p style={{ 
+              fontSize: '0.7rem', 
+              textTransform: 'uppercase', 
+              letterSpacing: '0.2em', 
+              color: 'var(--bronze)', 
+              marginBottom: '0.5rem',
+              fontWeight: 600
+            }}>
+              {item.type}
             </p>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 500 }}>
+            <h3 style={{ 
+              fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', 
+              fontWeight: 400,
+              lineHeight: 1.1,
+              letterSpacing: '-1px'
+            }}>
               {item.title}
             </h3>
           </div>
         </div>
       </Link>
+
       <style>{`
-        .reference-card-elegant:hover .reference-image {
-          transform: scale(1.08);
+        .editorial-card:hover .editorial-overlay {
+          opacity: 0.9;
         }
-        .reference-card-elegant:hover .reference-overlay {
-          background: linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.2) 60%);
-        }
-        .reference-card-elegant:hover .reference-content {
+        .editorial-card:hover .editorial-content {
           transform: translateY(0);
+          opacity: 1;
         }
       `}</style>
     </div>
@@ -107,50 +146,32 @@ function ElegantCard({ item, index }: { item: GalleryItem, index: number }) {
 }
 
 export default function ReferencesMasonryGallery({ data }: Props) {
-  // Split items into 2 columns for a masonry look
-  const col1 = data.items.filter((_, i) => i % 2 === 0);
-  const col2 = data.items.filter((_, i) => i % 2 !== 0);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.2);
 
   return (
-    <section className="global-padding" style={{ paddingTop: '8rem', paddingBottom: '10rem', backgroundColor: 'var(--cream)' }}>
-      <div className="inner-page-container">
+    <section style={{ backgroundColor: 'var(--cream)', paddingBottom: '10rem' }}>
+      <div className="global-padding">
         
-        {/* Header */}
-        <div style={{ marginBottom: '6rem', maxWidth: '700px' }}>
-          <p className="services-subtitle">
-            <span className="dot"></span> {data.tag}
+        {/* Section Header */}
+        <div ref={headerRef} style={{ marginBottom: '8rem', maxWidth: '800px' }}>
+          <p className={`services-subtitle reveal-base reveal-up ${headerVisible ? 'is-revealed' : ''}`}>
+            <span className="dot" style={{ backgroundColor: 'var(--ink)' }}></span> {data.tag}
           </p>
-          <h2 className="explore-headline" style={{ marginTop: '1rem', fontSize: '3.5rem' }}>
-            {data.title} <span className="italic-serif">{data.titleSerif}</span>
+          <h2 className={`explore-headline reveal-base reveal-up delay-200 ${headerVisible ? 'is-revealed' : ''}`} style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '2rem' }}>
+            {data.title} <br/>
+            <span className="italic-serif" style={{ color: 'var(--bronze)' }}>{data.titleSerif}</span>
           </h2>
         </div>
 
-        {/* Masonry Grid (2 columns on desktop) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem', alignItems: 'start' }}>
-          
-          {/* Column 1 */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0rem' }}>
-            {col1.map((item, idx) => (
-              <ElegantCard key={item.id} item={item} index={idx * 2} />
-            ))}
-          </div>
-
-          {/* Column 2 (Offset slightly on desktop for true masonry feel) */}
-          <div className="masonry-col-2" style={{ display: 'flex', flexDirection: 'column', gap: '0rem' }}>
-            {col2.map((item, idx) => (
-              <ElegantCard key={item.id} item={item} index={idx * 2 + 1} />
-            ))}
-          </div>
-
+        {/* Editorial Grid */}
+        <div className="editorial-grid">
+          {data.items.map((item, idx) => (
+            <EditorialCard key={item.id} item={item} index={idx} />
+          ))}
         </div>
+
       </div>
-      <style>{`
-        @media (min-width: 768px) {
-          .masonry-col-2 {
-            margin-top: 6rem; /* Stagger the second column */
-          }
-        }
-      `}</style>
     </section>
   );
 }
+

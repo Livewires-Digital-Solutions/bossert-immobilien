@@ -622,10 +622,10 @@ export const en = {
   },
   referencesPageData: {
     hero: {
-      tag: 'OUR LEGACY',
-      title: 'A Portfolio of',
-      titleSerif: 'Excellence.',
-      description: 'Explore a curated selection of premium properties successfully marketed and managed by our expert team. Each reference is a testament to our dedication to absolute precision and discretion.'
+      tag: 'OUR REFERENCES',
+      title: 'Successfully brokered',
+      titleSerif: 'dream homes.',
+      description: 'From exclusive penthouses to historic villas - take a look at our selected reference properties. Every successfully brokered property tells its own story of trust, discretion, and first-class service.'
     },
     featured: {
       id: 'featured',

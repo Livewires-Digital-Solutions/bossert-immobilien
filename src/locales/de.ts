@@ -622,10 +622,10 @@ export const de = {
   },
   referencesPageData: {
     hero: {
-      tag: 'UNSER VERMÄCHTNIS',
-      title: 'Ein Portfolio der',
-      titleSerif: 'Exzellenz.',
-      description: 'Entdecken Sie eine kuratierte Auswahl an Premium-Immobilien, die von unserem Expertenteam erfolgreich vermarktet und betreut wurden. Jede Referenz ist ein Beweis für unser Engagement für absolute Präzision und Diskretion.'
+      tag: 'UNSERE REFERENZEN',
+      title: 'Erfolgreich vermittelte',
+      titleSerif: 'Traumimmobilien.',
+      description: 'Von exklusiven Penthäusern bis hin zu historischen Villen – werfen Sie einen Blick auf unsere ausgewählten Referenzobjekte. Jede erfolgreich vermittelte Immobilie erzählt ihre eigene Geschichte von Vertrauen, Diskretion und erstklassigem Service.'
     },
     featured: {
       id: 'featured',
