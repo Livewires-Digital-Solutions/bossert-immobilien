@@ -1308,8 +1308,10 @@ body {
 }
 
 .hsc2-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 0.45rem;
   font-size: 0.52rem;
   font-weight: 500;
@@ -1319,22 +1321,22 @@ body {
   color: var(--navy, #0b1a2a);
   border: 1px solid rgba(11, 26, 42, 0.45);
   border-radius: 4px;
-  padding: 0.4rem 0.85rem;
-  align-self: flex-end;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+  padding: 0.45rem 1rem;
+  align-self: stretch;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   font-family: var(--font-inter), sans-serif;
   margin-top: auto;
   pointer-events: auto;
+  box-sizing: border-box;
 }
 
 .hsc2-btn:hover {
   background: var(--navy, #0b1a2a);
   color: var(--white, #fff);
   border-color: var(--navy, #0b1a2a);
-  gap: 0.65rem;
 }
 
-.hsc2-arrow { font-size: 0.7rem; }
+.hsc2-arrow { font-size: 0.75rem; }
 
 /* ── Front card — horizontally + vertically centred ── */
 .hsc2-front {
@@ -1383,51 +1385,47 @@ body {
   filter: brightness(0.9);
 }
 
-/* ── Front card base transition (idle state only) ── */
+/* ── Front card — no transition, controlled by keyframes ── */
 .hsc2-front {
-  transition: none; /* animation handled by keyframes */
+  transition: none;
 }
 
-/* ── EXIT: scale down + blur out ── */
+/* ── EXIT: drift up + gentle fade ── */
 .hsc2-front-exit {
-  animation: hsc2Exit 0.28s ease forwards;
+  animation: hsc2Exit 0.32s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 @keyframes hsc2Exit {
   from {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) translateY(0px);
     opacity: 1;
-    filter: blur(0px);
   }
   to {
-    transform: translate(-50%, -50%) scale(0.91);
+    transform: translate(-50%, -50%) translateY(-14px);
     opacity: 0;
-    filter: blur(8px);
   }
 }
 
-/* ── ENTER: bloom up from scaled/blurred state ── */
+/* ── ENTER: rise up from below + gentle fade in ── */
 .hsc2-front-enter {
-  animation: hsc2Enter 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hsc2Enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes hsc2Enter {
   from {
-    transform: translate(-50%, -50%) scale(0.91);
+    transform: translate(-50%, -50%) translateY(14px);
     opacity: 0;
-    filter: blur(8px);
   }
   to {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) translateY(0px);
     opacity: 1;
-    filter: blur(0px);
   }
 }
 
-/* ── Behind cards dim slightly during transition ── */
+/* ── Behind cards — smooth dim during transition ── */
 .hsc2-behind-dim {
-  opacity: 0.45 !important;
-  transition: opacity 0.25s ease !important;
+  opacity: 0.5 !important;
+  transition: opacity 0.32s ease !important;
 }
 
 /* ── Bottom controls — in-flow sibling, never clipped ── */
