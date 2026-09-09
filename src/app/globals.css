@@ -1176,7 +1176,7 @@ body {
 .hsc2-root {
   position: relative;
   width: 540px;
-  height: var(--hsc2-h);
+  height: calc(var(--hsc2-h) + 52px); /* card + bottom controls */
   flex-shrink: 0;
   align-self: center;
 }
@@ -1356,34 +1356,86 @@ body {
   filter: brightness(0.9);
 }
 
-/* ── Navigation arrows ── */
-.hsc2-nav {
+/* ── Smooth transitions on front card ── */
+.hsc2-front {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity   0.35s ease;
+}
+
+/* ── Slide-out animations on the front card ── */
+.hsc2-anim-out-next {
+  transform: translate(calc(-50% - 28px), -50%) !important;
+  opacity: 0 !important;
+}
+
+.hsc2-anim-out-prev {
+  transform: translate(calc(-50% + 28px), -50%) !important;
+  opacity: 0 !important;
+}
+
+/* ── Fade out the behind cards during transition ── */
+.hsc2-anim-behind {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+/* ── Bottom controls bar ── */
+
+.hsc2-controls {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 10;
+}
+
+/* Prev / Next buttons */
+.hsc2-ctrl-btn {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.38);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.35);
   color: var(--white, #fff);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
   transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
 }
 
-.hsc2-nav:hover {
-  background: rgba(255,255,255,0.24);
+.hsc2-ctrl-btn:hover {
+  background: rgba(255,255,255,0.22);
   border-color: var(--gold, #9a7d54);
   color: var(--gold, #9a7d54);
 }
 
-/* Position arrows at the very edges of the root */
-.hsc2-nav-left  { left:  -17px; }
-.hsc2-nav-right { right: -17px; }
+/* Dot indicators */
+.hsc2-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hsc2-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.35s ease, background 0.35s ease;
+}
+
+.hsc2-dot-active {
+  width: 22px;
+  background: var(--white, #fff);
+}
 
 .experience-text {
   font-size: 0.8rem;
