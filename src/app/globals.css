@@ -1367,27 +1367,51 @@ body {
   filter: brightness(0.9);
 }
 
-/* ── Smooth transitions on front card ── */
+/* ── Front card base transition (idle state only) ── */
 .hsc2-front {
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity   0.35s ease;
+  transition: none; /* animation handled by keyframes */
 }
 
-/* ── Slide-out animations on the front card ── */
-.hsc2-anim-out-next {
-  transform: translate(calc(-50% - 28px), -50%) !important;
-  opacity: 0 !important;
+/* ── EXIT: scale down + blur out ── */
+.hsc2-front-exit {
+  animation: hsc2Exit 0.28s ease forwards;
 }
 
-.hsc2-anim-out-prev {
-  transform: translate(calc(-50% + 28px), -50%) !important;
-  opacity: 0 !important;
+@keyframes hsc2Exit {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(0.91);
+    opacity: 0;
+    filter: blur(8px);
+  }
 }
 
-/* ── Fade out the behind cards during transition ── */
-.hsc2-anim-behind {
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
+/* ── ENTER: bloom up from scaled/blurred state ── */
+.hsc2-front-enter {
+  animation: hsc2Enter 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hsc2Enter {
+  from {
+    transform: translate(-50%, -50%) scale(0.91);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+/* ── Behind cards dim slightly during transition ── */
+.hsc2-behind-dim {
+  opacity: 0.45 !important;
+  transition: opacity 0.25s ease !important;
 }
 
 /* ── Bottom controls — in-flow sibling, never clipped ── */
