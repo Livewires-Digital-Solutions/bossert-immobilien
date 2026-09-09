@@ -47,23 +47,22 @@ const slides: ServiceSlide[] = [
   },
 ];
 
-function ServiceCard({ slide, className }: { slide: ServiceSlide; className?: string }) {
+function ServiceCard({ slide }: { slide: ServiceSlide }) {
   return (
-    <div className={`hsc2-card ${className || ''}`}>
-      {/* Image area */}
+    <div className="hsc2-card">
+      {/* Image — top 58% */}
       <div className="hsc2-img" style={{ backgroundImage: `url(${slide.image})` }}>
         <div className="hsc2-img-header">
           <span className="hsc2-counter">{slide.counter}</span>
-          {slide.tag && (
-            <span className="hsc2-tag">{slide.tag}</span>
-          )}
+          {slide.tag && <span className="hsc2-tag">{slide.tag}</span>}
         </div>
       </div>
 
-      {/* Content area */}
+      {/* Content — bottom 42% */}
       <div className="hsc2-body">
         <span className="hsc2-category">
-          {slide.category} <span className="hsc2-cat-line" />
+          {slide.category}
+          <span className="hsc2-cat-line" />
         </span>
         <h3 className="hsc2-title">
           {slide.titleLine1}
@@ -95,33 +94,30 @@ export default function HeroServicesCarousel() {
 
   return (
     <div className="hsc2-root">
-      {/* Cards stack */}
-      <div className="hsc2-stack">
-        {/* Behind-left card */}
-        <div className="hsc2-behind hsc2-behind-left">
-          <ServiceCard slide={slides[idx(-1)]} />
-        </div>
-
-        {/* Behind-right card */}
-        <div className="hsc2-behind hsc2-behind-right">
-          <ServiceCard slide={slides[idx(1)]} />
-        </div>
-
-        {/* Front / Active card */}
-        <div className="hsc2-front">
-          <ServiceCard slide={slides[idx(0)]} />
-        </div>
+      {/* Left behind card — sits at left edge, partially hidden behind center */}
+      <div className="hsc2-behind hsc2-behind-left" onClick={prev}>
+        <ServiceCard slide={slides[idx(-1)]} />
       </div>
 
-      {/* Navigation arrows */}
+      {/* Right behind card — sits at right edge, partially hidden behind center */}
+      <div className="hsc2-behind hsc2-behind-right" onClick={next}>
+        <ServiceCard slide={slides[idx(1)]} />
+      </div>
+
+      {/* Front / active card — centered, highest z-index */}
+      <div className="hsc2-front">
+        <ServiceCard slide={slides[idx(0)]} />
+      </div>
+
+      {/* Nav arrows — outside the card stack */}
       <button className="hsc2-nav hsc2-nav-left" onClick={prev} aria-label="Previous">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M15 18l-6-6 6-6"/>
+          <path d="M15 18l-6-6 6-6" />
         </svg>
       </button>
       <button className="hsc2-nav hsc2-nav-right" onClick={next} aria-label="Next">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 18l6-6-6-6"/>
+          <path d="M9 18l6-6-6-6" />
         </svg>
       </button>
     </div>
