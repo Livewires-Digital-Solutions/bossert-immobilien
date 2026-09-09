@@ -60,26 +60,60 @@ export default function ReferencesSwiperGallery({ data }: Props) {
         </h2>
       </div>
 
-      {/* 3D Coverflow Swiper */}
-      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+      {/* 3D Coverflow Slider - Exactly 3 Cards */}
+      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '1150px', margin: '0 auto', padding: '0 4rem' }}>
         <Swiper
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={'auto'}
           initialSlide={2}
+          speed={800} // smoother transition speed
+          watchSlidesProgress={true}
+          onProgress={(swiper) => {
+            swiper.slides.forEach((slide) => {
+              const slideProgress = (slide as any).progress;
+              if (slideProgress === undefined) return;
+              const absProgress = Math.abs(slideProgress);
+              
+              // Keep opacity 1 for active and direct neighbors. 
+              // Smoothly fade out slides that are pushed beyond the neighbors.
+              let opacity = 1;
+              if (absProgress > 1) {
+                // Fade from 1 to 0 as progress goes from 1 to 2
+                opacity = 1 - (absProgress - 1);
+              }
+              // Clamp
+              if (opacity < 0) opacity = 0;
+              if (opacity > 1) opacity = 1;
+              
+              slide.style.opacity = opacity.toString();
+            });
+          }}
+          onSetTransition={(swiper, transition) => {
+            swiper.slides.forEach((slide) => {
+              slide.style.transitionDuration = `${transition}ms`;
+            });
+          }}
           coverflowEffect={{
-            rotate: 20, // Rotate angle of side slides
-            stretch: 0, // Space between slides
-            depth: 250, // Depth offset (Z-axis)
-            modifier: 1, // Effect multiplier
-            slideShadows: true, // Enable shadows
+            rotate: 15,
+            stretch: 0,
+            depth: 300,
+            modifier: 1,
+            slideShadows: true,
           }}
           pagination={{ clickable: true, dynamicBullets: true }}
-          navigation={true}
+          navigation={{
+            nextEl: '.swiper-btn-next-custom',
+            prevEl: '.swiper-btn-prev-custom',
+          }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-          className="references-3d-swiper"
-          style={{ width: '100%', paddingTop: '2rem', paddingBottom: '4rem' }}
+          className="references-slider"
+          style={{ 
+            width: '100%', 
+            paddingTop: '2rem', 
+            paddingBottom: '4rem'
+          }}
         >
           {data.items.map((item) => (
             <SwiperSlide key={item.id} style={{ width: '350px', height: '500px' }}>
@@ -145,39 +179,74 @@ export default function ReferencesSwiperGallery({ data }: Props) {
             </SwiperSlide>
           ))}
         </Swiper>
+        
+        {/* Custom Navigation Buttons */}
+        <div className="swiper-btn-prev-custom" style={{
+          position: 'absolute',
+          left: '0',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          cursor: 'pointer',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'var(--white)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--navy)'
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </div>
+        <div className="swiper-btn-next-custom" style={{
+          position: 'absolute',
+          right: '0',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          cursor: 'pointer',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'var(--white)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--navy)'
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>
       </div>
 
       <style>{`
         /* Swiper Customizations */
-        .references-3d-swiper .swiper-slide {
+        .references-slider .swiper-slide {
           transition: filter 0.4s ease;
         }
-        .references-3d-swiper .swiper-slide:not(.swiper-slide-active) {
-          filter: grayscale(80%) brightness(0.6);
+        
+        .references-slider .swiper-slide:not(.swiper-slide-active) {
+          filter: grayscale(60%) brightness(0.6);
         }
-        .references-3d-swiper .swiper-pagination-bullet {
+
+        .references-slider .swiper-pagination-bullet {
           background: var(--navy);
         }
-        .references-3d-swiper .swiper-button-next,
-        .references-3d-swiper .swiper-button-prev {
-          color: var(--navy);
-          background: var(--white);
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .swiper-btn-prev-custom:hover,
+        .swiper-btn-next-custom:hover {
+          background-color: var(--navy) !important;
+          color: var(--white) !important;
         }
-        .references-3d-swiper .swiper-button-next:after,
-        .references-3d-swiper .swiper-button-prev:after {
-          font-size: 1.2rem;
-          font-weight: bold;
-        }
-        
-        @media (min-width: 768px) {
-          .references-3d-swiper .swiper-slide {
-            width: 500px !important;
-            height: 650px !important;
-          }
+        .swiper-btn-prev-custom.swiper-button-disabled,
+        .swiper-btn-next-custom.swiper-button-disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
       `}</style>
     </section>

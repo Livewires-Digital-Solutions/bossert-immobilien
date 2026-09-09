@@ -4,7 +4,7 @@
  * Key facts (confirmed by testing):
  *  - HMAC v2 = SHA256(timestamp + token + resourcetype + actionid), Base64
  *  - Each request must contain only ONE action (multi-action batches → error 141)
- *  - Estate read: resourcetype="estate", actionid="...action:read", resourceid=<internalId>
+ *  - Estate read: resourcetype="estate", actionid="...action:read", resourceid="" for search, or <internalId>
  *  - Photos:      resourcetype="estatepictures", actionid="...action:get", resourceid=0
  *  - The local machine clock is ~258 s ahead of onOffice servers; we compensate by
  *    using ONOFFICE_TS_OFFSET_S (default 270) to subtract from Date.now()
@@ -17,23 +17,10 @@ import { Property } from '@/data/properties';
 const TOKEN   = process.env.ONOFFICE_TOKEN      ?? '';
 const SECRET  = process.env.ONOFFICE_SECRET     ?? '';
 const API_URL = process.env.ONOFFICE_API_URL    ?? 'https://api.onoffice.de/api/latest/api.php';
-// Seconds by which the local clock is ahead of the onOffice server clock.
-// Measured: local leads by ~258 s; use 270 s as a safe buffer.
 const TS_OFFSET = parseInt(process.env.ONOFFICE_TS_OFFSET_S ?? '270', 10);
 
 const ACTION_READ = 'urn:onoffice-de-ns:smart:2.5:smartml:action:read';
 const ACTION_GET  = 'urn:onoffice-de-ns:smart:2.5:smartml:action:get';
-
-/**
- * The 3 properties to display on the site.
- * internalId → onOffice resourceid used to query the API.
- * externalId → public URL slug (matches objektnr_extern in onOffice).
- */
-export const PROPERTY_CONFIGS = [
-  { internalId: 1309, externalId: '26-BO-619', category: 'apartment'    },
-  { internalId: 1327, externalId: '26-BO-625', category: 'bungalow'     },
-  { internalId: 1287, externalId: '26-BO-610', category: 'multi-family' },
-] as const;
 
 const ESTATE_FIELDS = [
   'Id', 'objekttitel', 'vermarktungsart', 'objektart',
@@ -61,11 +48,6 @@ function generateHmac(
   return crypto.createHmac('sha256', secret).update(message).digest('base64');
 }
 
-/**
- * Compute the onOffice-compatible Unix timestamp.
- * The development machine clock is ahead of the onOffice server clock by ~258 s,
- * so we subtract TS_OFFSET to arrive at a timestamp the server will accept.
- */
 function getTimestamp(): number {
   return Math.floor(Date.now() / 1000) - TS_OFFSET;
 }
@@ -75,15 +57,11 @@ function getTimestamp(): number {
 interface OnOfficeAction {
   actionid:     string;
   resourcetype: string;
-  resourceid?:  number;
+  resourceid?:  number | string;
   identifier?:  string;
   parameters:   Record<string, unknown>;
 }
 
-/**
- * Make a single-action onOffice API call.
- * Returns the `data` object from the first result.
- */
 async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
   if (!TOKEN || !SECRET) {
     return null;
@@ -98,7 +76,7 @@ async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
       actions: [
         {
           actionid:     action.actionid,
-          resourceid:   action.resourceid ?? 0,
+          resourceid:   action.resourceid !== undefined ? action.resourceid : '',
           identifier:   action.identifier ?? 'req',
           timestamp:    ts,
           hmac,
@@ -116,7 +94,7 @@ async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify(body),
     cache:   'no-store',
-    signal:  AbortSignal.timeout(5000),
+    signal:  AbortSignal.timeout(10000), // increased timeout for potentially large fetches
   });
 
   if (!response.ok) {
@@ -215,12 +193,12 @@ function buildSpecs(el: Record<string, unknown>): string {
 
 function mapEstateToProperty(
   record: { id: number; elements: Record<string, unknown> },
-  config: typeof PROPERTY_CONFIGS[number],
   photos: string[],
 ): Property {
   const el = record.elements;
 
-  const title    = (el['objekttitel'] as string) || config.category;
+  const externalId = (el['objektnr_extern'] as string) || String(record.id);
+  const title    = (el['objekttitel'] as string) || (el['objektart'] as string) || 'Immobilie';
   const location = [el['strasse'], el['plz'], el['ort']]
     .filter(Boolean).join(', ') || (el['lage'] as string) || 'Deutschland';
   const price    = formatPrice(el['kaufpreis'] ?? el['kaltmiete'] ?? el['warmmiete']);
@@ -248,7 +226,7 @@ function mapEstateToProperty(
   const commission = el['aussen_courtage'] ? String(el['aussen_courtage']) : (el['provisionshinweis'] ? String(el['provisionshinweis']) : undefined);
 
   return {
-    id:            config.externalId,
+    id:            externalId,
     imageSrc:      photos[0] ?? '/images/prop_apartment_new.jpg',
     type:          title,
     price,
@@ -275,57 +253,44 @@ function mapEstateToProperty(
   };
 }
 
-// ─── Core Estate Fetcher ──────────────────────────────────────────────────────
-
-async function fetchEstateById(
-  config: typeof PROPERTY_CONFIGS[number],
-): Promise<Property> {
-  const data = (await callOnOffice({
-    actionid:     ACTION_READ,
-    resourcetype: 'estate',
-    resourceid:   config.internalId,
-    identifier:   `estate-${config.internalId}`,
-    parameters:   { data: ESTATE_FIELDS },
-  })) as { records: Array<{ id: number; elements: Record<string, unknown> }> };
-
-  const record = data?.records?.[0];
-  if (!record) {
-    throw new Error(`Estate ${config.internalId} returned no records`);
-  }
-
-  const photos   = await fetchEstatePhotos(config.internalId);
-  const property = mapEstateToProperty(record, config, photos);
-
-  // Map GPS coordinates if present
-  const lat = parseFloat(String(record.elements['breitengrad'] ?? ''));
-  const lng = parseFloat(String(record.elements['laengengrad']  ?? ''));
-  if (!isNaN(lat) && !isNaN(lng)) {
-    property.locationData = { coordinates: [lat, lng] };
-  }
-
-  return property;
-}
-
 // ─── Public API ───────────────────────────────────────────────────────────────
 
-/** Fetch all 3 configured properties from onOffice (parallel). */
+/** 
+ * Fetch all properties assigned to benutzer: "25". 
+ * This dynamically retrieves all properties instead of using hardcoded IDs.
+ */
 export async function fetchOnOfficeProperties(): Promise<Property[]> {
   if (!TOKEN || !SECRET) {
     return [];
   }
-  const results = await Promise.allSettled(
-    PROPERTY_CONFIGS.map((config) => fetchEstateById(config)),
-  );
+  
+  try {
+    const data = (await callOnOffice({
+      actionid:     ACTION_READ,
+      resourcetype: 'estate',
+      resourceid:   '', // Empty string for search action
+      identifier:   'estate-search',
+      parameters:   { 
+        data: ESTATE_FIELDS,
+        searchdata: { benutzer: 25 },
+        listlimit: 50 // Fetch up to 50 matching properties
+      },
+    })) as { records: Array<{ id: number; elements: Record<string, unknown> }> };
 
-  const properties: Property[] = [];
-  for (const r of results) {
-    if (r.status === 'fulfilled') {
-      properties.push(r.value);
-    } else {
-      console.error('[onoffice] fetchOnOfficeProperties error:', r.reason);
+    const records = data?.records ?? [];
+    const properties: Property[] = [];
+
+    // Process properties (we can do it sequentially to avoid hammering the API, or in small batches)
+    for (const record of records) {
+      const photos = await fetchEstatePhotos(record.id);
+      properties.push(mapEstateToProperty(record, photos));
     }
+
+    return properties;
+  } catch (err) {
+    console.error('[onoffice] fetchOnOfficeProperties error:', err);
+    return [];
   }
-  return properties;
 }
 
 /** Fetch a single property by its external ID (URL slug). */
@@ -335,11 +300,33 @@ export async function fetchOnOfficePropertyById(
   if (!TOKEN || !SECRET) {
     return null;
   }
-  const config = PROPERTY_CONFIGS.find((c) => c.externalId === externalId);
-  if (!config) return null;
 
   try {
-    return await fetchEstateById(config);
+    const data = (await callOnOffice({
+      actionid:     ACTION_READ,
+      resourcetype: 'estate',
+      resourceid:   '', // Empty string for search
+      identifier:   `estate-get-${externalId}`,
+      parameters:   { 
+        data: ESTATE_FIELDS,
+        searchdata: { objektnr_extern: externalId }
+      },
+    })) as { records: Array<{ id: number; elements: Record<string, unknown> }> };
+
+    const record = data?.records?.[0];
+    if (!record) return null;
+
+    const photos = await fetchEstatePhotos(record.id);
+    const property = mapEstateToProperty(record, photos);
+
+    // Map GPS coordinates if present
+    const lat = parseFloat(String(record.elements['breitengrad'] ?? ''));
+    const lng = parseFloat(String(record.elements['laengengrad']  ?? ''));
+    if (!isNaN(lat) && !isNaN(lng)) {
+      property.locationData = { coordinates: [lat, lng] };
+    }
+
+    return property;
   } catch (err) {
     console.error(`[onoffice] fetchOnOfficePropertyById(${externalId}) error:`, err);
     return null;
