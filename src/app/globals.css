@@ -1321,8 +1321,8 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--white, #fff);
-  background: var(--blue, #1e50c8);
-  border: 1px solid var(--blue, #1e50c8);
+  background: var(--navy, #042433);
+  border: 1px solid var(--navy, #042433);
   border-radius: 4px;
   padding: 0.45rem 1rem;
   align-self: stretch;
@@ -1334,8 +1334,8 @@ body {
 }
 
 .hsc2-btn:hover {
-  background: var(--blue-dark, #1640a8);
-  border-color: var(--blue-dark, #1640a8);
+  background: #031a26;
+  border-color: #031a26;
   color: var(--white, #fff);
 }
 
