@@ -1160,25 +1160,25 @@ body {
 
 /* ── Hero Services Carousel v2 (stacked depth, 3:4 cards) ───────────── */
 
-/* Card dimensions  3:4 ratio */
+/* Card dimensions — 3:4 ratio, slightly bigger */
 :root {
-  --hsc2-w: 210px;
-  --hsc2-h: 280px;
+  --hsc2-w: 240px;
+  --hsc2-h: 320px;
 }
 
 /*
-  Layout math (container = 500px):
-  - Center card: left = (500-210)/2 = 145px  →  right edge at 355px
-  - Left behind card: left: 0, scale(0.9) from right → visible 0–145px (145px peek)
-  - Right behind card: right: 0, scale(0.9) from left → visible 355–500px (145px peek)
-  - Nav arrows: left: -18px / right: -18px (outside card area)
+  Layout math (container = 480px):
+  - Center card: left 50% → left edge at (480-240)/2 = 120px, right edge at 360px
+  - Side cards: translateX(±55px) inward so only ~55px peek out from behind center
+  - All cards: top 50% + translateY(-50%) → vertically centred in container
+  - Nav arrows: left/right: -18px → outside the card area
 */
 .hsc2-root {
   position: relative;
-  width: 500px;
+  width: 480px;
   height: var(--hsc2-h);
   flex-shrink: 0;
-  /* overflow: visible so side-card edges and nav arrows can extend outside */
+  align-self: center;
 }
 
 /* ── Shared card shell ── */
@@ -1231,10 +1231,10 @@ body {
 /* Content — bottom 42% */
 .hsc2-body {
   flex: 1;
-  padding: 0.65rem 0.8rem 0.8rem;
+  padding: 0.8rem 1rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
+  gap: 0.35rem;
   background: var(--cream, #f3ede3);
   color: var(--navy, #0b1a2a);
   overflow: hidden;
@@ -1262,7 +1262,7 @@ body {
 
 .hsc2-title {
   font-family: var(--font-serif);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.15;
   color: var(--navy, #0b1a2a);
@@ -1272,7 +1272,7 @@ body {
 .hsc2-title em { font-style: italic; }
 
 .hsc2-desc {
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   line-height: 1.55;
   color: #555;
   margin: 0;
@@ -1309,47 +1309,51 @@ body {
 
 .hsc2-arrow { font-size: 0.6rem; }
 
-/* ── Front card — centered at left: 50% ── */
+/* ── Front card — horizontally + vertically centred ── */
 .hsc2-front {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 3;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.45);
   pointer-events: auto;
 }
 
-/* ── Behind cards — peek from outside edges ── */
+/* ── Behind cards — pushed deeply inside ── */
 .hsc2-behind {
   position: absolute;
-  top: 4%;                /* sit slightly lower than center */
+  top: 50%;
   z-index: 2;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: filter 0.3s ease, transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: filter 0.3s ease;
   pointer-events: auto;
 }
 
+/*
+  Left card: starts at left:0 (card right edge at 240px).
+  translateX(55px) pushes it 55px right → right edge at 240px, left edge at ~60px visible.
+  Only ~60px of the card's left edge shows (rest is behind center card starting at 120px).
+*/
 .hsc2-behind-left {
   left: 0;
-  /* scale from the RIGHT edge → right edge stays at 210px, left shrinks inward */
-  transform: scale(0.9);
-  transform-origin: right center;
-  filter: brightness(0.82);
+  transform: translateX(55px) translateY(-50%) scale(0.88);
+  filter: brightness(0.75);
 }
 
+/*
+  Right card: starts at right:0 (card left edge at 480-240=240px).
+  translateX(-55px) pushes it 55px left → same ~60px peek on the right.
+*/
 .hsc2-behind-right {
   right: 0;
-  /* scale from the LEFT edge → left edge stays at (500-210)=290px, right shrinks inward */
-  transform: scale(0.9);
-  transform-origin: left center;
-  filter: brightness(0.82);
+  transform: translateX(-55px) translateY(-50%) scale(0.88);
+  filter: brightness(0.75);
 }
 
 .hsc2-behind:hover {
-  filter: brightness(0.92);
+  filter: brightness(0.9);
 }
 
 /* ── Navigation arrows ── */
@@ -1377,7 +1381,7 @@ body {
   color: var(--gold, #9a7d54);
 }
 
-/* Position arrows at the absolute left/right edges of the root */
+/* Position arrows at the very edges of the root */
 .hsc2-nav-left  { left:  -17px; }
 .hsc2-nav-right { right: -17px; }
 
