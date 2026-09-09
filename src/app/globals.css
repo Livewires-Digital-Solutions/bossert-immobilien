@@ -1320,7 +1320,7 @@ body {
   border: 1px solid rgba(11, 26, 42, 0.45);
   border-radius: 4px;
   padding: 0.4rem 0.85rem;
-  align-self: flex-start;
+  align-self: flex-end;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
   font-family: var(--font-inter), sans-serif;
   margin-top: auto;
