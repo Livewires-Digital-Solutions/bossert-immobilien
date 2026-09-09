@@ -1176,7 +1176,7 @@ body {
 .hsc2-root {
   position: relative;
   width: 540px;
-  height: calc(var(--hsc2-h) + 52px); /* card + bottom controls */
+  height: calc(var(--hsc2-h) + 90px); /* card + generous space + bottom controls */
   flex-shrink: 0;
   align-self: center;
 }
