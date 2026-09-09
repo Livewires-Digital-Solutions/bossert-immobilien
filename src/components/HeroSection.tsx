@@ -39,6 +39,13 @@ export default function HeroSection() {
             <div className={`hero-desc reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
               {t.hero.desc}
             </div>
+            {/* Explore button — left-aligned below the text */}
+            <div className={`reveal-base reveal-up delay-400 ${isVisible ? 'is-revealed' : ''}`}>
+              <a href="/properties" className="explore-btn">
+                EXPLORE PROPERTIES
+                <span className="btn-arrow">↗</span>
+              </a>
+            </div>
           </div>
           
           <div className="right-content">
@@ -53,13 +60,6 @@ export default function HeroSection() {
               {t.hero.scroll}
               <div className="scroll-icon"></div>
             </div>
-          </div>
-          
-          <div className={`bottom-right reveal-base reveal-up delay-500 ${isVisible ? 'is-revealed' : ''}`}>
-            <a href="/properties" className="explore-btn">
-              EXPLORE PROPERTIES
-              <span className="btn-arrow">↗</span>
-            </a>
           </div>
         </div>
       </div>
