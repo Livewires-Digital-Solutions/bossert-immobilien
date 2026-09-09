@@ -139,12 +139,21 @@ body {
   width: 100%;
   height: 100%;
   background: 
+    /* Bottom fade to navy */
     linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%),
+    /* Left side dark vignette */
     linear-gradient(
       to right, 
-      rgba(4, 36, 51, 0.7) 0%, 
+      rgba(4, 36, 51, 0.75) 0%, 
       rgba(4, 36, 51, 0.2) 40%, 
       rgba(4, 36, 51, 0.3) 100%
+    ),
+    /* Blue ambient glow — left side */
+    radial-gradient(
+      ellipse 55% 60% at 0% 50%,
+      rgba(30, 80, 200, 0.22) 0%,
+      rgba(10, 40, 120, 0.10) 50%,
+      transparent 100%
     );
   z-index: 1;
 }
