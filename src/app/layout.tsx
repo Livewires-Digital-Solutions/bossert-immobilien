@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -18,11 +19,41 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
+const theSeasons = localFont({
+  src: [
+    {
+      path: "../../public/fonts/TheSeasons-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/TheSeasons-LightItalic.otf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/TheSeasons-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/TheSeasons-Italic.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/TheSeasons-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/TheSeasons-BoldItalic.otf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-seasons",
+  display: "swap",
 });
 
 import SmoothScroll from "@/components/SmoothScroll";
@@ -37,7 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${instrumentSerif.variable}`}>
+      <body className={`${inter.variable} ${theSeasons.variable}`}>
         <LanguageProvider>
           <SmoothScroll>
             {children}

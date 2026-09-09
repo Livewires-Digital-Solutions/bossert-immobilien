@@ -129,7 +129,7 @@
 }
 
 .headline {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.2rem, 4.5vw, 3.8rem);
   font-weight: 400;
   line-height: 1.15;
@@ -139,9 +139,9 @@
 }
 
 .subhead {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.05rem, 1.8vw, 1.35rem);
-  font-style: italic;
+  font-style: normal;
   color: #AF8C53;
   line-height: 1.5;
   max-width: 680px;

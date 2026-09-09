@@ -14,7 +14,7 @@ export default function Home() {
     <main>
       <IntroSequence />
       <HeroSection />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <IntroPromo />
       <ServicesSection />
       <ExploreSection />

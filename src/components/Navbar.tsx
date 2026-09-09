@@ -123,7 +123,7 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
               <Link href="/contact" className="contact-btn">{t.nav.contact.toUpperCase()}</Link>
               <Link href="/login" className="login-icon-btn" aria-label="Login">
                 {userInitial ? (
-                  <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-instrument), serif', fontWeight: 400 }}>{userInitial}</span>
+                  <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-serif)', fontWeight: 400 }}>{userInitial}</span>
                 ) : (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -194,7 +194,7 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
           <Link href="/contact" className="mobile-contact-btn" onClick={() => setMenuOpen(false)}>{t.nav.contact}</Link>
           <Link href="/login" className="login-icon-btn" aria-label="Login" onClick={() => setMenuOpen(false)} style={{ margin: '0 auto', marginTop: '1rem', border: '1px solid var(--bronze)', color: 'var(--bronze)' }}>
             {userInitial ? (
-              <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-instrument), serif', fontWeight: 400 }}>{userInitial}</span>
+              <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-serif)', fontWeight: 400 }}>{userInitial}</span>
             ) : (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>

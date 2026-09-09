@@ -163,7 +163,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                 
                 {/* Right: Text Content (55%) */}
                 <div style={{ flex: '0 0 55%', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <div className="italic-serif" style={{ fontFamily: 'var(--font-instrument), serif', fontSize: '5.5rem', color: 'rgba(4,36,51,0.1)', fontStyle: 'italic', lineHeight: 1, marginBottom: '2rem' }}>
+                  <div className="italic-serif" style={{ fontFamily: 'var(--font-serif)', fontSize: '5.5rem', color: 'rgba(4,36,51,0.1)', lineHeight: 1, marginBottom: '2rem' }}>
                     0{idx + 1}
                   </div>
                   <h3 className="explore-headline" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', fontWeight: 500, letterSpacing: '-0.05em' }}>

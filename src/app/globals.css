@@ -1,12 +1,9 @@
 /* ── The Seasons Font Family Integration ── */
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons'), local('TheSeasons'), local('The Seasons Regular'),
-       url('/fonts/TheSeasons-Regular.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Reg.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Regular.woff') format('woff'),
+  src: local('The Seasons Regular'), local('The Seasons'), local('TheSeasons-Reg'), local('FONTSPRING DEMO - The Seasons Regular'), local('FONTSPRING DEMO - The Seasons'),
        url('/fonts/TheSeasons-Regular.otf') format('opentype'),
-       url('/fonts/TheSeasons-Regular.ttf') format('truetype');
+       url('/fonts/TheSeasons-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,25 +11,19 @@
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Italic'), local('TheSeasons-Italic'),
-       url('/fonts/TheSeasons-Italic.woff2') format('woff2'),
-       url('/fonts/TheSeasons-It.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Italic.woff') format('woff'),
+  src: local('The Seasons Italic'), local('TheSeasons-Italic'), local('TheSeasons-It'), local('FONTSPRING DEMO - The Seasons Italic'),
        url('/fonts/TheSeasons-Italic.otf') format('opentype'),
-       url('/fonts/TheSeasons-Italic.ttf') format('truetype');
+       url('/fonts/TheSeasons-Italic.woff2') format('woff2');
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Bold'), local('TheSeasons-Bold'),
-       url('/fonts/TheSeasons-Bold.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Bd.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Bold.woff') format('woff'),
+  src: local('The Seasons Bold'), local('TheSeasons-Bold'), local('TheSeasons-Bd'), local('FONTSPRING DEMO - The Seasons Bold'),
        url('/fonts/TheSeasons-Bold.otf') format('opentype'),
-       url('/fonts/TheSeasons-Bold.ttf') format('truetype');
+       url('/fonts/TheSeasons-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -40,12 +31,27 @@
 
 @font-face {
   font-family: 'The Seasons';
-  src: local('The Seasons Light'), local('TheSeasons-Light'),
-       url('/fonts/TheSeasons-Light.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Lt.woff2') format('woff2'),
-       url('/fonts/TheSeasons-Light.woff') format('woff'),
+  src: local('The Seasons Bold Italic'), local('TheSeasons-BoldItalic'), local('TheSeasons-BdIt'), local('FONTSPRING DEMO - The Seasons Bold Italic'),
+       url('/fonts/TheSeasons-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Light'), local('TheSeasons-Light'), local('TheSeasons-Lt'), local('FONTSPRING DEMO - The Seasons Light Regular'),
        url('/fonts/TheSeasons-Light.otf') format('opentype'),
-       url('/fonts/TheSeasons-Light.ttf') format('truetype');
+       url('/fonts/TheSeasons-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: local('The Seasons Light Italic'), local('TheSeasons-LightItalic'), local('TheSeasons-LtIt'), local('FONTSPRING DEMO - The Seasons Light Italic'),
+       url('/fonts/TheSeasons-LightItalic.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -56,7 +62,9 @@
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
-  --font-serif: var(--font-instrument), 'The Seasons', 'Instrument Serif', Georgia, serif;
+  /* theSeasons is the font-family name Next.js compiles from next/font/local */
+  --font-serif: 'theSeasons', 'The Seasons', 'FONTSPRING DEMO - The Seasons', Georgia, serif;
+  --font-instrument: var(--font-serif);
 }
 
 * {
@@ -233,7 +241,7 @@ body {
 }
 
 .hc-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.8rem;
   font-weight: 400;
   color: var(--navy);
@@ -257,36 +265,38 @@ body {
 .hc-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #A08350; /* A softer, elegant bronze */
+  gap: 1rem;
+  background: transparent;
   color: var(--white);
-  padding: 0.5rem 1.1rem;
-  border-radius: 100px;
+  padding: 0.8rem 1.4rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.45);
   text-decoration: none;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   align-self: flex-start;
-  transition: background 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .hc-btn:hover {
-  background: #8E7345;
+  border-color: var(--gold, #9a7d54);
+  color: var(--gold, #9a7d54);
+}
+
+.hc-btn-text {
+  /* text only, no extra styling needed */
 }
 
 .hc-btn-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--white);
-  border-radius: 50%;
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
 }
 
-.hc-btn-icon svg {
-  width: 12px;
-  height: 12px;
+.hc-btn:hover .hc-btn-icon {
+  transform: translate(2px, -2px);
 }
 
 /* Nav Buttons */
@@ -378,7 +388,7 @@ body {
 }
 
 .stat-number {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 4rem;
   color: var(--bronze);
   line-height: 1;
@@ -449,7 +459,7 @@ body {
 }
 
 .intro-promo-headline {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
@@ -459,9 +469,9 @@ body {
 }
 
 .intro-promo-sub {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: clamp(1rem, 2vw, 1.3rem);
-  font-style: italic;
+  font-style: normal;
   color: var(--bronze);
   line-height: 1.5;
   max-width: 680px;
@@ -670,8 +680,8 @@ body {
 }
 
 .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -930,7 +940,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   text-align: center;
   line-height: 1.1;
   letter-spacing: 1px;
@@ -1087,9 +1097,10 @@ body {
 .main-grid {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 2vh;
   margin-bottom: auto;
-  align-items: flex-start;
+  gap: 3rem;
 }
 
 .left-content {
@@ -1115,8 +1126,8 @@ body {
 }
 
 .headline-middle {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 8rem;
   line-height: 1.1;
   font-weight: 400;
@@ -1140,8 +1151,290 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: center;
   gap: 4rem;
-  max-width: 300px;
+  flex: 1;
+  max-width: 600px;
+  position: relative;
+}
+
+/* ── Hero Services Carousel v2 (stacked depth, 3:4 cards) ───────────── */
+
+/* Card dimensions — 3:4 ratio, slightly bigger */
+:root {
+  --hsc2-w: 270px;
+  --hsc2-h: 360px;
+}
+
+/*
+  Layout math (container = 480px):
+  - Center card: left 50% → left edge at (480-240)/2 = 120px, right edge at 360px
+  - Side cards: translateX(±55px) inward so only ~55px peek out from behind center
+  - All cards: top 50% + translateY(-50%) → vertically centred in container
+  - Nav arrows: left/right: -18px → outside the card area
+*/
+.hsc2-root {
+  position: relative;
+  width: 540px;
+  height: calc(var(--hsc2-h) + 52px); /* card + bottom controls */
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── Shared card shell ── */
+.hsc2-card {
+  width: var(--hsc2-w);
+  height: var(--hsc2-h);
+  background: var(--cream, #f3ede3);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none; /* prevent clicks propagating twice */
+}
+
+/* Image — top 58% */
+.hsc2-img {
+  flex: 0 0 58%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hsc2-img-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.65rem 0.75rem;
+}
+
+.hsc2-counter {
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.9);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.hsc2-tag {
+  font-size: 0.42rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  white-space: pre-line;
+  text-align: right;
+  line-height: 1.7;
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Content — bottom 42% */
+.hsc2-body {
+  flex: 1;
+  padding: 0.8rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: var(--cream, #f3ede3);
+  color: var(--navy, #0b1a2a);
+  overflow: hidden;
+}
+
+.hsc2-category {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-inter), sans-serif;
+  color: var(--navy, #0b1a2a);
+}
+
+.hsc2-cat-line {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+.hsc2-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--navy, #0b1a2a);
+  margin: 0;
+}
+
+.hsc2-title em { font-style: italic; }
+
+.hsc2-desc {
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: #555;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.hsc2-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.48rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--navy, #0b1a2a);
+  border-bottom: 1px solid rgba(11,26,42,0.3);
+  padding-bottom: 1px;
+  align-self: flex-start;
+  transition: color 0.3s ease, gap 0.3s ease;
+  font-family: var(--font-inter), sans-serif;
+  margin-top: auto;
+  pointer-events: auto;
+}
+
+.hsc2-btn:hover {
+  color: var(--gold, #9a7d54);
+  gap: 0.55rem;
+}
+
+.hsc2-arrow { font-size: 0.6rem; }
+
+/* ── Front card — horizontally + vertically centred ── */
+.hsc2-front {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 24px 56px rgba(0,0,0,0.45);
+  pointer-events: auto;
+}
+
+/* ── Behind cards — pushed deeply inside ── */
+.hsc2-behind {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  pointer-events: auto;
+}
+
+/*
+  Left card: starts at left:0 (card right edge at 240px).
+  translateX(55px) pushes it 55px right → right edge at 240px, left edge at ~60px visible.
+  Only ~60px of the card's left edge shows (rest is behind center card starting at 120px).
+*/
+.hsc2-behind-left {
+  left: 0;
+  transform: translateX(55px) translateY(-50%) scale(0.88);
+  filter: brightness(0.75);
+}
+
+/*
+  Right card: starts at right:0 (card left edge at 480-240=240px).
+  translateX(-55px) pushes it 55px left → same ~60px peek on the right.
+*/
+.hsc2-behind-right {
+  right: 0;
+  transform: translateX(-55px) translateY(-50%) scale(0.88);
+  filter: brightness(0.75);
+}
+
+.hsc2-behind:hover {
+  filter: brightness(0.9);
+}
+
+/* ── Smooth transitions on front card ── */
+.hsc2-front {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity   0.35s ease;
+}
+
+/* ── Slide-out animations on the front card ── */
+.hsc2-anim-out-next {
+  transform: translate(calc(-50% - 28px), -50%) !important;
+  opacity: 0 !important;
+}
+
+.hsc2-anim-out-prev {
+  transform: translate(calc(-50% + 28px), -50%) !important;
+  opacity: 0 !important;
+}
+
+/* ── Fade out the behind cards during transition ── */
+.hsc2-anim-behind {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+/* ── Bottom controls bar ── */
+
+.hsc2-controls {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 10;
+}
+
+/* Prev / Next buttons */
+.hsc2-ctrl-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--white, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.hsc2-ctrl-btn:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: var(--gold, #9a7d54);
+  color: var(--gold, #9a7d54);
+}
+
+/* Dot indicators */
+.hsc2-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hsc2-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.35s ease, background 0.35s ease;
+}
+
+.hsc2-dot-active {
+  width: 22px;
+  background: var(--white, #fff);
 }
 
 .experience-text {
@@ -1222,8 +1515,8 @@ body {
   line-height: 1.2;
 }
 .hero-headline-mid {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 6vw, 6rem);
   line-height: 0.85;
   font-weight: 400;
@@ -1261,8 +1554,8 @@ body {
   }
 }
 .hero-subhead {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 1.25rem;
   color: var(--bronze);
   letter-spacing: 0;
@@ -1336,51 +1629,44 @@ body {
   100% { transform: translate(-50%, 8px); opacity: 0; }
 }
 
+/* ── Global Elegant Button System ──────────────────────────────────── */
 .explore-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  background: var(--white);
-  color: var(--navy);
-  padding: 0.4rem 0.4rem 0.4rem 2rem;
-  border-radius: 8px;
+  gap: 1.25rem;
+  background: transparent;
+  color: var(--white, #fff);
+  border: 1px solid rgba(255,255,255,0.45);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
   text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: -0.5px;
-  gap: 2rem;
-  transition: all 0.3s ease;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-.explore-icon-wrapper {
-  background: var(--navy);
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.explore-icon-wrapper svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--white);
-  transition: all 0.3s ease;
+.explore-btn .btn-arrow {
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .explore-btn:hover {
-  background: var(--navy);
-  color: var(--white);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border-color: var(--gold, #9a7d54);
+  color: var(--gold, #9a7d54);
 }
 
-.explore-btn:hover .explore-icon-wrapper {
-  background: var(--white);
+.explore-btn:hover .btn-arrow {
+  transform: translate(3px, -3px);
 }
-.explore-btn:hover .explore-icon-wrapper svg {
-  stroke: var(--navy);
-  transform: translate(2px, -2px);
+
+/* Legacy icon-wrapper — hidden in new design */
+.explore-icon-wrapper {
+  display: none;
 }
 
 /* --- Services Section --- */
@@ -1434,8 +1720,8 @@ body {
   letter-spacing: -1px;
 }
 .headline-mid-s {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 5vw, 6rem);
   line-height: 0.8;
   font-weight: 400;
@@ -1533,8 +1819,8 @@ body {
   position: absolute;
   bottom: 11rem;
   right: -0.5rem;
-  font-family: var(--font-serif), var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(6.5rem, 8.5vw, 8.5rem);
   color: rgba(255, 255, 255, 0.32);
   text-shadow: 0 4px 20px rgba(4, 36, 51, 0.3);
@@ -1574,8 +1860,8 @@ body {
 }
 
 .card-subtitle {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 1.1rem;
   opacity: 0.8;
   margin-bottom: 1.5rem;
@@ -1732,7 +2018,7 @@ body {
 }
 
 .search-title {
-  font-family: var(--font-instrument), 'The Seasons', 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 400;
   color: var(--navy);
@@ -2389,8 +2675,8 @@ body {
 }
 
 .explore-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 5.5rem;
   font-weight: 400;
   letter-spacing: 0;
@@ -2408,32 +2694,21 @@ body {
   margin: 0;
 }
 
+/* Dark variant — used on light/cream backgrounds */
 .explore-btn-dark {
-  background: var(--navy);
-  color: var(--white);
-  border: 1px solid var(--navy);
-  margin-bottom: 0;
-}
-
-.explore-btn-dark .explore-icon-wrapper {
-  background: var(--white);
-}
-
-.explore-btn-dark .explore-icon-wrapper svg {
-  stroke: var(--navy);
+  color: var(--navy, #0b1a2a);
+  border-color: var(--gold, #9a7d54);
+  background: transparent;
 }
 
 .explore-btn-dark:hover {
-  background: var(--cream);
-  color: var(--navy);
+  background: var(--navy, #0b1a2a);
+  color: var(--white, #fff);
+  border-color: var(--navy, #0b1a2a);
 }
 
-.explore-btn-dark:hover .explore-icon-wrapper {
-  background: var(--navy);
-}
-
-.explore-btn-dark:hover .explore-icon-wrapper svg {
-  stroke: var(--white);
+.explore-btn-dark:hover .btn-arrow {
+  color: var(--white, #fff);
 }
 
 .explore-filters {
@@ -2691,8 +2966,8 @@ body {
 }
 
 .why-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: 7rem;
   font-weight: 400;
   letter-spacing: 0;
@@ -2712,9 +2987,9 @@ body {
 }
 
 .why-editorial-phrase {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.75rem;
-  font-style: italic;
+  font-style: normal;
   color: var(--bronze);
   opacity: 0.9;
 }
@@ -2737,7 +3012,7 @@ body {
 }
 
 .why-stat-number {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 8rem;
   font-weight: 400;
   color: var(--navy);
@@ -2821,8 +3096,8 @@ body {
 }
 
 .testimonial-section .test-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -2927,8 +3202,8 @@ body {
 }
 
 .test-quote-text {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(1.2rem, 1.8vw, 1.45rem);
   line-height: 1.8;
   color: rgba(254, 252, 246, 0.85);
@@ -3101,8 +3376,8 @@ body {
 }
 
 .cta-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -3241,18 +3516,19 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  background: var(--navy);
-  color: var(--cream);
-  border: 1px solid var(--navy);
-  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--gold, #9a7d54);
+  padding: 1rem 2rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  border-radius: 4px;
   cursor: pointer;
   margin-top: 0.5rem;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .cta-submit-btn svg {
@@ -3263,8 +3539,9 @@ body {
 }
 
 .cta-submit-btn:hover {
-  background: transparent;
-  color: var(--navy);
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
 }
 
 .cta-success-msg {
@@ -3348,8 +3625,8 @@ body {
 }
 
 .news-headline .italic-serif {
-  font-family: var(--font-instrument), serif;
-  font-style: italic;
+  font-family: var(--font-serif);
+  font-style: normal;
   font-size: clamp(3.5rem, 6vw, 5.5rem);
   font-weight: 400;
   letter-spacing: 0;
@@ -4708,7 +4985,7 @@ body {
 }
 
 .expertise-headline {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 3.5rem;
   font-weight: 300;
   letter-spacing: -1px;
@@ -5044,7 +5321,7 @@ body {
 }
 
 .property-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 3.5rem;
   font-weight: 300;
   color: var(--navy);
@@ -5085,7 +5362,7 @@ body {
 }
 
 .property-price {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2.5rem;
   font-weight: 300;
   color: var(--navy);
@@ -5124,7 +5401,7 @@ body {
 }
 
 .property-section-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2rem;
   font-weight: 300;
   color: var(--navy);
@@ -5170,7 +5447,7 @@ body {
 }
 
 .property-sidebar-widget h3 {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 1rem;
@@ -5349,7 +5626,7 @@ body {
 }
 
 .widget-title {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 1.8rem;
   font-weight: 300;
   margin-bottom: 1.5rem;
@@ -5433,7 +5710,7 @@ body {
 }
 
 .result-value {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-serif);
   font-size: 2.5rem;
 }
 
@@ -5871,23 +6148,26 @@ footer[class*="footer"],
 }
 
 .pc-btn {
-  background: var(--primary-dark, #0b1a2a);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+  background: transparent;
+  color: var(--primary-dark, #0b1a2a);
+  border: 1px solid var(--gold, #9a7d54);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  font-weight: 500;
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: background 0.3s ease;
+  gap: 0.75rem;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .pc-btn:hover {
-  background: var(--gold, #9a7d54);
+  background: var(--primary-dark, #0b1a2a);
+  color: #fff;
+  border-color: var(--primary-dark, #0b1a2a);
 }
 
 html[data-theme='dark'] .property-card-new {

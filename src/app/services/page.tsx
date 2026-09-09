@@ -42,12 +42,7 @@ export default function ServicesPage() {
               </p>
               <Link href="/contact" className="explore-btn explore-btn-dark">
                 {servicesPageData.hero.cta}
-                <div className="explore-icon-wrapper">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
+                <span className="btn-arrow">↗</span>
               </Link>
             </div>
           </div>

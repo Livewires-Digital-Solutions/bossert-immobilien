@@ -4,6 +4,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
+import HeroServicesCarousel from './HeroServicesCarousel';
 
 export default function HeroSection() {
   const { ref: heroRef, isVisible } = useScrollReveal(0.1);
@@ -41,7 +42,7 @@ export default function HeroSection() {
           </div>
           
           <div className="right-content">
-            {/* Carousel removed as requested */}
+            <HeroServicesCarousel />
           </div>
         </div>
 
@@ -55,13 +56,9 @@ export default function HeroSection() {
           </div>
           
           <div className={`bottom-right reveal-base reveal-up delay-500 ${isVisible ? 'is-revealed' : ''}`}>
-            <a href="#" className="explore-btn">
+            <a href="/properties" className="explore-btn">
               EXPLORE PROPERTIES
-              <div className="explore-icon-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </div>
+              <span className="btn-arrow">↗</span>
             </a>
           </div>
         </div>

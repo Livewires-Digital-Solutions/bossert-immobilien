@@ -39,7 +39,7 @@ export default function TestimonialSection() {
         <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <text
             x="0" y="160"
-            fontFamily="Georgia, serif"
+            fontFamily="var(--font-serif), 'The Seasons', Georgia, serif"
             fontSize="220"
             fill="currentColor"
             opacity="1"

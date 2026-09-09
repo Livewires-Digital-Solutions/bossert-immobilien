@@ -76,15 +76,10 @@ export default function ForOwnersPage() {
               <button 
                 onClick={() => openModal('consultation')}
                 className="explore-btn explore-btn-dark"
-                style={{ border: 'none', cursor: 'pointer', fontFamily: 'var(--font-satoshi), sans-serif', textDecoration: 'none' }}
+                style={{ cursor: 'pointer', fontFamily: 'var(--font-satoshi), sans-serif' }}
               >
                 {data.hero.cta || 'Get your Free Consultation'}
-                <div className="explore-icon-wrapper">
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
+                <span className="btn-arrow">↗</span>
               </button>
             </div>
           </div>
@@ -423,7 +418,7 @@ export default function ForOwnersPage() {
                   }
                 }}
               >
-                <div className="step-circle" style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid var(--bronze)', color: 'var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontFamily: 'var(--font-instrument), serif', margin: '0 auto 2rem auto', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                <div className="step-circle" style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid var(--bronze)', color: 'var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontFamily: 'var(--font-serif)', margin: '0 auto 2rem auto', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
                   0{idx + 1}
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontWeight: 600 }}>{step.title}</h3>
@@ -508,12 +503,7 @@ export default function ForOwnersPage() {
                 }}
               >
                 Request Consultation
-                <div className="explore-icon-wrapper" style={{ borderColor: 'rgba(255,255,255,0.3)' }}>
-                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" stroke="var(--white)">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
+                <span className="btn-arrow">↗</span>
               </button>
         </div>
       </section>

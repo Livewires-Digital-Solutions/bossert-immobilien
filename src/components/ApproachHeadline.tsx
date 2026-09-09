@@ -97,8 +97,7 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
             opacity, 
             transition: 'opacity 0.4s ease-out',
             fontWeight: isItalic ? 400 : 600,
-            fontFamily: isItalic ? 'var(--font-instrument), serif' : undefined,
-            fontStyle: isItalic ? 'italic' : undefined,
+            fontFamily: isItalic ? 'var(--font-serif)' : undefined,
             color: 'var(--navy)'
           }}
         >

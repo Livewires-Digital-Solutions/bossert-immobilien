@@ -54,7 +54,7 @@ export default function KnowledgeDetailClient({ id }: { id: string }) {
       }
       if (cleanBlock.startsWith('> ')) {
         return (
-          <blockquote key={idx} style={{ borderLeft: '4px solid var(--bronze)', paddingLeft: '2rem', margin: '3rem 0', fontStyle: 'italic', fontSize: '1.5rem', color: 'var(--navy)', lineHeight: 1.6 }}>
+          <blockquote key={idx} style={{ borderLeft: '4px solid var(--bronze)', paddingLeft: '2rem', margin: '3rem 0', fontSize: '1.5rem', color: 'var(--navy)', lineHeight: 1.6 }}>
             {cleanBlock.replace('> ', '')}
           </blockquote>
         );
