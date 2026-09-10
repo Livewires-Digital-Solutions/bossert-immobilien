@@ -116,6 +116,7 @@
   font-size: 1.55rem;
   font-weight: 400;
   color: var(--navy);
+  text-align: center;
   margin: 0 0 1.75rem;
   padding-bottom: 0.9rem;
   border-bottom: 1px solid rgba(4, 36, 51, 0.12);
