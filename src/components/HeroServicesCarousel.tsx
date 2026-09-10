@@ -82,25 +82,48 @@ function ServiceCard({ slide, index }: { slide: ServiceSlide; index: number }) {
   );
 }
 
-type Phase = 'idle' | 'exit' | 'enter';
-
 export default function HeroServicesCarousel() {
   const [active, setActive] = useState(0);
-  const [phase, setPhase] = useState<Phase>('idle');
+  const [animating, setAnimating] = useState(false);
+  const [noTrans, setNoTrans] = useState<number | null>(null);
   const total = slides.length;
   useLanguage(); // re-render on language change (copy is EN-only for now)
 
+  // Signed offset of slide `i` from the active slide, wrapped to [-half, +half].
+  const relOf = useCallback(
+    (i: number) => {
+      let r = i - active;
+      if (r > total / 2) r -= total;
+      if (r < -total / 2) r += total;
+      return r;
+    },
+    [active, total],
+  );
+
   const navigate = useCallback(
     (dir: 'next' | 'prev') => {
-      if (phase !== 'idle') return;
-      setPhase('exit');
-      setTimeout(() => {
-        setActive((a) => (dir === 'next' ? (a + 1) % total : (a - 1 + total) % total));
-        setPhase('enter');
-        setTimeout(() => setPhase('idle'), 480);
-      }, 280);
+      if (animating) return;
+      setAnimating(true);
+
+      const nextActive =
+        dir === 'next' ? (active + 1) % total : (active - 1 + total) % total;
+
+      // The card that would sweep straight through the centre — send it across
+      // with no transition so the other two do the visible sliding.
+      const wrapIdx =
+        dir === 'next' ? (active - 1 + total) % total : (active + 1) % total;
+
+      setNoTrans(wrapIdx);
+      setActive(nextActive);
+
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setNoTrans(null);
+          setTimeout(() => setAnimating(false), 600);
+        }),
+      );
     },
-    [phase, total],
+    [active, animating, total],
   );
 
   const next = useCallback(() => navigate('next'), [navigate]);
@@ -111,8 +134,6 @@ export default function HeroServicesCarousel() {
     return () => clearTimeout(t);
   }, [active, next]);
 
-  const idx = (offset: number) => (active + offset + total) % total;
-
   return (
     <div className="hsc2-wrapper">
       <div className="hsc2-root">
@@ -122,27 +143,24 @@ export default function HeroServicesCarousel() {
           </svg>
         </button>
 
-        <div
-          className={`hsc2-behind hsc2-behind-left${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`}
-          onClick={prev}
-        >
-          <ServiceCard slide={slides[idx(-1)]} index={idx(-1)} />
-        </div>
-
-        <div
-          className={`hsc2-behind hsc2-behind-right${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`}
-          onClick={next}
-        >
-          <ServiceCard slide={slides[idx(1)]} index={idx(1)} />
-        </div>
-
-        <div
-          className={`hsc2-front${phase === 'exit' ? ' hsc2-front-exit' : ''}${
-            phase === 'enter' ? ' hsc2-front-enter' : ''
-          }`}
-        >
-          <ServiceCard slide={slides[idx(0)]} index={idx(0)} />
-        </div>
+        {slides.map((slide, i) => {
+          const r = relOf(i);
+          return (
+            <div
+              key={i}
+              className="hsc2-slide"
+              data-rel={r}
+              data-hidden={Math.abs(r) > 1}
+              data-notrans={noTrans === i}
+              onClick={() => {
+                if (r === -1) prev();
+                else if (r === 1) next();
+              }}
+            >
+              <ServiceCard slide={slide} index={i} />
+            </div>
+          );
+        })}
 
         <button className="hsc2-nav hsc2-nav-next" onClick={next} aria-label="Next service">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -157,8 +175,10 @@ export default function HeroServicesCarousel() {
             key={i}
             className={`hsc2-dot${i === active ? ' hsc2-dot-active' : ''}`}
             onClick={() => {
-              if (i === active || phase !== 'idle') return;
-              navigate(i > active ? 'next' : 'prev');
+              if (i === active || animating) return;
+              const forward = (i - active + total) % total;
+              const backward = (active - i + total) % total;
+              navigate(forward <= backward ? 'next' : 'prev');
             }}
             aria-label={`Go to service ${i + 1}`}
           />

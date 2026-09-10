@@ -1228,7 +1228,8 @@ body {
 :root {
   --hsc2-w: 248px;
   --hsc2-h: 420px;
-  --hsc2-peek: 34px;
+  --hsc2-spread: 80px;   /* how far the prev/next cards sit from centre */
+  --hsc2-side-scale: 0.85;
 }
 
 /* Right column that hosts the carousel in the hero */
@@ -1264,7 +1265,7 @@ body {
 
 .hsc2-root {
   position: relative;
-  width: calc(var(--hsc2-w) + var(--hsc2-peek) * 2);
+  width: calc(var(--hsc2-w) + var(--hsc2-spread) * 2);
   height: var(--hsc2-h);
 }
 
@@ -1398,19 +1399,67 @@ body {
   transform: translateX(3px);
 }
 
-/* ── Front card ── */
-.hsc2-front {
+/* ── Slides — one absolutely-positioned track item per service ── */
+.hsc2-slide {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: var(--hsc2-w);
+  height: var(--hsc2-h);
   transform: translate(-50%, -50%);
+  transition:
+    transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.58s ease,
+    opacity 0.4s ease,
+    box-shadow 0.58s ease;
+  will-change: transform;
+}
+
+/* Front (current) */
+.hsc2-slide[data-rel='0'] {
+  transform: translate(-50%, -50%) scale(1);
   z-index: 3;
   box-shadow: 0 30px 60px rgba(4, 36, 51, 0.32);
-  pointer-events: auto;
-  transition: none;
+  filter: none;
 }
-.hsc2-front::before,
-.hsc2-front::after {
+
+/* Previous — slid left, tucked behind */
+.hsc2-slide[data-rel='-1'] {
+  transform: translate(-50%, -50%) translateX(calc(var(--hsc2-spread) * -1)) scale(var(--hsc2-side-scale));
+  z-index: 2;
+  box-shadow: 0 16px 34px rgba(4, 36, 51, 0.2);
+  filter: brightness(0.78) saturate(0.9) blur(1.2px);
+  cursor: pointer;
+}
+
+/* Next — slid right, tucked behind */
+.hsc2-slide[data-rel='1'] {
+  transform: translate(-50%, -50%) translateX(var(--hsc2-spread)) scale(var(--hsc2-side-scale));
+  z-index: 2;
+  box-shadow: 0 16px 34px rgba(4, 36, 51, 0.2);
+  filter: brightness(0.78) saturate(0.9) blur(1.2px);
+  cursor: pointer;
+}
+
+/* Any further-out slide (if more services are added) */
+.hsc2-slide[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hsc2-slide[data-rel='-1']:hover,
+.hsc2-slide[data-rel='1']:hover {
+  filter: brightness(0.95) saturate(0.96) blur(0);
+}
+
+/* The wrapping card teleports across instead of sweeping through centre */
+.hsc2-slide[data-notrans='true'] {
+  transition: filter 0.58s ease, opacity 0.4s ease;
+}
+
+/* Bronze corner accents on the front card only */
+.hsc2-slide[data-rel='0']::before,
+.hsc2-slide[data-rel='0']::after {
   content: '';
   position: absolute;
   width: 16px;
@@ -1418,60 +1467,17 @@ body {
   z-index: 4;
   pointer-events: none;
 }
-.hsc2-front::before {
+.hsc2-slide[data-rel='0']::before {
   top: -5px;
   left: -5px;
   border-top: 2px solid var(--bronze, #AF8C53);
   border-left: 2px solid var(--bronze, #AF8C53);
 }
-.hsc2-front::after {
+.hsc2-slide[data-rel='0']::after {
   bottom: -5px;
   right: -5px;
   border-bottom: 2px solid var(--bronze, #AF8C53);
   border-right: 2px solid var(--bronze, #AF8C53);
-}
-
-/* ── Behind cards ── */
-.hsc2-behind {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  box-shadow: 0 14px 30px rgba(4, 36, 51, 0.18);
-  cursor: pointer;
-  transition: filter 0.3s ease, transform 0.3s ease;
-  pointer-events: auto;
-}
-.hsc2-behind-left {
-  left: 0;
-  transform: translateY(-50%) scale(0.9);
-  filter: brightness(0.82) saturate(0.9) blur(1px);
-}
-.hsc2-behind-right {
-  right: 0;
-  transform: translateY(-50%) scale(0.9);
-  filter: brightness(0.82) saturate(0.9) blur(1px);
-}
-.hsc2-behind:hover {
-  filter: brightness(0.95) saturate(0.95);
-}
-
-.hsc2-front-exit {
-  animation: hsc2Exit 0.32s cubic-bezier(0.4, 0, 1, 1) forwards;
-}
-@keyframes hsc2Exit {
-  from { transform: translate(-50%, -50%) translateY(0); opacity: 1; }
-  to   { transform: translate(-50%, -50%) translateY(-14px); opacity: 0; }
-}
-.hsc2-front-enter {
-  animation: hsc2Enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes hsc2Enter {
-  from { transform: translate(-50%, -50%) translateY(14px); opacity: 0; }
-  to   { transform: translate(-50%, -50%) translateY(0); opacity: 1; }
-}
-.hsc2-behind-dim {
-  opacity: 0.45 !important;
-  transition: opacity 0.32s ease !important;
 }
 
 /* ── Side nav arrows ── */
@@ -1526,7 +1532,7 @@ body {
   .hero-right { width: 100%; justify-content: center; }
 }
 @media (max-width: 560px) {
-  :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-peek: 26px; }
+  :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-spread: 58px; }
   .hsc2-nav { width: 38px; height: 38px; }
 }
 
