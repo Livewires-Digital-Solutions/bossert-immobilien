@@ -38,6 +38,8 @@ export default function HeroSection() {
 
   return (
     <div className="hero-section" ref={heroRef}>
+      {/* Decode the hero background before the intro doors open — avoids a flash */}
+      <link rel="preload" as="image" href="/HERO%20BG.png" />
       <div className="hero-bg-image"></div>
       <div className="hero-overlay"></div>
       

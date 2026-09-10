@@ -1,13 +1,42 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import styles from './IntroSequence.module.css';
+
+const PLAYED_KEY = 'bossertIntroPlayed';
+
+// useLayoutEffect on the client, no-op on the server (avoids the SSR warning).
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export default function IntroSequence() {
   const [stage, setStage] = useState<'loading' | 'opening' | 'done'>('loading');
 
+  // Before first paint: if the intro already played this session, skip it entirely.
+  useIsomorphicLayoutEffect(() => {
+    let alreadyPlayed = false;
+    try {
+      alreadyPlayed = sessionStorage.getItem(PLAYED_KEY) === '1';
+    } catch {
+      /* storage blocked — just play it */
+    }
+    if (alreadyPlayed) setStage('done');
+  }, []);
+
   useEffect(() => {
-    // Aggressively prevent scrolling while the immersive intro is playing
+    if (stage === 'done') return;
+
+    try {
+      if (sessionStorage.getItem(PLAYED_KEY) === '1') {
+        setStage('done');
+        return;
+      }
+      sessionStorage.setItem(PLAYED_KEY, '1');
+    } catch {
+      /* ignore */
+    }
+
+    // Lock scrolling while the immersive intro plays.
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     window.scrollTo(0, 0);
@@ -17,7 +46,6 @@ export default function IntroSequence() {
       e.stopPropagation();
       return false;
     };
-
     const preventKeyScroll = (e: KeyboardEvent) => {
       if (['Space', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
         e.preventDefault();
@@ -28,31 +56,28 @@ export default function IntroSequence() {
     window.addEventListener('touchmove', preventScroll, { passive: false });
     window.addEventListener('keydown', preventKeyScroll, { passive: false });
 
-    // Trigger the door opening animation shortly after mount
-    const openTimer = setTimeout(() => {
-      setStage('opening');
-    }, 320);
-
-    // The door swing completes in 1.8s. Unmount just after it finishes.
-    const doneTimer = setTimeout(() => {
-      setStage('done');
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventKeyScroll);
-    }, 2500);
-
-    return () => {
-      clearTimeout(openTimer);
-      clearTimeout(doneTimer);
+    const unlock = () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
     };
-  }, []);
+
+    // Open the doors shortly after mount.
+    const openTimer = setTimeout(() => setStage('opening'), 320);
+    // Door swing is 1.8s — unmount just after it finishes.
+    const doneTimer = setTimeout(() => {
+      setStage('done');
+      unlock();
+    }, 2400);
+
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(doneTimer);
+      unlock();
+    };
+  }, [stage]);
 
   if (stage === 'done') return null;
 

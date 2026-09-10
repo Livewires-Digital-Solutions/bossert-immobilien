@@ -7,7 +7,13 @@
   overflow: hidden;
   perspective: 1100px;
   perspective-origin: 50% 50%;
-  background-color: #f0ede8;
+  /* No background here — only the two doors are opaque, so the hero shows
+     through the widening gap as they swing open (no white flash). */
+}
+
+/* Returning visit this session — never paint the gate at all */
+:global(html[data-intro='skip']) .introWrapper {
+  display: none !important;
 }
 
 .door {
