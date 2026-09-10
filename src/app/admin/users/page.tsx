@@ -20,7 +20,7 @@ export default async function AdminUsersPage(props: {
   const { q } = await props.searchParams;
   const query = (q ?? '').trim();
 
-  const users = await prisma.user.findMany({
+  const users = await (prisma as any).users.findMany({
     where: query
       ? {
           OR: [
@@ -84,14 +84,14 @@ export default async function AdminUsersPage(props: {
             ) : (
               users.map((u) => {
                 const elevated =
-                  u.role === 'ADMIN' || u.role === 'SUPERADMIN' || isAdminEmail(u.email);
+                  u.role === 'ADMIN' || u.role === 'SUPER_ADMIN' || isAdminEmail(u.email);
                 return (
                   <tr key={u.id}>
                     <td className={styles.cellName}>{u.name ?? '—'}</td>
                     <td className={styles.cellMuted}>{u.email}</td>
                     <td>
                       <span className={`${styles.tag} ${elevated ? styles.tagAdmin : ''}`}>
-                        {u.role === 'USER' && elevated ? 'ADMIN (email)' : u.role}
+                        {u.role === 'VIEWER' && elevated ? 'ADMIN (email)' : u.role}
                       </span>
                     </td>
                     <td className={styles.cellMuted}>{dateFmt.format(u.createdAt)}</td>

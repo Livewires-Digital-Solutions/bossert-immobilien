@@ -12,6 +12,7 @@
 
 import crypto from 'crypto';
 import { Property } from '@/data/properties';
+import { ESTATE_FIELD_DICTIONARY, humaniseFieldKey } from '@/lib/onoffice-fields';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 const TOKEN   = process.env.ONOFFICE_TOKEN      ?? '';
@@ -33,6 +34,25 @@ const ESTATE_FIELDS = [
   'aussen_courtage', 'provisionshinweis',
   'objektbeschreibung', 'ausstattungExpose',
   'breitengrad', 'laengengrad', 'objektnr_extern',
+];
+
+/**
+ * Additional standard onOffice estate fields requested when the live field
+ * catalogue is unavailable. Kept conservative — an unknown key rejects the whole
+ * read (we retry with ESTATE_FIELDS), but these are all part of onOffice's
+ * documented default estate schema.
+ */
+const SAFE_EXTRA_ESTATE_FIELDS = [
+  'objektnr_intern', 'nutzungsart', 'objektkategorie', 'verfuegbar_ab', 'status', 'vermietet',
+  'nettokaltmiete', 'nebenkosten', 'heizkosten', 'hausgeld', 'kaution',
+  'provisionspflichtig', 'innen_courtage', 'waehrung',
+  'gesamtflaeche', 'kellerflaeche', 'gartenflaeche', 'bueroflaeche', 'lagerflaeche',
+  'anzahl_balkone', 'anzahl_etagen', 'etage', 'anzahl_stellplaetze', 'anzahl_wohneinheiten',
+  'objektzustand', 'baujahr', 'letzte_modernisierung', 'bauweise', 'denkmalschutz',
+  'moebliert', 'aufzug', 'keller', 'ausstattung',
+  'energieeffizienzklasse', 'primaerenergietraeger', 'warmwasserversorgung',
+  'ortsteil', 'regionaler_zusatz', 'bundesland', 'land',
+  'lage_beschreibung', 'sonstige_angaben',
 ];
 
 // ─── HMAC Generation ─────────────────────────────────────────────────────────
@@ -60,6 +80,7 @@ interface OnOfficeAction {
   resourceid?:  number | string;
   identifier?:  string;
   parameters:   Record<string, unknown>;
+  timeoutMs?:   number;
 }
 
 async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
@@ -94,7 +115,7 @@ async function callOnOffice(action: OnOfficeAction): Promise<unknown> {
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify(body),
     cache:   'no-store',
-    signal:  AbortSignal.timeout(10000), // increased timeout for potentially large fetches
+    signal:  AbortSignal.timeout(action.timeoutMs ?? 10000),
   });
 
   if (!response.ok) {
@@ -332,3 +353,365 @@ export async function fetchOnOfficePropertyById(
     return null;
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ADMIN INTEGRATION — full field catalogue + complete estate snapshot
+//
+// Used by /admin/properties to let an admin import an estate by its onOffice
+// Internal ID (estate `Id`) or External ID (`objektnr_extern`), inspect every
+// field the API returns, and choose per-field what the public site may show.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** True when onOffice credentials are configured. */
+export function hasOnOfficeCredentials(): boolean {
+  return Boolean(TOKEN && SECRET);
+}
+
+export interface OnOfficeFieldMeta {
+  key: string;
+  label: string;
+  type: string;
+  /** value-key → human label, for single/multi-select fields */
+  permittedValues?: Record<string, string>;
+}
+
+export interface OnOfficeFieldValue {
+  key: string;
+  label: string;
+  /** Display-resolved value (select labels applied, booleans humanised). */
+  value: string;
+  section: string;
+  type: string;
+}
+
+export interface OnOfficeEstateSnapshot {
+  internalId: string;
+  externalId: string | null;
+  title: string | null;
+  marketingType: string | null;
+  objectType: string | null;
+  priceLabel: string | null;
+  city: string | null;
+  heroImage: string | null;
+  images: string[];
+  /** Every non-empty field the API returned, grouped + ordered. */
+  fields: OnOfficeFieldValue[];
+  /** Untouched `elements` map from onOffice, for storage / debugging. */
+  raw: Record<string, unknown>;
+  /** Field keys confirmed valid for this account — cache and reuse as the fast path. */
+  discoveredKeys: string[];
+}
+
+// ── Section routing ──────────────────────────────────────────────────────────
+
+const SECTION_ORDER = [
+  'Overview',
+  'Price',
+  'Areas',
+  'Rooms',
+  'Building',
+  'Energy',
+  'Location',
+  'Description',
+  'Other',
+] as const;
+
+function sectionFor(key: string): string {
+  const k = key.toLowerCase();
+  const has = (...needles: string[]) => needles.some((n) => k.includes(n));
+
+  if (has('energie', 'heizung', 'befeuerung', 'energieausweis', 'endenergie', 'primaerenergie', 'co2', 'energietraeger'))
+    return 'Energy';
+  if (has('kaufpreis', 'miete', 'preis', 'kosten', 'kaution', 'provision', 'courtage', 'hausgeld', 'pacht', 'waehrung'))
+    return 'Price';
+  if (has('flaeche', 'flache', 'wohnflaeche', 'nutzflaeche', 'grundstueck'))
+    return 'Areas';
+  if (has('zimmer', 'schlafzimmer', 'badezimmer', 'balkon', 'etage', 'anzahl_'))
+    return 'Rooms';
+  if (has('baujahr', 'zustand', 'ausstattung', 'bauweise', 'denkmal', 'modernisier', 'objektzustand'))
+    return 'Building';
+  if (has('ort', 'plz', 'strasse', 'hausnummer', 'land', 'region', 'lage', 'breitengrad', 'laengengrad', 'bundesland'))
+    return 'Location';
+  if (has('beschreibung', 'freitext', 'text', 'sonstige_angaben', 'objekttext'))
+    return 'Description';
+  if (has('objekttitel', 'objektart', 'vermarktungsart', 'objektnr', 'nutzungsart', 'status', 'verfuegbar', 'objektkategorie'))
+    return 'Overview';
+  return 'Other';
+}
+
+// ── onOffice calls ───────────────────────────────────────────────────────────
+
+type CatalogMap = Map<string, OnOfficeFieldMeta>;
+
+let catalogCache: { at: number; map: CatalogMap } | null = null;
+const CATALOG_TTL_MS = 24 * 60 * 60 * 1000;
+
+/** Serialise a catalog map for persistence. */
+export function serialiseCatalog(map: CatalogMap): Record<string, OnOfficeFieldMeta> {
+  return Object.fromEntries(map);
+}
+
+/** Rebuild a catalog map from persisted JSON. */
+export function deserialiseCatalog(obj: Record<string, OnOfficeFieldMeta> | null | undefined): CatalogMap {
+  const map: CatalogMap = new Map();
+  for (const [k, v] of Object.entries(obj ?? {})) map.set(k, v);
+  return map;
+}
+
+/**
+ * Fetch the full estate field catalogue (keys, labels, select options).
+ * The `fields` endpoint is slow (20–60 s), so results are cached in-process for
+ * 24 h. Throws on network / timeout — callers should fall back gracefully.
+ */
+export async function fetchEstateFieldCatalog(
+  { timeoutMs = 45000, force = false }: { timeoutMs?: number; force?: boolean } = {},
+): Promise<CatalogMap> {
+  const out: CatalogMap = new Map();
+  if (!hasOnOfficeCredentials()) return out;
+
+  if (!force && catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) {
+    return catalogCache.map;
+  }
+
+  const data = (await callOnOffice({
+    actionid: ACTION_GET,
+    resourcetype: 'fields',
+    resourceid: '',
+    identifier: 'estate-field-catalog',
+    parameters: { labels: true, language: 'DEU', modules: ['estate'] },
+    timeoutMs,
+  })) as { records?: Array<{ elements?: Record<string, unknown> }> } | null;
+
+  for (const record of data?.records ?? []) {
+    const elements = record.elements ?? {};
+    for (const [key, metaRaw] of Object.entries(elements)) {
+      if (!metaRaw || typeof metaRaw !== 'object') continue;
+      const meta = metaRaw as Record<string, unknown>;
+      // Skip catalogue housekeeping entries.
+      if (key === 'label' || typeof meta['type'] !== 'string') continue;
+
+      let permittedValues: Record<string, string> | undefined;
+      const pv = meta['permittedvalues'];
+      if (pv && typeof pv === 'object') {
+        permittedValues = {};
+        for (const [vk, vl] of Object.entries(pv as Record<string, unknown>)) {
+          permittedValues[vk] = String(vl);
+        }
+      }
+
+      out.set(key, {
+        key,
+        label: typeof meta['label'] === 'string' && meta['label'] ? (meta['label'] as string) : key,
+        type: meta['type'] as string,
+        permittedValues,
+      });
+    }
+  }
+
+  if (out.size > 0) catalogCache = { at: Date.now(), map: out };
+  return out;
+}
+
+/** Seed the in-process catalog cache from a persisted copy (e.g. DB). */
+export function primeCatalogCache(map: CatalogMap): void {
+  if (map.size > 0) catalogCache = { at: Date.now(), map };
+}
+
+function resolveValue(raw: unknown, meta: OnOfficeFieldMeta | undefined): string {
+  if (raw === null || raw === undefined) return '';
+  if (Array.isArray(raw)) {
+    return raw
+      .map((v) => resolveValue(v, meta))
+      .filter(Boolean)
+      .join(', ');
+  }
+  const s = String(raw).trim();
+  if (!s) return '';
+
+  const type = meta?.type ?? '';
+  if (type === 'boolean' || s === 'true' || s === 'false') {
+    if (s === '1' || s === 'true') return 'Yes';
+    if (s === '0' || s === 'false') return 'No';
+  }
+  if (meta?.permittedValues) {
+    if (meta.permittedValues[s]) return meta.permittedValues[s];
+    // multi-select comes back comma/pipe separated
+    const parts = s.split(/[,|]/).map((p) => p.trim());
+    if (parts.length > 1) {
+      const mapped = parts.map((p) => meta.permittedValues![p] ?? p);
+      return mapped.join(', ');
+    }
+  }
+  return s;
+}
+
+function labelFor(key: string, meta: OnOfficeFieldMeta | undefined): string {
+  if (meta?.label && meta.label !== key) return meta.label;
+  const dict = ESTATE_FIELD_DICTIONARY[key];
+  if (dict) return dict.label;
+  return humaniseFieldKey(key);
+}
+
+function sectionForKey(key: string): string {
+  return ESTATE_FIELD_DICTIONARY[key]?.section ?? sectionFor(key);
+}
+
+/**
+ * Fetch a complete estate snapshot by Internal ID (preferred) or External ID.
+ * Returns every non-empty field the API exposes, grouped into sections.
+ *
+ * Pass a pre-loaded `catalog` (from a cached copy) to avoid the slow live
+ * `fields` call; when omitted, a best-effort live fetch is attempted and any
+ * failure falls back to the static field dictionary.
+ */
+const UNKNOWN_FIELD_RE = /unknown field/i;
+const TRANSIENT_RE = /fetch failed|ECONNRESET|timeout|aborted|network|socket hang up|EAI_AGAIN/i;
+
+async function withRetry<T>(fn: () => Promise<T>, tries = 3): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i < tries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      const msg = err instanceof Error ? err.message : String(err);
+      if (UNKNOWN_FIELD_RE.test(msg) || !TRANSIENT_RE.test(msg)) throw err;
+      await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+    }
+  }
+  throw lastErr;
+}
+
+interface EstateRecord {
+  id: number;
+  elements: Record<string, unknown>;
+}
+
+export async function fetchEstateSnapshot(
+  opts: { internalId?: string | null; externalId?: string | null },
+  cfg: { catalog?: CatalogMap; validKeys?: string[] | null } = {},
+): Promise<OnOfficeEstateSnapshot | null> {
+  if (!hasOnOfficeCredentials()) {
+    throw new Error('onOffice credentials are not configured (ONOFFICE_TOKEN / ONOFFICE_SECRET).');
+  }
+
+  const internalId = opts.internalId?.trim() || '';
+  const externalId = opts.externalId?.trim() || '';
+  if (!internalId && !externalId) {
+    throw new Error('Provide an Internal ID or an External ID.');
+  }
+
+  const cat: CatalogMap = cfg.catalog ?? new Map();
+  const searchdata = internalId ? undefined : { objektnr_extern: externalId };
+  const resourceid = internalId || '';
+
+  const readChunk = (dataFields: string[]) =>
+    withRetry(async () => {
+      const res = (await callOnOffice({
+        actionid: ACTION_READ,
+        resourcetype: 'estate',
+        resourceid,
+        identifier: `estate-snapshot-${internalId || externalId}`,
+        parameters: searchdata ? { data: dataFields, searchdata } : { data: dataFields },
+        timeoutMs: 30000,
+      })) as { records?: EstateRecord[] } | null;
+      return res?.records?.[0] ?? null;
+    });
+
+  // Candidate keys: cached-valid list (fast path), else catalogue ∪ curated ∪ dictionary.
+  const candidates =
+    cfg.validKeys && cfg.validKeys.length
+      ? Array.from(new Set<string>([...cfg.validKeys, ...ESTATE_FIELDS]))
+      : Array.from(
+          new Set<string>([
+            ...cat.keys(),
+            ...ESTATE_FIELDS,
+            ...SAFE_EXTRA_ESTATE_FIELDS,
+            ...Object.keys(ESTATE_FIELD_DICTIONARY),
+          ]),
+        );
+
+  const merged: Record<string, unknown> = {};
+  const validKeys: string[] = [];
+  let recordId = internalId ? Number(internalId) : 0;
+
+  // Photos live on a separate endpoint — start that request now when we already
+  // know the internal id, so it overlaps the field reads instead of following them.
+  const photosEarly =
+    internalId && !Number.isNaN(Number(internalId)) ? fetchEstatePhotos(Number(internalId)) : null;
+
+  // Read the candidate fields in small chunks, all concurrently. onOffice rejects
+  // a whole read for one unknown key, so bisect any chunk it refuses.
+  const CHUNK_SIZE = 25;
+  const initialChunks: string[][] = [];
+  for (let i = 0; i < candidates.length; i += CHUNK_SIZE) {
+    initialChunks.push(candidates.slice(i, i + CHUNK_SIZE));
+  }
+
+  async function readGroup(chunk: string[]): Promise<void> {
+    let rec: EstateRecord | null;
+    try {
+      rec = await readChunk(chunk);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (UNKNOWN_FIELD_RE.test(msg) && chunk.length > 1) {
+        const mid = Math.ceil(chunk.length / 2);
+        await Promise.all([readGroup(chunk.slice(0, mid)), readGroup(chunk.slice(mid))]);
+        return;
+      }
+      if (UNKNOWN_FIELD_RE.test(msg)) return; // single bad key — drop it
+      throw err;
+    }
+    if (rec) {
+      if (rec.id) recordId = rec.id;
+      Object.assign(merged, rec.elements ?? {});
+      validKeys.push(...chunk);
+    }
+  }
+
+  await Promise.all(initialChunks.map(readGroup));
+
+  if (validKeys.length === 0) return null;
+
+  const el = merged;
+  const resolvedInternalId = String(recordId || internalId);
+  const photos = photosEarly ? await photosEarly : await fetchEstatePhotos(recordId);
+
+  const fields: OnOfficeFieldValue[] = [];
+  for (const [key, rawVal] of Object.entries(el)) {
+    const meta = cat.get(key);
+    const value = resolveValue(rawVal, meta);
+    if (!value) continue;
+    fields.push({
+      key,
+      label: labelFor(key, meta),
+      value,
+      section: sectionForKey(key),
+      type: meta?.type ?? '',
+    });
+  }
+
+  fields.sort((a, b) => {
+    const sa = SECTION_ORDER.indexOf(a.section as (typeof SECTION_ORDER)[number]);
+    const sb = SECTION_ORDER.indexOf(b.section as (typeof SECTION_ORDER)[number]);
+    if (sa !== sb) return (sa < 0 ? 99 : sa) - (sb < 0 ? 99 : sb);
+    return a.label.localeCompare(b.label);
+  });
+
+  return {
+    internalId: resolvedInternalId,
+    externalId: (el['objektnr_extern'] as string) || externalId || null,
+    title: (el['objekttitel'] as string) || (el['objektart'] as string) || null,
+    marketingType: (el['vermarktungsart'] as string) || null,
+    objectType: (el['objektart'] as string) || null,
+    priceLabel: formatPrice(el['kaufpreis'] ?? el['kaltmiete'] ?? el['warmmiete']),
+    city: (el['ort'] as string) || null,
+    heroImage: photos[0] ?? null,
+    images: photos,
+    fields,
+    raw: el,
+    discoveredKeys: Array.from(new Set(validKeys)).sort(),
+  };
+}
+
+export { SECTION_ORDER };

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { requireAdmin } from '@/lib/require-admin';
 import { prisma } from '@/lib/prisma';
 import styles from './admin.module.css';
@@ -7,13 +8,16 @@ export const metadata = { title: 'Dashboard · Bossert Admin' };
 export default async function AdminDashboardPage() {
   const session = await requireAdmin();
 
-  const [userCount, adminCount, newThisWeek] = await Promise.all([
-    prisma.user.count(),
-    prisma.user.count({ where: { role: { in: ['ADMIN', 'SUPERADMIN'] } } }),
-    prisma.user.count({
-      where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
-    }),
-  ]);
+  const [userCount, adminCount, newThisWeek, publishedListings, importedListings] =
+    await Promise.all([
+      (prisma as any).users.count(),
+      (prisma as any).users.count({ where: { role: { in: ['ADMIN', 'SUPER_ADMIN'] } } }),
+      (prisma as any).users.count({
+        where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
+      }),
+      (prisma as any).onoffice_properties.count({ where: { status: 'PUBLISHED' } }),
+      (prisma as any).onoffice_properties.count(),
+    ]);
 
   return (
     <section>
@@ -37,8 +41,8 @@ export default async function AdminDashboardPage() {
         </div>
         <div className={styles.card}>
           <div className={styles.cardLabel}>Active listings</div>
-          <div className={styles.cardValue}>—</div>
-          <div className={styles.cardHint}>Coming soon</div>
+          <div className={styles.cardValue}>{publishedListings}</div>
+          <div className={styles.cardHint}>{importedListings} imported from onOffice</div>
         </div>
         <div className={styles.card}>
           <div className={styles.cardLabel}>Open enquiries</div>
@@ -50,7 +54,8 @@ export default async function AdminDashboardPage() {
       <div className={styles.panel}>
         <h2 className={styles.panelTitle}>Listings</h2>
         <p className={styles.panelText}>
-          Create, edit and publish property listings. Not yet wired up in this build.
+          Import estates from onOffice and control field-by-field what the public site
+          shows in <Link href="/admin/properties">Properties</Link>.
         </p>
       </div>
       <div className={styles.panel}>

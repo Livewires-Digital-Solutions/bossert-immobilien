@@ -1,6 +1,3 @@
-// Bossert Immobilien — Prisma schema
-// Datasource: MySQL (see DATABASE_URL in .env.local / .env.production)
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,178 +7,341 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-  SUPERADMIN
+model articles {
+  id          String          @id
+  slug        String          @unique
+  category    String
+  date        String
+  heroImage   String?
+  featured    Boolean         @default(false)
+  status      articles_status @default(DRAFT)
+  titleEn     String
+  titleDe     String?
+  descEn      String          @db.Text
+  descDe      String?         @db.Text
+  contentEn   String          @db.LongText
+  contentDe   String?         @db.LongText
+  metaTitleEn String?
+  metaDescEn  String?         @db.Text
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime
 }
 
-enum PropertyStatus {
+model audit_logs {
+  id         String   @id
+  userId     String
+  userEmail  String
+  action     String
+  entityType String
+  entityId   String?
+  detail     String?  @db.Text
+  createdAt  DateTime @default(now())
+  users      users    @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "audit_logs_userId_fkey")
+}
+
+model contact_submissions {
+  id          String                     @id
+  name        String
+  email       String?
+  phone       String?
+  inquiryType String?
+  message     String                     @db.Text
+  source      String                     @default("contact_page")
+  heardAbout  String?
+  status      contact_submissions_status @default(NEW)
+  createdAt   DateTime                   @default(now())
+  updatedAt   DateTime
+}
+
+model faqs {
+  id         String   @id
+  questionEn String
+  questionDe String?
+  answerEn   String   @db.Text
+  answerDe   String?  @db.Text
+  order      Int      @default(0)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+}
+
+model nearby_schools {
+  id         String     @id
+  propertyId String
+  name       String
+  distance   String
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "nearby_schools_propertyId_fkey")
+}
+
+model nearby_transport {
+  id         String     @id
+  propertyId String
+  name       String
+  type       String
+  distance   String
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "nearby_transport_propertyId_fkey")
+}
+
+model newsletter_subscribers {
+  id           String   @id
+  email        String   @unique
+  isActive     Boolean  @default(true)
+  subscribedAt DateTime @default(now())
+}
+
+model properties {
+  id                   String                 @id
+  type                 String
+  priceDisplay         String
+  priceValue           Float?
+  location             String
+  specs                String
+  beds                 Int?
+  baths                Int?
+  areaSqm              Float?
+  status               properties_status      @default(DRAFT)
+  featured             Boolean                @default(false)
+  heroImage            String?
+  videoUrl             String?
+  virtualTourUrl       String?
+  descriptionEn        String?                @db.Text
+  descriptionDe        String?                @db.Text
+  lat                  Float?
+  lng                  Float?
+  propertyTax          Float?
+  hoaFees              Float?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  nearby_schools       nearby_schools[]
+  nearby_transport     nearby_transport[]
+  property_amenities   property_amenities[]
+  property_documents   property_documents[]
+  property_floor_plans property_floor_plans[]
+  property_images      property_images[]
+}
+
+model property_amenities {
+  id         String     @id
+  propertyId String
+  name       String
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "property_amenities_propertyId_fkey")
+}
+
+model property_documents {
+  id         String     @id
+  propertyId String
+  title      String
+  url        String
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "property_documents_propertyId_fkey")
+}
+
+model property_floor_plans {
+  id         String     @id
+  propertyId String
+  url        String
+  order      Int        @default(0)
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "property_floor_plans_propertyId_fkey")
+}
+
+model property_images {
+  id         String     @id
+  propertyId String
+  url        String
+  order      Int        @default(0)
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId], map: "property_images_propertyId_fkey")
+}
+
+model reference_features {
+  id          String     @id
+  referenceId String
+  featureEn   String
+  featureDe   String?
+  order       Int        @default(0)
+  references  references @relation(fields: [referenceId], references: [id], onDelete: Cascade)
+
+  @@index([referenceId], map: "reference_features_referenceId_fkey")
+}
+
+model reference_images {
+  id          String     @id
+  referenceId String
+  url         String
+  order       Int        @default(0)
+  references  references @relation(fields: [referenceId], references: [id], onDelete: Cascade)
+
+  @@index([referenceId], map: "reference_images_referenceId_fkey")
+}
+
+model references {
+  id                 String               @id
+  slug               String               @unique
+  titleEn            String
+  titleDe            String?
+  location           String
+  type               String
+  heroImage          String?
+  size               String?
+  featured           Boolean              @default(false)
+  order              Int                  @default(0)
+  descriptionEn      String               @db.Text
+  descriptionDe      String?              @db.Text
+  fullDescEn         String?              @db.LongText
+  fullDescDe         String?              @db.LongText
+  statsJson          String?              @db.Text
+  isActive           Boolean              @default(true)
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime
+  reference_features reference_features[]
+  reference_images   reference_images[]
+}
+
+model sessions {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  users        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "sessions_userId_fkey")
+}
+
+model site_settings {
+  id        String   @id
+  page      String
+  keyName   String
+  valueEn   String   @db.Text
+  valueDe   String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@unique([page, keyName])
+}
+
+model team_members {
+  id        String   @id
+  name      String
+  titleEn   String
+  titleDe   String?
+  quoteEn   String?  @db.Text
+  quoteDe   String?  @db.Text
+  image     String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model testimonials {
+  id        String   @id
+  quoteEn   String   @db.Text
+  quoteDe   String?  @db.Text
+  author    String
+  location  String
+  image     String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  id          String       @id
+  name        String
+  email       String       @unique
+  password    String
+  role        users_role   @default(VIEWER)
+  isActive    Boolean      @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime
+  audit_logs  audit_logs[]
+  sessions    sessions[]
+}
+
+enum users_role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum articles_status {
+  DRAFT
+  PUBLISHED
+}
+
+enum contact_submissions_status {
+  NEW
+  READ
+  RESPONDED
+}
+
+enum properties_status {
   DRAFT
   PUBLISHED
   ARCHIVED
 }
 
 // ─────────────────────────────────────────────
-// Auth.js (NextAuth v5) core models
+// onOffice integration — imported estates + per-field frontend visibility
+// Managed from /admin/properties. The frontend reads only PUBLISHED rows and
+// only the fields flagged `visible = true` (see src/lib/onoffice-properties.ts).
 // ─────────────────────────────────────────────
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  passwordHash  String?
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  accounts            Account[]
-  sessions            Session[]
-  passwordResetTokens PasswordResetToken[]
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-model PasswordResetToken {
-  id        String    @id @default(cuid())
-  userId    String
-  tokenHash String    @unique // SHA-256 hex of the raw token; the raw token is never stored
-  expires   DateTime
-  createdAt DateTime  @default(now())
-  usedAt    DateTime?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
-// ─────────────────────────────────────────────
-// Property domain (consumed by src/lib/seed-properties.ts)
-// ─────────────────────────────────────────────
-
-model Property {
-  id            String         @id @default(cuid())
-  type          String
-  status        PropertyStatus @default(DRAFT)
-  featured      Boolean        @default(false)
-  priceDisplay  String
-  priceValue    Int
-  location      String
-  specs         String
-  beds          Int
-  baths         Int
-  areaSqm       Int
-  heroImage     String
-  descriptionEn String         @db.Text
-  descriptionDe String         @db.Text
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-
-  amenities PropertyAmenity[]
-  schools   NearbySchool[]
-  transport NearbyTransport[]
+model onoffice_properties {
+  id            String                     @id
+  internalId    String                     @unique
+  externalId    String?
+  title         String?                    @db.Text
+  marketingType String?
+  objectType    String?
+  priceLabel    String?
+  city          String?
+  heroImage     String?                    @db.Text
+  imagesJson    String?                    @db.LongText
+  rawJson       String                     @db.LongText
+  status        onoffice_properties_status @default(DRAFT)
+  lastSyncedAt  DateTime
+  createdAt     DateTime                   @default(now())
+  updatedAt     DateTime
+  fields        onoffice_property_fields[]
 
   @@index([status])
-  @@index([featured])
 }
 
-model PropertyAmenity {
-  id         String   @id @default(cuid())
+model onoffice_property_fields {
+  id         String              @id
   propertyId String
-  name       String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  fieldKey   String
+  label      String
+  value      String?             @db.Text
+  section    String              @default("Other")
+  fieldType  String?
+  sortOrder  Int                 @default(0)
+  visible    Boolean             @default(false)
+  properties onoffice_properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 
-  @@index([propertyId])
+  @@unique([propertyId, fieldKey])
+  @@index([propertyId], map: "onoffice_property_fields_propertyId_fkey")
 }
 
-model NearbySchool {
-  id         String   @id @default(cuid())
-  propertyId String
-  name       String
-  distance   String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-
-  @@index([propertyId])
-}
-
-model NearbyTransport {
-  id         String   @id @default(cuid())
-  propertyId String
-  name       String
-  type       String
-  distance   String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-
-  @@index([propertyId])
-}
-
-// ─────────────────────────────────────────────
-// Knowledge / blog articles (managed from /admin/articles)
-// ─────────────────────────────────────────────
-
-enum ArticleStatus {
+enum onoffice_properties_status {
   DRAFT
   PUBLISHED
-}
-
-model Article {
-  id          String        @id @default(cuid())
-  slug        String        @unique
-  category    String
-  coverImage  String
-  status      ArticleStatus @default(PUBLISHED)
-  featured    Boolean       @default(false)
-  publishedAt DateTime      @default(now())
-
-  titleEn   String
-  titleDe   String
-  excerptEn String @db.Text
-  excerptDe String @db.Text
-  bodyEn    String @db.Text
-  bodyDe    String @db.Text
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([status])
-  @@index([featured])
-  @@index([publishedAt])
+  ARCHIVED
 }

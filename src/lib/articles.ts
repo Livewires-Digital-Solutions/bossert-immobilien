@@ -1,6 +1,6 @@
 import 'server-only';
 import { prisma } from '@/lib/prisma';
-import type { Article, ArticleStatus } from '@prisma/client';
+import type { articles as Article, articles_status as ArticleStatus } from '@prisma/client';
 
 export type { Article };
 
@@ -31,36 +31,36 @@ export function localize(a: Article, lang: Lang): LocalizedArticle {
   return {
     id: a.slug,
     category: a.category,
-    date: fmtDate(a.publishedAt, lang),
-    title: lang === 'de' ? a.titleDe : a.titleEn,
-    desc: lang === 'de' ? a.excerptDe : a.excerptEn,
-    image: a.coverImage,
-    content: lang === 'de' ? a.bodyDe : a.bodyEn,
+    date: fmtDate(a.createdAt, lang),
+    title: lang === 'de' ? (a.titleDe || a.titleEn) : a.titleEn,
+    desc: lang === 'de' ? (a.descDe || a.descEn) : a.descEn,
+    image: a.heroImage || '',
+    content: lang === 'de' ? (a.contentDe || a.contentEn) : a.contentEn,
     featured: a.featured,
   };
 }
 
 /** All published articles, newest first (featured one first if present). */
 export async function getPublishedArticles(): Promise<Article[]> {
-  return prisma.article.findMany({
+  return (prisma as any).articles.findMany({
     where: { status: 'PUBLISHED' },
-    orderBy: [{ featured: 'desc' }, { publishedAt: 'desc' }],
+    orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
   });
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  return prisma.article.findUnique({ where: { slug } });
+  return (prisma as any).articles.findUnique({ where: { slug } });
 }
 
 /** Admin: every article regardless of status. */
 export async function getAllArticles(): Promise<Article[]> {
-  return prisma.article.findMany({
-    orderBy: [{ publishedAt: 'desc' }],
+  return (prisma as any).articles.findMany({
+    orderBy: [{ createdAt: 'desc' }],
   });
 }
 
 export async function getArticleById(id: string): Promise<Article | null> {
-  return prisma.article.findUnique({ where: { id } });
+  return (prisma as any).articles.findUnique({ where: { id } });
 }
 
 export const ARTICLE_STATUSES: ArticleStatus[] = ['DRAFT', 'PUBLISHED'];

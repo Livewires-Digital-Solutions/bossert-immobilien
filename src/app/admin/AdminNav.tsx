@@ -7,6 +7,7 @@ import styles from './admin.module.css';
 const items = [
   { href: '/admin', label: 'Dashboard', exact: true },
   { href: '/admin/users', label: 'Users', exact: false },
+  { href: '/admin/properties', label: 'Properties', exact: false },
   { href: '/admin/articles', label: 'Articles', exact: false },
   { href: '/', label: 'View site', exact: true },
 ];

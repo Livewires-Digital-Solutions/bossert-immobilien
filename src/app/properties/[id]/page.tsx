@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { fetchOnOfficePropertyById, fetchOnOfficeProperties } from '@/lib/onoffice';
-import { mockProperties } from '@/data/properties';
+import { mockProperties, type Property } from '@/data/properties';
+import { getPublicPropertyView, type PublicPropertyView } from '@/lib/property-view';
+import { fetchOnOfficePropertyById } from '@/lib/onoffice';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyGallery from '@/components/property/PropertyGallery';
@@ -9,30 +10,48 @@ import PropertyMediaTabs from '@/components/property/PropertyMediaTabs';
 import PropertyLocation from '@/components/property/PropertyLocation';
 import MortgageCalculator from '@/components/property/MortgageCalculator';
 import PropertyPOIs from '@/components/property/PropertyPOIs';
+import CuratedPropertyFacts from '@/components/property/CuratedPropertyFacts';
 import Button from '@/components/ui/Button';
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-// Pre-generate static pages dynamically
+export const revalidate = 60;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const properties = await fetchOnOfficeProperties();
-  return properties.map((c) => ({ id: c.id }));
+  return [];
 }
 
-export const revalidate = 300; // 5-minute ISR
+async function loadProperty(
+  id: string,
+): Promise<{ property: Property; sections: PublicPropertyView['sections'] } | null> {
+  try {
+    const curated = await getPublicPropertyView(id);
+    if (curated) return curated;
+  } catch (err) {
+    console.error(`[property/${id}] curated lookup failed:`, err);
+  }
+
+  // Fallbacks so the page keeps working during setup / if unpublished.
+  let property: Property | null = null;
+  try {
+    property = await fetchOnOfficePropertyById(id);
+  } catch {
+    /* ignore */
+  }
+  if (!property) property = mockProperties.find((p) => p.id === id) ?? null;
+  return property ? { property, sections: [] } : null;
+}
 
 export default async function PropertyDetailPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  let property = await fetchOnOfficePropertyById(resolvedParams.id);
-  if (!property) {
-    property = mockProperties.find((p) => p.id === resolvedParams.id) || null;
-  }
+  const { id } = await params;
+  const data = await loadProperty(id);
+  if (!data) notFound();
 
-  if (!property) {
-    notFound();
-  }
+  const { property, sections } = data;
+  const curated = sections.length > 0;
 
   return (
     <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '160px' }}>
@@ -46,34 +65,37 @@ export default async function PropertyDetailPage({ params }: PageProps) {
 
           <div className="property-details-grid">
             <div className="property-main-col">
-              {/* Key Facts Section */}
-              <section className="property-section">
-                <h2 className="property-section-title">Eckdaten</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
-                  {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
-                  {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
-                  {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
-                  {property.bedrooms && <div><strong>Schlafzimmer:</strong><br/>{property.bedrooms}</div>}
-                  {property.bathrooms && <div><strong>Badezimmer:</strong><br/>{property.bathrooms}</div>}
-                  {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
-                  {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
-                </div>
-              </section>
+              {curated ? (
+                <CuratedPropertyFacts sections={sections} />
+              ) : (
+                <>
+                  <section className="property-section">
+                    <h2 className="property-section-title">Eckdaten</h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                      {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
+                      {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
+                      {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
+                      {property.bedrooms && <div><strong>Schlafzimmer:</strong><br/>{property.bedrooms}</div>}
+                      {property.bathrooms && <div><strong>Badezimmer:</strong><br/>{property.bathrooms}</div>}
+                      {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
+                      {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
+                    </div>
+                  </section>
 
-              {/* Energy Details Section */}
-              {property.energy && (
-                <section className="property-section">
-                  <h2 className="property-section-title">Energie & Heizung</h2>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
-                    {property.energy.heatingType && <div><strong>Heizungsart:</strong><br/>{property.energy.heatingType}</div>}
-                    {property.energy.firing && <div><strong>Befeuerung:</strong><br/>{property.energy.firing}</div>}
-                    {property.energy.energyPassType && <div><strong>Energieausweistyp:</strong><br/>{property.energy.energyPassType}</div>}
-                    {property.energy.energyConsumption && <div><strong>Energieverbrauch:</strong><br/>{property.energy.energyConsumption}</div>}
-                  </div>
-                </section>
+                  {property.energy && (
+                    <section className="property-section">
+                      <h2 className="property-section-title">Energie & Heizung</h2>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                        {property.energy.heatingType && <div><strong>Heizungsart:</strong><br/>{property.energy.heatingType}</div>}
+                        {property.energy.firing && <div><strong>Befeuerung:</strong><br/>{property.energy.firing}</div>}
+                        {property.energy.energyPassType && <div><strong>Energieausweistyp:</strong><br/>{property.energy.energyPassType}</div>}
+                        {property.energy.energyConsumption && <div><strong>Energieverbrauch:</strong><br/>{property.energy.energyConsumption}</div>}
+                      </div>
+                    </section>
+                  )}
+                </>
               )}
 
-              {/* Description Section */}
               {property.description && (
                 <section className="property-section">
                   <h2 className="property-section-title">Über diese Immobilie</h2>
@@ -81,7 +103,6 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 </section>
               )}
 
-              {/* Amenities Section */}
               {property.amenities && property.amenities.length > 0 && (
                 <section className="property-section">
                   <h2 className="property-section-title">Ausstattung</h2>

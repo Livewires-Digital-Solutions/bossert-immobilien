@@ -70,7 +70,7 @@ export default async function AdminArticlesPage() {
                       {a.status}
                     </span>
                   </td>
-                  <td className={admin.cellMuted}>{dateFmt.format(a.publishedAt)}</td>
+                  <td className={admin.cellMuted}>{dateFmt.format(a.createdAt)}</td>
                 </tr>
               ))
             )}
