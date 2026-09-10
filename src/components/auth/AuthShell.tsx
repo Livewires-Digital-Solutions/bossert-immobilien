@@ -25,13 +25,15 @@ export default function AuthShell({
 }: AuthShellProps) {
   return (
     <main style={{ backgroundColor: '#f0ede8' }}>
-      <Navbar />
+      <Navbar invertOnLoad />
 
       <div className="auth-page">
         <div className="auth-card">
           <div className="auth-brand-col">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Bossert Immobilien" className="auth-brand-logo" />
+            <a href="/" className="auth-brand-logo-link" aria-label="Bossert Immobilien — home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Bossert Immobilien" className="auth-brand-logo" />
+            </a>
 
             <div className="auth-eyebrow">
               <span className="dot" />
