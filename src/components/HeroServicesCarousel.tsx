@@ -75,57 +75,62 @@ function ServiceCard({ slide }: { slide: ServiceSlide }) {
   );
 }
 
+type Phase = 'idle' | 'exit' | 'enter';
+
 export default function HeroServicesCarousel() {
-  const [active, setActive]           = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection]     = useState<'next' | 'prev'>('next');
+  const [active, setActive] = useState(0);
+  const [phase, setPhase]   = useState<Phase>('idle');
   const total = slides.length;
 
   const navigate = useCallback((dir: 'next' | 'prev') => {
-    if (isAnimating) return;
-    setDirection(dir);
-    setIsAnimating(true);
+    if (phase !== 'idle') return;
+
+    // Phase 1 — exit: scale down + blur out
+    setPhase('exit');
+
     setTimeout(() => {
+      // Swap content
       setActive(a => dir === 'next' ? (a + 1) % total : (a - 1 + total) % total);
-      setIsAnimating(false);
-    }, 380);
-  }, [isAnimating, total]);
+      // Phase 2 — enter: bloom in
+      setPhase('enter');
+
+      setTimeout(() => {
+        setPhase('idle');
+      }, 480);
+    }, 280);
+  }, [phase, total]);
 
   const next = useCallback(() => navigate('next'), [navigate]);
   const prev = useCallback(() => navigate('prev'), [navigate]);
 
   useEffect(() => {
-    const t = setTimeout(next, 5000);
+    const t = setTimeout(next, 5500);
     return () => clearTimeout(t);
   }, [active, next]);
 
   const idx = (offset: number) => (active + offset + total) % total;
 
-  const frontAnim  = isAnimating ? `hsc2-anim-out-${direction}` : '';
-  const behindAnim = isAnimating ? 'hsc2-anim-behind' : '';
-
   return (
-    /* Outer wrapper: flex column so cards stack on top, controls sit below as a natural sibling */
     <div className="hsc2-wrapper">
-      {/* Card stack area */}
+      {/* Card stack */}
       <div className="hsc2-root">
-        {/* Left behind card */}
-        <div className={`hsc2-behind hsc2-behind-left ${behindAnim}`} onClick={prev}>
+        {/* Left behind */}
+        <div className={`hsc2-behind hsc2-behind-left${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`} onClick={prev}>
           <ServiceCard slide={slides[idx(-1)]} />
         </div>
 
-        {/* Right behind card */}
-        <div className={`hsc2-behind hsc2-behind-right ${behindAnim}`} onClick={next}>
+        {/* Right behind */}
+        <div className={`hsc2-behind hsc2-behind-right${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`} onClick={next}>
           <ServiceCard slide={slides[idx(1)]} />
         </div>
 
-        {/* Front / active card */}
-        <div className={`hsc2-front ${frontAnim}`}>
+        {/* Front card */}
+        <div className={`hsc2-front${phase === 'exit' ? ' hsc2-front-exit' : ''}${phase === 'enter' ? ' hsc2-front-enter' : ''}`}>
           <ServiceCard slide={slides[idx(0)]} />
         </div>
       </div>
 
-      {/* Controls — natural sibling in flex column, BELOW the stack, never clipped */}
+      {/* Bottom controls */}
       <div className="hsc2-controls">
         <button className="hsc2-ctrl-btn" onClick={prev} aria-label="Previous">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -139,10 +144,10 @@ export default function HeroServicesCarousel() {
               key={i}
               className={`hsc2-dot${i === active ? ' hsc2-dot-active' : ''}`}
               onClick={() => {
-                if (i === active || isAnimating) return;
+                if (i === active || phase !== 'idle') return;
                 navigate(i > active ? 'next' : 'prev');
               }}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={`Slide ${i + 1}`}
             />
           ))}
         </div>

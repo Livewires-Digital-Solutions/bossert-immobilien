@@ -184,7 +184,7 @@ export default function PropertyCard({
           </div>
           <div className="pc-action-col">
             <button className="pc-btn" onClick={(e) => e.preventDefault()}>
-              {(t as any).propertyCard?.btnAction || 'ZUM INSERAT ➔'}
+              {(t as any).propertyCard?.btnAction || 'VIEW PROPERTY'}
             </button>
           </div>
         </div>

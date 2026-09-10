@@ -62,6 +62,10 @@
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
+  /* Primary brand blue — "blue" always refers to this */
+  --blue: #1e50c8;
+  --blue-dark: #1640a8;
+  --primary-blue: var(--blue);
   /* theSeasons is the font-family name Next.js compiles from next/font/local */
   --font-serif: 'theSeasons', 'The Seasons', 'FONTSPRING DEMO - The Seasons', Georgia, serif;
   --font-instrument: var(--font-serif);
@@ -111,20 +115,64 @@ body {
 
 .hero-bg-image {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -4%;
+  left: -4%;
+  right: -4%;
+  bottom: -4%;
   background-image: url('/HERO%20BG.png');
   background-size: cover;
   background-position: center;
-  animation: bgScaleIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   z-index: 0;
+  transform-origin: 50% 52%;
+  /* Loads already slightly zoomed, then a short, gentle forward drift that
+     settles quickly — a calm "arrival" rather than a long push. */
+  transform: scale(1.02);
+  animation: heroEnter 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  will-change: transform;
 }
 
-@keyframes bgScaleIn {
-  0% { transform: scale(1.1); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes heroEnter {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-image {
+    animation: none;
+    transform: scale(1.04);
+  }
+}
+
+/* ── Hero text entrance — soft, quick, tightly staggered ── */
+.hero-section .reveal-base {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(5px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+}
+
+.hero-section .reveal-base.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.hero-section .delay-100 { transition-delay: 70ms; }
+.hero-section .delay-200 { transition-delay: 150ms; }
+.hero-section .delay-300 { transition-delay: 230ms; }
+.hero-section .delay-400 { transition-delay: 330ms; }
+.hero-section .delay-500 { transition-delay: 430ms; }
+.hero-section .delay-600 { transition-delay: 540ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .reveal-base {
+    filter: none;
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
 }
 
 @keyframes fadeSlideDown {
@@ -139,12 +187,28 @@ body {
   width: 100%;
   height: 100%;
   background: 
+    /* Bottom fade to navy */
     linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%),
+    /* Left side dark vignette */
     linear-gradient(
       to right, 
-      rgba(4, 36, 51, 0.7) 0%, 
+      rgba(4, 36, 51, 0.75) 0%, 
       rgba(4, 36, 51, 0.2) 40%, 
       rgba(4, 36, 51, 0.3) 100%
+    ),
+    /* Primary-blue ambient glow — left side (strong) */
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--blue) 42%, transparent) 0%,
+      color-mix(in srgb, var(--blue) 24%, transparent) 30%,
+      color-mix(in srgb, var(--blue-dark) 8%, transparent) 60%,
+      transparent 85%
+    ),
+    radial-gradient(
+      ellipse 80% 100% at -5% 50%,
+      color-mix(in srgb, var(--blue) 46%, transparent) 0%,
+      color-mix(in srgb, var(--blue-dark) 22%, transparent) 45%,
+      transparent 80%
     );
   z-index: 1;
 }
@@ -429,9 +493,7 @@ body {
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  /* Invert black→white, then screen-blend so navy bg shows through */
-  filter: invert(1) opacity(0.1);
-  mix-blend-mode: screen;
+  /* Show the updated aboutbg.png as-is — no grayscale/invert/blend treatment */
   z-index: 0;
   pointer-events: none;
 }
@@ -1104,7 +1166,11 @@ body {
 }
 
 .left-content {
-  max-width: 60%;
+  max-width: min(60ch, 90%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .since-text {
@@ -1160,33 +1226,33 @@ body {
 
 /* ── Hero Services Carousel v2 (stacked depth, 3:4 cards) ───────────── */
 
-/* Card dimensions — 3:4 ratio, slightly bigger */
+/* Card dimensions — refined, compact 3:4 ratio */
 :root {
-  --hsc2-w: 270px;
-  --hsc2-h: 360px;
+  --hsc2-w: 232px;
+  --hsc2-h: 380px;
 }
 
 /*
-  Layout math (container = 480px):
-  - Center card: left 50% → left edge at (480-240)/2 = 120px, right edge at 360px
-  - Side cards: translateX(±55px) inward so only ~55px peek out from behind center
-  - All cards: top 50% + translateY(-50%) → vertically centred in container
-  - Nav arrows: left/right: -18px → outside the card area
+  Layout math (container = 460px):
+  - Center card: 232px wide, centered at 50%
+  - Side cards: translateX(±45px) so ~65px peek out from behind center
+  - All cards: vertically centred in container
 */
 /* Outer wrapper — flex column so controls sit below cards in normal flow */
 .hsc2-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  width: 540px;
+  gap: 1.25rem;
+  width: 460px;
   flex-shrink: 0;
+  margin-top: 1.5rem;
 }
 
 /* Card stack area only — exactly card height */
 .hsc2-root {
   position: relative;
-  width: 540px;
+  width: 460px;
   height: var(--hsc2-h);
   flex-shrink: 0;
 }
@@ -1217,34 +1283,34 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.65rem 0.75rem;
+  padding: 0.6rem 0.7rem;
 }
 
 .hsc2-counter {
-  font-size: 0.52rem;
+  font-size: 0.48rem;
   letter-spacing: 0.08em;
   color: rgba(255,255,255,0.9);
   font-family: var(--font-inter), sans-serif;
 }
 
 .hsc2-tag {
-  font-size: 0.42rem;
+  font-size: 0.4rem;
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.8);
   text-transform: uppercase;
   white-space: pre-line;
   text-align: right;
-  line-height: 1.7;
+  line-height: 1.6;
   font-family: var(--font-inter), sans-serif;
 }
 
 /* Content — bottom 42% */
 .hsc2-body {
   flex: 1;
-  padding: 0.8rem 1rem 1rem;
+  padding: 0.7rem 0.85rem 0.85rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.28rem;
   background: var(--cream, #f3ede3);
   color: var(--navy, #0b1a2a);
   overflow: hidden;
@@ -1253,9 +1319,9 @@ body {
 .hsc2-category {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.48rem;
-  letter-spacing: 0.15em;
+  gap: 0.4rem;
+  font-size: 0.45rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-family: var(--font-inter), sans-serif;
   color: var(--navy, #0b1a2a);
@@ -1263,7 +1329,7 @@ body {
 
 .hsc2-cat-line {
   display: inline-block;
-  width: 16px;
+  width: 14px;
   height: 1px;
   background: currentColor;
   opacity: 0.45;
@@ -1272,7 +1338,7 @@ body {
 
 .hsc2-title {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.12rem;
   font-weight: 400;
   line-height: 1.15;
   color: var(--navy, #0b1a2a);
@@ -1282,8 +1348,8 @@ body {
 .hsc2-title em { font-style: italic; }
 
 .hsc2-desc {
-  font-size: 0.72rem;
-  line-height: 1.55;
+  font-size: 0.67rem;
+  line-height: 1.48;
   color: #555;
   margin: 0;
   flex: 1;
@@ -1294,30 +1360,36 @@ body {
 }
 
 .hsc2-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.4rem;
   font-size: 0.48rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--navy, #0b1a2a);
-  border-bottom: 1px solid rgba(11,26,42,0.3);
-  padding-bottom: 1px;
-  align-self: flex-start;
-  transition: color 0.3s ease, gap 0.3s ease;
+  color: var(--white, #fff);
+  background: var(--navy, #042433);
+  border: 1px solid var(--navy, #042433);
+  border-radius: 4px;
+  padding: 0.4rem 0.85rem;
+  align-self: stretch;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   font-family: var(--font-inter), sans-serif;
   margin-top: auto;
   pointer-events: auto;
+  box-sizing: border-box;
 }
 
 .hsc2-btn:hover {
-  color: var(--gold, #9a7d54);
-  gap: 0.55rem;
+  background: #031a26;
+  border-color: #031a26;
+  color: var(--white, #fff);
 }
 
-.hsc2-arrow { font-size: 0.6rem; }
+.hsc2-arrow { font-size: 0.72rem; }
 
 /* ── Front card — horizontally + vertically centred ── */
 .hsc2-front {
@@ -1341,24 +1413,15 @@ body {
   pointer-events: auto;
 }
 
-/*
-  Left card: starts at left:0 (card right edge at 240px).
-  translateX(55px) pushes it 55px right → right edge at 240px, left edge at ~60px visible.
-  Only ~60px of the card's left edge shows (rest is behind center card starting at 120px).
-*/
 .hsc2-behind-left {
   left: 0;
-  transform: translateX(55px) translateY(-50%) scale(0.88);
+  transform: translateX(45px) translateY(-50%) scale(0.88);
   filter: brightness(0.75);
 }
 
-/*
-  Right card: starts at right:0 (card left edge at 480-240=240px).
-  translateX(-55px) pushes it 55px left → same ~60px peek on the right.
-*/
 .hsc2-behind-right {
   right: 0;
-  transform: translateX(-55px) translateY(-50%) scale(0.88);
+  transform: translateX(-45px) translateY(-50%) scale(0.88);
   filter: brightness(0.75);
 }
 
@@ -1366,27 +1429,47 @@ body {
   filter: brightness(0.9);
 }
 
-/* ── Smooth transitions on front card ── */
+/* ── Front card — no transition, controlled by keyframes ── */
 .hsc2-front {
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity   0.35s ease;
+  transition: none;
 }
 
-/* ── Slide-out animations on the front card ── */
-.hsc2-anim-out-next {
-  transform: translate(calc(-50% - 28px), -50%) !important;
-  opacity: 0 !important;
+/* ── EXIT: drift up + gentle fade ── */
+.hsc2-front-exit {
+  animation: hsc2Exit 0.32s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
-.hsc2-anim-out-prev {
-  transform: translate(calc(-50% + 28px), -50%) !important;
-  opacity: 0 !important;
+@keyframes hsc2Exit {
+  from {
+    transform: translate(-50%, -50%) translateY(0px);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) translateY(-14px);
+    opacity: 0;
+  }
 }
 
-/* ── Fade out the behind cards during transition ── */
-.hsc2-anim-behind {
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
+/* ── ENTER: rise up from below + gentle fade in ── */
+.hsc2-front-enter {
+  animation: hsc2Enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hsc2Enter {
+  from {
+    transform: translate(-50%, -50%) translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* ── Behind cards — smooth dim during transition ── */
+.hsc2-behind-dim {
+  opacity: 0.5 !important;
+  transition: opacity 0.32s ease !important;
 }
 
 /* ── Bottom controls — in-flow sibling, never clipped ── */
@@ -1532,6 +1615,9 @@ body {
   margin: 0.35rem 0;
   white-space: nowrap;
 }
+.hero-headline-accent {
+  color: var(--white, #fff);
+}
 .hero-headline-bot {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(2rem, 3.8vw, 3.4rem);
@@ -1583,57 +1669,59 @@ body {
 /* --- Footer Area --- */
 .bottom-area {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
 }
 
-.bottom-left {
+/* ── Centered scroll indicator ── */
+.scroll-center {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.partner-text {
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  line-height: 1.5;
-  max-width: 250px;
-  opacity: 0.8;
-  color: var(--white);
+.scroll-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  font-family: var(--font-inter), sans-serif;
+  writing-mode: horizontal-tb;
 }
 
-.scroll-indicator {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  opacity: 0.8 !important;
-  color: var(--white);
-}
-.scroll-icon {
-  width: 16px;
-  height: 24px;
-  border: 1px solid var(--white);
-  border-radius: 10px;
+/* Animated vertical line */
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.7) 0%,
+    rgba(255,255,255,0) 100%
+  );
   position: relative;
+  overflow: hidden;
 }
-.scroll-icon::after {
+
+.scroll-line::after {
   content: '';
   position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 6px;
-  background: var(--white);
-  border-radius: 2px;
-  animation: scroll 1.5s infinite;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  animation: scrollLine 1.8s ease-in-out infinite;
 }
 
-@keyframes scroll {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  100% { transform: translate(-50%, 8px); opacity: 0; }
+@keyframes scrollLine {
+  0%   { top: -100%; }
+  100% { top: 100%; }
 }
 
 /* ── Global Elegant Button System ──────────────────────────────────── */
@@ -2752,6 +2840,226 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
+}
+
+/* ── Selected Properties (Homepage) — compact 4-column cards ── */
+.explore-section .explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+@media (max-width: 1024px) {
+  .explore-section .explore-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .explore-section .explore-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Compact Card Styling — Selected Properties (minimalist editorial) */
+
+.explore-section .property-card-new {
+  border: 1px solid var(--gold, #9a7d54);
+  border-radius: 0;
+  background: var(--bg, #fbfaf8);
+  box-shadow: 0 1px 2px rgba(4, 36, 51, 0.04);
+  height: 100%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.explore-section .property-card-new:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(4, 36, 51, 0.09);
+  border-color: var(--gold, #9a7d54);
+}
+
+.explore-section .pc-image-box {
+  aspect-ratio: 16 / 11;
+  border-radius: 0;
+}
+
+.explore-section .pc-overlays {
+  padding: 0.7rem;
+}
+
+/* One quiet status pill only — hide the rest of the image clutter */
+.explore-section .pc-badge-type,
+.explore-section .pc-badges-right,
+.explore-section .pc-image-count {
+  display: none;
+}
+
+.explore-section .pc-badge-status {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-dark, #1a1a1a);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.55rem;
+  gap: 0.35rem;
+  border-radius: 0;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.explore-section .pc-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--gold, #9a7d54);
+}
+
+/* Content */
+.explore-section .pc-content-box {
+  padding: 1rem 1.05rem 1.1rem;
+  gap: 0.55rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-section .pc-location-subhead {
+  font-size: 0.56rem;
+  gap: 0.4rem;
+  letter-spacing: 0.12em;
+}
+
+.explore-section .pc-line {
+  width: 16px;
+}
+
+.explore-section .pc-title {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+.explore-section .pc-summary {
+  font-size: 0.74rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text-muted, #666);
+}
+
+.explore-section .pc-address {
+  font-size: 0.7rem;
+  gap: 0.35rem;
+  color: #888;
+}
+
+.explore-section .pc-address svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* Specs — flat inline metric row with small icons, no boxes / dividers */
+.explore-section .pc-specs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  border-bottom: none;
+  border-top: 1px solid var(--border-light, #ececec);
+  padding: 0.75rem 0 0;
+  margin-top: auto;
+}
+
+.explore-section .pc-spec-item {
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.explore-section .pc-spec-item::after {
+  display: none;
+}
+
+.explore-section .pc-spec-item svg {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.explore-section .pc-spec-val {
+  font-size: 0.76rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.explore-section .pc-spec-lbl {
+  display: none;
+}
+
+/* Footer — price + outlined button */
+.explore-section .pc-footer {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light, #ececec);
+  align-items: center;
+}
+
+.explore-section .pc-price {
+  font-size: 1.15rem;
+  margin-bottom: 0.05rem;
+}
+
+.explore-section .pc-price-label {
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+}
+
+.explore-section .pc-btn {
+  background: transparent;
+  border: 1px solid var(--gold, #9a7d54);
+  border-radius: 0;
+  padding: 0.5rem 0.9rem;
+  color: var(--primary-dark, #0b1a2a);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  gap: 0.4rem;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.explore-section .pc-btn:hover {
+  background: var(--primary-dark, #0b1a2a);
+  border-color: var(--primary-dark, #0b1a2a);
+  color: #fff;
+}
+
+html[data-theme='dark'] .explore-section .pc-btn {
+  color: var(--text-light, #f5f5f5);
+}
+
+html[data-theme='dark'] .explore-section .property-card-new {
+  background: var(--bg-dark, #121212);
+}
+
+html[data-theme='dark'] .explore-section .pc-specs-grid,
+html[data-theme='dark'] .explore-section .pc-footer {
+  border-color: var(--border-dark, #333);
+}
+
+html[data-theme='dark'] .explore-section .pc-badge-status {
+  background: rgba(20, 20, 20, 0.9);
+  color: var(--text-light, #f5f5f5);
 }
 
 /* Property Card */
