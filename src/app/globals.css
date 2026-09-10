@@ -1615,6 +1615,7 @@ body {
   text-transform: uppercase;
   color: rgba(254, 252, 246, 0.9);
   line-height: 1.2;
+  white-space: nowrap;
 }
 .hero-headline-mid {
   font-family: var(--font-serif);
