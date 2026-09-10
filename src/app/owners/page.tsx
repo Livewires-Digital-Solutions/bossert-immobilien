@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -73,14 +74,14 @@ export default function ForOwnersPage() {
               <p className="why-subhead" style={{ maxWidth: '400px', textAlign: 'right' }}>
                 {data.hero.subhead}
               </p>
-              <button 
-                onClick={() => openModal('consultation')}
+              <Link
+                href="/list-property"
                 className="explore-btn explore-btn-dark"
-                style={{ cursor: 'pointer', fontFamily: 'var(--font-satoshi), sans-serif' }}
+                style={{ fontFamily: 'var(--font-satoshi), sans-serif' }}
               >
-                {data.hero.cta || 'Get your Free Consultation'}
+                {data.hero.cta || 'Request a no-obligation consultation'}
                 <span className="btn-arrow">↗</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
@@ -24,6 +25,16 @@ export default function PropertiesHero() {
            <p className={`editorial-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
               {t.propertiesPage.heroSubhead}
            </p>
+        </div>
+
+        <div
+          className={`reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}
+          style={{ marginTop: '2.5rem' }}
+        >
+          <Link href="/search-profile" className="explore-btn explore-btn-dark">
+            {t.propertiesPage.heroCta}
+            <span className="btn-arrow">↗</span>
+          </Link>
         </div>
       </div>
     </div>
