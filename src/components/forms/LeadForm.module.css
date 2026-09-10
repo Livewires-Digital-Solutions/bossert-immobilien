@@ -1,0 +1,615 @@
+/* ============================================================
+   Lead-capture forms (Interessent Suchprofil + Eigentümer Wizard)
+   Shared shell + form primitives.
+   Design language mirrors AuthForm.module.css / ConsultationModal.module.css
+   (navy / bronze / cream, The Seasons serif headings, Inter body).
+   ============================================================ */
+
+/* ── Modal shell ─────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(4, 36, 51, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  opacity: 0;
+  animation: leadFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modalContainer {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  max-height: min(90vh, 900px);
+  background: var(--cream);
+  color: var(--navy);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(4, 36, 51, 0.35);
+  transform: translateY(20px) scale(0.985);
+  opacity: 0;
+  animation: leadSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modalContainer {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  background: transparent;
+  border: none;
+  color: var(--navy);
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: opacity 0.25s ease, background-color 0.25s ease;
+  z-index: 20;
+}
+
+.closeButton:hover {
+  opacity: 1;
+  background-color: rgba(4, 36, 51, 0.06);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--bronze);
+  opacity: 1;
+}
+
+/* ── Standalone page (direct navigation / refresh) ───────── */
+.standaloneContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 9rem 1.5rem 5rem;
+}
+
+.standaloneCard {
+  width: 100%;
+  max-width: 660px;
+  background: var(--cream);
+  color: var(--navy);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(4, 36, 51, 0.18);
+  display: flex;
+  flex-direction: column;
+  max-height: none;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  padding: 3rem 2.75rem 1.5rem;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.08);
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 0.9rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 3.2vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.65);
+  margin: 0.9rem 0 0;
+  max-width: 46ch;
+}
+
+/* ── Body (scroll area) ──────────────────────────────────── */
+.body {
+  padding: 2rem 2.75rem 2.75rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.body::-webkit-scrollbar {
+  width: 6px;
+}
+.body::-webkit-scrollbar-thumb {
+  background: rgba(4, 36, 51, 0.2);
+  border-radius: 3px;
+}
+
+/* ── Section labels within a form ────────────────────────── */
+.sectionLabel {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  opacity: 0.55;
+  margin: 2rem 0 1.1rem;
+}
+.sectionLabel:first-child {
+  margin-top: 0;
+}
+
+/* ── Field primitives ───────────────────────────────────── */
+.field {
+  margin-bottom: 1.35rem;
+  position: relative;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--navy);
+}
+
+.required {
+  color: var(--bronze);
+  margin-left: 0.15rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 4px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: var(--navy);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  appearance: none;
+}
+
+.select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23042433' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.5rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 92px;
+  line-height: 1.55;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--bronze);
+  box-shadow: 0 0 0 1px var(--bronze);
+  background: var(--white);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(4, 36, 51, 0.35);
+}
+
+.inputError {
+  border-color: #dc2626;
+}
+.inputError:focus {
+  box-shadow: 0 0 0 1px #dc2626;
+}
+
+.errorText {
+  display: block;
+  color: #dc2626;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.78rem;
+  margin-top: 0.3rem;
+}
+
+/* ── Checkbox / consent ─────────────────────────────────── */
+.consentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 1.75rem 0 0;
+}
+
+.checkbox {
+  margin-top: 0.15rem;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--bronze);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.consentText {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgba(4, 36, 51, 0.7);
+  cursor: pointer;
+}
+
+/* ── Feature checkbox grid ──────────────────────────────── */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem 1rem;
+}
+
+.featureLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.88rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+/* ── Radio group ────────────────────────────────────────── */
+.radioGroup {
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9rem;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.radioLabel input {
+  accent-color: var(--bronze);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ── Category picker cards (Eigentümer step 0) ──────────── */
+.pickerGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.pickerCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.25rem 1.4rem;
+  background: var(--white);
+  border: 1px solid rgba(4, 36, 51, 0.12);
+  border-radius: 8px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pickerCard:hover {
+  border-color: var(--bronze);
+  background: rgba(175, 140, 83, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(4, 36, 51, 0.06);
+}
+
+.pickerCard:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pickerCard:hover {
+    transform: none;
+  }
+}
+
+.pickerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(175, 140, 83, 0.1);
+  color: var(--bronze);
+  flex-shrink: 0;
+}
+
+.pickerArrow {
+  margin-left: auto;
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+}
+
+/* ── Step progress indicator (1—2—3—4) ──────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 1.5rem;
+}
+
+.stepNode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(4, 36, 51, 0.25);
+  background: transparent;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(4, 36, 51, 0.5);
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.stepNodeActive {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--white);
+}
+
+.stepNodeDone {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.stepConnector {
+  flex: 1;
+  height: 1px;
+  background: rgba(4, 36, 51, 0.2);
+  min-width: 12px;
+}
+
+.stepConnectorDone {
+  background: var(--navy);
+}
+
+.stepCount {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: rgba(4, 36, 51, 0.5);
+  margin-top: 0.85rem;
+}
+
+/* ── Animated step panel ────────────────────────────────── */
+.stepPanel {
+  animation: leadStepIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepPanel {
+    animation: none;
+  }
+}
+
+.stepTitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 1.5rem;
+}
+
+/* ── Footer / actions ───────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.actionsEnd {
+  justify-content: flex-end;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2rem;
+  background: var(--navy);
+  color: var(--white);
+  border: 1px solid var(--navy);
+  border-radius: 4px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btnPrimary:hover {
+  background: #063246;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid rgba(4, 36, 51, 0.3);
+  border-radius: 4px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.btnGhost:hover {
+  border-color: var(--navy);
+  color: var(--bronze);
+}
+
+.submitFull {
+  width: 100%;
+  margin-top: 1.75rem;
+}
+
+/* ── Honeypot ───────────────────────────────────────────── */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Success state ──────────────────────────────────────── */
+.success {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: rgba(175, 140, 83, 0.12);
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin: 0 0 0.75rem;
+}
+
+.successBody {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.65);
+  max-width: 40ch;
+  margin: 0 auto 2rem;
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes leadFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes leadSlideUp {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes leadStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .header {
+    padding: 2.5rem 1.5rem 1.25rem;
+  }
+  .body {
+    padding: 1.5rem 1.5rem 2rem;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .standaloneContainer {
+    padding: 7rem 1rem 4rem;
+  }
+  .actions {
+    flex-direction: column-reverse;
+  }
+  .actions .btnPrimary,
+  .actions .btnGhost {
+    width: 100%;
+  }
+}

@@ -159,6 +159,7 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
           </>
         )}
 
+        {/* TODO: migrate to shared propertyLeadFields (see src/components/forms/PropertyLeadWizard.tsx) */}
         {/* HOUSE FORM (Popup 1A / Valuation) */}
         {route === 'house_form' && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -230,6 +231,7 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
           </form>
         )}
 
+        {/* TODO: migrate to shared propertyLeadFields (see src/components/forms/PropertyLeadWizard.tsx) */}
         {/* APARTMENT FORM (Popup 1B) */}
         {route === 'apartment_form' && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -271,6 +273,7 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
           </form>
         )}
 
+        {/* TODO: migrate to shared propertyLeadFields (see src/components/forms/PropertyLeadWizard.tsx) */}
         {/* COMMERCIAL FORM (Popup 1C) */}
         {route === 'commercial_form' && (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
