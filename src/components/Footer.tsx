@@ -24,13 +24,13 @@ export default function Footer() {
           <Image
             src="/logo.png"
             alt="Bossert Immobilien"
-            width={52}
-            height={52}
+            width={160}
+            height={160}
             className={styles.logoImg}
             priority
           />
-          <span className={styles.wordmarkTop}>BOSSERT</span>
-          <span className={styles.wordmarkBottom}>IMMOBILIEN</span>
+          <span className={styles.wordmarkTop}>Bossert</span>
+          <span className={styles.wordmarkBottom}>Immobilien</span>
         </div>
       </div>
 
