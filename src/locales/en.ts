@@ -194,6 +194,7 @@ export const en = {
     heroHeadline: 'Our',
     heroHeadlineSerif: 'Properties.',
     heroSubhead: 'Our complete portfolio of extraordinary properties, defined by uncompromising quality and prime locations across the Rhein-Main region.',
+    heroCta: 'Create a search profile and get started',
     ctaHeadline: 'Private',
     ctaHeadlineSerif: 'Representation.',
     ctaSubhead: 'Seeking something entirely unlisted? Our private network grants access to the most exclusive off-market properties worldwide.',
