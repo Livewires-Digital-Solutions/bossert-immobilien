@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import HeroServicesCarousel from './HeroServicesCarousel';
+import BtnArrow from './BtnArrow';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -77,7 +78,7 @@ export default function HeroSection() {
             <div className={`reveal-base reveal-up delay-400 ${isVisible ? 'is-revealed' : ''}`}>
               <a href="/properties" className="explore-btn">
                 EXPLORE PROPERTIES
-                <span className="btn-arrow">↗</span>
+                <BtnArrow />
               </a>
             </div>
           </div>

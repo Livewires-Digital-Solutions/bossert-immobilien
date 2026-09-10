@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import CtaSection from '@/components/CtaSection';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/context/LanguageContext';
+import BtnArrow from '@/components/BtnArrow';
 import ServicesOverviewCards from '@/components/ServicesOverviewCards';
 import ApproachHeadline from '@/components/ApproachHeadline';
 import ServicesBenefitsGrid from '@/components/ServicesBenefitsGrid';
@@ -115,7 +116,7 @@ export default function ServicesPage() {
               margin: '0 auto'
             }}>
               {servicesPageData.hero.cta}
-              <span className="btn-arrow">↗</span>
+              <BtnArrow />
             </Link>
           </div>
         </div>

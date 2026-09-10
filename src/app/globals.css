@@ -1757,8 +1757,17 @@ body {
   cursor: pointer;
 }
 
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-arrow svg {
+  display: block;
+}
+
 .explore-btn .btn-arrow {
-  font-size: 0.85rem;
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }

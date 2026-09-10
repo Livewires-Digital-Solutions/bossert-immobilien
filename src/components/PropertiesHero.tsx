@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
+import BtnArrow from './BtnArrow';
 
 export default function PropertiesHero() {
   const { ref: heroRef, isVisible } = useScrollReveal(0.1);
@@ -33,7 +34,7 @@ export default function PropertiesHero() {
         >
           <Link href="/search-profile" className="explore-btn explore-btn-dark">
             {t.propertiesPage.heroCta}
-            <span className="btn-arrow">↗</span>
+            <BtnArrow />
           </Link>
         </div>
       </div>

@@ -334,7 +334,13 @@ export function ForgotPasswordForm() {
         </button>
 
         <p className={styles.footerText}>
-          <Link href="/login" className={styles.footerLink} replace>← {m.backToLogin || 'Back to login'}</Link>
+          <Link href="/login" className={styles.footerLink} replace>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ verticalAlign: '-2px', marginRight: '0.35em' }}>
+              <path d="M19 12H5" />
+              <path d="m11 18-6-6 6-6" />
+            </svg>
+            {m.backToLogin || 'Back to login'}
+          </Link>
         </p>
       </form>
     </div>
@@ -475,7 +481,13 @@ export function ResetPasswordForm({ token }: { token?: string }) {
         </button>
 
         <p className={styles.footerText}>
-          <Link href="/login" className={styles.footerLink} replace>← {m.backToLogin || 'Back to login'}</Link>
+          <Link href="/login" className={styles.footerLink} replace>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ verticalAlign: '-2px', marginRight: '0.35em' }}>
+              <path d="M19 12H5" />
+              <path d="m11 18-6-6 6-6" />
+            </svg>
+            {m.backToLogin || 'Back to login'}
+          </Link>
         </p>
       </form>
     </div>
