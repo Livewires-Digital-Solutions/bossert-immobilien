@@ -755,6 +755,6 @@ export const en = {
       plotArea: 'Plot'
     },
     priceLabel: 'PURCHASE PRICE',
-    btnAction: 'TO LISTING'
+    btnAction: 'VIEW PROPERTY'
   }
 };
