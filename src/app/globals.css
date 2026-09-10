@@ -2,8 +2,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Regular'), local('The Seasons'), local('TheSeasons-Reg'), local('FONTSPRING DEMO - The Seasons Regular'), local('FONTSPRING DEMO - The Seasons'),
-       url('/fonts/TheSeasons-Regular.otf') format('opentype'),
-       url('/fonts/TheSeasons-Regular.woff2') format('woff2');
+       url('/fonts/theseasons-reg.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,18 +11,16 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Italic'), local('TheSeasons-Italic'), local('TheSeasons-It'), local('FONTSPRING DEMO - The Seasons Italic'),
-       url('/fonts/TheSeasons-Italic.otf') format('opentype'),
-       url('/fonts/TheSeasons-Italic.woff2') format('woff2');
+       url('/fonts/theseasons-it.otf') format('opentype');
   font-weight: 400;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold'), local('TheSeasons-Bold'), local('TheSeasons-Bd'), local('FONTSPRING DEMO - The Seasons Bold'),
-       url('/fonts/TheSeasons-Bold.otf') format('opentype'),
-       url('/fonts/TheSeasons-Bold.woff2') format('woff2');
+       url('/fonts/theseasons-bd.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -32,17 +29,16 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold Italic'), local('TheSeasons-BoldItalic'), local('TheSeasons-BdIt'), local('FONTSPRING DEMO - The Seasons Bold Italic'),
-       url('/fonts/TheSeasons-BoldItalic.otf') format('opentype');
+       url('/fonts/theseasons-bdit.otf') format('opentype');
   font-weight: 700;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light'), local('TheSeasons-Light'), local('TheSeasons-Lt'), local('FONTSPRING DEMO - The Seasons Light Regular'),
-       url('/fonts/TheSeasons-Light.otf') format('opentype'),
-       url('/fonts/TheSeasons-Light.woff2') format('woff2');
+       url('/fonts/theseasons-lt.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -51,9 +47,9 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light Italic'), local('TheSeasons-LightItalic'), local('TheSeasons-LtIt'), local('FONTSPRING DEMO - The Seasons Light Italic'),
-       url('/fonts/TheSeasons-LightItalic.otf') format('opentype');
+       url('/fonts/theseasons-ltit.otf') format('opentype');
   font-weight: 300;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -124,20 +120,24 @@ body {
   background-position: center;
   z-index: 0;
   transform-origin: 50% 52%;
-  /* Loads already slightly zoomed, then a short, gentle forward drift that
-     settles quickly — a calm "arrival" rather than a long push. */
-  transform: scale(1.02);
-  animation: heroEnter 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  /* Held pulled back until the intro doors open; JS adds .is-zooming exactly
+     when they part, and the forward push runs from there — you walk in. */
+  transform: scale(0.98);
   will-change: transform;
 }
 
+.hero-bg-image.is-zooming {
+  animation: heroEnter 2.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @keyframes heroEnter {
-  from { transform: scale(1.02); }
-  to   { transform: scale(1.06); }
+  from { transform: scale(0.98); }
+  to   { transform: scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg-image {
+  .hero-bg-image,
+  .hero-bg-image.is-zooming {
     animation: none;
     transform: scale(1.04);
   }
@@ -1224,138 +1224,140 @@ body {
   position: relative;
 }
 
-/* ── Hero Services Carousel v2 (stacked depth, 3:4 cards) ───────────── */
-
-/* Card dimensions — refined, compact 3:4 ratio */
+/* ── Hero Services Carousel — editorial stacked cards ───────────────── */
 :root {
-  --hsc2-w: 232px;
-  --hsc2-h: 380px;
+  --hsc2-w: 248px;
+  --hsc2-h: 420px;
+  --hsc2-spread: 80px;   /* how far the prev/next cards sit from centre */
+  --hsc2-side-scale: 0.85;
 }
 
-/*
-  Layout math (container = 460px):
-  - Center card: 232px wide, centered at 50%
-  - Side cards: translateX(±45px) so ~65px peek out from behind center
-  - All cards: vertically centred in container
-*/
-/* Outer wrapper — flex column so controls sit below cards in normal flow */
+/* Right column that hosts the carousel in the hero */
+.hero-right {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-grid.has-carousel {
+  align-items: center;
+}
+.main-grid.has-carousel .left-content {
+  max-width: 40ch;
+}
+.main-grid.has-carousel .hero-headline {
+  max-width: 100%;
+}
+.main-grid.has-carousel .hero-headline-mid {
+  font-size: clamp(2.6rem, 4vw, 4.2rem);
+  white-space: normal;
+}
+
 .hsc2-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  width: 460px;
+  gap: 1.4rem;
+  width: fit-content;
+  max-width: 100%;
   flex-shrink: 0;
-  margin-top: 1.5rem;
 }
 
-/* Card stack area only — exactly card height */
 .hsc2-root {
   position: relative;
-  width: 460px;
+  width: calc(var(--hsc2-w) + var(--hsc2-spread) * 2);
   height: var(--hsc2-h);
-  flex-shrink: 0;
 }
 
 /* ── Shared card shell ── */
 .hsc2-card {
   width: var(--hsc2-w);
   height: var(--hsc2-h);
-  background: var(--cream, #f3ede3);
-  border-radius: 4px;
+  background: #f8f6f1;
+  border-radius: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  pointer-events: none; /* prevent clicks propagating twice */
+  pointer-events: none;
 }
 
-/* Image — top 58% */
 .hsc2-img {
-  flex: 0 0 58%;
+  flex: 0 0 48%;
   background-size: cover;
   background-position: center;
   position: relative;
 }
-
-.hsc2-img-header {
+.hsc2-img::after {
+  content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0.6rem 0.7rem;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(4, 36, 51, 0.3) 0%, rgba(4, 36, 51, 0) 42%);
 }
 
 .hsc2-counter {
-  font-size: 0.48rem;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.9);
+  position: absolute;
+  top: 0.7rem;
+  left: 0.9rem;
+  z-index: 1;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.92);
   font-family: var(--font-inter), sans-serif;
 }
 
-.hsc2-tag {
-  font-size: 0.4rem;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.8);
-  text-transform: uppercase;
-  white-space: pre-line;
-  text-align: right;
-  line-height: 1.6;
-  font-family: var(--font-inter), sans-serif;
-}
-
-/* Content — bottom 42% */
 .hsc2-body {
   flex: 1;
-  padding: 0.7rem 0.85rem 0.85rem;
+  padding: 1.1rem 1.15rem 1.15rem;
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
-  background: var(--cream, #f3ede3);
-  color: var(--navy, #0b1a2a);
+  gap: 0.5rem;
+  background: #f8f6f1;
+  color: var(--navy, #042433);
   overflow: hidden;
 }
 
 .hsc2-category {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.45rem;
-  letter-spacing: 0.14em;
+  gap: 0.5rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   font-family: var(--font-inter), sans-serif;
-  color: var(--navy, #0b1a2a);
+  color: var(--bronze, #AF8C53);
 }
-
 .hsc2-cat-line {
   display: inline-block;
-  width: 14px;
+  width: 18px;
   height: 1px;
   background: currentColor;
-  opacity: 0.45;
   flex-shrink: 0;
 }
 
 .hsc2-title {
   font-family: var(--font-serif);
-  font-size: 1.12rem;
+  font-size: 1.22rem;
   font-weight: 400;
-  line-height: 1.15;
-  color: var(--navy, #0b1a2a);
-  margin: 0;
+  line-height: 1.18;
+  letter-spacing: 0.2px;
+  color: var(--navy, #042433);
+  margin: 0.05rem 0 0;
+}
+.hsc2-title em {
+  font-style: italic;
+  color: var(--bronze, #AF8C53);
 }
 
-.hsc2-title em { font-style: italic; }
-
 .hsc2-desc {
-  font-size: 0.67rem;
-  line-height: 1.48;
-  color: #555;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: rgba(4, 36, 51, 0.66);
+  font-family: var(--font-inter), sans-serif;
   margin: 0;
   flex: 1;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -1363,168 +1365,178 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  gap: 0.4rem;
-  font-size: 0.48rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--white, #fff);
-  background: var(--navy, #042433);
-  border: 1px solid var(--navy, #042433);
-  border-radius: 4px;
-  padding: 0.4rem 0.85rem;
+  gap: 0.6rem;
   align-self: stretch;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-  font-family: var(--font-inter), sans-serif;
   margin-top: auto;
+  padding: 0.5rem 0.5rem 0.5rem 0.95rem;
+  background: var(--bronze, #AF8C53);
+  color: #fff;
+  border-radius: 0;
+  text-decoration: none;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   pointer-events: auto;
-  box-sizing: border-box;
+  transition: background 0.28s ease;
 }
-
 .hsc2-btn:hover {
-  background: #031a26;
-  border-color: #031a26;
-  color: var(--white, #fff);
+  background: var(--navy, #042433);
+}
+.hsc2-btn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+  transition: transform 0.28s ease;
+}
+.hsc2-btn:hover .hsc2-btn-badge {
+  transform: translateX(3px);
 }
 
-.hsc2-arrow { font-size: 0.72rem; }
-
-/* ── Front card — horizontally + vertically centred ── */
-.hsc2-front {
+/* ── Slides — one absolutely-positioned track item per service ── */
+.hsc2-slide {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: var(--hsc2-w);
+  height: var(--hsc2-h);
   transform: translate(-50%, -50%);
+  transition:
+    transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.58s ease,
+    opacity 0.4s ease,
+    box-shadow 0.58s ease;
+  will-change: transform;
+}
+
+/* Front (current) */
+.hsc2-slide[data-rel='0'] {
+  transform: translate(-50%, -50%) scale(1);
   z-index: 3;
-  box-shadow: 0 24px 56px rgba(0,0,0,0.45);
-  pointer-events: auto;
+  box-shadow: 0 30px 60px rgba(4, 36, 51, 0.32);
+  filter: none;
 }
 
-/* ── Behind cards — pushed deeply inside ── */
-.hsc2-behind {
-  position: absolute;
-  top: 50%;
+/* Previous — slid left, tucked behind */
+.hsc2-slide[data-rel='-1'] {
+  transform: translate(-50%, -50%) translateX(calc(var(--hsc2-spread) * -1)) scale(var(--hsc2-side-scale));
   z-index: 2;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.2);
+  box-shadow: 0 16px 34px rgba(4, 36, 51, 0.2);
+  filter: brightness(0.9) saturate(0.95);
   cursor: pointer;
-  transition: filter 0.3s ease;
-  pointer-events: auto;
 }
 
-.hsc2-behind-left {
-  left: 0;
-  transform: translateX(45px) translateY(-50%) scale(0.88);
-  filter: brightness(0.75);
+/* Next — slid right, tucked behind */
+.hsc2-slide[data-rel='1'] {
+  transform: translate(-50%, -50%) translateX(var(--hsc2-spread)) scale(var(--hsc2-side-scale));
+  z-index: 2;
+  box-shadow: 0 16px 34px rgba(4, 36, 51, 0.2);
+  filter: brightness(0.9) saturate(0.95);
+  cursor: pointer;
 }
 
-.hsc2-behind-right {
-  right: 0;
-  transform: translateX(-45px) translateY(-50%) scale(0.88);
-  filter: brightness(0.75);
+/* Any further-out slide (if more services are added) */
+.hsc2-slide[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.hsc2-behind:hover {
-  filter: brightness(0.9);
+.hsc2-slide[data-rel='-1']:hover,
+.hsc2-slide[data-rel='1']:hover {
+  filter: brightness(1) saturate(1);
 }
 
-/* ── Front card — no transition, controlled by keyframes ── */
-.hsc2-front {
-  transition: none;
+/* The wrapping card teleports across instead of sweeping through centre */
+.hsc2-slide[data-notrans='true'] {
+  transition: filter 0.58s ease, opacity 0.4s ease;
 }
 
-/* ── EXIT: drift up + gentle fade ── */
-.hsc2-front-exit {
-  animation: hsc2Exit 0.32s cubic-bezier(0.4, 0, 1, 1) forwards;
+/* Bronze corner accents on the front card only */
+.hsc2-slide[data-rel='0']::before,
+.hsc2-slide[data-rel='0']::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 4;
+  pointer-events: none;
+}
+.hsc2-slide[data-rel='0']::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--bronze, #AF8C53);
+  border-left: 2px solid var(--bronze, #AF8C53);
+}
+.hsc2-slide[data-rel='0']::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--bronze, #AF8C53);
+  border-right: 2px solid var(--bronze, #AF8C53);
 }
 
-@keyframes hsc2Exit {
-  from {
-    transform: translate(-50%, -50%) translateY(0px);
-    opacity: 1;
-  }
-  to {
-    transform: translate(-50%, -50%) translateY(-14px);
-    opacity: 0;
-  }
-}
-
-/* ── ENTER: rise up from below + gentle fade in ── */
-.hsc2-front-enter {
-  animation: hsc2Enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes hsc2Enter {
-  from {
-    transform: translate(-50%, -50%) translateY(14px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%) translateY(0px);
-    opacity: 1;
-  }
-}
-
-/* ── Behind cards — smooth dim during transition ── */
-.hsc2-behind-dim {
-  opacity: 0.5 !important;
-  transition: opacity 0.32s ease !important;
-}
-
-/* ── Bottom controls — in-flow sibling, never clipped ── */
+/* ── Bottom controls ── */
 .hsc2-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  position: relative;
-  z-index: 10;
 }
 
-/* Prev / Next buttons */
-.hsc2-ctrl-btn {
-  width: 36px;
-  height: 36px;
+.hsc2-nav {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.45);
-  color: var(--white, #fff);
+  background: var(--bronze, #AF8C53);
+  border: 1px solid var(--bronze, #AF8C53);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   flex-shrink: 0;
+  transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease;
+}
+.hsc2-nav:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--bronze, #AF8C53);
 }
 
-.hsc2-ctrl-btn:hover {
-  background: rgba(255,255,255,0.3);
-  border-color: var(--gold, #9a7d54);
-  color: var(--gold, #9a7d54);
-}
-
-/* Dot indicators */
+/* ── Dots ── */
 .hsc2-dots {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-
 .hsc2-dot {
   width: 7px;
   height: 7px;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.45);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.55);
   border: none;
   cursor: pointer;
   padding: 0;
   transition: width 0.35s ease, background 0.35s ease;
 }
-
 .hsc2-dot-active {
-  width: 24px;
-  background: var(--white, #fff);
+  width: 22px;
+  background: var(--bronze, #AF8C53);
+}
+
+@media (max-width: 1024px) {
+  .main-grid.has-carousel { align-items: flex-start; }
+  .main-grid.has-carousel .left-content { max-width: 100%; }
+  .hero-right { width: 100%; justify-content: center; }
+}
+@media (max-width: 560px) {
+  :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-spread: 58px; }
+  .hsc2-nav { width: 38px; height: 38px; }
 }
 
 .experience-text {
@@ -1597,12 +1609,13 @@ body {
 }
 .hero-headline-top {
   font-family: var(--font-inter), sans-serif;
-  font-size: clamp(1.25rem, 2vw, 1.85rem);
+  font-size: clamp(1rem, 1.5vw, 1.4rem);
   font-weight: 300;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: rgba(254, 252, 246, 0.9);
   line-height: 1.2;
+  white-space: nowrap;
 }
 .hero-headline-mid {
   font-family: var(--font-serif);
@@ -1633,7 +1646,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-headline-top {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
   }
   .hero-headline-mid {
     font-size: clamp(2.8rem, 9vw, 4rem);
@@ -1744,8 +1757,17 @@ body {
   cursor: pointer;
 }
 
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-arrow svg {
+  display: block;
+}
+
 .explore-btn .btn-arrow {
-  font-size: 0.85rem;
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }
@@ -3901,8 +3923,192 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   }
 }
 
+/* =========================================
+   AUTH PAGES (login / signup / forgot / reset)
+   — framed editorial card, mirrors the CTA section
+   ========================================= */
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f0ede8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9.5rem 4rem 5.5rem;
+  box-sizing: border-box;
+}
 
+.auth-card {
+  width: 100%;
+  max-width: 1080px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1.05fr;
+  align-items: stretch;
+  border: 1px solid var(--bronze);
+  background-color: #f8f6f1;
+  padding: 4rem;
+  position: relative;
+}
 
+.auth-brand-col,
+.auth-form-col {
+  min-width: 0;
+}
+
+.auth-card::before,
+.auth-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.auth-card::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
+}
+
+.auth-card::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
+}
+
+/* ── Left brand column ── */
+.auth-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-right: 4rem;
+}
+
+.auth-brand-logo-link {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+}
+
+.auth-brand-logo {
+  width: 104px;
+  height: auto;
+  display: block;
+  /* logo.png ships white — invert to dark on the cream card, same as the navbar */
+  filter: invert(1);
+}
+
+.auth-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.auth-brand-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(1.75rem, 2.4vw, 2.3rem);
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin: 0;
+}
+
+.auth-brand-headline .italic-serif {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: clamp(2.1rem, 3.2vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.auth-brand-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: rgba(4, 36, 51, 0.6);
+  max-width: 320px;
+  margin: 0;
+}
+
+.auth-brand-note {
+  margin-top: auto;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.45);
+}
+
+/* ── Divider ── */
+.auth-col-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 0 3rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(4, 36, 51, 0.15) 15%,
+    rgba(4, 36, 51, 0.15) 85%,
+    transparent 100%
+  );
+}
+
+/* ── Right form column ── */
+.auth-form-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 940px) {
+  .auth-page {
+    align-items: flex-start;
+    padding: 7rem 1.5rem 3.5rem;
+  }
+  .auth-card {
+    max-width: 460px;
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.75rem;
+  }
+  .auth-brand-col {
+    padding-right: 0;
+    gap: 1.1rem;
+  }
+  .auth-brand-note {
+    display: none;
+  }
+  .auth-col-divider {
+    width: 100%;
+    height: 1px;
+    margin: 1.75rem 0;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(4, 36, 51, 0.15) 20%,
+      rgba(4, 36, 51, 0.15) 80%,
+      transparent 100%
+    );
+  }
+}
+
+@media (max-width: 420px) {
+  .auth-page {
+    padding: 6.5rem 1rem 3rem;
+  }
+  .auth-card {
+    padding: 2.25rem 1.35rem;
+  }
+}
 
 
 

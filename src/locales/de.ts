@@ -8,6 +8,9 @@ export const de = {
     knowledge: 'WISSEN',
     contact: 'KONTAKT',
     cancelContract: 'Widerrufsrecht',
+    admin: 'ADMIN',
+    logout: 'ABMELDEN',
+    profile: 'MEIN KONTO',
   },
   hero: {
     since: 'SEIT 1991',
@@ -715,8 +718,10 @@ export const de = {
       submitBtn: 'Anmelden',
       noAccountText: "Sie haben noch kein Konto?",
       signupLink: 'Registrieren',
-      successMsg: 'Angemeldet — TODO: connect to auth backend',
-      loading: 'Anmeldung läuft...'
+      successMsg: 'Angemeldet',
+      loading: 'Anmeldung läuft...',
+      invalidCredentials: 'Ungültige E-Mail-Adresse oder Passwort.',
+      genericError: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.'
     },
     signup: {
       title: 'Konto erstellen',
@@ -730,8 +735,10 @@ export const de = {
       submitBtn: 'Konto erstellen',
       hasAccountText: 'Sie haben bereits ein Konto?',
       loginLink: 'Anmelden',
-      successMsg: 'Konto erstellt — TODO: connect to auth backend',
-      loading: 'Wird erstellt...'
+      successMsg: 'Konto erstellt',
+      loading: 'Wird erstellt...',
+      emailTaken: 'Ein Konto mit dieser E-Mail-Adresse existiert bereits.',
+      genericError: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.'
     },
     forgotPassword: {
       title: 'Passwort zurücksetzen',
@@ -740,6 +747,19 @@ export const de = {
       successMsg: 'Wenn ein Konto für diese E-Mail existiert, wurde ein Link zum Zurücksetzen gesendet.',
       backToLogin: 'Zurück zur Anmeldung',
       loading: 'Wird gesendet...'
+    },
+    resetPassword: {
+      title: 'Neues Passwort festlegen',
+      newPassword: 'Neues Passwort',
+      confirmPassword: 'Neues Passwort bestätigen',
+      passwordHint: 'Mindestens 8 Zeichen',
+      passwordMismatch: 'Passwörter stimmen nicht überein',
+      submitBtn: 'Passwort aktualisieren',
+      loading: 'Wird aktualisiert...',
+      successMsg: 'Ihr Passwort wurde aktualisiert. Sie können sich jetzt anmelden.',
+      invalidToken: 'Dieser Link ist ungültig oder abgelaufen.',
+      requestNewLink: 'Neuen Link anfordern',
+      backToLogin: 'Zurück zur Anmeldung'
     }
   },
   propertyCard: {

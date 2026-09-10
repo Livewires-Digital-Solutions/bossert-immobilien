@@ -7,7 +7,7 @@ export default function IntroSequence() {
   const [stage, setStage] = useState<'loading' | 'opening' | 'done'>('loading');
 
   useEffect(() => {
-    // Aggressively prevent scrolling while the immersive intro is playing
+    // Lock scrolling while the immersive intro plays.
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     window.scrollTo(0, 0);
@@ -17,7 +17,6 @@ export default function IntroSequence() {
       e.stopPropagation();
       return false;
     };
-
     const preventKeyScroll = (e: KeyboardEvent) => {
       if (['Space', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
         e.preventDefault();
@@ -28,29 +27,26 @@ export default function IntroSequence() {
     window.addEventListener('touchmove', preventScroll, { passive: false });
     window.addEventListener('keydown', preventKeyScroll, { passive: false });
 
-    // Trigger the door opening animation shortly after mount
-    const openTimer = setTimeout(() => {
-      setStage('opening');
-    }, 500);
-
-    // The transition completes in 3.2s. Unmount after it finishes.
-    const doneTimer = setTimeout(() => {
-      setStage('done');
+    const unlock = () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
-    }, 4200);
+    };
+
+    // Open the doors shortly after mount.
+    const openTimer = setTimeout(() => setStage('opening'), 320);
+    // Door swing is 1.8s — finish just after it completes.
+    const doneTimer = setTimeout(() => {
+      setStage('done');
+      unlock();
+    }, 2400);
 
     return () => {
       clearTimeout(openTimer);
       clearTimeout(doneTimer);
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventKeyScroll);
+      unlock();
     };
   }, []);
 

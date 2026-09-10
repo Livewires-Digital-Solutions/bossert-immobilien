@@ -48,31 +48,15 @@
 }
 
 .logoImg {
-  width: 52px;
+  width: 160px;
   height: auto;
   object-fit: contain;
-  margin-bottom: 0.75rem;
   opacity: 0.95;
   filter: brightness(0) invert(1);
 }
 
-.wordmarkTop {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 300;
-  letter-spacing: 6px;
-  color: #FEFCF6 !important;
-  text-transform: uppercase;
-}
-
-.wordmarkBottom {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  letter-spacing: 6px;
-  color: #AF8C53 !important;
-  text-transform: uppercase;
-  margin-top: 2px;
+@media (max-width: 600px) {
+  .logoImg { width: 88px; }
 }
 
 /* ── Horizontal rule ── */
@@ -95,7 +79,7 @@
 
 .navLink {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 300;
   letter-spacing: 0.5px;
   color: rgba(254, 252, 246, 0.75) !important;
@@ -150,7 +134,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.9rem 2rem;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: rgba(254, 252, 246, 0.45) !important;
   background-color: #042433 !important;
 }
@@ -186,6 +170,6 @@
   }
   .navLink {
     padding: 0.35rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 }

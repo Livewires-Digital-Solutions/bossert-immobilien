@@ -1,21 +1,14 @@
-"use client";
-
-import React from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import ModalShell from '../../components/auth/ModalShell';
 import { SignupForm } from '../../components/auth/AuthForms';
-import styles from '../../components/auth/AuthForm.module.css';
+
+export const metadata = {
+  title: 'Create Account · Bossert Immobilien',
+};
 
 export default function SignupPage() {
   return (
-    <main style={{ backgroundColor: 'var(--navy)' }}>
-      <Navbar />
-      <div className={styles.standaloneContainer}>
-        <div className={styles.standaloneCard}>
-          <SignupForm />
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <ModalShell standalone>
+      <SignupForm />
+    </ModalShell>
   );
 }

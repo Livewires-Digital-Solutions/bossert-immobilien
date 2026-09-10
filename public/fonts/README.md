@@ -2,11 +2,13 @@
 
 Place your "The Seasons" font files in this folder (`/public/fonts/`):
 
-### Supported Formats & File Names:
-- **Regular**: `TheSeasons-Regular.woff2` (or `.woff`, `.otf`, `.ttf`)
-- **Italic**: `TheSeasons-Italic.woff2` (or `.woff`, `.otf`, `.ttf`)
-- **Bold**: `TheSeasons-Bold.woff2` (or `.woff`, `.otf`, `.ttf`)
-- **Light**: `TheSeasons-Light.woff2` (or `.woff`, `.otf`, `.ttf`)
+### Expected File Names (referenced by `layout.tsx` and `globals.css`):
+- **Regular**: `theseasons-reg.otf`
+- **Italic**: `theseasons-it.otf`
+- **Bold**: `theseasons-bd.otf`
+- **Bold Italic**: `theseasons-bdit.otf`
+- **Light**: `theseasons-lt.otf`
+- **Light Italic**: `theseasons-ltit.otf`
 
 The website automatically checks:
 1. Local system fonts (`local('The Seasons')`) if installed on your computer.

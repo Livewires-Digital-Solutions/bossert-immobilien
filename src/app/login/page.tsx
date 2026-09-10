@@ -1,21 +1,14 @@
-"use client";
-
-import React from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import ModalShell from '../../components/auth/ModalShell';
 import { LoginForm } from '../../components/auth/AuthForms';
-import styles from '../../components/auth/AuthForm.module.css';
+
+export const metadata = {
+  title: 'Log In · Bossert Immobilien',
+};
 
 export default function LoginPage() {
   return (
-    <main style={{ backgroundColor: 'var(--navy)' }}>
-      <Navbar />
-      <div className={styles.standaloneContainer}>
-        <div className={styles.standaloneCard}>
-          <LoginForm />
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <ModalShell standalone>
+      <LoginForm />
+    </ModalShell>
   );
 }

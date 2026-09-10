@@ -4,12 +4,24 @@ import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 
-export default function ModalShell({ children }: { children: React.ReactNode }) {
+export default function ModalShell({
+  children,
+  standalone = false,
+}: {
+  children: React.ReactNode;
+  /** When opened directly (not intercepted from another page), close/back should
+   *  land on the homepage rather than walking browser history off-site. */
+  standalone?: boolean;
+}) {
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
-    router.back();
+    if (standalone) {
+      router.push('/');
+    } else {
+      router.back();
+    }
   };
 
   useEffect(() => {
@@ -47,6 +59,12 @@ export default function ModalShell({ children }: { children: React.ReactNode }) 
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
+
+        <a href="/" className={styles.modalLogoLink} aria-label="Bossert Immobilien — home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="Bossert Immobilien" className={styles.modalLogo} />
+        </a>
+
         {children}
       </div>
     </div>

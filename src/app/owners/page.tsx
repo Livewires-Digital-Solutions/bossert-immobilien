@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import ConsultationModal from '@/components/modals/ConsultationModal';
 import ProcessList from '@/components/ProcessList';
+import BtnArrow from '@/components/BtnArrow';
 
 export default function ForOwnersPage() {
   const { t } = useLanguage();
@@ -80,7 +81,7 @@ export default function ForOwnersPage() {
                 style={{ fontFamily: 'var(--font-satoshi), sans-serif' }}
               >
                 {data.hero.cta || 'Request a no-obligation consultation'}
-                <span className="btn-arrow">↗</span>
+                <BtnArrow />
               </Link>
             </div>
           </div>
@@ -504,7 +505,7 @@ export default function ForOwnersPage() {
                 }}
               >
                 Request Consultation
-                <span className="btn-arrow">↗</span>
+                <BtnArrow />
               </button>
         </div>
       </section>

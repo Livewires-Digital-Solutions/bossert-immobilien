@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ServiceSlide {
-  counter: string;
-  tag: string;
   image: string;
   category: string;
   titleLine1: string;
@@ -16,50 +15,57 @@ interface ServiceSlide {
 
 const slides: ServiceSlide[] = [
   {
-    counter: '01 / 03',
-    tag: 'PEOPLE\nPROPERTIES\nPOSSIBILITIES.',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
-    category: 'SELLING',
+    image:
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
+    category: 'Selling',
     titleLine1: 'Sell your property',
-    titleLine2: '— strategically',
-    desc: 'With precise market insights and a bespoke sales strategy, we ensure your property reaches the right buyers.',
+    titleLine2: 'strategically',
+    desc: 'Precise market insight and a bespoke sales strategy, so your property reaches exactly the right buyers.',
     href: '/services',
   },
   {
-    counter: '02 / 03',
-    tag: '',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
-    category: 'MANAGEMENT',
+    image:
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
+    category: 'Management',
     titleLine1: 'Professional',
     titleLine2: 'management',
-    desc: 'Maximize the value of your property with our tailored management services and expert oversight.',
+    desc: 'Protect and grow the value of your property with tailored management and attentive oversight.',
     href: '/services',
   },
   {
-    counter: '03 / 03',
-    tag: '',
-    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
-    category: 'BUYING',
+    image:
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
+    category: 'Buying',
     titleLine1: 'Find your',
-    titleLine2: 'ideal property',
-    desc: 'We help you discover extraordinary properties that match your lifestyle and exceed your expectations.',
+    titleLine2: 'ideal home',
+    desc: 'We uncover extraordinary properties that match your life and quietly exceed your expectations.',
     href: '/properties',
   },
 ];
 
-function ServiceCard({ slide }: { slide: ServiceSlide }) {
+function ArrowBadge() {
+  return (
+    <span className="hsc2-btn-badge" aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14" />
+        <path d="M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  );
+}
+
+function ServiceCard({ slide, index }: { slide: ServiceSlide; index: number }) {
   return (
     <div className="hsc2-card">
       <div className="hsc2-img" style={{ backgroundImage: `url(${slide.image})` }}>
-        <div className="hsc2-img-header">
-          <span className="hsc2-counter">{slide.counter}</span>
-          {slide.tag && <span className="hsc2-tag">{slide.tag}</span>}
-        </div>
+        <span className="hsc2-counter">
+          {String(index + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+        </span>
       </div>
       <div className="hsc2-body">
         <span className="hsc2-category">
-          {slide.category}
           <span className="hsc2-cat-line" />
+          {slide.category}
         </span>
         <h3 className="hsc2-title">
           {slide.titleLine1}
@@ -68,37 +74,57 @@ function ServiceCard({ slide }: { slide: ServiceSlide }) {
         </h3>
         <p className="hsc2-desc">{slide.desc}</p>
         <Link href={slide.href} className="hsc2-btn">
-          LEARN MORE <span className="hsc2-arrow">→</span>
+          <span>Learn more</span>
+          <ArrowBadge />
         </Link>
       </div>
     </div>
   );
 }
 
-type Phase = 'idle' | 'exit' | 'enter';
-
 export default function HeroServicesCarousel() {
   const [active, setActive] = useState(0);
-  const [phase, setPhase]   = useState<Phase>('idle');
+  const [animating, setAnimating] = useState(false);
+  const [noTrans, setNoTrans] = useState<number | null>(null);
   const total = slides.length;
+  useLanguage(); // re-render on language change (copy is EN-only for now)
 
-  const navigate = useCallback((dir: 'next' | 'prev') => {
-    if (phase !== 'idle') return;
+  // Signed offset of slide `i` from the active slide, wrapped to [-half, +half].
+  const relOf = useCallback(
+    (i: number) => {
+      let r = i - active;
+      if (r > total / 2) r -= total;
+      if (r < -total / 2) r += total;
+      return r;
+    },
+    [active, total],
+  );
 
-    // Phase 1 — exit: scale down + blur out
-    setPhase('exit');
+  const navigate = useCallback(
+    (dir: 'next' | 'prev') => {
+      if (animating) return;
+      setAnimating(true);
 
-    setTimeout(() => {
-      // Swap content
-      setActive(a => dir === 'next' ? (a + 1) % total : (a - 1 + total) % total);
-      // Phase 2 — enter: bloom in
-      setPhase('enter');
+      const nextActive =
+        dir === 'next' ? (active + 1) % total : (active - 1 + total) % total;
 
-      setTimeout(() => {
-        setPhase('idle');
-      }, 480);
-    }, 280);
-  }, [phase, total]);
+      // The card that would sweep straight through the centre — send it across
+      // with no transition so the other two do the visible sliding.
+      const wrapIdx =
+        dir === 'next' ? (active - 1 + total) % total : (active + 1) % total;
+
+      setNoTrans(wrapIdx);
+      setActive(nextActive);
+
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setNoTrans(null);
+          setTimeout(() => setAnimating(false), 600);
+        }),
+      );
+    },
+    [active, animating, total],
+  );
 
   const next = useCallback(() => navigate('next'), [navigate]);
   const prev = useCallback(() => navigate('prev'), [navigate]);
@@ -108,32 +134,33 @@ export default function HeroServicesCarousel() {
     return () => clearTimeout(t);
   }, [active, next]);
 
-  const idx = (offset: number) => (active + offset + total) % total;
-
   return (
     <div className="hsc2-wrapper">
-      {/* Card stack */}
       <div className="hsc2-root">
-        {/* Left behind */}
-        <div className={`hsc2-behind hsc2-behind-left${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`} onClick={prev}>
-          <ServiceCard slide={slides[idx(-1)]} />
-        </div>
+        {slides.map((slide, i) => {
+          const r = relOf(i);
+          return (
+            <div
+              key={i}
+              className="hsc2-slide"
+              data-rel={r}
+              data-hidden={Math.abs(r) > 1}
+              data-notrans={noTrans === i}
+              onClick={() => {
+                if (r === -1) prev();
+                else if (r === 1) next();
+              }}
+            >
+              <ServiceCard slide={slide} index={i} />
+            </div>
+          );
+        })}
 
-        {/* Right behind */}
-        <div className={`hsc2-behind hsc2-behind-right${phase !== 'idle' ? ' hsc2-behind-dim' : ''}`} onClick={next}>
-          <ServiceCard slide={slides[idx(1)]} />
-        </div>
-
-        {/* Front card */}
-        <div className={`hsc2-front${phase === 'exit' ? ' hsc2-front-exit' : ''}${phase === 'enter' ? ' hsc2-front-enter' : ''}`}>
-          <ServiceCard slide={slides[idx(0)]} />
-        </div>
       </div>
 
-      {/* Bottom controls */}
       <div className="hsc2-controls">
-        <button className="hsc2-ctrl-btn" onClick={prev} aria-label="Previous">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <button className="hsc2-nav hsc2-nav-prev" onClick={prev} aria-label="Previous service">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
@@ -144,16 +171,18 @@ export default function HeroServicesCarousel() {
               key={i}
               className={`hsc2-dot${i === active ? ' hsc2-dot-active' : ''}`}
               onClick={() => {
-                if (i === active || phase !== 'idle') return;
-                navigate(i > active ? 'next' : 'prev');
+                if (i === active || animating) return;
+                const forward = (i - active + total) % total;
+                const backward = (active - i + total) % total;
+                navigate(forward <= backward ? 'next' : 'prev');
               }}
-              aria-label={`Slide ${i + 1}`}
+              aria-label={`Go to service ${i + 1}`}
             />
           ))}
         </div>
 
-        <button className="hsc2-ctrl-btn" onClick={next} aria-label="Next">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <button className="hsc2-nav hsc2-nav-next" onClick={next} aria-label="Next service">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>

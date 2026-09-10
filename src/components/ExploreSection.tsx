@@ -6,6 +6,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import { Property, mockProperties } from '../data/properties';
 import SearchSection from './SearchSection';
+import BtnArrow from './BtnArrow';
 
 export default function ExploreSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
@@ -76,7 +77,7 @@ export default function ExploreSection() {
             </p>
             <a href="/properties" className="explore-btn explore-btn-dark">
               {t.explore.btn}
-              <span className="btn-arrow">↗</span>
+              <BtnArrow />
             </a>
           </div>
         </div>

@@ -8,6 +8,9 @@ export const en = {
     knowledge: 'KNOWLEDGE',
     contact: 'CONTACT',
     cancelContract: 'Right of Withdrawal',
+    admin: 'ADMIN',
+    logout: 'LOG OUT',
+    profile: 'MY ACCOUNT',
   },
   hero: {
     since: 'SEIT 1991',
@@ -191,7 +194,7 @@ export const en = {
     heroHeadline: 'Our',
     heroHeadlineSerif: 'Properties.',
     heroSubhead: 'Our complete portfolio of extraordinary properties, defined by uncompromising quality and prime locations across the Rhein-Main region.',
-    heroCta: 'Create your search profile and get started',
+    heroCta: 'Create a search profile and get started',
     ctaHeadline: 'Private',
     ctaHeadlineSerif: 'Representation.',
     ctaSubhead: 'Seeking something entirely unlisted? Our private network grants access to the most exclusive off-market properties worldwide.',
@@ -494,7 +497,7 @@ export const en = {
         whatAbout: "What is your inquiry about?",
         specificListing: "Does your request relate to a specific listing?"
       },
-      // TODO: consolidate with leadForms.searchProfile
+
       searchProfile: {
         title: "Create your exclusive search profile",
         subhead: "Individual. Discreet. Personal.",
@@ -715,8 +718,10 @@ export const en = {
       submitBtn: 'Log In',
       noAccountText: "Don't have an account?",
       signupLink: 'Sign up',
-      successMsg: 'Logged in — TODO: connect to auth backend',
-      loading: 'Logging in...'
+      successMsg: 'Logged in',
+      loading: 'Logging in...',
+      invalidCredentials: 'Invalid email or password.',
+      genericError: 'Something went wrong. Please try again.'
     },
     signup: {
       title: 'Create Account',
@@ -730,8 +735,10 @@ export const en = {
       submitBtn: 'Create Account',
       hasAccountText: 'Already have an account?',
       loginLink: 'Log in',
-      successMsg: 'Account created — TODO: connect to auth backend',
-      loading: 'Creating...'
+      successMsg: 'Account created',
+      loading: 'Creating...',
+      emailTaken: 'An account with this email already exists.',
+      genericError: 'Something went wrong. Please try again.'
     },
     forgotPassword: {
       title: 'Reset Password',
@@ -740,6 +747,19 @@ export const en = {
       successMsg: 'If an account exists for this email, a password reset link has been sent.',
       backToLogin: 'Back to login',
       loading: 'Sending...'
+    },
+    resetPassword: {
+      title: 'Set a New Password',
+      newPassword: 'New Password',
+      confirmPassword: 'Confirm New Password',
+      passwordHint: 'At least 8 characters',
+      passwordMismatch: 'Passwords do not match',
+      submitBtn: 'Update Password',
+      loading: 'Updating...',
+      successMsg: 'Your password has been updated. You can now log in.',
+      invalidToken: 'This reset link is invalid or has expired.',
+      requestNewLink: 'Request a new link',
+      backToLogin: 'Back to login'
     }
   },
   propertyCard: {
@@ -760,7 +780,7 @@ export const en = {
       plotArea: 'Plot'
     },
     priceLabel: 'PURCHASE PRICE',
-    btnAction: 'TO LISTING'
+    btnAction: 'VIEW PROPERTY'
   },
   leadForms: {
     // Interessent — search profile (/search-profile)
