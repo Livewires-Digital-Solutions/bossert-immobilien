@@ -3919,7 +3919,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   display: grid;
   grid-template-columns: 1fr auto 1.05fr;
   align-items: stretch;
-  border: 1px solid var(--navy);
+  border: 1px solid var(--bronze);
   background-color: #f8f6f1;
   padding: 4rem;
   position: relative;
@@ -3941,15 +3941,15 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 .auth-card::before {
   top: -5px;
   left: -5px;
-  border-top: 2px solid var(--navy);
-  border-left: 2px solid var(--navy);
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
 }
 
 .auth-card::after {
   bottom: -5px;
   right: -5px;
-  border-bottom: 2px solid var(--navy);
-  border-right: 2px solid var(--navy);
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
 }
 
 /* ── Left brand column ── */
@@ -3967,12 +3967,11 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 }
 
 .auth-brand-logo {
-  width: 94px;
+  width: 104px;
   height: auto;
   display: block;
-  /* logo.png ships light — flatten to solid dark for the cream card */
-  filter: brightness(0);
-  opacity: 0.88;
+  /* logo.png ships white — invert to dark on the cream card, same as the navbar */
+  filter: invert(1);
 }
 
 .auth-eyebrow {

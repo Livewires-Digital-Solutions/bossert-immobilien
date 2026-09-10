@@ -29,7 +29,7 @@
   width: 100%;
   max-width: 430px;
   background: #f8f6f1;
-  border: 1px solid var(--navy);
+  border: 1px solid var(--bronze);
   border-radius: 0;
   transform: translateY(18px);
   opacity: 0;
@@ -52,14 +52,14 @@
 .modalContainer::before {
   top: -5px;
   left: -5px;
-  border-top: 2px solid var(--navy);
-  border-left: 2px solid var(--navy);
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
 }
 .modalContainer::after {
   bottom: -5px;
   right: -5px;
-  border-bottom: 2px solid var(--navy);
-  border-right: 2px solid var(--navy);
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
 }
 
 .closeButton {
@@ -225,15 +225,16 @@
 }
 
 .submitBtn {
+  position: relative;
   width: 100%;
   margin-top: 1.5rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
+  text-align: center;
   background: transparent;
   color: var(--navy);
-  border: 1px solid var(--gold, #9a7d54);
+  border: 1px solid var(--bronze);
   border-radius: 0;
   padding: 0.95rem 1.75rem;
   font-family: var(--font-inter), sans-serif;
@@ -245,11 +246,16 @@
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Arrow parked at the right edge so the label stays dead-centre */
 .submitBtn::after {
   content: '→';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.9rem;
   line-height: 1;
-  transition: transform 0.3s ease;
+  transition: right 0.3s ease;
 }
 
 .submitBtn:hover:not(:disabled) {
@@ -259,7 +265,7 @@
 }
 
 .submitBtn:hover:not(:disabled)::after {
-  transform: translateX(3px);
+  right: 1.2rem;
 }
 
 .submitBtn:disabled {
