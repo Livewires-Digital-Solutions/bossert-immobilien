@@ -1,4 +1,4 @@
-import AuthShell from '../../components/auth/AuthShell';
+import ModalShell from '../../components/auth/ModalShell';
 import { ResetPasswordForm } from '../../components/auth/AuthForms';
 
 export const metadata = {
@@ -11,13 +11,8 @@ export default async function ResetPasswordPage(props: {
   const { token } = await props.searchParams;
 
   return (
-    <AuthShell
-      eyebrow="Account Recovery"
-      title="Set a new"
-      titleSerif="password."
-      text="Choose a strong password you don't use elsewhere. This link can only be used once."
-    >
+    <ModalShell standalone>
       <ResetPasswordForm token={token} />
-    </AuthShell>
+    </ModalShell>
   );
 }

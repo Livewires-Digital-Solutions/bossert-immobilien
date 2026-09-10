@@ -1,4 +1,4 @@
-import AuthShell from '../../components/auth/AuthShell';
+import ModalShell from '../../components/auth/ModalShell';
 import { ForgotPasswordForm } from '../../components/auth/AuthForms';
 
 export const metadata = {
@@ -7,13 +7,8 @@ export const metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <AuthShell
-      eyebrow="Account Recovery"
-      title="Forgot your"
-      titleSerif="password?"
-      text="Enter the email address linked to your account and we'll send you a secure link to set a new password."
-    >
+    <ModalShell standalone>
       <ForgotPasswordForm />
-    </AuthShell>
+    </ModalShell>
   );
 }

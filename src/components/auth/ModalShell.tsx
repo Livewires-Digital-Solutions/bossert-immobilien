@@ -4,12 +4,24 @@ import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthForm.module.css';
 
-export default function ModalShell({ children }: { children: React.ReactNode }) {
+export default function ModalShell({
+  children,
+  standalone = false,
+}: {
+  children: React.ReactNode;
+  /** When opened directly (not intercepted from another page), close/back should
+   *  land on the homepage rather than walking browser history off-site. */
+  standalone?: boolean;
+}) {
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
-    router.back();
+    if (standalone) {
+      router.push('/');
+    } else {
+      router.back();
+    }
   };
 
   useEffect(() => {

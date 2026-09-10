@@ -1,4 +1,4 @@
-import AuthShell from '../../components/auth/AuthShell';
+import ModalShell from '../../components/auth/ModalShell';
 import { SignupForm } from '../../components/auth/AuthForms';
 
 export const metadata = {
@@ -7,13 +7,8 @@ export const metadata = {
 
 export default function SignupPage() {
   return (
-    <AuthShell
-      eyebrow="Create Account"
-      title="Join"
-      titleSerif="Bossert."
-      text="Create an account to save properties, receive tailored listing updates and reach our advisors directly."
-    >
+    <ModalShell standalone>
       <SignupForm />
-    </AuthShell>
+    </ModalShell>
   );
 }

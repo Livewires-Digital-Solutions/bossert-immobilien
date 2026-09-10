@@ -1,4 +1,4 @@
-import AuthShell from '../../components/auth/AuthShell';
+import ModalShell from '../../components/auth/ModalShell';
 import { LoginForm } from '../../components/auth/AuthForms';
 
 export const metadata = {
@@ -7,13 +7,8 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <AuthShell
-      eyebrow="Member Access"
-      title="Welcome"
-      titleSerif="back."
-      text="Sign in to manage your saved properties, track new listings and continue where you left off."
-    >
+    <ModalShell standalone>
       <LoginForm />
-    </AuthShell>
+    </ModalShell>
   );
 }
