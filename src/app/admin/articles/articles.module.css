@@ -1,0 +1,55 @@
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.5rem 0 1.25rem;
+  flex-wrap: wrap;
+}
+
+.newBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.3rem;
+  background: var(--navy);
+  color: #fff;
+  border: 1px solid var(--navy);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.newBtn:hover {
+  background: var(--bronze);
+  border-color: var(--bronze);
+}
+
+.rowLink {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 500;
+}
+.rowLink:hover {
+  color: var(--bronze);
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(4, 36, 51, 0.25);
+  color: rgba(4, 36, 51, 0.65);
+}
+.badgePublished {
+  border-color: var(--bronze);
+  color: var(--bronze);
+}
+.star {
+  color: var(--bronze);
+}

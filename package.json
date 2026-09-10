@@ -13,11 +13,18 @@
     "db:generate": "prisma generate",
     "db:studio": "dotenv -e .env.local -- prisma studio",
     "db:seed": "dotenv -e .env.local -- tsx prisma/seed.ts",
-    "db:seed:properties": "dotenv -e .env.local -- tsx src/lib/seed-properties.ts"
+    "db:seed:properties": "dotenv -e .env.local -- tsx src/lib/seed-properties.ts",
+    "db:seed:articles": "dotenv -e .env.local -- tsx prisma/seed-articles.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
     "@prisma/client": "^6.19.3",
+    "@tiptap/extension-image": "^2.27.3",
+    "@tiptap/extension-link": "^2.27.3",
+    "@tiptap/extension-placeholder": "^2.27.3",
+    "@tiptap/pm": "^2.27.3",
+    "@tiptap/react": "^2.27.3",
+    "@tiptap/starter-kit": "^2.27.3",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^13.2.0",
     "gsap": "^3.15.0",
