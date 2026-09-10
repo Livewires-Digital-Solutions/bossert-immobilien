@@ -5,7 +5,9 @@
   display: flex;
   pointer-events: none;
   overflow: hidden;
-  perspective: 1800px;
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+  background-color: #f0ede8;
 }
 
 .door {
@@ -13,21 +15,25 @@
   top: 0;
   width: 50%;
   height: 100vh;
-  background-color: var(--navy);
+  background-color: #f0ede8;
   overflow: hidden;
-  transition: transform 3.2s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 1.8s cubic-bezier(0.7, 0, 0.2, 1),
+              box-shadow 1.8s cubic-bezier(0.7, 0, 0.2, 1);
   will-change: transform;
   backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .leftDoor {
   left: 0;
   transform-origin: left center;
+  border-right: 1px solid rgba(4, 36, 51, 0.12);
 }
 
 .rightDoor {
   right: 0;
   transform-origin: right center;
+  border-left: 1px solid rgba(4, 36, 51, 0.12);
 }
 
 .logoContainer {
@@ -54,24 +60,34 @@
   object-fit: contain;
   transform: translate(-50%, -50%);
   z-index: 2;
+  /* logo.png ships white — recolour it to navy for the off-white gate */
+  filter: brightness(0) saturate(100%) invert(11%) sepia(38%) saturate(1700%)
+          hue-rotate(165deg) brightness(94%) contrast(97%);
 }
 
+/* Depth / shading layer — grows as the door swings toward the viewer */
 .door::after {
   content: '';
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 3.2s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: opacity 1.8s cubic-bezier(0.7, 0, 0.2, 1);
   pointer-events: none;
   z-index: 1;
 }
 
 .leftDoor::after {
-  background: linear-gradient(to right, transparent 40%, rgba(255, 255, 255, 0.08) 95%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(to right,
+    rgba(4, 36, 51, 0.28) 0%,
+    rgba(4, 36, 51, 0.05) 45%,
+    rgba(255, 255, 255, 0.5) 100%);
 }
 
 .rightDoor::after {
-  background: linear-gradient(to left, transparent 40%, rgba(255, 255, 255, 0.08) 95%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(to left,
+    rgba(4, 36, 51, 0.28) 0%,
+    rgba(4, 36, 51, 0.05) 45%,
+    rgba(255, 255, 255, 0.5) 100%);
 }
 
 .doorOpenLeft::after,
@@ -79,16 +95,34 @@
   opacity: 1;
 }
 
+/* Over-rotate slightly past 90° and pull toward the viewer for a real
+   swing-open feel; the drop shadow deepens the 3D read. */
 .doorOpenLeft {
-  transform: rotateY(-85deg) skewY(3deg);
+  transform: rotateY(-105deg) translateZ(60px) skewY(2deg);
+  box-shadow: 40px 0 90px rgba(4, 36, 51, 0.35);
 }
 
 .doorOpenRight {
-  transform: rotateY(85deg) skewY(-3deg);
+  transform: rotateY(105deg) translateZ(60px) skewY(-2deg);
+  box-shadow: -40px 0 90px rgba(4, 36, 51, 0.35);
 }
 
 @media (max-width: 768px) {
+  .introWrapper {
+    perspective: 800px;
+  }
   .logoImage {
     width: 140px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door {
+    transition: opacity 0.4s ease;
+  }
+  .doorOpenLeft,
+  .doorOpenRight {
+    transform: none;
+    opacity: 0;
   }
 }

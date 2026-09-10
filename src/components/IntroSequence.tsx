@@ -31,9 +31,9 @@ export default function IntroSequence() {
     // Trigger the door opening animation shortly after mount
     const openTimer = setTimeout(() => {
       setStage('opening');
-    }, 500);
+    }, 320);
 
-    // The transition completes in 3.2s. Unmount after it finishes.
+    // The door swing completes in 1.8s. Unmount just after it finishes.
     const doneTimer = setTimeout(() => {
       setStage('done');
       document.body.style.overflow = '';
@@ -41,7 +41,7 @@ export default function IntroSequence() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
       window.removeEventListener('keydown', preventKeyScroll);
-    }, 4200);
+    }, 2500);
 
     return () => {
       clearTimeout(openTimer);

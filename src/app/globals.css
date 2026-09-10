@@ -120,16 +120,16 @@ body {
   background-position: center;
   z-index: 0;
   transform-origin: 50% 52%;
-  /* Loads already slightly zoomed, then a short, gentle forward drift that
-     settles quickly — a calm "arrival" rather than a long push. */
-  transform: scale(1.02);
-  animation: heroEnter 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  /* Starts pulled back a touch (matching the moment the gate opens), then
+     pushes forward into the scene as the doors swing away — you walk in. */
+  transform: scale(0.98);
+  animation: heroEnter 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
   will-change: transform;
 }
 
 @keyframes heroEnter {
-  from { transform: scale(1.02); }
-  to   { transform: scale(1.06); }
+  from { transform: scale(0.98); }
+  to   { transform: scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {

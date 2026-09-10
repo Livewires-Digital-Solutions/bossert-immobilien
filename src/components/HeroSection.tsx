@@ -27,7 +27,7 @@ export default function HeroSection() {
     // If the intro gate is active, hold the text until the doors have opened and
     // the background's forward push has mostly settled — then let it animate in.
     const hasGate = typeof document !== 'undefined' && !!document.querySelector('[class*="introWrapper"]');
-    const delay = hasGate ? 2200 : 80;
+    const delay = hasGate ? 1500 : 80;
     const timer = setTimeout(() => {
       setGateReady(true);
     }, delay);
