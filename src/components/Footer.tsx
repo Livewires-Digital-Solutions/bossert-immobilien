@@ -29,8 +29,6 @@ export default function Footer() {
             className={styles.logoImg}
             priority
           />
-          <span className={styles.wordmarkTop}>Bossert</span>
-          <span className={styles.wordmarkBottom}>Immobilien</span>
         </div>
       </div>
 
