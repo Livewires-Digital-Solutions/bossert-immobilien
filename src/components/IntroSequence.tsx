@@ -1,39 +1,28 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './IntroSequence.module.css';
 
 const PLAYED_KEY = 'bossertIntroPlayed';
 
-// useLayoutEffect on the client, no-op on the server (avoids the SSR warning).
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+function alreadyPlayed() {
+  try {
+    return sessionStorage.getItem(PLAYED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
 
 export default function IntroSequence() {
+  // Server always renders the gate markup; the client decides on mount whether
+  // to play it. A pre-paint inline script in layout.tsx hides it via CSS on
+  // repeat visits so there is no flash before this effect runs.
   const [stage, setStage] = useState<'loading' | 'opening' | 'done'>('loading');
 
-  // Before first paint: if the intro already played this session, skip it entirely.
-  useIsomorphicLayoutEffect(() => {
-    let alreadyPlayed = false;
-    try {
-      alreadyPlayed = sessionStorage.getItem(PLAYED_KEY) === '1';
-    } catch {
-      /* storage blocked — just play it */
-    }
-    if (alreadyPlayed) setStage('done');
-  }, []);
-
   useEffect(() => {
-    if (stage === 'done') return;
-
-    try {
-      if (sessionStorage.getItem(PLAYED_KEY) === '1') {
-        setStage('done');
-        return;
-      }
-      sessionStorage.setItem(PLAYED_KEY, '1');
-    } catch {
-      /* ignore */
+    if (alreadyPlayed()) {
+      setStage('done');
+      return;
     }
 
     // Lock scrolling while the immersive intro plays.
@@ -66,8 +55,13 @@ export default function IntroSequence() {
 
     // Open the doors shortly after mount.
     const openTimer = setTimeout(() => setStage('opening'), 320);
-    // Door swing is 1.8s — unmount just after it finishes.
+    // Door swing is 1.8s — finish just after it completes.
     const doneTimer = setTimeout(() => {
+      try {
+        sessionStorage.setItem(PLAYED_KEY, '1');
+      } catch {
+        /* ignore */
+      }
       setStage('done');
       unlock();
     }, 2400);
@@ -77,7 +71,9 @@ export default function IntroSequence() {
       clearTimeout(doneTimer);
       unlock();
     };
-  }, [stage]);
+    // Mount-only: StrictMode's double-invoke just cancels and re-arms the timers
+    // via the cleanup above, which is harmless.
+  }, []);
 
   if (stage === 'done') return null;
 
