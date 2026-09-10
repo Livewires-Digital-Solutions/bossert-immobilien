@@ -137,12 +137,6 @@ export default function HeroServicesCarousel() {
   return (
     <div className="hsc2-wrapper">
       <div className="hsc2-root">
-        <button className="hsc2-nav hsc2-nav-prev" onClick={prev} aria-label="Previous service">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-
         {slides.map((slide, i) => {
           const r = relOf(i);
           return (
@@ -162,27 +156,36 @@ export default function HeroServicesCarousel() {
           );
         })}
 
+      </div>
+
+      <div className="hsc2-controls">
+        <button className="hsc2-nav hsc2-nav-prev" onClick={prev} aria-label="Previous service">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        <div className="hsc2-dots">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              className={`hsc2-dot${i === active ? ' hsc2-dot-active' : ''}`}
+              onClick={() => {
+                if (i === active || animating) return;
+                const forward = (i - active + total) % total;
+                const backward = (active - i + total) % total;
+                navigate(forward <= backward ? 'next' : 'prev');
+              }}
+              aria-label={`Go to service ${i + 1}`}
+            />
+          ))}
+        </div>
+
         <button className="hsc2-nav hsc2-nav-next" onClick={next} aria-label="Next service">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 18l6-6-6-6" />
           </svg>
         </button>
-      </div>
-
-      <div className="hsc2-dots">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            className={`hsc2-dot${i === active ? ' hsc2-dot-active' : ''}`}
-            onClick={() => {
-              if (i === active || animating) return;
-              const forward = (i - active + total) % total;
-              const backward = (active - i + total) % total;
-              navigate(forward <= backward ? 'next' : 'prev');
-            }}
-            aria-label={`Go to service ${i + 1}`}
-          />
-        ))}
       </div>
     </div>
   );
