@@ -22,16 +22,21 @@ export default function HeroSection() {
   const { ref: heroRef, isVisible: scrollVisible } = useScrollReveal(0.1);
   const { t } = useLanguage();
   const [gateReady, setGateReady] = useState(false);
+  const [bgZoom, setBgZoom] = useState(false);
 
   useEffect(() => {
-    // If the intro gate is active, hold the text until the doors have opened and
-    // the background's forward push has mostly settled — then let it animate in.
+    // The intro gate opens its doors ~320ms after mount. Start the background's
+    // scale-in exactly then (so the "walk in" push begins as the doors part),
+    // and hold the text until the doors have swung clear.
     const hasGate = typeof document !== 'undefined' && !!document.querySelector('[class*="introWrapper"]');
-    const delay = hasGate ? 1500 : 80;
-    const timer = setTimeout(() => {
-      setGateReady(true);
-    }, delay);
-    return () => clearTimeout(timer);
+    const bgDelay = hasGate ? 330 : 0;
+    const textDelay = hasGate ? 1500 : 80;
+    const bgTimer = setTimeout(() => setBgZoom(true), bgDelay);
+    const textTimer = setTimeout(() => setGateReady(true), textDelay);
+    return () => {
+      clearTimeout(bgTimer);
+      clearTimeout(textTimer);
+    };
   }, []);
 
   const isVisible = scrollVisible && gateReady;
@@ -40,7 +45,7 @@ export default function HeroSection() {
     <div className="hero-section" ref={heroRef}>
       {/* Decode the hero background before the intro doors open — avoids a flash */}
       <link rel="preload" as="image" href="/HERO%20BG.png" />
-      <div className="hero-bg-image"></div>
+      <div className={`hero-bg-image ${bgZoom ? 'is-zooming' : ''}`}></div>
       <div className="hero-overlay"></div>
       
       <Navbar />

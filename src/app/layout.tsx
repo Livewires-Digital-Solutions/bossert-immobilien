@@ -68,15 +68,8 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${inter.variable} ${theSeasons.variable}`}>
-        {/* Skip the intro gate before first paint if it already played this session */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(sessionStorage.getItem('bossertIntroPlayed')==='1')document.documentElement.setAttribute('data-intro','skip')}catch(e){}",
-          }}
-        />
         <SessionProvider>
           <LanguageProvider>
             <SmoothScroll>

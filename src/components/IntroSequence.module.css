@@ -11,11 +11,6 @@
      through the widening gap as they swing open (no white flash). */
 }
 
-/* Returning visit this session — never paint the gate at all */
-:global(html[data-intro='skip']) .introWrapper {
-  display: none !important;
-}
-
 .door {
   position: absolute;
   top: 0;

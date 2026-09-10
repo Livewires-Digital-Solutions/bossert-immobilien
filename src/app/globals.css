@@ -120,11 +120,14 @@ body {
   background-position: center;
   z-index: 0;
   transform-origin: 50% 52%;
-  /* Starts pulled back a touch (matching the moment the gate opens), then
-     pushes forward into the scene as the doors swing away — you walk in. */
+  /* Held pulled back until the intro doors open; JS adds .is-zooming exactly
+     when they part, and the forward push runs from there — you walk in. */
   transform: scale(0.98);
-  animation: heroEnter 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
   will-change: transform;
+}
+
+.hero-bg-image.is-zooming {
+  animation: heroEnter 2.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes heroEnter {
@@ -133,7 +136,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg-image {
+  .hero-bg-image,
+  .hero-bg-image.is-zooming {
     animation: none;
     transform: scale(1.04);
   }
