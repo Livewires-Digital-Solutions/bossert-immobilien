@@ -68,51 +68,72 @@
 }
 
 .formWrapper {
-  padding: 3rem 2.5rem;
+  padding: 2.5rem 2.25rem;
   color: var(--navy);
+}
+
+.formWrapper form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inside the framed auth-card the column already provides padding */
+:global(.auth-form-col) .formWrapper {
+  padding: 0;
+  width: 100%;
 }
 
 .title {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 400;
+  line-height: 1.1;
   margin-bottom: 2rem;
-  text-align: center;
+  text-align: left;
+  color: var(--navy);
 }
 
 .formGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
   position: relative;
 }
 
 .label {
   display: block;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.5);
+  margin-bottom: 0.4rem;
 }
 
 .input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(4, 36, 51, 0.15);
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 1rem;
+  padding: 0.7rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.18);
+  border-radius: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9rem;
   color: var(--navy);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
+}
+
+.input::placeholder {
+  color: rgba(4, 36, 51, 0.3);
+  font-weight: 300;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--bronze);
-  box-shadow: 0 0 0 1px var(--bronze);
-  background: var(--white);
+  border-bottom-color: var(--navy);
 }
 
 .input.error {
-  border-color: #dc2626;
+  border-bottom-color: #dc2626;
 }
 
 .errorText {
@@ -131,12 +152,13 @@
 
 .passwordToggle {
   position: absolute;
-  right: 1rem;
-  top: 2.35rem;
+  right: 0;
+  top: 1.65rem;
   background: none;
   border: none;
-  color: rgba(4, 36, 51, 0.5);
+  color: rgba(4, 36, 51, 0.4);
   cursor: pointer;
+  padding: 0.25rem;
 }
 
 .passwordToggle:hover {
@@ -151,42 +173,50 @@
 }
 
 .checkboxLabel {
-  font-size: 0.9rem;
-  color: rgba(4, 36, 51, 0.8);
+  font-size: 0.82rem;
+  color: rgba(4, 36, 51, 0.7);
   cursor: pointer;
 }
 
 .submitBtn {
-  width: 100%;
-  padding: 1rem;
-  background: var(--bronze);
-  color: var(--white);
-  border: none;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: auto;
+  padding: 1rem 2.25rem;
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--gold, #9a7d54);
   border-radius: 4px;
-  font-size: 1rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
   font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   margin-top: 1rem;
 }
 
 .submitBtn:hover {
-  background: #9a7844;
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
 }
 
 .submitBtn:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
 .forgotLink {
-  font-size: 0.85rem;
+  display: block;
+  text-align: right;
+  font-size: 0.78rem;
   color: var(--bronze);
   text-decoration: none;
-  float: right;
-  margin-top: -3.5rem;
-  position: relative;
-  z-index: 2;
+  margin: -0.75rem 0 0.25rem;
 }
 
 .forgotLink:hover {
@@ -194,9 +224,9 @@
 }
 
 .footerText {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
+  text-align: left;
+  margin-top: 1.75rem;
+  font-size: 0.82rem;
   color: rgba(4, 36, 51, 0.7);
 }
 
@@ -228,22 +258,4 @@
 
 @keyframes slideUp {
   to { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-/* Standalone Page Styles */
-.standaloneContainer {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8rem 2rem 4rem;
-}
-
-.standaloneCard {
-  width: 100%;
-  max-width: 440px;
-  background: var(--cream);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(4, 36, 51, 0.1);
-  overflow: hidden;
 }

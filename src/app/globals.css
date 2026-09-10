@@ -3897,8 +3897,167 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   }
 }
 
+/* =========================================
+   AUTH PAGES (login / signup / forgot / reset)
+   — framed editorial card, mirrors the CTA section
+   ========================================= */
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f0ede8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9rem 4rem 5rem;
+  box-sizing: border-box;
+}
 
+.auth-card {
+  width: 100%;
+  max-width: 1040px;
+  display: grid;
+  grid-template-columns: 1fr auto 1.1fr;
+  align-items: stretch;
+  border: 1px solid var(--navy);
+  background-color: #f8f6f1;
+  padding: 3.5rem 4rem;
+  position: relative;
+}
 
+.auth-card::before,
+.auth-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.auth-card::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--navy);
+  border-left: 2px solid var(--navy);
+}
+
+.auth-card::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--navy);
+  border-right: 2px solid var(--navy);
+}
+
+/* ── Left brand column ── */
+.auth-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-right: 4rem;
+}
+
+.auth-brand-logo {
+  width: 108px;
+  height: auto;
+  filter: invert(1);
+  margin-bottom: 0.5rem;
+}
+
+.auth-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.auth-brand-headline {
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(1.75rem, 2.4vw, 2.3rem);
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin: 0;
+}
+
+.auth-brand-headline .italic-serif {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: clamp(2.1rem, 3.2vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  display: block;
+}
+
+.auth-brand-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: rgba(4, 36, 51, 0.6);
+  max-width: 320px;
+  margin: 0;
+}
+
+.auth-brand-note {
+  margin-top: auto;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.45);
+}
+
+/* ── Divider ── */
+.auth-col-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 0 3rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(4, 36, 51, 0.15) 15%,
+    rgba(4, 36, 51, 0.15) 85%,
+    transparent 100%
+  );
+}
+
+/* ── Right form column ── */
+.auth-form-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 940px) {
+  .auth-page {
+    padding: 7rem 1.5rem 3.5rem;
+  }
+  .auth-card {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 2rem;
+  }
+  .auth-brand-col {
+    padding-right: 0;
+  }
+  .auth-brand-note {
+    display: none;
+  }
+  .auth-col-divider {
+    width: 100%;
+    height: 1px;
+    margin: 2rem 0;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(4, 36, 51, 0.15) 20%,
+      rgba(4, 36, 51, 0.15) 80%,
+      transparent 100%
+    );
+  }
+}
 
 
 

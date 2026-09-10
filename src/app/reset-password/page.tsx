@@ -1,7 +1,5 @@
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import AuthShell from '../../components/auth/AuthShell';
 import { ResetPasswordForm } from '../../components/auth/AuthForms';
-import styles from '../../components/auth/AuthForm.module.css';
 
 export const metadata = {
   title: 'Set a New Password · Bossert Immobilien',
@@ -13,14 +11,13 @@ export default async function ResetPasswordPage(props: {
   const { token } = await props.searchParams;
 
   return (
-    <main style={{ backgroundColor: 'var(--navy)' }}>
-      <Navbar />
-      <div className={styles.standaloneContainer}>
-        <div className={styles.standaloneCard}>
-          <ResetPasswordForm token={token} />
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <AuthShell
+      eyebrow="Account Recovery"
+      title="Set a new"
+      titleSerif="password."
+      text="Choose a strong password you don't use elsewhere. This link can only be used once."
+    >
+      <ResetPasswordForm token={token} />
+    </AuthShell>
   );
 }

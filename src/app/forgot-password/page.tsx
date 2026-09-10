@@ -1,21 +1,19 @@
-"use client";
-
-import React from 'react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import AuthShell from '../../components/auth/AuthShell';
 import { ForgotPasswordForm } from '../../components/auth/AuthForms';
-import styles from '../../components/auth/AuthForm.module.css';
+
+export const metadata = {
+  title: 'Reset Password · Bossert Immobilien',
+};
 
 export default function ForgotPasswordPage() {
   return (
-    <main style={{ backgroundColor: 'var(--navy)' }}>
-      <Navbar />
-      <div className={styles.standaloneContainer}>
-        <div className={styles.standaloneCard}>
-          <ForgotPasswordForm />
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <AuthShell
+      eyebrow="Account Recovery"
+      title="Forgot your"
+      titleSerif="password?"
+      text="Enter the email address linked to your account and we'll send you a secure link to set a new password."
+    >
+      <ForgotPasswordForm />
+    </AuthShell>
   );
 }
