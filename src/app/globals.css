@@ -2800,6 +2800,193 @@ body {
   gap: 3rem;
 }
 
+/* ── Selected Properties (Homepage) — compact 4-column cards ── */
+.explore-section .explore-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .explore-section .explore-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .explore-section .explore-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Compact Card Styling — Selected Properties */
+
+.explore-section .pc-image-box {
+  aspect-ratio: 16 / 10;
+}
+
+.explore-section .pc-overlays {
+  padding: 0.65rem 0.75rem;
+}
+
+.explore-section .pc-badge-status {
+  font-size: 0.6rem;
+  padding: 0.25rem 0.5rem;
+  gap: 0.3rem;
+  border-radius: 3px;
+}
+
+.explore-section .pc-dot {
+  width: 5px;
+  height: 5px;
+}
+
+.explore-section .pc-badge-type {
+  font-size: 0.6rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+}
+
+.explore-section .pc-badges-right {
+  top: 0.65rem;
+  right: 0.75rem;
+}
+
+.explore-section .pc-badge-heart {
+  width: 28px;
+  height: 28px;
+}
+
+.explore-section .pc-badge-heart svg {
+  width: 14px;
+  height: 14px;
+}
+
+.explore-section .pc-image-count {
+  bottom: 0.65rem;
+  right: 0.75rem;
+  font-size: 0.6rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+  gap: 0.25rem;
+}
+
+
+.explore-section .pc-location-subhead {
+  font-size: 0.58rem;
+  gap: 0.35rem;
+  letter-spacing: 0.08em;
+}
+
+.explore-section .pc-line {
+  width: 14px;
+}
+
+.explore-section .pc-title {
+  font-size: 1.02rem;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+}
+
+.explore-section .pc-summary {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #666;
+}
+
+.explore-section .pc-address {
+  font-size: 0.7rem;
+  gap: 0.35rem;
+  color: #777;
+}
+
+.explore-section .pc-address svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.explore-section .property-card-new {
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(4, 36, 51, 0.04);
+  height: 100%;
+}
+
+.explore-section .pc-content-box {
+  padding: 0.9rem 1rem 1rem;
+  gap: 0.45rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.explore-section .pc-specs-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.55rem 0;
+  gap: 0.2rem;
+}
+
+.explore-section .pc-spec-item {
+  flex: 1;
+  min-width: 0;
+  gap: 0.15rem;
+}
+
+.explore-section .pc-spec-item:not(:last-child)::after {
+  right: 0;
+}
+
+.explore-section .pc-spec-item svg {
+  width: 14px;
+  height: 14px;
+  margin-bottom: 0.1rem;
+}
+
+.explore-section .pc-spec-val {
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.explore-section .pc-spec-lbl {
+  font-size: 0.52rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.explore-section .pc-footer {
+  margin-top: 0.3rem;
+  align-items: center;
+}
+
+.explore-section .pc-price {
+  font-size: 1.18rem;
+  margin-bottom: 0.1rem;
+}
+
+.explore-section .pc-price-label {
+  font-size: 0.55rem;
+}
+
+.explore-section .pc-btn {
+  padding: 0.42rem 0.75rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  gap: 0.35rem;
+}
+
 /* Property Card */
 .property-card {
   position: relative;
