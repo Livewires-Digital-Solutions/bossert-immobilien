@@ -102,7 +102,7 @@ export default function ExploreSection() {
             ))
           ) : filteredProperties.length === 0 ? (
             <p style={{ gridColumn: '1 / -1', textAlign: 'center', opacity: 0.5, padding: '2rem' }}>
-              Keine Immobilien in dieser Kategorie gefunden.
+              No properties found in this category.
             </p>
           ) : (
             filteredProperties.map((prop) => (

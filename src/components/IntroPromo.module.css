@@ -28,9 +28,7 @@
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  /* Invert black drawing lines into vibrant off-white architectural line art */
-  filter: invert(1) brightness(1.3) contrast(1.15);
-  mix-blend-mode: screen;
+  /* Show the updated aboutbg.png as-is — no grayscale/invert/blend treatment */
   z-index: 1;
   pointer-events: none;
   transform-origin: center center;
@@ -43,9 +41,10 @@
   inset: 0;
   background: radial-gradient(
     circle at center,
-    rgba(4, 36, 51, 0.2) 0%,
-    rgba(4, 36, 51, 0.75) 85%,
-    rgba(4, 36, 51, 0.95) 100%
+    rgba(4, 36, 51, 0) 0%,
+    rgba(4, 36, 51, 0) 55%,
+    rgba(4, 36, 51, 0.55) 90%,
+    rgba(4, 36, 51, 0.85) 100%
   );
   z-index: 2;
   pointer-events: none;

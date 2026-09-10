@@ -4,7 +4,19 @@ import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
-import HeroServicesCarousel from './HeroServicesCarousel';
+
+// Render a headline line with its final word emphasized in white italic
+// (e.g. "for residential" → for <em>residential</em>)
+function HighlightLastWord({ text }: { text: string }) {
+  const parts = text.trim().split(/\s+/);
+  const last = parts.pop();
+  return (
+    <>
+      {parts.length > 0 && <>{parts.join(' ')} </>}
+      <span className="hero-headline-accent">{last}</span>
+    </>
+  );
+}
 
 export default function HeroSection() {
   const { ref: heroRef, isVisible: scrollVisible } = useScrollReveal(0.1);
@@ -12,10 +24,10 @@ export default function HeroSection() {
   const [gateReady, setGateReady] = useState(false);
 
   useEffect(() => {
-    // If the intro gate is active, delay the text reveal so it gracefully animates
-    // into view as the doors swing open, rather than animating behind closed doors.
+    // If the intro gate is active, hold the text until the doors have opened and
+    // the background's forward push has mostly settled — then let it animate in.
     const hasGate = typeof document !== 'undefined' && !!document.querySelector('[class*="introWrapper"]');
-    const delay = hasGate ? 1300 : 80;
+    const delay = hasGate ? 2200 : 80;
     const timer = setTimeout(() => {
       setGateReady(true);
     }, delay);
@@ -41,7 +53,7 @@ export default function HeroSection() {
               </div>
               <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
                 <span className="hero-headline-top">{t.hero.headlineTop}</span>
-                <span className="hero-headline-mid">{t.hero.headlineMid}</span>
+                <span className="hero-headline-mid"><HighlightLastWord text={t.hero.headlineMid} /></span>
                 <span className="hero-headline-bot">
                   <span>{t.hero.headlineBotPre}</span> {t.hero.headlineBotBold}
                 </span>
@@ -60,10 +72,6 @@ export default function HeroSection() {
                 <span className="btn-arrow">↗</span>
               </a>
             </div>
-          </div>
-          
-          <div className="right-content">
-            <HeroServicesCarousel />
           </div>
         </div>
 

@@ -84,21 +84,21 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
           
           <div className="nav-left-section">
             <div className="lang-toggle">
-              <span 
+              <span
                 className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
                 onClick={() => setLang('en')}
               >
                 EN
               </span>
               <span className="lang-sep">|</span>
-              <span 
+              <span
                 className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
                 onClick={() => setLang('de')}
               >
                 DE
               </span>
             </div>
-            
+
             <div className="nav-links-inner">
               <Link href="/properties" className={`nav-item ${pathname === '/properties' ? 'active' : ''}`}>{t.nav.properties.toUpperCase()}</Link>
               <Link href="/owners" className={`nav-item ${pathname === '/owners' ? 'active' : ''}`}>{t.nav.forOwners.toUpperCase()}</Link>
@@ -144,13 +144,13 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
               <line x1="2" y1="12" x2="22" y2="12"></line>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            <span 
-              className={`lang-btn ${lang === 'en' ? 'active' : ''}`} 
+            <span
+              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
               onClick={() => setLang('en')}
             >EN</span>
             <span className="lang-divider">|</span>
-            <span 
-              className={`lang-btn ${lang === 'de' ? 'active' : ''}`} 
+            <span
+              className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
               onClick={() => setLang('de')}
             >DE</span>
           </div>

@@ -16,9 +16,9 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+  // Default to English; visitors can switch to German from the navbar.
   const [lang, setLang] = useState<Language>('en');
 
-  // Persist language preference
   useEffect(() => {
     const saved = localStorage.getItem('bossert-lang');
     if (saved === 'en' || saved === 'de') {

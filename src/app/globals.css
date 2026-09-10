@@ -62,8 +62,10 @@
   --cream: #FEFCF6;
   --bronze: #AF8C53;
   --white: #ffffff;
+  /* Primary brand blue — "blue" always refers to this */
   --blue: #1e50c8;
   --blue-dark: #1640a8;
+  --primary-blue: var(--blue);
   /* theSeasons is the font-family name Next.js compiles from next/font/local */
   --font-serif: 'theSeasons', 'The Seasons', 'FONTSPRING DEMO - The Seasons', Georgia, serif;
   --font-instrument: var(--font-serif);
@@ -120,24 +122,56 @@ body {
   background-image: url('/HERO%20BG.png');
   background-size: cover;
   background-position: center;
-  animation: heroKenBurns 22s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   z-index: 0;
-  transform-origin: center center;
+  transform-origin: 50% 52%;
+  /* Loads already slightly zoomed, then a short, gentle forward drift that
+     settles quickly — a calm "arrival" rather than a long push. */
+  transform: scale(1.08);
+  animation: heroEnter 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   will-change: transform;
 }
 
-@keyframes heroKenBurns {
-  0% {
-    transform: scale(1.07) translate(0%, 0%);
+@keyframes heroEnter {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1.13); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-image {
+    animation: none;
+    transform: scale(1.1);
   }
-  35% {
-    transform: scale(1.11) translate(-0.8%, -0.5%);
-  }
-  70% {
-    transform: scale(1.08) translate(0.6%, -0.4%);
-  }
-  100% {
-    transform: scale(1.12) translate(-0.4%, 0.5%);
+}
+
+/* ── Hero text entrance — soft, quick, tightly staggered ── */
+.hero-section .reveal-base {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(5px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+}
+
+.hero-section .reveal-base.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.hero-section .delay-100 { transition-delay: 70ms; }
+.hero-section .delay-200 { transition-delay: 150ms; }
+.hero-section .delay-300 { transition-delay: 230ms; }
+.hero-section .delay-400 { transition-delay: 330ms; }
+.hero-section .delay-500 { transition-delay: 430ms; }
+.hero-section .delay-600 { transition-delay: 540ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .reveal-base {
+    filter: none;
+    transform: none;
+    transition: opacity 0.4s ease;
   }
 }
 
@@ -162,12 +196,19 @@ body {
       rgba(4, 36, 51, 0.2) 40%, 
       rgba(4, 36, 51, 0.3) 100%
     ),
-    /* Blue ambient glow — left side */
+    /* Primary-blue ambient glow — left side (strong) */
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--blue) 42%, transparent) 0%,
+      color-mix(in srgb, var(--blue) 24%, transparent) 30%,
+      color-mix(in srgb, var(--blue-dark) 8%, transparent) 60%,
+      transparent 85%
+    ),
     radial-gradient(
-      ellipse 55% 60% at 0% 50%,
-      rgba(30, 80, 200, 0.22) 0%,
-      rgba(10, 40, 120, 0.10) 50%,
-      transparent 100%
+      ellipse 80% 100% at -5% 50%,
+      color-mix(in srgb, var(--blue) 46%, transparent) 0%,
+      color-mix(in srgb, var(--blue-dark) 22%, transparent) 45%,
+      transparent 80%
     );
   z-index: 1;
 }
@@ -452,9 +493,7 @@ body {
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  /* Invert black→white, then screen-blend so navy bg shows through */
-  filter: invert(1) opacity(0.1);
-  mix-blend-mode: screen;
+  /* Show the updated aboutbg.png as-is — no grayscale/invert/blend treatment */
   z-index: 0;
   pointer-events: none;
 }
@@ -1127,7 +1166,7 @@ body {
 }
 
 .left-content {
-  max-width: 60%;
+  max-width: min(60ch, 90%);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1575,6 +1614,9 @@ body {
   color: var(--white);
   margin: 0.35rem 0;
   white-space: nowrap;
+}
+.hero-headline-accent {
+  color: var(--white, #fff);
 }
 .hero-headline-bot {
   font-family: var(--font-inter), sans-serif;
@@ -2803,11 +2845,11 @@ body {
 /* ── Selected Properties (Homepage) — compact 4-column cards ── */
 .explore-section .explore-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .explore-section .explore-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
@@ -2821,170 +2863,196 @@ body {
   }
 }
 
-/* Compact Card Styling — Selected Properties */
+/* Compact Card Styling — Selected Properties (minimalist editorial) */
+
+.explore-section .property-card-new {
+  border: 1px solid var(--gold, #9a7d54);
+  border-radius: 0;
+  background: var(--bg, #fbfaf8);
+  box-shadow: 0 1px 2px rgba(4, 36, 51, 0.04);
+  height: 100%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.explore-section .property-card-new:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(4, 36, 51, 0.09);
+  border-color: var(--gold, #9a7d54);
+}
 
 .explore-section .pc-image-box {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 11;
+  border-radius: 0;
 }
 
 .explore-section .pc-overlays {
-  padding: 0.65rem 0.75rem;
+  padding: 0.7rem;
+}
+
+/* One quiet status pill only — hide the rest of the image clutter */
+.explore-section .pc-badge-type,
+.explore-section .pc-badges-right,
+.explore-section .pc-image-count {
+  display: none;
 }
 
 .explore-section .pc-badge-status {
-  font-size: 0.6rem;
-  padding: 0.25rem 0.5rem;
-  gap: 0.3rem;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-dark, #1a1a1a);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.55rem;
+  gap: 0.35rem;
+  border-radius: 0;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .explore-section .pc-dot {
   width: 5px;
   height: 5px;
+  background: var(--gold, #9a7d54);
 }
 
-.explore-section .pc-badge-type {
-  font-size: 0.6rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
+/* Content */
+.explore-section .pc-content-box {
+  padding: 1rem 1.05rem 1.1rem;
+  gap: 0.55rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-
-.explore-section .pc-badges-right {
-  top: 0.65rem;
-  right: 0.75rem;
-}
-
-.explore-section .pc-badge-heart {
-  width: 28px;
-  height: 28px;
-}
-
-.explore-section .pc-badge-heart svg {
-  width: 14px;
-  height: 14px;
-}
-
-.explore-section .pc-image-count {
-  bottom: 0.65rem;
-  right: 0.75rem;
-  font-size: 0.6rem;
-  padding: 0.2rem 0.45rem;
-  border-radius: 3px;
-  gap: 0.25rem;
-}
-
 
 .explore-section .pc-location-subhead {
-  font-size: 0.58rem;
-  gap: 0.35rem;
-  letter-spacing: 0.08em;
+  font-size: 0.56rem;
+  gap: 0.4rem;
+  letter-spacing: 0.12em;
 }
 
 .explore-section .pc-line {
-  width: 14px;
+  width: 16px;
 }
 
 .explore-section .pc-title {
-  font-size: 1.02rem;
-  line-height: 1.25;
+  font-size: 1.05rem;
+  line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.5em;
+  min-height: 2.6em;
 }
 
 .explore-section .pc-summary {
-  font-size: 0.72rem;
-  line-height: 1.4;
+  font-size: 0.74rem;
+  line-height: 1.45;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  color: #666;
+  color: var(--text-muted, #666);
 }
 
 .explore-section .pc-address {
   font-size: 0.7rem;
   gap: 0.35rem;
-  color: #777;
+  color: #888;
 }
 
 .explore-section .pc-address svg {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
 }
 
-.explore-section .property-card-new {
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(4, 36, 51, 0.04);
-  height: 100%;
-}
-
-.explore-section .pc-content-box {
-  padding: 0.9rem 1rem 1rem;
-  gap: 0.45rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+/* Specs — flat inline metric row with small icons, no boxes / dividers */
 .explore-section .pc-specs-grid {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0.55rem 0;
-  gap: 0.2rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  border-bottom: none;
+  border-top: 1px solid var(--border-light, #ececec);
+  padding: 0.75rem 0 0;
+  margin-top: auto;
 }
 
 .explore-section .pc-spec-item {
-  flex: 1;
-  min-width: 0;
-  gap: 0.15rem;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.explore-section .pc-spec-item:not(:last-child)::after {
-  right: 0;
+.explore-section .pc-spec-item::after {
+  display: none;
 }
 
 .explore-section .pc-spec-item svg {
-  width: 14px;
-  height: 14px;
-  margin-bottom: 0.1rem;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .explore-section .pc-spec-val {
-  font-size: 0.74rem;
+  font-size: 0.76rem;
+  font-weight: 500;
   white-space: nowrap;
 }
 
 .explore-section .pc-spec-lbl {
-  font-size: 0.52rem;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  display: none;
 }
 
+/* Footer — price + plain text link, no bordered button */
 .explore-section .pc-footer {
-  margin-top: 0.3rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light, #ececec);
   align-items: center;
 }
 
 .explore-section .pc-price {
-  font-size: 1.18rem;
-  margin-bottom: 0.1rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.05rem;
 }
 
 .explore-section .pc-price-label {
-  font-size: 0.55rem;
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
 }
 
 .explore-section .pc-btn {
-  padding: 0.42rem 0.75rem;
-  font-size: 0.58rem;
-  letter-spacing: 0.08em;
-  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--gold, #9a7d54);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  gap: 0.3rem;
+}
+
+.explore-section .pc-btn:hover {
+  background: transparent;
+  color: var(--primary-dark, #0b1a2a);
+}
+
+html[data-theme='dark'] .explore-section .property-card-new {
+  background: var(--bg-dark, #121212);
+}
+
+html[data-theme='dark'] .explore-section .pc-specs-grid,
+html[data-theme='dark'] .explore-section .pc-footer {
+  border-color: var(--border-dark, #333);
+}
+
+html[data-theme='dark'] .explore-section .pc-badge-status {
+  background: rgba(20, 20, 20, 0.9);
+  color: var(--text-light, #f5f5f5);
 }
 
 /* Property Card */
