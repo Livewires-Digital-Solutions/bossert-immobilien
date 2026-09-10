@@ -22,32 +22,32 @@ const inter = Inter({
 const theSeasons = localFont({
   src: [
     {
-      path: "../../public/fonts/TheSeasons-Light.otf",
+      path: "../../public/fonts/theseasons-lt.otf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../../public/fonts/TheSeasons-LightItalic.otf",
+      path: "../../public/fonts/theseasons-ltit.otf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "../../public/fonts/TheSeasons-Regular.otf",
+      path: "../../public/fonts/theseasons-reg.otf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../public/fonts/TheSeasons-Italic.otf",
+      path: "../../public/fonts/theseasons-it.otf",
       weight: "400",
       style: "italic",
     },
     {
-      path: "../../public/fonts/TheSeasons-Bold.otf",
+      path: "../../public/fonts/theseasons-bd.otf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../../public/fonts/TheSeasons-BoldItalic.otf",
+      path: "../../public/fonts/theseasons-bdit.otf",
       weight: "700",
       style: "italic",
     },
@@ -58,6 +58,7 @@ const theSeasons = localFont({
 
 import SmoothScroll from "@/components/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { SessionProvider } from "@/components/providers/SessionProvider";
 
 export default function RootLayout({
   children,
@@ -69,12 +70,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${theSeasons.variable}`}>
-        <LanguageProvider>
-          <SmoothScroll>
-            {children}
-            {modal}
-          </SmoothScroll>
-        </LanguageProvider>
+        <SessionProvider>
+          <LanguageProvider>
+            <SmoothScroll>
+              {children}
+              {modal}
+            </SmoothScroll>
+          </LanguageProvider>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -2,8 +2,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Regular'), local('The Seasons'), local('TheSeasons-Reg'), local('FONTSPRING DEMO - The Seasons Regular'), local('FONTSPRING DEMO - The Seasons'),
-       url('/fonts/TheSeasons-Regular.otf') format('opentype'),
-       url('/fonts/TheSeasons-Regular.woff2') format('woff2');
+       url('/fonts/theseasons-reg.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,18 +11,16 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Italic'), local('TheSeasons-Italic'), local('TheSeasons-It'), local('FONTSPRING DEMO - The Seasons Italic'),
-       url('/fonts/TheSeasons-Italic.otf') format('opentype'),
-       url('/fonts/TheSeasons-Italic.woff2') format('woff2');
+       url('/fonts/theseasons-it.otf') format('opentype');
   font-weight: 400;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold'), local('TheSeasons-Bold'), local('TheSeasons-Bd'), local('FONTSPRING DEMO - The Seasons Bold'),
-       url('/fonts/TheSeasons-Bold.otf') format('opentype'),
-       url('/fonts/TheSeasons-Bold.woff2') format('woff2');
+       url('/fonts/theseasons-bd.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -32,17 +29,16 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold Italic'), local('TheSeasons-BoldItalic'), local('TheSeasons-BdIt'), local('FONTSPRING DEMO - The Seasons Bold Italic'),
-       url('/fonts/TheSeasons-BoldItalic.otf') format('opentype');
+       url('/fonts/theseasons-bdit.otf') format('opentype');
   font-weight: 700;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light'), local('TheSeasons-Light'), local('TheSeasons-Lt'), local('FONTSPRING DEMO - The Seasons Light Regular'),
-       url('/fonts/TheSeasons-Light.otf') format('opentype'),
-       url('/fonts/TheSeasons-Light.woff2') format('woff2');
+       url('/fonts/theseasons-lt.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -51,9 +47,9 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light Italic'), local('TheSeasons-LightItalic'), local('TheSeasons-LtIt'), local('FONTSPRING DEMO - The Seasons Light Italic'),
-       url('/fonts/TheSeasons-LightItalic.otf') format('opentype');
+       url('/fonts/theseasons-ltit.otf') format('opentype');
   font-weight: 300;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 

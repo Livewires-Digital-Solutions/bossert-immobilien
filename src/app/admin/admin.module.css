@@ -1,0 +1,142 @@
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  background: var(--cream, #fefcf6);
+  color: var(--navy, #042433);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  background: var(--navy, #042433);
+  color: #fff;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.navItem {
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navItem:hover,
+.navItem.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.user {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+  word-break: break-word;
+}
+
+.logout {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.logout:hover {
+  background: #fff;
+  color: var(--navy, #042433);
+  border-color: #fff;
+}
+
+.content {
+  padding: 3rem;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 400;
+  margin: 0 0 0.5rem;
+}
+
+.lead {
+  color: rgba(4, 36, 51, 0.65);
+  margin: 0 0 2.5rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  border: 1px solid rgba(4, 36, 51, 0.12);
+  border-radius: 6px;
+  padding: 1.5rem;
+  background: #fff;
+}
+
+.cardLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.5);
+}
+
+.cardValue {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: unset;
+  }
+  .user {
+    border-top: none;
+    padding-top: 0;
+  }
+  .content {
+    padding: 1.5rem;
+  }
+}

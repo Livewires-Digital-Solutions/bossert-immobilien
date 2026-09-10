@@ -8,6 +8,8 @@ export const en = {
     knowledge: 'KNOWLEDGE',
     contact: 'CONTACT',
     cancelContract: 'Right of Withdrawal',
+    admin: 'ADMIN',
+    logout: 'LOG OUT',
   },
   hero: {
     since: 'SEIT 1991',
@@ -712,8 +714,10 @@ export const en = {
       submitBtn: 'Log In',
       noAccountText: "Don't have an account?",
       signupLink: 'Sign up',
-      successMsg: 'Logged in — TODO: connect to auth backend',
-      loading: 'Logging in...'
+      successMsg: 'Logged in',
+      loading: 'Logging in...',
+      invalidCredentials: 'Invalid email or password.',
+      genericError: 'Something went wrong. Please try again.'
     },
     signup: {
       title: 'Create Account',
@@ -727,8 +731,10 @@ export const en = {
       submitBtn: 'Create Account',
       hasAccountText: 'Already have an account?',
       loginLink: 'Log in',
-      successMsg: 'Account created — TODO: connect to auth backend',
-      loading: 'Creating...'
+      successMsg: 'Account created',
+      loading: 'Creating...',
+      emailTaken: 'An account with this email already exists.',
+      genericError: 'Something went wrong. Please try again.'
     },
     forgotPassword: {
       title: 'Reset Password',
@@ -737,6 +743,19 @@ export const en = {
       successMsg: 'If an account exists for this email, a password reset link has been sent.',
       backToLogin: 'Back to login',
       loading: 'Sending...'
+    },
+    resetPassword: {
+      title: 'Set a New Password',
+      newPassword: 'New Password',
+      confirmPassword: 'Confirm New Password',
+      passwordHint: 'At least 8 characters',
+      passwordMismatch: 'Passwords do not match',
+      submitBtn: 'Update Password',
+      loading: 'Updating...',
+      successMsg: 'Your password has been updated. You can now log in.',
+      invalidToken: 'This reset link is invalid or has expired.',
+      requestNewLink: 'Request a new link',
+      backToLogin: 'Back to login'
     }
   },
   propertyCard: {
