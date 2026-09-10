@@ -1,0 +1,213 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f0ede8;
+  padding: 9.5rem 4rem 5.5rem;
+  box-sizing: border-box;
+  font-family: var(--font-inter), sans-serif;
+  color: var(--navy);
+}
+
+.inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--bronze);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 0.6rem;
+}
+
+.title .serif {
+  font-style: italic;
+}
+
+.lead {
+  color: rgba(4, 36, 51, 0.6);
+  font-size: 0.9rem;
+  margin: 0 0 2.75rem;
+  max-width: 55ch;
+}
+
+/* Account detail card */
+.card {
+  border: 1px solid var(--bronze);
+  background: #f8f6f1;
+  padding: 2rem 2.25rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+}
+
+.card::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
+}
+
+.card::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.12);
+}
+
+.cardHeadTitle {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.detailLabel {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.45);
+  margin-bottom: 0.35rem;
+}
+
+.detailValue {
+  font-size: 0.92rem;
+  word-break: break-word;
+}
+
+.logout {
+  background: transparent;
+  border: 1px solid var(--bronze);
+  color: var(--navy);
+  border-radius: 0;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.logout:hover {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.adminLink {
+  display: inline-block;
+  margin-left: 0.75rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.adminLink:hover {
+  border-bottom-color: var(--bronze);
+}
+
+/* Dummy stat cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat {
+  border: 1px solid rgba(4, 36, 51, 0.14);
+  background: #f8f6f1;
+  padding: 1.5rem 1.4rem;
+}
+
+.statLabel {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.45);
+}
+
+.statValue {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  margin-top: 0.4rem;
+}
+
+.statHint {
+  font-size: 0.68rem;
+  color: rgba(4, 36, 51, 0.4);
+  margin-top: 0.3rem;
+}
+
+.panel {
+  border: 1px solid rgba(4, 36, 51, 0.14);
+  background: #f8f6f1;
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.panelTitle {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+}
+
+.panelText {
+  font-size: 0.82rem;
+  color: rgba(4, 36, 51, 0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 7.5rem 1.25rem 3.5rem;
+  }
+  .card {
+    padding: 1.5rem 1.35rem;
+  }
+}

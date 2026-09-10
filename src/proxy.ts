@@ -7,20 +7,26 @@ const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-  if (!pathname.startsWith('/admin')) return;
+  const isAdminArea = pathname.startsWith('/admin');
+  const isProfileArea = pathname.startsWith('/profile');
+  if (!isAdminArea && !isProfileArea) return;
 
+  // Not signed in → send to login with a return path.
   if (!req.auth?.user) {
     const url = new URL('/login', req.nextUrl);
     url.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(url);
   }
 
-  const role = req.auth.user.role;
-  if (role !== 'ADMIN' && role !== 'SUPERADMIN') {
+  // Optimistic admin gate (the /admin data-access layer re-checks authoritatively).
+  // Also honour the role directly so sessions issued before `isAdmin` existed still work.
+  const u = req.auth.user;
+  const mayAdmin = u.isAdmin || u.role === 'ADMIN' || u.role === 'SUPERADMIN';
+  if (isAdminArea && !mayAdmin) {
     return NextResponse.redirect(new URL('/', req.nextUrl));
   }
 });
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/profile/:path*'],
 };

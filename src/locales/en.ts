@@ -10,6 +10,7 @@ export const en = {
     cancelContract: 'Right of Withdrawal',
     admin: 'ADMIN',
     logout: 'LOG OUT',
+    profile: 'MY ACCOUNT',
   },
   hero: {
     since: 'SEIT 1991',

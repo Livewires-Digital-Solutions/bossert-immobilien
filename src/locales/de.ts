@@ -10,6 +10,7 @@ export const de = {
     cancelContract: 'Widerrufsrecht',
     admin: 'ADMIN',
     logout: 'ABMELDEN',
+    profile: 'MEIN KONTO',
   },
   hero: {
     since: 'SEIT 1991',

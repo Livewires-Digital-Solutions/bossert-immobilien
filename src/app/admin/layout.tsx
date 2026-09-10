@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { requireAdmin } from '@/lib/require-admin';
+import AdminNav from './AdminNav';
 import LogoutButton from './LogoutButton';
 import styles from './admin.module.css';
 
@@ -13,21 +13,24 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
-        <div className={styles.brand}>Bossert Admin</div>
+        <div>
+          <div className={styles.brandRow}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="" className={styles.brandLogo} />
+            <div>
+              <div className={styles.brand}>Bossert</div>
+              <div className={styles.brandSub}>Admin</div>
+            </div>
+          </div>
+        </div>
 
-        <nav className={styles.nav}>
-          <Link href="/admin" className={`${styles.navItem} ${styles.active}`}>
-            Dashboard
-          </Link>
-          <Link href="/" className={styles.navItem}>
-            View site
-          </Link>
-        </nav>
+        <AdminNav />
 
         <div className={styles.user}>
-          {session.user.name ?? session.user.email}
+          <span className={styles.userName}>{session.user.name ?? 'Administrator'}</span>
+          {session.user.email}
           <br />
-          {session.user.email} · {session.user.role}
+          {session.user.role}
           <LogoutButton />
         </div>
       </aside>

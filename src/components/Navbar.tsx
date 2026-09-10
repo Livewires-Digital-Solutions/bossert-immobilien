@@ -17,8 +17,10 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
 
   const userInitial =
     (session?.user?.name ?? session?.user?.email)?.trim()?.charAt(0)?.toUpperCase() ?? null;
-  const role = session?.user?.role;
-  const isAdmin = role === 'ADMIN' || role === 'SUPERADMIN';
+  const isAdmin =
+    Boolean(session?.user?.isAdmin) ||
+    session?.user?.role === 'ADMIN' ||
+    session?.user?.role === 'SUPERADMIN';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,15 +119,14 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
               )}
               <Link href="/contact" className="contact-btn">{t.nav.contact.toUpperCase()}</Link>
               {session ? (
-                <button
-                  type="button"
-                  className="login-icon-btn"
-                  aria-label={t.nav.logout}
-                  title={t.nav.logout}
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                <Link
+                  href="/profile"
+                  className={`login-icon-btn ${pathname.startsWith('/profile') ? 'active' : ''}`}
+                  aria-label={t.nav.profile}
+                  title={t.nav.profile}
                 >
                   <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-serif)', fontWeight: 400 }}>{userInitial}</span>
-                </button>
+                </Link>
               ) : (
                 <Link href="/login" className="login-icon-btn" aria-label="Login">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
@@ -194,21 +195,24 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
           <Link href="/knowledge" className={`mobile-nav-item ${pathname === '/knowledge' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.knowledge}</Link>
         </div>
         <div className="mobile-nav-footer">
+          {session && (
+            <Link href="/profile" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.profile}</Link>
+          )}
           {isAdmin && (
             <Link href="/admin" className="mobile-nav-item" onClick={() => setMenuOpen(false)}>{t.nav.admin}</Link>
           )}
-          <Link href="/contact" className="mobile-contact-btn" onClick={() => setMenuOpen(false)}>{t.nav.contact}</Link>
-          {session ? (
+          {session && (
             <button
               type="button"
-              className="login-icon-btn"
-              aria-label={t.nav.logout}
+              className="mobile-nav-item"
               onClick={() => { setMenuOpen(false); signOut({ callbackUrl: '/' }); }}
-              style={{ margin: '0 auto', marginTop: '1rem', border: '1px solid var(--bronze)', color: 'var(--bronze)', background: 'transparent', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'inherit', font: 'inherit', color: 'inherit' }}
             >
-              <span style={{ fontSize: '1.2rem', fontFamily: 'var(--font-serif)', fontWeight: 400 }}>{userInitial}</span>
+              {t.nav.logout}
             </button>
-          ) : (
+          )}
+          <Link href="/contact" className="mobile-contact-btn" onClick={() => setMenuOpen(false)}>{t.nav.contact}</Link>
+          {!session && (
             <Link href="/login" className="login-icon-btn" aria-label="Login" onClick={() => setMenuOpen(false)} style={{ margin: '0 auto', marginTop: '1rem', border: '1px solid var(--bronze)', color: 'var(--bronze)' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
