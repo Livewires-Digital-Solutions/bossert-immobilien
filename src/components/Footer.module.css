@@ -79,7 +79,7 @@
 
 .navLink {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 300;
   letter-spacing: 0.5px;
   color: rgba(254, 252, 246, 0.75) !important;
@@ -134,7 +134,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.9rem 2rem;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: rgba(254, 252, 246, 0.45) !important;
   background-color: #042433 !important;
 }
@@ -170,6 +170,6 @@
   }
   .navLink {
     padding: 0.35rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 }
