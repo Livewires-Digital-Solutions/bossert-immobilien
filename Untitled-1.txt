@@ -1,0 +1,3 @@
+# 
+
+{"status":{"code":500,"errorcode":141,"message":"Unknown field: "},"response":{"results":[{"actionid":"urn:onoffice-de-ns:smart:2.5:smartml:action:read","resourceid":"1309","resourcetype":"estate","cacheable":false,"identifier":"req-1309","data":[],"status":{"errorcode":141,"message":"Unknown field: freitext_1"}},{"actionid":"urn:onoffice-de-ns:smart:2.5:smartml:action:read","resourceid":"1327","resourcetype":"estate","cacheable":false,"identifier":"req-1327","data":[],"status":{"errorcode":141,"message":"Unknown field: freitext_1"}},{"actionid":"urn:onoffice-de-ns:smart:2.5:smartml:action:read","resourceid":"1287","resourcetype":"estate","cacheable":false,"identifier":"req-1287","data":[],"status":{"errorcode":141,"message":"Unknown field: freitext_1"}}]}}

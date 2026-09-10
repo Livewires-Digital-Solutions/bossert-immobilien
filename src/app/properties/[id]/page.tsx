@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { fetchOnOfficePropertyById, PROPERTY_CONFIGS } from '@/lib/onoffice';
+import { fetchOnOfficePropertyById, fetchOnOfficeProperties } from '@/lib/onoffice';
 import { mockProperties } from '@/data/properties';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -15,9 +15,10 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-// Pre-generate static pages for all 3 known property external IDs
+// Pre-generate static pages dynamically
 export async function generateStaticParams() {
-  return PROPERTY_CONFIGS.map((c) => ({ id: c.externalId }));
+  const properties = await fetchOnOfficeProperties();
+  return properties.map((c) => ({ id: c.id }));
 }
 
 export const revalidate = 300; // 5-minute ISR

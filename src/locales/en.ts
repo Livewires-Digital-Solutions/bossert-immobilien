@@ -19,7 +19,9 @@ export const en = {
     subhead: 'EXPERTISE, TRUST, EXCELLENCE',
     desc: 'For more than 30 years, we have been your reliable partner for all matters related to property.',
     partner: 'YOUR PARTNER FOR\nRESIDENTIAL REAL ESTATE\nIN THE RHINE-MAIN AREA.',
-    scroll: 'SCROLL & DISCOVER'
+    scroll: 'SCROLL & DISCOVER',
+    statsNumber: '30+',
+    statsDesc: 'Years of\nexpertise'
   },
   search: {
     tag: 'PREMIUM LIVING',
