@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
+import HeroServicesCarousel from './HeroServicesCarousel';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -52,7 +53,7 @@ export default function HeroSection() {
       <div className="hero-content">
 
         {/* Main Content */}
-        <div className="main-grid">
+        <div className="main-grid has-carousel">
           <div className="left-content">
             <div className="hero-top-group">
               <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
@@ -79,6 +80,11 @@ export default function HeroSection() {
                 <span className="btn-arrow">↗</span>
               </a>
             </div>
+          </div>
+
+          {/* Right column — stacked services carousel */}
+          <div className={`hero-right reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
+            <HeroServicesCarousel />
           </div>
         </div>
 
