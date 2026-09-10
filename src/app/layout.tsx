@@ -68,7 +68,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${theSeasons.variable}`}>
         {/* Skip the intro gate before first paint if it already played this session */}
         <script
