@@ -152,3 +152,36 @@ model NearbyTransport {
 
   @@index([propertyId])
 }
+
+// ─────────────────────────────────────────────
+// Knowledge / blog articles (managed from /admin/articles)
+// ─────────────────────────────────────────────
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Article {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  category    String
+  coverImage  String
+  status      ArticleStatus @default(PUBLISHED)
+  featured    Boolean       @default(false)
+  publishedAt DateTime      @default(now())
+
+  titleEn   String
+  titleDe   String
+  excerptEn String @db.Text
+  excerptDe String @db.Text
+  bodyEn    String @db.Text
+  bodyDe    String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([featured])
+  @@index([publishedAt])
+}

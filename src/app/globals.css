@@ -6823,3 +6823,69 @@ html[data-theme='dark'] .pc-badge-heart {
     margin-top: 0;
   }
 }
+
+/* ── Knowledge article body (rendered from the admin rich-text editor) ── */
+.article-body {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: rgba(4, 36, 51, 0.82);
+}
+.article-body > * + * {
+  margin-top: 1.6rem;
+}
+.article-body h2,
+.article-body h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--navy);
+  font-style: normal;
+  line-height: 1.15;
+}
+.article-body h2 {
+  font-size: 2.4rem;
+  margin-top: 3.5rem;
+}
+.article-body h3 {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+.article-body p {
+  margin: 0;
+}
+.article-body a {
+  color: var(--bronze);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.5rem;
+}
+.article-body li + li {
+  margin-top: 0.5rem;
+}
+.article-body blockquote {
+  border-left: 4px solid var(--bronze);
+  padding-left: 2rem;
+  margin: 3rem 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--navy);
+}
+.article-body blockquote p {
+  margin: 0;
+}
+.article-body img,
+.article-body .article-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2.5rem 0;
+  border-radius: 8px;
+}
+.article-body strong {
+  color: var(--navy);
+}

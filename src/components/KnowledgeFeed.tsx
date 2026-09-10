@@ -13,62 +13,82 @@ interface Article {
   image: string;
 }
 
+interface Featured {
+  id?: string;
+  tag: string;
+  date: string;
+  title: string;
+  desc: string;
+  image: string;
+}
+
 interface Props {
   data: {
     categories: string[];
     readMore: string;
-    featured: {
-      id?: string;
-      tag: string;
-      date: string;
-      title: string;
-      desc: string;
-      image: string;
-    };
+    featured: Featured;
     articles: Article[];
   };
+  /** When supplied, the feed renders these DB-backed articles instead of the static ones. */
+  dbArticles?: Article[];
+  dbFeatured?: Article | null;
 }
 
-export default function KnowledgeFeed({ data }: Props) {
-  const [activeCategory, setActiveCategory] = useState(data.categories[0]); // 'All' / 'Alle'
+export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
+  const usingDb = Array.isArray(dbArticles);
+  const allLabel = data.categories[0]; // 'All' / 'Alle'
+
+  const articles = usingDb ? dbArticles! : data.articles;
+  const featured = usingDb ? dbFeatured ?? articles[0] ?? data.featured : data.featured;
+
+  const categories = usingDb
+    ? [allLabel, ...Array.from(new Set(articles.map((a) => a.category)))]
+    : data.categories;
+
+  const listArticles = usingDb ? articles.filter((a) => a.id !== featured?.id) : articles;
+  const featuredTag =
+    (featured as Featured | undefined)?.tag ?? (featured as Article | undefined)?.category ?? '';
+
+  const [activeCategory, setActiveCategory] = useState(allLabel);
   const { ref, isVisible } = useScrollReveal();
 
-  const isAll = activeCategory === data.categories[0];
-  const filteredArticles = isAll 
-    ? data.articles 
-    : data.articles.filter(a => a.category === activeCategory);
+  const isAll = activeCategory === allLabel;
+  const filteredArticles = isAll
+    ? listArticles
+    : listArticles.filter((a) => a.category === activeCategory);
 
   return (
     <section className="global-padding" ref={ref} style={{ paddingBottom: '6rem', backgroundColor: 'var(--cream)' }}>
       <div className="inner-page-container">
         
         {/* 1. Cinematic Featured Article */}
+        {featured && (
         <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '8rem' }}>
-          <Link href={`/knowledge/${data.featured.id || 'featured'}`} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }} className="featured-card">
+          <Link href={`/knowledge/${featured.id || 'featured'}`} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }} className="featured-card">
             <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', backgroundColor: 'var(--navy)', color: 'var(--white)', minHeight: '650px', display: 'flex', alignItems: 'flex-end', padding: '4rem' }}>
               <div className="image-wrapper" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
-                <img 
-                  src={data.featured.image} 
-                  alt={data.featured.title} 
+                <img
+                  src={featured.image}
+                  alt={featured.title}
                   className="scale-image"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.65, transition: 'transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)' }} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.65, transition: 'transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)' }}
                 />
               </div>
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.1) 80%)', zIndex: 1 }}></div>
-              
+
               <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
                   <span className="services-subtitle" style={{ color: 'var(--bronze)', margin: 0, letterSpacing: '2px' }}>
-                    <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {data.featured.tag}
+                    <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {featuredTag}
                   </span>
-                  <span style={{ color: 'rgba(254,252,246,0.5)', fontSize: '0.8rem', letterSpacing: '1px' }}>{data.featured.date}</span>
+                  <span style={{ color: 'rgba(254,252,246,0.5)', fontSize: '0.8rem', letterSpacing: '1px' }}>{featured.date}</span>
                 </div>
                 <h2 className="italic-serif" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05, marginBottom: '2rem', color: 'var(--white)' }}>
-                  {data.featured.title}
+                  {featured.title}
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start' }}>
                   <p style={{ fontSize: '1.25rem', color: 'rgba(254,252,246,0.8)', lineHeight: 1.6, maxWidth: '650px' }}>
-                    {data.featured.desc}
+                    {featured.desc}
                   </p>
                   <div className="explore-btn animated-arrow-btn" style={{ padding: '0.8rem 1rem 0.8rem 2rem', border: 'none', cursor: 'pointer' }}>
                     <span>{data.readMore}</span>
@@ -83,10 +103,11 @@ export default function KnowledgeFeed({ data }: Props) {
             </div>
           </Link>
         </div>
+        )}
 
         {/* 2. Filters */}
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '6rem', justifyContent: 'center' }} className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
-          {data.categories.map((cat, idx) => {
+          {categories.map((cat, idx) => {
             const isActive = activeCategory === cat;
             return (
               <button 
