@@ -2592,8 +2592,8 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 .search-section.search-section-dark .search-tab.active {
-  background: #021721;
-  color: var(--white);
+  background: #ffffff;
+  color: var(--navy);
 }
 .search-section.search-section-dark .search-bar {
   border-color: rgba(255, 255, 255, 0.15);
