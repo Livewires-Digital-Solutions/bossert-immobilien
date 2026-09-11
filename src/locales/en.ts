@@ -600,7 +600,27 @@ export const en = {
       s2: '',
       l4: '',
       textLeft: 'Property management, marketing, and valuation each carry significant legal, pricing, and administrative complexity.',
-      textRight: 'We handle every aspect for you with professionalism and clarity, ensuring a seamless experience.'
+      textRight: 'We handle every aspect for you with professionalism and clarity, ensuring a seamless experience.',
+      challenges: [
+        {
+          title: 'Property Management',
+          desc: 'From tenant coordination to legal compliance, we take on the day-to-day administrative burden so your investment stays protected and hassle-free.'
+        },
+        {
+          title: 'Marketing & Positioning',
+          desc: 'Strategic pricing, professional photography, and targeted exposure — every property is presented to reach exactly the right buyers or tenants.'
+        },
+        {
+          title: 'Valuation & Reporting',
+          desc: 'Certified, market-aligned valuations backed by decades of local expertise, so every decision you make is grounded in accurate data.'
+        }
+      ],
+      highlights: [
+        { number: '35+', label: 'Years of Experience' },
+        { number: '500+', label: 'Properties Brokered' },
+        { number: '98%', label: 'Client Satisfaction' },
+        { number: '24/7', label: 'Dedicated Support' }
+      ]
     },
     benefits: {
       tag: 'OUR COMMITMENT TO YOU',

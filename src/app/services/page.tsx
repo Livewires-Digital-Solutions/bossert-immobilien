@@ -12,7 +12,10 @@ import ServicesBenefitsGrid from '@/components/ServicesBenefitsGrid';
 import TestimonialSection from '@/components/TestimonialSection';
 
 export default function ServicesPage() {
-  const { ref: introRef, isVisible: introVisible } = useScrollReveal(0.2);
+  // Low threshold on purpose: this section is dominated by ApproachHeadline's
+  // tall sticky-scroll block, so the viewport can never cover 20%+ of the
+  // section's total height at once — a higher threshold would never fire.
+  const { ref: introRef, isVisible: introVisible } = useScrollReveal(0.05);
   const { t } = useLanguage();
   const servicesPageData = (t as any).servicesPageData;
 
@@ -47,6 +50,97 @@ export default function ServicesPage() {
               <p className="why-subhead" style={{ fontSize: '1.25rem' }}>{servicesPageData.intro.textRight}</p>
             </div>
           </div>
+
+          {/* Where the complexity actually lives — framed cards, same
+              bronze-corner treatment as the highlights below */}
+          {servicesPageData.intro.challenges && (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '2.5rem',
+                marginTop: '4rem',
+              }}
+            >
+              {servicesPageData.intro.challenges.map((c: { title: string; desc: string }, idx: number) => (
+                <div
+                  key={idx}
+                  className={`framed-card reveal-base reveal-up delay-${(idx + 1) * 100} ${introVisible ? 'is-revealed' : ''}`}
+                >
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-inter), sans-serif',
+                      fontSize: '1.25rem',
+                      fontWeight: 500,
+                      color: 'var(--navy)',
+                      marginBottom: '1rem',
+                      paddingBottom: '1rem',
+                      borderBottom: '1px solid rgba(4, 36, 51, 0.1)',
+                    }}
+                  >
+                    {c.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-inter), sans-serif',
+                      fontSize: '1rem',
+                      fontWeight: 300,
+                      lineHeight: 1.7,
+                      color: 'rgba(4, 36, 51, 0.7)',
+                    }}
+                  >
+                    {c.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Framed highlight cards — signature bronze-corner treatment */}
+          {servicesPageData.intro.highlights && (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '3rem',
+                marginTop: '6rem',
+              }}
+            >
+              {servicesPageData.intro.highlights.map((h: { number: string; label: string }, idx: number) => (
+                <div
+                  key={idx}
+                  className={`framed-card reveal-base reveal-up delay-${(idx + 3) * 100} ${introVisible ? 'is-revealed' : ''}`}
+                  style={{ textAlign: 'center' }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-inter), sans-serif',
+                      fontWeight: 300,
+                      fontSize: '3rem',
+                      color: 'var(--bronze)',
+                      lineHeight: 1,
+                      letterSpacing: '-1px',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    {h.number}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      color: 'var(--navy)',
+                      opacity: 0.75,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {h.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -56,7 +56,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 200px;
+  width: 340px;
   height: auto;
   object-fit: contain;
   transform: translate(-50%, -50%);
@@ -113,7 +113,7 @@
     perspective: 800px;
   }
   .logoImage {
-    width: 140px;
+    width: 220px;
   }
 }
 

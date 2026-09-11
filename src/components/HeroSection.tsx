@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import HeroServicesCarousel from './HeroServicesCarousel';
 import BtnArrow from './BtnArrow';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useFitText } from '../hooks/useFitText';
 import { useLanguage } from '../context/LanguageContext';
 
 // Render a headline line with its final word emphasized in white italic
@@ -43,6 +44,12 @@ export default function HeroSection() {
 
   const isVisible = scrollVisible && gateReady;
 
+  // Each headline line shrinks to fit its own single line — never wraps,
+  // regardless of viewport width or how long the translated string is.
+  const topFitRef = useFitText<HTMLSpanElement>([t.hero.headlineTop]);
+  const midFitRef = useFitText<HTMLSpanElement>([t.hero.headlineMid]);
+  const botFitRef = useFitText<HTMLSpanElement>([t.hero.headlineBotPre, t.hero.headlineBotBold]);
+
   return (
     <div className="hero-section" ref={heroRef}>
       {/* Decode the hero background before the intro doors open — avoids a flash */}
@@ -61,9 +68,9 @@ export default function HeroSection() {
                 {t.hero.since}
               </div>
               <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
-                <span className="hero-headline-top">{t.hero.headlineTop}</span>
-                <span className="hero-headline-mid"><HighlightLastWord text={t.hero.headlineMid} /></span>
-                <span className="hero-headline-bot">
+                <span ref={topFitRef} className="hero-headline-top">{t.hero.headlineTop}</span>
+                <span ref={midFitRef} className="hero-headline-mid"><HighlightLastWord text={t.hero.headlineMid} /></span>
+                <span ref={botFitRef} className="hero-headline-bot">
                   <span>{t.hero.headlineBotPre}</span> {t.hero.headlineBotBold}
                 </span>
               </h1>
