@@ -10,7 +10,7 @@ export default function KnowledgeHero() {
   const { t } = useLanguage();
 
   return (
-    <div className="properties-editorial-hero" ref={heroRef} style={{ paddingBottom: '10rem' }}>
+    <div className="properties-editorial-hero" ref={heroRef}>
       <div className="properties-hero-bg" />
       <div className="properties-hero-overlay-cream" />
       <Navbar invertOnLoad={true} />

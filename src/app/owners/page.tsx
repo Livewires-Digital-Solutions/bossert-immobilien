@@ -61,13 +61,13 @@ export default function ForOwnersPage() {
         initialRoute={modalRoute} 
       />
       
-      {/* 1. Cinematic Hero Section */}
-      <div className="properties-editorial-hero global-padding" ref={heroRef} style={{ paddingBottom: '0' }}>
+      {/* 1. Hero Section — same bg image, fade, font and height as the properties hero */}
+      <div className="properties-editorial-hero global-padding" ref={heroRef}>
         <div className="properties-hero-bg" />
         <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
 
-        <div className="inner-page-container" style={{ width: '100%', paddingBottom: '4rem', position: 'relative', zIndex: 2 }}>
+        <div className="inner-page-container" style={{ width: '100%', position: 'relative', zIndex: 2 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 500px', fontWeight: 500, letterSpacing: '-0.05em' }}>
               {data.hero.title} <br/>
@@ -80,7 +80,6 @@ export default function ForOwnersPage() {
               <Link
                 href="/list-property"
                 className="explore-btn explore-btn-dark"
-                style={{ fontFamily: 'var(--font-satoshi), sans-serif' }}
               >
                 {data.hero.cta || 'Request a no-obligation consultation'}
                 <BtnArrow />
@@ -88,12 +87,14 @@ export default function ForOwnersPage() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Cinematic Establishing Shot */}
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%', paddingBottom: '6rem', position: 'relative', zIndex: 2 }}>
+      {/* Cinematic Establishing Shot */}
+      <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingTop: '4rem', paddingBottom: '2rem' }}>
+        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
           <div style={{ width: '100%', height: '70vh', minHeight: '500px', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
-            <Image 
-              src="/images/services_hero.jpg"  
+            <Image
+              src="/images/services_hero.jpg"
               alt="Premium Properties"
               fill
               style={{ objectFit: 'cover' }}
@@ -101,7 +102,7 @@ export default function ForOwnersPage() {
             />
           </div>
         </div>
-      </div>
+      </section>
 
       {/* 2. The Narrative (Cream Background) */}
       <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '6rem' }}>

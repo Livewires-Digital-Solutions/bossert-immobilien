@@ -13,7 +13,7 @@ export default function ContactHero() {
   if (!contact) return null;
 
   return (
-    <div className="properties-editorial-hero" ref={heroRef} style={{ paddingBottom: '10rem' }}>
+    <div className="properties-editorial-hero" ref={heroRef}>
       <div className="properties-hero-bg" />
       <div className="properties-hero-overlay-cream" />
       <Navbar invertOnLoad={true} />
