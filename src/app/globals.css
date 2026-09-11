@@ -724,7 +724,12 @@ body {
 .properties-hero-overlay-cream {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(254, 252, 246, 0) 55%, var(--cream) 100%);
+  background:
+    /* Flat cream wash over the whole illustration so the dark navy
+       archway interiors read as a soft tone, not a blue patch */
+    linear-gradient(rgba(254, 252, 246, 0.55), rgba(254, 252, 246, 0.55)),
+    /* Bottom fade to solid cream, dissolving into the next section */
+    linear-gradient(to bottom, rgba(254, 252, 246, 0) 55%, var(--cream) 100%);
   z-index: 1;
 }
 
