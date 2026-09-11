@@ -692,16 +692,38 @@ body {
 
 .properties-editorial-hero {
   position: relative;
-  min-height: 50vh;
+  min-height: 56vh;
   padding-top: 16rem;
-  padding-bottom: 8rem;
+  padding-bottom: 17rem;
   background-color: var(--cream);
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+}
+
+.properties-hero-bg {
+  position: absolute;
+  inset: -2%;
+  background-image: url('/properties-bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  z-index: 0;
+}
+
+.properties-hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* Same stops as .hero-overlay on the home page — the fade lands on solid
+     navy exactly at the section's bottom edge, so it blends seamlessly into
+     .search-section-dark, which starts on that same navy with no gap. */
+  background: linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%);
+  z-index: 1;
 }
 
 .editorial-hero-content {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 1400px;
   padding: 0 4rem;
@@ -2109,6 +2131,18 @@ body {
   border-top-right-radius: 4px;
   padding-top: 4.5rem;
   padding-bottom: 2.5rem;
+}
+
+/* Properties page only: shift the search bar up by transform so it straddles
+   the seam where the hero's fade meets the navy section below — roughly
+   centered on that boundary rather than sitting fully beneath it. Transform
+   doesn't touch layout flow, so margin-bottom pulls the following section up
+   by the same amount to close the gap this would otherwise leave behind. */
+.properties-editorial-hero + .search-section.search-section-dark {
+  position: relative;
+  z-index: 3;
+  transform: translateY(-7rem);
+  margin-bottom: -7rem;
 }
 
 .search-section.search-section-embedded {
@@ -5018,6 +5052,17 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
   /* Navbar */
   /* Properties Editorial Hero */
+  .properties-editorial-hero {
+    padding-bottom: 11rem;
+    min-height: auto;
+  }
+  .properties-hero-bg {
+    background-position: center 20%;
+  }
+  .properties-editorial-hero + .search-section.search-section-dark {
+    transform: translateY(-4rem);
+    margin-bottom: -4rem;
+  }
   .editorial-hero-content {
     padding: 0 1.5rem;
   }
