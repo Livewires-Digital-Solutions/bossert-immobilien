@@ -1694,11 +1694,13 @@ body {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(1rem, 1.5vw, 1.4rem);
   font-weight: 300;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: rgba(254, 252, 246, 0.9);
   line-height: 1.2;
   white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
 }
 .hero-headline-mid {
   font-family: var(--font-serif);
@@ -1706,10 +1708,12 @@ body {
   font-size: clamp(3.5rem, 6vw, 6rem);
   line-height: 0.85;
   font-weight: 400;
-  letter-spacing: -2px;
+  letter-spacing: -0.02em;
   color: var(--white);
   margin: 0.35rem 0;
   white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
 }
 .hero-headline-accent {
   color: var(--white, #fff);
@@ -1718,9 +1722,12 @@ body {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(2rem, 3.8vw, 3.4rem);
   font-weight: 700;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.03em;
   color: var(--white);
   line-height: 1.1;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
 }
 .hero-headline-bot span {
   font-weight: 300;
@@ -1733,13 +1740,10 @@ body {
   }
   .hero-headline-mid {
     font-size: clamp(2.8rem, 9vw, 4rem);
-    white-space: normal;
     line-height: 0.95;
-    letter-spacing: -1px;
   }
   .hero-headline-bot {
     font-size: 1.75rem;
-    letter-spacing: -1px;
   }
 }
 .hero-subhead {
