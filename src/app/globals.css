@@ -855,7 +855,7 @@ body {
 }
 
 .deal-filter-tab.active {
-  color: var(--white);
+  color: var(--navy);
   border-bottom-color: var(--bronze);
 }
 
@@ -866,7 +866,7 @@ body {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(4, 36, 51, 0.1);
   margin-bottom: 0;
-  color: var(--white);
+  color: var(--navy);
 }
 
 .properties-grid-section .explore-container {
@@ -898,7 +898,7 @@ body {
   font-family: var(--font-inter), sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--white);
+  color: var(--navy);
   min-width: 3rem;
   text-align: center;
 }
@@ -906,7 +906,7 @@ body {
 .top-page-arrow {
   background: transparent;
   border: none;
-  color: var(--white);
+  color: var(--navy);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -941,7 +941,7 @@ body {
 .sort-select {
   background: transparent;
   border: none;
-  color: var(--white);
+  color: var(--navy);
   font-family: var(--font-inter), sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
@@ -949,8 +949,8 @@ body {
 }
 
 .sort-select option {
-  background-color: var(--navy);
-  color: var(--white);
+  background-color: var(--white);
+  color: var(--navy);
 }
 
 .results-view-toggles {
@@ -972,7 +972,7 @@ body {
 
 .view-toggle:hover,
 .view-toggle.active {
-  color: var(--white);
+  color: var(--navy);
 }
 
 .explore-grid.properties-main-grid {
@@ -2181,7 +2181,12 @@ body {
    same amount to close the gap this would otherwise leave behind. */
 .properties-editorial-hero + .search-section.search-section-dark {
   position: relative;
-  z-index: 3;
+  /* Above .properties-grid-section (z-index: 10) — this section is its own
+     stacking context, so anything inside (like an open filter dropdown that
+     grows taller than the space left under it) would otherwise be trapped
+     beneath that z-index and get clipped/click-blocked by the grid section
+     that follows, no matter how high the dropdown's own z-index is set. */
+  z-index: 20;
   transform: translateY(-7rem);
   margin-bottom: -7rem;
 }
@@ -2538,26 +2543,6 @@ body {
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-}
-
-.more-options-toggle {
-  background: transparent;
-  border: none;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--navy);
-  opacity: 0.55;
-  cursor: pointer;
-  transition: opacity 0.2s ease, color 0.2s ease;
-  padding: 0.3rem 0;
-}
-
-.more-options-toggle:hover {
-  opacity: 1;
-  color: var(--bronze);
 }
 
 /* Bottom Slogan Branding */

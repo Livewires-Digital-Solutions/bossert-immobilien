@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -10,6 +10,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import ConsultationModal from '@/components/modals/ConsultationModal';
 import ProcessList from '@/components/ProcessList';
 import BtnArrow from '@/components/BtnArrow';
+import styles from './owners.module.css';
 
 export default function ForOwnersPage() {
   const { t } = useLanguage();
@@ -19,10 +20,17 @@ export default function ForOwnersPage() {
   const { ref: narrativeRef, isVisible: narrativeVisible } = useScrollReveal(0.2);
   const { ref: pillarsRef, isVisible: pillarsVisible } = useScrollReveal(0.1);
   const { ref: valuationRef, isVisible: valuationVisible } = useScrollReveal(0.1);
+  const { ref: stepsRef, isVisible: stepsVisible } = useScrollReveal(0.15);
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal(0.1);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoute, setModalRoute] = useState<'top_contact' | 'consultation' | 'valuation' | 'buyer' | 'general' | 'profile'>('top_contact');
+
+  const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const reduceMotionRef = useRef<boolean | null>(null);
+  const canTiltRef = useRef<boolean | null>(null);
 
   if (!data) return null;
 
@@ -34,33 +42,84 @@ export default function ForOwnersPage() {
   const getPillarIcon = (idx: number) => {
     if (idx === 0) { // Selling
       return (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
       );
     } else if (idx === 1) { // Rent out
       return (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
         </svg>
       );
     } else { // Valuation
       return (
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path>
         </svg>
       );
     }
   };
 
+  const pillarModalRoute = (idx: number): typeof modalRoute => (idx === 2 ? 'valuation' : 'consultation');
+
+  // Subtle magnetic tilt on the pillar cards — pure CSS-var driven, GPU transform
+  // only, disabled for touch pointers and prefers-reduced-motion.
+  const tiltAllowed = () => {
+    if (typeof window === 'undefined') return false;
+    if (reduceMotionRef.current === null) {
+      reduceMotionRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    if (canTiltRef.current === null) {
+      canTiltRef.current = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+    return !reduceMotionRef.current && canTiltRef.current;
+  };
+
+  const handlePillarTilt = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!tiltAllowed()) return;
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--ry', `${px * 6}deg`);
+    card.style.setProperty('--rx', `${-py * 6}deg`);
+  };
+
+  const resetPillarTilt = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.style.setProperty('--rx', '0deg');
+    e.currentTarget.style.setProperty('--ry', '0deg');
+  };
+
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!subscribeEmail.trim()) return;
+    setSubscribeStatus('submitting');
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: subscribeEmail.trim() }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.ok) throw new Error('failed');
+      setSubscribeStatus('success');
+      setSubscribeEmail('');
+      setTimeout(() => setSubscribeStatus('idle'), 6000);
+    } catch {
+      setSubscribeStatus('error');
+      setTimeout(() => setSubscribeStatus('idle'), 6000);
+    }
+  };
+
   return (
     <main style={{ backgroundColor: 'var(--navy)', position: 'relative' }}>
-      <ConsultationModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        initialRoute={modalRoute} 
+      <ConsultationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialRoute={modalRoute}
       />
-      
+
       {/* 1. Hero Section — same bg image, fade, font, height and centered
           text as the properties hero */}
       <div className="properties-editorial-hero" ref={heroRef}>
@@ -96,10 +155,10 @@ export default function ForOwnersPage() {
       {/* Cinematic Establishing Shot */}
       <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingTop: '4rem', paddingBottom: '2rem' }}>
         <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div style={{ width: '100%', height: '70vh', minHeight: '500px', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
+          <div className={styles.shotFrame}>
             <Image
-              src="/images/services_hero.jpg"
-              alt="Premium Properties"
+              src="/images/owners_editorial.jpg"
+              alt="Premium property under professional management"
               fill
               style={{ objectFit: 'cover' }}
               priority
@@ -118,11 +177,14 @@ export default function ForOwnersPage() {
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'flex-start' }}>
-            <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 400px', fontSize: '3rem', lineHeight: '1.1', color: 'var(--navy)' }}>
-              {data.narrative.headline}
-            </h2>
-            <div style={{ flex: '1 1 400px', display: 'flex', alignItems: 'center' }}>
+          <div className={styles.narrativeGrid}>
+            <div className={styles.narrativeCol}>
+              <span className={styles.narrativeIndex} aria-hidden="true">01</span>
+              <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.1', color: 'var(--navy)', position: 'relative' }}>
+                {data.narrative.headline}
+              </h2>
+            </div>
+            <div className={styles.narrativeBody}>
               <p className={`why-subhead reveal-base reveal-up delay-200 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '1.25rem', color: 'rgba(4,36,51,0.8)' }}>
                 {data.narrative.body}
               </p>
@@ -131,13 +193,12 @@ export default function ForOwnersPage() {
         </div>
       </section>
 
-      {/* 3. Core Pillars (Image Cards with Hover Animation) */}
-      <section className="global-padding" ref={pillarsRef} style={{ backgroundColor: 'var(--navy)', paddingTop: '8rem', paddingBottom: '12rem', position: 'relative' }}>
-        {/* Subtle grid pattern for texture */}
+      {/* 3. Core Pillars — interactive: each opens the matching consultation flow */}
+      <section className="global-padding" ref={pillarsRef} style={{ backgroundColor: 'var(--navy)', paddingTop: '8rem', paddingBottom: '10rem', position: 'relative' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'radial-gradient(var(--cream) 1px, transparent 1px)', backgroundSize: '40px 40px', zIndex: 0 }}></div>
-        
+
         <div className="inner-page-container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
+          <div className={styles.pillarsGrid}>
             {data.pillars.map((pillar: any, idx: number) => {
               const bgImages = [
                 '/images/prop_villa_1787771383699.jpg', // Selling (Villa)
@@ -145,183 +206,57 @@ export default function ForOwnersPage() {
                 '/images/valuation_blueprint.jpg' // Valuation (Blueprints & Analytics)
               ];
               return (
-                <div 
-                  key={idx} 
-                  className={`reveal-base reveal-up delay-${(idx + 1) * 100} ${pillarsVisible ? 'is-revealed' : ''}`}
-                  style={{ height: '100%', minHeight: '450px' }}
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => openModal(pillarModalRoute(idx))}
+                  onMouseMove={handlePillarTilt}
+                  onMouseLeave={resetPillarTilt}
+                  className={`${styles.pillarCard} reveal-base reveal-scale delay-${(idx + 1) * 100} ${pillarsVisible ? 'is-revealed' : ''}`}
+                  aria-label={`${pillar.title} — ${pillar.desc}`}
                 >
-                  <div style={{
-                      position: 'relative',
-                      borderRadius: '1.5rem',
-                      overflow: 'hidden',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                      height: '100%',
-                      color: 'var(--cream)',
-                      cursor: 'pointer',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      padding: '1rem'
-                    }}
-                    onMouseEnter={(e) => {
-                      const img = e.currentTarget.querySelector('.pillar-bg-img') as HTMLElement;
-                      if(img) img.style.transform = 'scale(1.05)';
-                      const overlay = e.currentTarget.querySelector('.pillar-overlay') as HTMLElement;
-                      if(overlay) overlay.style.background = 'linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.4) 60%, transparent 100%)';
-                    }}
-                    onMouseLeave={(e) => {
-                      const img = e.currentTarget.querySelector('.pillar-bg-img') as HTMLElement;
-                      if(img) img.style.transform = 'scale(1)';
-                      const overlay = e.currentTarget.querySelector('.pillar-overlay') as HTMLElement;
-                      if(overlay) overlay.style.background = 'linear-gradient(to top, rgba(4,36,51,0.9) 0%, rgba(4,36,51,0.2) 60%, transparent 100%)';
-                    }}
-                  >
-                    {/* Background Image Wrapper with Corner Magic */}
-                    <div style={{ position: 'absolute', inset: '1rem', borderRadius: '1rem', overflow: 'hidden', zIndex: 0 }}>
-                      <div className="pillar-bg-img" style={{ position: 'absolute', inset: 0, transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-                        <Image 
-                          src={bgImages[idx] || '/images/services_hero.jpg'}
-                          alt={pillar.title}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                        />
-                      </div>
-                      
-                      {/* Dark Gradient Overlay */}
-                      <div className="pillar-overlay" style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(to top, rgba(4,36,51,0.9) 0%, rgba(4,36,51,0.2) 60%, transparent 100%)', transition: 'background 0.4s ease' }}></div>
+                  <div className={styles.pillarImgWrap}>
+                    <div className={styles.pillarImg}>
+                      <Image
+                        src={bgImages[idx] || '/images/services_hero.jpg'}
+                        alt=""
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
                     </div>
-
-                    {/* Content */}
-                    <div style={{ position: 'relative', zIndex: 2, padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', pointerEvents: 'none' }}>
-                      <div style={{ 
-                        width: '64px', 
-                        height: '64px', 
-                        borderRadius: '50%', 
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-                        backdropFilter: 'blur(10px)',
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        color: 'var(--white)',
-                        marginBottom: '0.5rem',
-                        border: '1px solid rgba(255, 255, 255, 0.2)'
-                      }}>
-                        {getPillarIcon(idx)}
-                      </div>
-                      <div>
-                        <h3 className="why-headline" style={{ fontSize: '2.2rem', margin: '0 0 1rem 0', color: 'var(--white)' }}>{pillar.title}</h3>
-                        <p className="why-subhead" style={{ fontSize: '1.1rem', margin: 0, opacity: 0.9, lineHeight: 1.6, color: 'var(--cream)' }}>{pillar.desc}</p>
-                      </div>
-                    </div>
+                    <div className={styles.pillarOverlay}></div>
                   </div>
-                </div>
+
+                  <div className={styles.pillarContent}>
+                    <div className={styles.pillarIconFrame}>
+                      {getPillarIcon(idx)}
+                    </div>
+                    <div>
+                      <h3 className={styles.pillarTitle}>{pillar.title}</h3>
+                      <p className={styles.pillarDesc}>{pillar.desc}</p>
+                    </div>
+                    <span className={styles.pillarCue}>
+                      Get started
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M7 17 17 7" /><path d="M8 7h9v9" />
+                      </svg>
+                    </span>
+                  </div>
+                </button>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* 4 & 5. Process Integration (Selling and Renting) using ProcessList */}
-      <ProcessList processData={data.selling} invertBackground={false} />
-      <ProcessList processData={data.renting} invertBackground={true} />
+      {/* 4 & 5. Process Integration — Selling uses a premium 3D CoverFlow carousel, Renting uses a highly modern Spotlight Bento Grid. */}
+      <ProcessList processData={data.selling} invertBackground={false} variant="3d-carousel" />
+      <ProcessList processData={data.renting} invertBackground={true} variant="spotlight-grid" />
 
-      {/* 6. Valuation & Benefits (Premium Bento Grid) */}
-      <style>{`
-        .bento-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-auto-rows: 280px;
-          gap: 1.5rem;
-          max-width: 1100px;
-          margin: 0 auto;
-        }
-        .bento-card {
-          border-radius: 1.5rem;
-          overflow: hidden;
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          padding: 2.5rem;
-          box-shadow: 0 10px 40px rgba(4,36,51,0.03);
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-          border: 1px solid rgba(4,36,51,0.05);
-          background: white;
-        }
-        .bento-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 50px rgba(4,36,51,0.08);
-        }
-        
-        /* Card 0: Large square (left) */
-        .bento-0 { 
-          grid-column: span 2; 
-          grid-row: span 2; 
-          justify-content: flex-end; 
-          color: white; 
-          border: none;
-          background-color: var(--navy);
-          padding: 1rem;
-        }
-        
-        /* Card 1: Top right */
-        .bento-1 { 
-          grid-column: span 1; 
-          grid-row: span 1; 
-          justify-content: space-between;
-        }
-        
-        /* Card 2: Bottom right */
-        .bento-2 { 
-          grid-column: span 1; 
-          grid-row: span 1; 
-          justify-content: space-between;
-        }
-        
-        /* Card 3: Wide banner */
-        .bento-3 { 
-          grid-column: span 3; 
-          grid-row: span 1; 
-          flex-direction: row; 
-          align-items: center; 
-          justify-content: flex-end;
-          padding: 1rem;
-          border: none;
-          background-color: var(--navy);
-        }
-        .bento-3-content {
-          position: relative; z-index: 2; color: white; max-width: 450px; padding: 1.5rem; text-align: right;
-        }
-        
-        .bento-content { position: relative; z-index: 2; }
-        
-        .bento-icon {
-          width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
-          background: rgba(181, 143, 98, 0.1); color: var(--bronze);
-        }
-        .bento-0 .bento-icon { background: rgba(255,255,255,0.1); color: white; backdrop-filter: blur(5px); }
-        
-        @media (max-width: 900px) {
-          .bento-grid {
-            grid-template-columns: 1fr;
-            grid-auto-rows: auto;
-          }
-          .bento-0 { grid-column: span 1; grid-row: auto; min-height: 450px; }
-          .bento-1, .bento-2 { grid-column: span 1; grid-row: auto; min-height: 250px; }
-          .bento-3 { 
-            grid-column: span 1; grid-row: auto; flex-direction: column; align-items: flex-start; justify-content: flex-end; min-height: 350px;
-          }
-          .bento-3 .bento-overlay {
-            background: linear-gradient(to top, rgba(4,36,51,0.9) 0%, transparent 100%);
-          }
-          .bento-3-content {
-            text-align: left; padding: 1.5rem; max-width: 100%;
-          }
-        }
-      `}</style>
+      {/* 6. Valuation & Benefits (Sharp-cornered editorial bento grid) */}
       <section className="global-padding" ref={valuationRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '10rem', paddingBottom: '4rem', position: 'relative' }}>
         <div className="inner-page-container">
-          
+
           <div className={`reveal-base reveal-up ${valuationVisible ? 'is-revealed' : ''}`} style={{ textAlign: 'center', marginBottom: '6rem' }}>
             <p className="services-subtitle" style={{ justifyContent: 'center', color: 'var(--bronze)' }}>
                <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {data.valuation.tag}
@@ -335,53 +270,57 @@ export default function ForOwnersPage() {
             </p>
           </div>
 
-          <div className="bento-grid">
-            {/* Card 0: Precise Valuation */}
-            <div className={`bento-card bento-0 reveal-base reveal-scale delay-100 ${valuationVisible ? 'is-revealed' : ''}`}>
-              <div style={{ position: 'absolute', inset: '1rem', borderRadius: '1rem', overflow: 'hidden', zIndex: 0 }}>
-                <Image src="/images/prop_villa_1787771383699.jpg" alt={data.valuation.benefits[0].title} fill style={{ objectFit: 'cover' }} />
-                <div className="bento-overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.2) 60%, transparent 100%)', zIndex: 1 }}></div>
-              </div>
-              <div className="bento-content" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
-                <div className="bento-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <div className={styles.bentoGrid}>
+            {/* Card 0: Precise Valuation (feature, image) */}
+            <div className={`${styles.bentoCard} ${styles.bentoCardDark} ${styles.bento0} reveal-base reveal-scale delay-100 ${valuationVisible ? 'is-revealed' : ''}`}>
+              <div className={styles.bentoImgWrap}>
+                <div className={styles.bentoImg}>
+                  <Image src="/images/prop_villa_1787771383699.jpg" alt="" fill style={{ objectFit: 'cover' }} />
                 </div>
-                <h4 style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{data.valuation.benefits[0].title}</h4>
-                <p style={{ opacity: 0.8, fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '80%' }}>{data.valuation.benefits[0].desc}</p>
+                <div className={styles.bentoOverlayUp}></div>
+              </div>
+              <div className={`${styles.bentoContent} ${styles.bento0Content}`}>
+                <div className={styles.bentoIconFrame}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h4 className={styles.bentoBigTitle}>{data.valuation.benefits[0].title}</h4>
+                <p className={styles.bentoBigDesc}>{data.valuation.benefits[0].desc}</p>
               </div>
             </div>
 
             {/* Card 1: Value Optimization */}
-            <div className={`bento-card bento-1 reveal-base reveal-scale delay-200 ${valuationVisible ? 'is-revealed' : ''}`}>
-              <div className="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            <div className={`${styles.bentoCard} ${styles.bento1} reveal-base reveal-scale delay-200 ${valuationVisible ? 'is-revealed' : ''}`}>
+              <div className={styles.bentoIconFrame}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
               </div>
-              <div className="bento-content">
-                <h4 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--navy)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>{data.valuation.benefits[1].title}</h4>
-                <p style={{ opacity: 0.7, color: 'var(--navy)', fontSize: '1.05rem', lineHeight: 1.5, margin: 0 }}>{data.valuation.benefits[1].desc}</p>
+              <div className={styles.bentoContent}>
+                <h4 className={styles.bentoSmallTitle}>{data.valuation.benefits[1].title}</h4>
+                <p className={styles.bentoSmallDesc}>{data.valuation.benefits[1].desc}</p>
               </div>
             </div>
 
             {/* Card 2: Market Analysis */}
-            <div className={`bento-card bento-2 reveal-base reveal-scale delay-300 ${valuationVisible ? 'is-revealed' : ''}`}>
-              <div className="bento-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+            <div className={`${styles.bentoCard} ${styles.bento2} reveal-base reveal-scale delay-300 ${valuationVisible ? 'is-revealed' : ''}`}>
+              <div className={styles.bentoIconFrame}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
               </div>
-              <div className="bento-content">
-                <h4 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--navy)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>{data.valuation.benefits[2].title}</h4>
-                <p style={{ opacity: 0.7, color: 'var(--navy)', fontSize: '1.05rem', lineHeight: 1.5, margin: 0 }}>{data.valuation.benefits[2].desc}</p>
+              <div className={styles.bentoContent}>
+                <h4 className={styles.bentoSmallTitle}>{data.valuation.benefits[2].title}</h4>
+                <p className={styles.bentoSmallDesc}>{data.valuation.benefits[2].desc}</p>
               </div>
             </div>
 
-            {/* Card 3: Strategic Pricing */}
-            <div className={`bento-card bento-3 reveal-base reveal-scale delay-400 ${valuationVisible ? 'is-revealed' : ''}`}>
-              <div style={{ position: 'absolute', inset: '1rem', borderRadius: '1rem', overflow: 'hidden', zIndex: 0 }}>
-                <Image src="/images/valuation_blueprint.jpg" alt={data.valuation.benefits[3].title} fill style={{ objectFit: 'cover' }} />
-                <div className="bento-overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(4,36,51,0.1) 0%, rgba(4,36,51,0.9) 80%)', zIndex: 1 }}></div>
+            {/* Card 3: Strategic Pricing (feature, image) */}
+            <div className={`${styles.bentoCard} ${styles.bentoCardDark} ${styles.bento3} reveal-base reveal-scale delay-400 ${valuationVisible ? 'is-revealed' : ''}`}>
+              <div className={styles.bentoImgWrap}>
+                <div className={styles.bentoImg}>
+                  <Image src="/images/valuation_blueprint.jpg" alt="" fill style={{ objectFit: 'cover' }} />
+                </div>
+                <div className={styles.bentoOverlayLeft}></div>
               </div>
-              <div className="bento-3-content" style={{ marginLeft: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-                <h4 style={{ fontSize: '2.5rem', fontWeight: 500, marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{data.valuation.benefits[3].title}</h4>
-                <p style={{ opacity: 0.8, fontSize: '1.15rem', lineHeight: 1.6 }}>{data.valuation.benefits[3].desc}</p>
+              <div className={`${styles.bentoContent} ${styles.bento3Content}`}>
+                <h4 className={styles.bentoBigTitle}>{data.valuation.benefits[3].title}</h4>
+                <p className={styles.bentoBigDesc}>{data.valuation.benefits[3].desc}</p>
               </div>
             </div>
 
@@ -390,11 +329,10 @@ export default function ForOwnersPage() {
         </div>
       </section>
 
-      {/* 6b. Valuation Steps Grid */}
-      <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingBottom: '8rem' }}>
+      {/* 6b. Valuation Steps — horizontal roadmap */}
+      <section className="global-padding" ref={stepsRef} style={{ backgroundColor: 'var(--cream)', paddingBottom: '8rem' }}>
         <div className="inner-page-container">
-          {/* Valuation Steps Intro */}
-          <div className={`reveal-base reveal-up delay-200 ${valuationVisible ? 'is-revealed' : ''}`} style={{ textAlign: 'center', marginBottom: '4rem', paddingTop: '4rem' }}>
+          <div className={`reveal-base reveal-up ${stepsVisible ? 'is-revealed' : ''}`} style={{ textAlign: 'center', marginBottom: '4rem', paddingTop: '4rem' }}>
             <h3 className="explore-headline" style={{ fontSize: '2.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
               Our Valuation Process
             </h3>
@@ -403,77 +341,56 @@ export default function ForOwnersPage() {
             </p>
           </div>
 
-          {/* Three Steps Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '4rem' }}>
+          <div className={styles.stepsGrid}>
             {data.valuation.steps.map((step: any, idx: number) => (
-              <div 
-                key={idx} 
-                className={`reveal-base reveal-up ${valuationVisible ? 'is-revealed' : ''}`}
-                style={{ textAlign: 'center', color: 'var(--navy)', cursor: 'default', transitionDelay: `${(idx + 1) * 150}ms` }}
-                onMouseEnter={(e) => {
-                  const circle = e.currentTarget.querySelector('.step-circle') as HTMLElement;
-                  if(circle) {
-                    circle.style.backgroundColor = 'var(--bronze)';
-                    circle.style.color = 'white';
-                    circle.style.transform = 'scale(1.1)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const circle = e.currentTarget.querySelector('.step-circle') as HTMLElement;
-                  if(circle) {
-                    circle.style.backgroundColor = 'transparent';
-                    circle.style.color = 'var(--bronze)';
-                    circle.style.transform = 'scale(1)';
-                  }
-                }}
+              <div
+                key={idx}
+                className={`${styles.stepCard} reveal-base reveal-up ${stepsVisible ? 'is-revealed' : ''}`}
+                style={{ transitionDelay: `${(idx + 1) * 150}ms` }}
               >
-                <div className="step-circle" style={{ width: '70px', height: '70px', borderRadius: '50%', border: '2px solid var(--bronze)', color: 'var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontFamily: 'var(--font-serif)', margin: '0 auto 2rem auto', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-                  0{idx + 1}
-                </div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontWeight: 600 }}>{step.title}</h3>
-                <p style={{ opacity: 0.7, lineHeight: 1.6 }}>{step.desc}</p>
+                {idx < data.valuation.steps.length - 1 && <div className={styles.stepConnector} aria-hidden="true" />}
+                <div className={styles.stepBadge}>0{idx + 1}</div>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepDesc}>{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 7. Enhanced Inline Lead Capture Strip (Glassmorphic Banner) */}
+      {/* 7. Newsletter / Lead Capture Strip */}
       <section className="global-padding" style={{ padding: '8rem 0', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundColor: 'var(--navy)' }}>
-           {/* Dark background for contrast with subtle radial glow */}
            <div style={{ position: 'absolute', top: '-50%', left: '-20%', width: '100%', height: '200%', background: 'radial-gradient(circle, rgba(181, 143, 98, 0.15) 0%, transparent 60%)' }}></div>
         </div>
-        
-        <div className="inner-page-container" style={{ position: 'relative', zIndex: 1, maxWidth: '1000px', margin: '0 auto' }}>
-          <div
-             className="owners-lead-glass"
-             style={{
-               width: '100%',
-               height: 'auto',
-               borderRadius: '24px',
-               backgroundColor: 'rgba(255, 255, 255, 0.05)',
-               backdropFilter: 'blur(18px)',
-               WebkitBackdropFilter: 'blur(18px)',
-               border: '1px solid rgba(255, 255, 255, 0.1)',
-               boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)'
-             }}
-          >
-            <div style={{ padding: '6rem 3rem', textAlign: 'center', color: 'var(--white)' }}>
-              <h3 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 500, marginBottom: '3rem', fontFamily: 'var(--font-satoshi), sans-serif', letterSpacing: '-0.03em' }}>
-                The best decisions for your Property begin with the right advice
-              </h3>
-              <form style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', maxWidth: '800px', margin: '0 auto' }} onSubmit={(e) => { e.preventDefault(); alert("Subscribed!"); }}>
-                <input type="text" placeholder="Name" required style={{ padding: '1.25rem 1.5rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.2)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--white)', flex: '1 1 200px', fontSize: '1rem', fontFamily: 'var(--font-satoshi), sans-serif' }} />
-                <input type="email" placeholder="E-Mail" required style={{ padding: '1.25rem 1.5rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.2)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--white)', flex: '1 1 200px', fontSize: '1rem', fontFamily: 'var(--font-satoshi), sans-serif' }} />
-                <button type="submit" style={{ padding: '1.25rem 3rem', backgroundColor: 'var(--bronze)', color: 'var(--white)', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '1.1rem', fontWeight: 500, fontFamily: 'var(--font-satoshi), sans-serif', transition: 'background-color 0.2s, transform 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(181, 143, 98, 0.9)'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--bronze)'}
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
+
+        <div className="inner-page-container" style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto' }}>
+          <div className={styles.leadCard}>
+            <h3 className={styles.leadHeadline}>
+              The best decisions for your property begin with the right advice
+            </h3>
+            <form className={styles.leadForm} onSubmit={handleSubscribe}>
+              <div className={styles.leadInputGroup}>
+                <label htmlFor="owners-newsletter-email" className="sr-only" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
+                  Email address
+                </label>
+                <input
+                  id="owners-newsletter-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                  value={subscribeEmail}
+                  onChange={(e) => setSubscribeEmail(e.target.value)}
+                  className={styles.leadInput}
+                />
+              </div>
+              <button type="submit" className={styles.leadSubmit} disabled={subscribeStatus === 'submitting'}>
+                {subscribeStatus === 'submitting' ? 'Subscribing…' : 'Subscribe'}
+                <BtnArrow />
+              </button>
+            </form>
+            {subscribeStatus === 'success' && <p className={styles.leadMsg}>Thank you — you&apos;re on the list.</p>}
+            {subscribeStatus === 'error' && <p className={`${styles.leadMsg} ${styles.leadMsgError}`}>Something went wrong. Please try again.</p>}
           </div>
         </div>
       </section>
@@ -487,29 +404,10 @@ export default function ForOwnersPage() {
           <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)' }}>
             We advise you personally and without obligation.
           </p>
-          <button 
+          <button
                 onClick={() => openModal('top_contact')}
-                className="explore-btn explore-btn-dark"
-                style={{
-                  padding: '1.5rem 4rem',
-                  backgroundColor: 'var(--navy)',
-                  color: 'var(--white)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  margin: '0 auto',
-                  textDecoration: 'none',
-                  fontSize: '1.2rem',
-                  boxShadow: '0 20px 40px rgba(4,36,51,0.15)',
-                  transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 30px 60px rgba(4,36,51,0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(4,36,51,0.15)';
-                }}
+                className={`explore-btn explore-btn-dark ${styles.finalCtaBtn}`}
+                style={{ fontSize: '1.2rem', margin: '0 auto' }}
               >
                 Request Consultation
                 <BtnArrow />

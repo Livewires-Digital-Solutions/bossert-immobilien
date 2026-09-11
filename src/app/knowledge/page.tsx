@@ -41,7 +41,7 @@ export default function KnowledgePage() {
       />
 
       {/* 3. CTA */}
-      <CtaSection variant="knowledge" invert={true} />
+      <CtaSection variant="knowledge" />
 
       <Footer />
     </main>

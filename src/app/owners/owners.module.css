@@ -1,0 +1,532 @@
+/* ==========================================================================
+   FOR OWNERS — page-scoped styles (everything below the hero)
+   Sharp corners, bronze/navy/cream language, CSS-driven interaction —
+   matches the home page design system (see globals.css reveal + button
+   systems, which this file extends rather than duplicates).
+   ========================================================================== */
+
+/* ── Establishing shot ─────────────────────────────────────────────────── */
+.shotFrame {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 460px;
+  overflow: hidden;
+}
+
+.shotFrame::before,
+.shotFrame::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  z-index: 2;
+  pointer-events: none;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shotFrame::before {
+  top: 1.25rem;
+  left: 1.25rem;
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
+}
+.shotFrame::after {
+  bottom: 1.25rem;
+  right: 1.25rem;
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
+}
+
+/* ── Narrative ──────────────────────────────────────────────────────────── */
+.narrativeGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+.narrativeCol {
+  flex: 1 1 400px;
+  position: relative;
+}
+
+.narrativeIndex {
+  position: absolute;
+  top: -2.5rem;
+  left: -0.5rem;
+  font-family: var(--font-serif);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--navy);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+.narrativeBody {
+  flex: 1 1 400px;
+  display: flex;
+  align-items: center;
+  padding-left: 2.5rem;
+  border-left: 1px solid rgba(4, 36, 51, 0.12);
+}
+
+@media (max-width: 860px) {
+  .narrativeBody { padding-left: 0; border-left: none; }
+  .narrativeIndex { display: none; }
+}
+
+/* ── Core pillars ───────────────────────────────────────────────────────── */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.pillarCard {
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 460px;
+  text-align: left;
+  color: var(--cream);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  font-family: inherit;
+  transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+.pillarCard:hover,
+.pillarCard:focus-visible {
+  border-color: rgba(181, 143, 98, 0.5);
+}
+
+.pillarCard:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 3px;
+}
+
+.pillarImgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.pillarImg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pillarCard:hover .pillarImg,
+.pillarCard:focus-visible .pillarImg {
+  transform: scale(1.06);
+}
+
+.pillarOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(4, 36, 51, 0.92) 0%, rgba(4, 36, 51, 0.35) 55%, rgba(4, 36, 51, 0.05) 100%);
+  transition: background 0.4s ease;
+}
+
+.pillarCard:hover .pillarOverlay,
+.pillarCard:focus-visible .pillarOverlay {
+  background: linear-gradient(to top, rgba(4, 36, 51, 0.97) 0%, rgba(4, 36, 51, 0.55) 60%, rgba(4, 36, 51, 0.1) 100%);
+}
+
+/* Bronze corner brackets — appear on interaction */
+.pillarCard::before,
+.pillarCard::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.pillarCard::before {
+  top: 1.25rem;
+  left: 1.25rem;
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
+}
+.pillarCard::after {
+  bottom: 1.25rem;
+  right: 1.25rem;
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
+}
+.pillarCard:hover::before,
+.pillarCard:hover::after,
+.pillarCard:focus-visible::before,
+.pillarCard:focus-visible::after {
+  opacity: 1;
+}
+
+.pillarContent {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pillarIconFrame {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pillarCard:hover .pillarIconFrame,
+.pillarCard:focus-visible .pillarIconFrame {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  transform: translateY(-4px);
+}
+
+.pillarTitle {
+  font-size: 2rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.pillarDesc {
+  font-size: 1.05rem;
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.6;
+  color: var(--cream);
+  max-width: 34ch;
+}
+
+.pillarCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.pillarCard:hover .pillarCue,
+.pillarCard:focus-visible .pillarCue {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pillarCue svg {
+  transition: transform 0.3s ease;
+}
+.pillarCard:hover .pillarCue svg,
+.pillarCard:focus-visible .pillarCue svg {
+  transform: translate(3px, -3px);
+}
+
+/* ── Valuation bento grid ───────────────────────────────────────────────── */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 280px;
+  gap: 1.5px;
+  background: rgba(4, 36, 51, 0.12);
+  border: 1px solid rgba(4, 36, 51, 0.12);
+}
+
+.bentoCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  background: var(--cream);
+  transition: background 0.4s ease;
+}
+
+.bentoCardDark {
+  color: var(--white);
+  background: var(--navy);
+  padding: 0;
+  justify-content: flex-end;
+}
+
+.bentoCardDark.bento0 { grid-column: span 2; grid-row: span 2; }
+.bentoCard.bento1 { grid-column: span 1; grid-row: span 1; justify-content: space-between; }
+.bentoCard.bento2 { grid-column: span 1; grid-row: span 1; justify-content: space-between; }
+.bentoCardDark.bento3 {
+  grid-column: span 3;
+  grid-row: span 1;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.bentoImgWrap { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bentoImg { position: absolute; inset: 0; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+.bentoCardDark:hover .bentoImg { transform: scale(1.05); }
+
+.bentoOverlayUp {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.25) 60%, transparent 100%);
+}
+.bentoOverlayLeft {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to right, rgba(4,36,51,0.15) 0%, rgba(4,36,51,0.92) 75%);
+}
+
+.bentoCardDark::before,
+.bentoCardDark::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.bentoCardDark::before { top: 1rem; left: 1rem; border-top: 2px solid var(--bronze); border-left: 2px solid var(--bronze); }
+.bentoCardDark::after { bottom: 1rem; right: 1rem; border-bottom: 2px solid var(--bronze); border-right: 2px solid var(--bronze); }
+.bentoCardDark:hover::before, .bentoCardDark:hover::after { opacity: 1; }
+
+.bentoContent { position: relative; z-index: 2; }
+.bento0Content { padding: 2.25rem; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+.bento3Content { margin-left: auto; display: flex; flex-direction: column; justify-content: center; height: 100%; max-width: 460px; padding: 2.5rem; text-align: right; }
+
+.bentoIconFrame {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(181, 143, 98, 0.4);
+  color: var(--bronze);
+  margin-bottom: 1.5rem;
+}
+.bentoCardDark .bentoIconFrame {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bentoBigTitle { font-size: 2.4rem; font-weight: 500; margin: 0 0 1rem 0; letter-spacing: -0.02em; line-height: 1.1; }
+.bentoBigDesc { opacity: 0.8; font-size: 1.1rem; line-height: 1.6; max-width: 85%; margin: 0; }
+.bento3Content .bentoBigDesc { max-width: 100%; }
+
+.bentoSmallTitle { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin: 0 0 0.5rem 0; letter-spacing: -0.02em; }
+.bentoSmallDesc { opacity: 0.7; color: var(--navy); font-size: 1.02rem; line-height: 1.5; margin: 0; }
+
+@media (max-width: 900px) {
+  .bentoGrid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .bentoCardDark.bento0 { grid-column: span 1; grid-row: auto; min-height: 420px; }
+  .bentoCard.bento1, .bentoCard.bento2 { grid-column: span 1; grid-row: auto; min-height: 220px; }
+  .bentoCardDark.bento3 { grid-column: span 1; grid-row: auto; flex-direction: column; align-items: stretch; min-height: 340px; }
+  .bento3Content { text-align: left; max-width: 100%; margin-left: 0; }
+}
+
+/* ── Valuation steps (horizontal roadmap) ──────────────────────────────── */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+  position: relative;
+}
+
+.stepCard {
+  position: relative;
+  text-align: left;
+  color: var(--navy);
+  padding-top: 0.5rem;
+}
+
+.stepConnector {
+  position: absolute;
+  top: 34px;
+  left: calc(50% + 40px);
+  width: calc(100% - 40px);
+  height: 1px;
+  background: repeating-linear-gradient(to right, rgba(4,36,51,0.2) 0 6px, transparent 6px 12px);
+}
+
+@media (max-width: 900px) {
+  .stepConnector { display: none; }
+}
+
+.stepBadge {
+  width: 68px;
+  height: 68px;
+  border: 1px solid var(--bronze);
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  font-family: var(--font-serif);
+  margin-bottom: 2rem;
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease;
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
+}
+
+.stepCard:hover .stepBadge {
+  background-color: var(--bronze);
+  color: var(--white);
+}
+
+.stepTitle { font-size: 1.3rem; margin-bottom: 0.75rem; font-weight: 600; }
+.stepDesc { opacity: 0.7; line-height: 1.6; margin: 0; }
+
+/* ── Lead capture (newsletter) ─────────────────────────────────────────── */
+.leadCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 5rem 3rem;
+  text-align: center;
+}
+
+.leadCard::before,
+.leadCard::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+.leadCard::before { top: -1px; left: -1px; border-top: 2px solid var(--bronze); border-left: 2px solid var(--bronze); }
+.leadCard::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--bronze); border-right: 2px solid var(--bronze); }
+
+.leadHeadline {
+  font-size: clamp(1.75rem, 3.4vw, 2.4rem);
+  font-weight: 300;
+  margin: 0 0 3rem 0;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.leadForm {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.leadInputGroup {
+  flex: 1 1 260px;
+  text-align: left;
+}
+
+.leadInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.85rem 0.1rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: var(--white);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.leadInput::placeholder { color: rgba(255, 255, 255, 0.4); }
+.leadInput:focus { border-bottom-color: var(--bronze); }
+
+.leadSubmit {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--bronze);
+  padding: 0.95rem 2rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.leadSubmit:hover:not(:disabled),
+.leadSubmit:focus-visible:not(:disabled) {
+  background: var(--bronze);
+}
+
+.leadSubmit:disabled { opacity: 0.6; cursor: default; }
+
+.leadMsg {
+  margin: 1.5rem 0 0 0;
+  font-size: 0.85rem;
+  color: var(--bronze);
+}
+.leadMsgError { color: #e39a9a; }
+
+@media (max-width: 560px) {
+  .leadForm { flex-direction: column; }
+  .leadSubmit { align-self: stretch; justify-content: center; }
+}
+
+/* ── Final CTA button lift ─────────────────────────────────────────────── */
+.finalCtaBtn {
+  padding: 1.5rem 4rem !important;
+  background-color: var(--navy);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 20px 40px rgba(4, 36, 51, 0.15);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.finalCtaBtn:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(4, 36, 51, 0.2);
+  color: var(--white);
+  border-color: transparent;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .pillarCard,
+  .pillarImg,
+  .pillarIconFrame,
+  .pillarCue,
+  .bentoImg,
+  .stepBadge,
+  .finalCtaBtn {
+    transition: none !important;
+    transform: none !important;
+  }
+}
