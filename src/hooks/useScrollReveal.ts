@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
  * @param triggerOnce - If true, the animation only runs once when first scrolled into view
  * @returns [ref, isVisible] - Attach the ref to the element, and apply classes based on isVisible
  */
-export function useScrollReveal(threshold = 0.15, triggerOnce = true) {
+export function useScrollReveal(threshold = 0, triggerOnce = true) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<any>(null);
 
@@ -23,8 +23,9 @@ export function useScrollReveal(threshold = 0.15, triggerOnce = true) {
         }
       },
       {
-        threshold,
-        rootMargin: '0px 0px -50px 0px', // Triggers slightly before it fully crosses the bottom
+        threshold: 0,
+        // Triggers right when the section reaches the center viewport reading zone (~38% from bottom)
+        rootMargin: '0px 0px -38% 0px',
       }
     );
 
