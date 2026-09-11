@@ -36,7 +36,7 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Element;
-      if (!target.closest('.search-filter')) {
+      if (!target.closest('.search-filter') && !target.closest('.adv-filter-box')) {
         setActiveDropdown(null);
       }
     }
@@ -270,23 +270,15 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
         {/* Controls Row Below Search Bar */}
         <div className="search-sub-row">
           <label className="advanced-search-checkbox" htmlFor="advancedSearch">
-            <input 
-              type="checkbox" 
-              id="advancedSearch" 
+            <input
+              type="checkbox"
+              id="advancedSearch"
               className="custom-checkbox"
               checked={isAdvancedOpen}
               onChange={(e) => setIsAdvancedOpen(e.target.checked)}
             />
             <span>{t.search.advancedBtn}</span>
           </label>
-
-          <button 
-            type="button" 
-            className="more-options-toggle" 
-            onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-          >
-            — {t.search.moreOptions || 'MORE OPTIONS'}
-          </button>
         </div>
 
         {/* Expandable Advanced Area */}
