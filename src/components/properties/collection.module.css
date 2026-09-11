@@ -1,0 +1,533 @@
+/* ============================================================
+   Properties — Collection (listing) experience
+   Design language inherited from the home page:
+   navy / cream / bronze · The Seasons serif + Inter · sharp corners
+   ============================================================ */
+
+.page {
+  background: var(--cream);
+  color: var(--navy);
+  overflow-x: clip;
+}
+
+/* ── Cinematic hero ─────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.heroBgWrap {
+  position: absolute;
+  inset: -8% -4%;
+  z-index: 0;
+}
+.heroBg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom, rgba(4, 36, 51, 0.15) 0%, rgba(4, 36, 51, 0) 30%, rgba(4, 36, 51, 0.55) 72%, var(--navy) 100%),
+    linear-gradient(to right, rgba(4, 36, 51, 0.72) 0%, rgba(4, 36, 51, 0.25) 45%, rgba(4, 36, 51, 0.15) 100%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(3rem, 7vh, 5rem);
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  color: var(--cream);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 1.5rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: var(--bronze);
+}
+.eyebrowDark {
+  color: var(--bronze);
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.heroTitle .serif {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: clamp(3rem, 7.5vw, 6.6rem);
+  color: var(--cream);
+}
+
+.heroBottomRow {
+  margin-top: clamp(1.75rem, 4vh, 2.75rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+.heroSubhead {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  line-height: 1.7;
+  color: rgba(254, 252, 246, 0.72);
+  max-width: 46ch;
+}
+
+.heroMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+.heroMetaNum {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1;
+  color: var(--bronze);
+}
+.heroMetaLabel {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(254, 252, 246, 0.55);
+}
+
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.6rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+.scrollCueLabel {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.scrollCueLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  overflow: hidden;
+  position: relative;
+}
+.scrollCueLine::after {
+  content: '';
+  position: absolute;
+  inset: -100% 0 auto 0;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9), transparent);
+  animation: cueDrop 1.9s ease-in-out infinite;
+}
+@keyframes cueDrop {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(200%); }
+}
+
+/* ── Buttons (home language) ───────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1rem 1.6rem;
+  border: 1px solid var(--bronze);
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.35s ease, border-color 0.35s ease;
+  white-space: nowrap;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bronze);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+.btn:hover::before { transform: scaleX(1); }
+.btn:hover { color: var(--navy); border-color: var(--bronze); }
+.btnDark {
+  color: var(--navy);
+  border-color: var(--bronze);
+}
+.btnDark:hover { color: var(--cream); }
+.btnArrow { display: inline-flex; transition: transform 0.35s ease; }
+.btn:hover .btnArrow { transform: translate(3px, -3px); }
+
+/* ── Collection ────────────────────────────────────────────── */
+.collection {
+  padding: clamp(3.5rem, 8vh, 7rem) clamp(1.5rem, 5vw, 4rem) clamp(4rem, 10vh, 8rem);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.filterBar {
+  position: sticky;
+  top: 58px;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  background: var(--cream);
+  border-bottom: 1px solid rgba(4, 36, 51, 0.14);
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.4rem;
+}
+.filterTab {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.5);
+  padding: 0.55rem 0.4rem;
+  transition: color 0.25s ease;
+}
+.filterTab:hover { color: var(--navy); }
+.filterTabActive { color: var(--navy); }
+.filterInk {
+  position: absolute;
+  left: 0.4rem;
+  right: 0.4rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--bronze);
+}
+
+.resultCount {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(4, 36, 51, 0.5);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+}
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 680px) { .grid { grid-template-columns: 1fr; } }
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(4, 36, 51, 0.16);
+  background: #fbfaf7;
+  text-decoration: none;
+  color: var(--navy);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px -18px rgba(4, 36, 51, 0.28);
+  border-color: var(--bronze);
+}
+
+/* Featured — first card spans two columns, side-by-side */
+.featuredCell {
+  grid-column: span 2;
+}
+@media (max-width: 680px) {
+  .featuredCell { grid-column: span 1; }
+}
+.cardFeatured {
+  flex-direction: row;
+}
+.cardFeatured .cardMedia {
+  flex: 1.15;
+  aspect-ratio: auto;
+  min-height: 420px;
+}
+.cardFeatured .cardBody {
+  flex: 1;
+  justify-content: center;
+  padding: clamp(1.75rem, 3vw, 3rem);
+}
+.cardFeatured .cardTitle { font-size: clamp(1.4rem, 2vw, 1.9rem); }
+@media (max-width: 680px) {
+  .cardFeatured { flex-direction: column; }
+  .cardFeatured .cardMedia { min-height: 0; aspect-ratio: 4 / 3; }
+}
+
+.cardMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e8e2d8;
+}
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.card:hover .cardImg { transform: scale(1.06); }
+
+.cardMediaGrad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 36, 51, 0.45) 0%, rgba(4, 36, 51, 0) 42%);
+  pointer-events: none;
+}
+
+.cardTags {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  z-index: 2;
+}
+.cardDeal {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: rgba(254, 252, 246, 0.94);
+  padding: 0.32rem 0.6rem;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.cardCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.15rem 1.25rem 1.35rem;
+  flex: 1;
+}
+
+.cardLoc {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.cardLoc::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--bronze);
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.28;
+  color: var(--navy);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+}
+.cardSpec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.74rem;
+  color: rgba(4, 36, 51, 0.72);
+}
+.cardSpec svg { color: var(--bronze); flex-shrink: 0; }
+
+.cardFooter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+}
+.cardPrice {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--navy);
+  line-height: 1.1;
+}
+.cardPriceCaption {
+  display: block;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.45);
+  margin-top: 0.25rem;
+}
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+.cardCta svg { transition: transform 0.35s ease; }
+.card:hover .cardCta svg { transform: translate(3px, -3px); }
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 1rem;
+  color: rgba(4, 36, 51, 0.5);
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* ── Off-market CTA (framed card + bronze corner brackets) ─── */
+.cta {
+  padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(4rem, 10vh, 8rem);
+}
+.ctaCard {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  border: 1px solid var(--navy);
+  background: #f8f6f1;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+.ctaCard::before,
+.ctaCard::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--bronze);
+  border-style: solid;
+}
+.ctaCard::before { top: -6px; left: -6px; border-width: 2px 0 0 2px; }
+.ctaCard::after { bottom: -6px; right: -6px; border-width: 0 2px 2px 0; }
+
+.ctaTitle {
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.ctaTitle .serif {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 4.4vw, 3.8rem);
+}
+.ctaSub {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(4, 36, 51, 0.62);
+  max-width: 54ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollCueLine::after { animation: none; }
+  .cardImg { transition: none; }
+}
