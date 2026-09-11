@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '../context/LanguageContext';
@@ -8,75 +8,6 @@ import { useSiteSettings } from '../hooks/useSiteSettings';
 import styles from './Footer.module.css';
 
 const NAVY = '#042433';
-
-function FooterNewsletter() {
-  const { t } = useLanguage();
-  const nl = t.newsletterFooter;
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (status === 'submitting') return;
-
-    const trimmed = email.trim();
-    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setStatus('error');
-      setErrorMsg(nl.invalidEmail);
-      return;
-    }
-
-    setStatus('submitting');
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed }),
-      });
-      if (!res.ok) throw new Error('failed');
-      setStatus('success');
-      setEmail('');
-    } catch {
-      setStatus('error');
-      setErrorMsg(nl.error);
-    }
-  }
-
-  if (status === 'success') {
-    return (
-      <div className={styles.newsletterRow}>
-        <p className={styles.newsletterMsg}>{nl.success}</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.newsletterRow}>
-      <h3 className={styles.newsletterHeadline}>{nl.headline}</h3>
-      <p className={styles.newsletterSubhead}>{nl.subhead}</p>
-      <form className={styles.newsletterForm} onSubmit={onSubmit} noValidate>
-        <div className={styles.newsletterInputWrap}>
-          <input
-            type="email"
-            className={styles.newsletterInput}
-            placeholder={nl.placeholder}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (status === 'error') setStatus('idle');
-            }}
-            required
-          />
-        </div>
-        <button type="submit" className={styles.newsletterSubmit} disabled={status === 'submitting'}>
-          {status === 'submitting' ? nl.submitting : nl.submit}
-        </button>
-      </form>
-      {status === 'error' && <p className={`${styles.newsletterMsg} ${styles.newsletterMsgError}`}>{errorMsg}</p>}
-    </div>
-  );
-}
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -102,9 +33,6 @@ export default function Footer() {
           />
         </div>
       </div>
-
-      {/* ── Newsletter signup ── */}
-      <FooterNewsletter />
 
       {/* ── Horizontal rule ── */}
       <div className={styles.rule} style={{ backgroundColor: NAVY }} />
