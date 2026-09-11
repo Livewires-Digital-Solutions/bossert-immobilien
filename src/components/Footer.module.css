@@ -13,7 +13,7 @@
 .imageBand {
   width: 100%;
   height: 280px;
-  background-image: url('/HERO%20BG.png');
+  background-image: url('/footerbg.png');
   background-size: cover;
   background-position: center 30%;
   position: relative;
