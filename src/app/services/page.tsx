@@ -57,7 +57,7 @@ export default function ServicesPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
                 gap: '2.5rem',
                 marginTop: '4rem',
               }}
