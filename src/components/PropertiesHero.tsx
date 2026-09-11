@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from './Navbar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -10,10 +10,19 @@ import BtnArrow from './BtnArrow';
 export default function PropertiesHero() {
   const { ref: heroRef, isVisible } = useScrollReveal(0.1);
   const { t } = useLanguage();
+  const [isSettled, setIsSettled] = useState(false);
+
+  useEffect(() => {
+    // Synchronize gentle settling with the vault gate parting
+    const timer = setTimeout(() => {
+      setIsSettled(true);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="properties-editorial-hero" ref={heroRef}>
-      <div className="properties-hero-bg" />
+      <div className={`properties-hero-bg ${isSettled ? 'properties-hero-bg-settled' : 'properties-hero-bg-zoomed'}`} />
       <div className="properties-hero-overlay-cream" />
       <Navbar invertOnLoad={true} />
 

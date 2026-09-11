@@ -152,20 +152,6 @@ export default function ForOwnersPage() {
         </div>
       </div>
 
-      {/* Cinematic Establishing Shot */}
-      <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingTop: '4rem', paddingBottom: '2rem' }}>
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div className={styles.shotFrame}>
-            <Image
-              src="/images/owners_editorial.jpg"
-              alt="Premium property under professional management"
-              fill
-              style={{ objectFit: 'cover' }}
-              priority
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 2. The Narrative (Cream Background) */}
       <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '6rem' }}>
@@ -401,7 +387,7 @@ export default function ForOwnersPage() {
           <h2 className="explore-headline" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
             Are you looking to sell, let, or gain clarity on your property's value?
           </h2>
-          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)' }}>
+          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)', textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
             We advise you personally and without obligation.
           </p>
           <button

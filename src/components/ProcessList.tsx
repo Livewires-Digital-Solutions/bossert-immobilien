@@ -248,6 +248,38 @@ function ProcessRail({ steps, invertBackground }: { steps: ProcessStep[], invert
   );
 }
 
+// Hover Accordion variant
+function ProcessHoverAccordion({ steps, invertBackground }: { steps: ProcessStep[], invertBackground: boolean }) {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className={styles.hoverAccordionWrap}>
+      {steps.map((step, idx) => (
+        <div
+          key={idx}
+          className={`${styles.haCard} ${invertBackground ? styles.haCardInverted : ''} ${active === idx ? styles.haCardActive : ''}`}
+          onMouseEnter={() => setActive(idx)}
+          onClick={() => setActive(idx)}
+          onFocus={() => setActive(idx)}
+          tabIndex={0}
+          role="button"
+          aria-expanded={active === idx}
+        >
+          <div className={styles.haNum}>0{idx + 1}</div>
+          <div className={styles.haTitleWrap}>
+            <h3 className={styles.haTitle}>{step.name}</h3>
+          </div>
+          <div className={styles.haDescWrap}>
+            <div className={styles.haDescInner}>
+              <p className={styles.haDesc}>{step.desc}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // 3D Carousel variant (CoverFlow style)
 function ProcessCarousel({ steps, invertBackground }: { steps: ProcessStep[], invertBackground: boolean }) {
   const [active, setActive] = useState(0);

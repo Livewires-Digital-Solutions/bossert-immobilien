@@ -34,7 +34,8 @@ export default function PropertyGallery({ images, fallbackImage }: PropertyGalle
   };
 
   return (
-    <div className="property-gallery-container">
+    <div className="property-gallery-container property-gallery-editorial-reveal">
+      <div className="gallery-unfurl-beam" aria-hidden="true" />
       <div className="gallery-mosaic" data-count={dataCount}>
         <div className="gallery-main" onClick={() => openLightbox(0)}>
           <Image 
