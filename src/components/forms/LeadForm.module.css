@@ -140,6 +140,11 @@
   padding: 2rem 2.75rem 2.75rem;
   overflow-y: auto;
   flex: 1;
+  /* Flex items default to min-height: auto, which lets this grow to its
+     content's full height and never actually shrink to trigger the
+     overflow-y — so the scrollbar never kicks in and the parent's
+     overflow: hidden just clips the rest. */
+  min-height: 0;
 }
 
 .body::-webkit-scrollbar {

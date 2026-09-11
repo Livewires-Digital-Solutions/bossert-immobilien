@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * useScrollReveal
@@ -13,6 +13,9 @@ export function useScrollReveal(threshold = 0.15, triggerOnce = true) {
   const ref = useRef<any>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    let rafId: number;
+
     const observer = new IntersectionObserver(
       ([entry]: IntersectionObserverEntry[]) => {
         if (entry.isIntersecting) {
@@ -28,15 +31,26 @@ export function useScrollReveal(threshold = 0.15, triggerOnce = true) {
       }
     );
 
-    const currentRef = ref.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    // ref.current may not exist yet on the frame this effect first runs —
+    // e.g. a component that renders null until an async fetch resolves,
+    // then attaches this ref on a later render. A one-shot "observe at
+    // mount" would silently observe nothing and never run again (this
+    // effect's deps don't change), leaving isVisible stuck false forever.
+    // Poll a few frames until the node shows up, then attach once.
+    const tryAttach = () => {
+      if (cancelled) return;
+      if (ref.current) {
+        observer.observe(ref.current);
+      } else {
+        rafId = requestAnimationFrame(tryAttach);
+      }
+    };
+    tryAttach();
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, [threshold, triggerOnce]);
 
