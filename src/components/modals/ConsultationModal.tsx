@@ -24,12 +24,15 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
       setRoute(initialRoute);
       setIsSubmitting(false);
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [isOpen, initialRoute]);
 

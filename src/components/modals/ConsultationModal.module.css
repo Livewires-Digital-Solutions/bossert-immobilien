@@ -9,6 +9,7 @@
   justify-content: center;
   padding: 1rem;
   animation: fadeIn 0.3s ease-out;
+  overscroll-behavior: none;
 }
 
 .modalContainer {
@@ -73,6 +74,7 @@
   /* Flex items default to min-height: auto, so this would otherwise grow
      to fit its content instead of shrinking to trigger the scrollbar. */
   min-height: 0;
+  overscroll-behavior: contain;
 }
 
 .modalBody::-webkit-scrollbar {
