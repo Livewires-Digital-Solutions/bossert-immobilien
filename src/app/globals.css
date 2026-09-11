@@ -781,6 +781,40 @@ body {
   z-index: 10;
 }
 
+/* Quick deal filter (Alle / Kauf / Miete) above the results header.
+   Sharp corners + bronze underline, matching the home page's button/tab
+   language (.search-tab, .explore-btn) rather than the older 8px .filter-pill. */
+.deal-filter-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 2.5rem 0 1.5rem;
+}
+
+.deal-filter-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.6rem 0.1rem;
+  margin-right: 1.25rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.deal-filter-tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.deal-filter-tab.active {
+  color: var(--white);
+  border-bottom-color: var(--bronze);
+}
+
 .properties-results-header {
   display: flex;
   justify-content: space-between;
@@ -5489,6 +5523,24 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 .delay-600 { transition-delay: 600ms; }
+
+/* Reduced motion: the global reveal system (.reveal-base/.reveal-up/.reveal-scale
+   + any inline transition-delay used for grid stagger, e.g. RevealCard/RevealSection)
+   collapses to a quick opacity fade — no translate/scale, no stagger delay. Content
+   still becomes visible; it just doesn't move or wait its turn to do so. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-base {
+    transition: opacity 0.2s linear !important;
+    transition-delay: 0ms !important;
+    transform: none !important;
+  }
+  .reveal-up,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right {
+    transform: none;
+  }
+}
 
 /* ---------------------------------
    EXPERTISE SECTION (Properties Page)

@@ -104,6 +104,37 @@ function fmtGeneric(key: string, raw: string): string {
   return s;
 }
 
+/**
+ * onOffice `ausstattungExpose` is a free-text list, newline-separated, where a
+ * line may use a comma as a decimal separator ("70,81 m²"). Split on line
+ * breaks/bullets only — never on commas — and drop obvious junk fragments.
+ */
+function parseAmenities(raw?: string | null): string[] | undefined {
+  if (!raw) return undefined;
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const line of raw.split(/\r?\n|·|•/)) {
+    const s = line.replace(/^[\s\-–—*•]+/, '').trim();
+    if (s.length < 3) continue;
+    if (!/[a-zäöüßA-ZÄÖÜ]/.test(s)) continue; // pure numbers / separators
+    if (/^(whg\.?|wohnung|obergeschoss|erdgeschoss|dachgeschoss)\b/i.test(s)) continue;
+    const key = s.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(s.replace(/\s{2,}/g, ' '));
+    if (out.length >= 24) break;
+  }
+  return out.length ? out : undefined;
+}
+
+/** onOffice titles are often pipe-stuffed ("Villa | 5 Zi | 250 m² | Ort"). Keep the lead phrase. */
+function cleanTitle(raw: string): string {
+  let t = raw.trim().replace(/\s+/g, ' ');
+  if (t.includes('|')) t = t.split('|')[0].trim().replace(/[–—-]\s*$/, '').trim();
+  if (t.length <= 88) return t;
+  return t.slice(0, 86).replace(/\s\S*$/, '') + '…';
+}
+
 // Keys surfaced elsewhere on the page, or internal workflow noise.
 const HANDLED_KEYS = new Set([
   'Id',
@@ -165,9 +196,7 @@ function mapToProperty(p: PublicProperty): PublicPropertyView {
   if (plotArea) specParts.push(`${plotArea} Grundstück`);
 
   const amenityRaw = val('ausstattungExpose') || val('ausstatt_beschr') || val('ausstattungsbeschreibung');
-  const amenities = amenityRaw
-    ? amenityRaw.split(/[,;\n•]/).map((s) => s.trim()).filter(Boolean)
-    : undefined;
+  const amenities = parseAmenities(amenityRaw);
 
   const heatingType = val('heizungsart');
   const firing = val('befeuerung') || val('energietraeger') || val('wesentliche_energietraeger');
@@ -184,11 +213,13 @@ function mapToProperty(p: PublicProperty): PublicPropertyView {
   const coordinates: [number, number] | undefined =
     lat !== undefined && lng !== undefined ? [lat, lng] : undefined;
 
+  const displayTitle = cleanTitle(p.title || val('objektart') || 'Immobilie');
+
   const property: Property = {
     id,
     imageSrc: p.heroImage || '/images/prop_apartment_new.jpg',
-    type: p.title || val('objektart') || 'Immobilie',
-    title: p.title || undefined,
+    type: displayTitle,
+    title: displayTitle,
     price,
     location,
     specs: specParts.join(' • '),
@@ -249,4 +280,13 @@ export async function getPublicPropertyCards(): Promise<Property[] | null> {
 export async function getPublicPropertyView(idOrExternalId: string): Promise<PublicPropertyView | null> {
   const row = await getPublishedProperty(idOrExternalId);
   return row ? mapToProperty(row) : null;
+}
+
+/** Other published properties for a "related listings" rail. */
+export async function getRelatedProperties(excludeId: string, limit = 3): Promise<Property[]> {
+  const rows = await getPublishedProperties();
+  return rows
+    .filter((r) => r.externalId !== excludeId && r.internalId !== excludeId)
+    .slice(0, limit)
+    .map((r) => mapToProperty(r).property);
 }

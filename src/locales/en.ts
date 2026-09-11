@@ -203,7 +203,13 @@ export const en = {
     sortBy: 'Sort by',
     sortNewest: 'Newest',
     sortPriceHigh: 'Price (High to Low)',
-    sortPriceLow: 'Price (Low to High)'
+    sortPriceLow: 'Price (Low to High)',
+    filterAll: 'All',
+    filterBuy: 'Buy',
+    filterRent: 'Rent',
+    relatedTag: 'You may also like',
+    relatedHeading: 'More residences',
+    contactAboutProperty: 'Contact us about this property',
   },
   servicesSection: {
     headline: 'Beyond Brokerage.',
@@ -870,6 +876,21 @@ export const en = {
         title: 'Thank you for your inquiry',
         body: 'We have received your details and will get back to you shortly with a personal assessment.',
       },
+    },
+    // Contact-about-a-property (/property-inquiry) — triggered from a property detail page
+    propertyInquiry: {
+      eyebrow: 'Enquire',
+      title: 'Interested in this property?',
+      subhead: 'Send us your details and we will get back to you personally — usually within one business day.',
+      regarding: 'Regarding',
+      name: 'Full name',
+      email: 'Email',
+      phone: 'Phone number',
+      message: 'Message',
+      messagePlaceholder: 'Ask a question or request a viewing…',
+      submit: 'Send inquiry',
+      successTitle: 'Inquiry received',
+      successBody: 'Thank you. One of our advisors will be in touch about this property shortly.',
     },
     common: {
       salutations: { mr: 'Mr.', ms: 'Ms.', family: 'Family', couple: 'Couple', company: 'Company' },

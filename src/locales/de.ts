@@ -203,7 +203,13 @@ export const de = {
     sortBy: 'Sortieren nach',
     sortNewest: 'Neueste',
     sortPriceHigh: 'Preis (Absteigend)',
-    sortPriceLow: 'Preis (Aufsteigend)'
+    sortPriceLow: 'Preis (Aufsteigend)',
+    filterAll: 'Alle',
+    filterBuy: 'Kauf',
+    filterRent: 'Miete',
+    relatedTag: 'Das könnte Sie auch interessieren',
+    relatedHeading: 'Weitere Residenzen',
+    contactAboutProperty: 'Kontaktieren Sie uns zu dieser Immobilie',
   },
   servicesSection: {
     headline: 'Mehr als Makler.',
@@ -870,6 +876,21 @@ export const de = {
         title: 'Vielen Dank für Ihre Anfrage',
         body: 'Wir haben Ihre Angaben erhalten und melden uns in Kürze mit einer persönlichen Einschätzung.',
       },
+    },
+    // Kontakt zu einer Immobilie (/property-inquiry) — von der Detailseite ausgelöst
+    propertyInquiry: {
+      eyebrow: 'Anfragen',
+      title: 'Interesse an dieser Immobilie?',
+      subhead: 'Senden Sie uns Ihre Daten — wir melden uns persönlich, in der Regel innerhalb eines Werktages.',
+      regarding: 'Betrifft',
+      name: 'Vollständiger Name',
+      email: 'E-Mail',
+      phone: 'Telefonnummer',
+      message: 'Nachricht',
+      messagePlaceholder: 'Stellen Sie eine Frage oder vereinbaren Sie eine Besichtigung…',
+      submit: 'Anfrage senden',
+      successTitle: 'Anfrage erhalten',
+      successBody: 'Vielen Dank. Einer unserer Berater meldet sich in Kürze zu dieser Immobilie.',
     },
     common: {
       salutations: { mr: 'Herr', ms: 'Frau', family: 'Familie', couple: 'Paar', company: 'Firma' },

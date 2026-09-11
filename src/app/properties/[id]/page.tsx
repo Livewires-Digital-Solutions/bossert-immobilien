@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { mockProperties, type Property } from '@/data/properties';
-import { getPublicPropertyView, type PublicPropertyView } from '@/lib/property-view';
+import { getPublicPropertyView, getRelatedProperties, type PublicPropertyView } from '@/lib/property-view';
 import { fetchOnOfficePropertyById } from '@/lib/onoffice';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -11,7 +12,9 @@ import PropertyLocation from '@/components/property/PropertyLocation';
 import MortgageCalculator from '@/components/property/MortgageCalculator';
 import PropertyPOIs from '@/components/property/PropertyPOIs';
 import CuratedPropertyFacts from '@/components/property/CuratedPropertyFacts';
-import Button from '@/components/ui/Button';
+import RevealSection from '@/components/property/RevealSection';
+import RevealCard from '@/components/RevealCard';
+import PropertyCard from '@/components/PropertyCard';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -53,6 +56,12 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   const { property, sections } = data;
   const curated = sections.length > 0;
 
+  const related = await getRelatedProperties(id, 3).catch(() => []);
+
+  const inquiryHref = `/property-inquiry?property=${encodeURIComponent(id)}&title=${encodeURIComponent(
+    property.title || property.type,
+  )}`;
+
   return (
     <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '160px' }}>
       <Navbar invertOnLoad={true} />
@@ -69,7 +78,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 <CuratedPropertyFacts sections={sections} />
               ) : (
                 <>
-                  <section className="property-section">
+                  <RevealSection className="property-section">
                     <h2 className="property-section-title">Eckdaten</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
                       {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
@@ -80,10 +89,10 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                       {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
                       {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
                     </div>
-                  </section>
+                  </RevealSection>
 
                   {property.energy && (
-                    <section className="property-section">
+                    <RevealSection className="property-section" delay={80}>
                       <h2 className="property-section-title">Energie & Heizung</h2>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
                         {property.energy.heatingType && <div><strong>Heizungsart:</strong><br/>{property.energy.heatingType}</div>}
@@ -91,27 +100,27 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                         {property.energy.energyPassType && <div><strong>Energieausweistyp:</strong><br/>{property.energy.energyPassType}</div>}
                         {property.energy.energyConsumption && <div><strong>Energieverbrauch:</strong><br/>{property.energy.energyConsumption}</div>}
                       </div>
-                    </section>
+                    </RevealSection>
                   )}
                 </>
               )}
 
               {property.description && (
-                <section className="property-section">
+                <RevealSection className="property-section">
                   <h2 className="property-section-title">Über diese Immobilie</h2>
                   <p className="property-description">{property.description}</p>
-                </section>
+                </RevealSection>
               )}
 
               {property.amenities && property.amenities.length > 0 && (
-                <section className="property-section">
+                <RevealSection className="property-section">
                   <h2 className="property-section-title">Ausstattung</h2>
                   <ul className="property-amenities-list">
                     {property.amenities.map((amenity, idx) => (
                       <li key={idx}>{amenity}</li>
                     ))}
                   </ul>
-                </section>
+                </RevealSection>
               )}
 
               <PropertyMediaTabs property={property} />
@@ -124,15 +133,63 @@ export default async function PropertyDetailPage({ params }: PageProps) {
 
               <PropertyPOIs locationData={property.locationData} />
 
-              <div className="property-sidebar-widget agent-widget">
+              <RevealSection
+                className="property-sidebar-widget agent-widget"
+                variant="reveal-scale"
+                threshold={0.3}
+              >
                 <h3>Interessiert an dieser Immobilie?</h3>
                 <p>Unsere Berater stehen Ihnen für weitere Informationen und zur Vereinbarung eines Besichtigungstermins zur Verfügung.</p>
                 <div style={{ marginTop: '1.5rem', display: 'flex' }}>
-                  <Button variant="dark" style={{ width: '100%', justifyContent: 'space-between' }}>Kontakt aufnehmen</Button>
+                  <Link
+                    href={inquiryHref}
+                    className="explore-btn explore-btn-dark"
+                    style={{ width: '100%', justifyContent: 'space-between' }}
+                  >
+                    Kontakt aufnehmen
+                    <span className="explore-icon-wrapper">
+                      <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </span>
+                  </Link>
                 </div>
-              </div>
+              </RevealSection>
             </div>
           </div>
+
+          {related.length > 0 && (
+            <section className="explore-section" style={{ padding: '2rem 0 6rem' }}>
+              <div className="explore-container">
+                <div className="explore-header">
+                  <div className="explore-header-left">
+                    <div className="explore-subtitle">
+                      <span className="dot"></span> Weiterstöbern
+                    </div>
+                    <h2 className="explore-headline">Weitere Residenzen</h2>
+                  </div>
+                </div>
+                <div className="explore-grid">
+                  {related.map((r, i) => (
+                    <RevealCard key={r.id} delay={i * 90}>
+                      <PropertyCard
+                        id={r.id}
+                        imageSrc={r.imageSrc}
+                        type={r.type}
+                        title={r.title}
+                        price={r.price}
+                        location={r.location}
+                        specs={r.specs}
+                        transactionType={r.transactionType}
+                        detailedSpecs={r.detailedSpecs}
+                        galleryImages={r.galleryImages}
+                      />
+                    </RevealCard>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
         </div>
       </div>
 

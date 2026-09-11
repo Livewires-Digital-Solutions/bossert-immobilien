@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import PropertyCard from './PropertyCard';
+import RevealCard from './RevealCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import { Property, mockProperties } from '../data/properties';
@@ -51,6 +52,17 @@ export default function PropertiesGrid() {
   }, []);
 
   const searchParams   = useSearchParams();
+  const router         = useRouter();
+  const pathname       = usePathname();
+  const dealParam      = searchParams.get('deal') || 'all'; // 'all' | 'Buy' | 'Rent'
+
+  const setDealFilter = (deal: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (deal === 'all') params.delete('deal');
+    else params.set('deal', deal);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   const locationParam  = searchParams.get('location')?.toLowerCase() || '';
   const typeParam      = searchParams.get('type') || '';
   const bedsParam      = searchParams.get('beds') || '';
@@ -61,6 +73,7 @@ export default function PropertiesGrid() {
 
   // Filter properties
   const filteredProperties = properties.filter(prop => {
+    if (dealParam !== 'all' && prop.transactionType && prop.transactionType !== dealParam) return false;
     if (locationParam && !prop.location.toLowerCase().includes(locationParam)) return false;
     if (typeParam && typeParam !== 'Any') {
       if (!prop.type.toLowerCase().includes(typeParam.toLowerCase())) return false;
@@ -153,6 +166,24 @@ export default function PropertiesGrid() {
     <section className="properties-grid-section" ref={gridRef}>
       <div className="explore-container">
 
+        {/* Quick deal filter */}
+        <div className={`deal-filter-row reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+          {[
+            { key: 'all', label: t.propertiesPage.filterAll },
+            { key: 'Buy', label: t.propertiesPage.filterBuy },
+            { key: 'Rent', label: t.propertiesPage.filterRent },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              className={`deal-filter-tab ${dealParam === tab.key ? 'active' : ''}`}
+              onClick={() => setDealFilter(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Results Header */}
         <div className={`properties-results-header reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
           <div className="results-count">
@@ -221,18 +252,24 @@ export default function PropertiesGrid() {
           </div>
         </div>
 
-        <div className={`explore-grid properties-main-grid ${viewMode === 'list' ? 'list-view' : ''} reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
-          {currentProperties.map((prop) => (
-            <React.Fragment key={prop.id}>
+        <div className={`explore-grid properties-main-grid ${viewMode === 'list' ? 'list-view' : ''}`}>
+          {currentProperties.map((prop, index) => (
+            <RevealCard key={prop.id} delay={Math.min(index, 7) * 90}>
               <PropertyCard
                 id={prop.id}
                 imageSrc={prop.imageSrc}
                 type={prop.type}
+                title={prop.title}
+                summary={prop.summary}
+                status={prop.status}
+                transactionType={prop.transactionType}
                 price={prop.price}
                 location={prop.location}
                 specs={prop.specs}
+                detailedSpecs={prop.detailedSpecs}
+                galleryImages={prop.galleryImages}
               />
-            </React.Fragment>
+            </RevealCard>
           ))}
         </div>
 
