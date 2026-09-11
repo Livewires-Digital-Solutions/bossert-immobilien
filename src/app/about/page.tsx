@@ -29,23 +29,24 @@ export default function AboutPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--cream)' }}>
-      {/* 1. Hero Section — same bg image, fade, font and height as the properties hero */}
-      <div className="properties-editorial-hero global-padding" ref={heroRef}>
+      {/* 1. Hero Section — same bg image, fade, font, height and centered
+          text as the properties hero */}
+      <div className="properties-editorial-hero" ref={heroRef}>
         <div className="properties-hero-bg" />
         <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
 
-        <div className="inner-page-container" style={{ width: '100%', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 500px', fontWeight: 500, letterSpacing: '-0.05em' }}>
-              {about.hero.title} <br/>
-              <span className="italic-serif" style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>{about.hero.titleSerif}</span>
+        <div className="editorial-hero-content">
+          <div className="editorial-hero-middle">
+            <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}>
+              {about.hero.title} <br /><span className="italic-serif">{about.hero.titleSerif}</span>
             </h1>
-            <div className={`reveal-base reveal-up delay-200 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 300px', paddingTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
-              <p className="why-subhead" style={{ maxWidth: '400px' }}>
-                {about.hero.description}
-              </p>
-            </div>
+          </div>
+
+          <div className="editorial-hero-bottom">
+            <p className={`editorial-subhead reveal-base reveal-up delay-200 ${heroVisible ? 'is-revealed' : ''}`}>
+              {about.hero.description}
+            </p>
           </div>
         </div>
       </div>
