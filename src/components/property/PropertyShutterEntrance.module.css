@@ -1,0 +1,85 @@
+.shutter {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #042433; /* Signature Bossert deep navy */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.68s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+.shutterLift {
+  transform: translate3d(0, -100%, 0);
+}
+
+.trailingGoldBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(223, 193, 154, 0.3) 15%, #dfc19a 50%, rgba(223, 193, 154, 0.3) 85%, transparent 100%);
+  box-shadow: 0 4px 20px rgba(223, 193, 154, 0.35);
+}
+
+.shutterContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  color: #dfc19a;
+  text-align: center;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+.shutterLift .shutterContent {
+  opacity: 0.2;
+}
+
+.shutterBrand {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #c9ad84;
+}
+
+.goldLine {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #dfc19a, transparent);
+  margin: 0.25rem 0;
+}
+
+.shutterTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.2rem;
+  font-style: italic;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.shutterLocation {
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(254, 252, 246, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shutter {
+    transition: opacity 0.2s ease;
+  }
+  .shutterLift {
+    transform: none;
+    opacity: 0;
+  }
+}

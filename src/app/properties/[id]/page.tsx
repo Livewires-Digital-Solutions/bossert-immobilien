@@ -5,6 +5,7 @@ import { getPublicPropertyView, getRelatedProperties, type PublicPropertyView } 
 import { fetchOnOfficePropertyById } from '@/lib/onoffice';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PropertyShutterEntrance from '@/components/property/PropertyShutterEntrance';
 import PropertyGallery from '@/components/property/PropertyGallery';
 import PropertyHeader from '@/components/property/PropertyHeader';
 import PropertyMediaTabs from '@/components/property/PropertyMediaTabs';
@@ -64,6 +65,10 @@ export default async function PropertyDetailPage({ params }: PageProps) {
 
   return (
     <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '160px' }}>
+      <PropertyShutterEntrance
+        propertyType={property.type}
+        propertyLocation={property.location}
+      />
       <Navbar invertOnLoad={true} />
 
       <div className="inner-page-container">

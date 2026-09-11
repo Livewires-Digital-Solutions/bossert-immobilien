@@ -714,6 +714,16 @@ body {
   background-size: cover;
   background-position: center 30%;
   z-index: 0;
+  transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.properties-hero-bg.properties-hero-bg-zoomed {
+  transform: scale(1.07);
+}
+
+.properties-hero-bg.properties-hero-bg-settled {
+  transform: scale(1);
 }
 
 /* Single-hue cream alpha ramp so the illustration dissolves cleanly into
@@ -5599,16 +5609,17 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
 .reveal-base {
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.42s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-up {
-  transform: translateY(30px);
+  transform: translateY(42px);
 }
 
 .reveal-scale {
-  transform: translateY(30px) scale(0.96);
+  transform: translateY(42px) scale(0.96);
 }
 
 .reveal-left {
@@ -5764,6 +5775,116 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   border-radius: 12px;
   overflow: hidden;
   height: 500px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROPERTY DETAIL: EDITORIAL GALLERY UNFURL & STAGGERED REVEAL
+   ═══════════════════════════════════════════════════════════════════════════ */
+.property-gallery-editorial-reveal {
+  position: relative;
+  animation: galleryUnfurl 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes galleryUnfurl {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.993);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gallery-unfurl-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(218, 185, 137, 0.9) 50%, transparent 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: beamSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes beamSweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scaleX(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.property-gallery-editorial-reveal .gallery-image {
+  animation: imageSubtleSettle 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes imageSubtleSettle {
+  0% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Staggered Header Micro-Reveal */
+.property-header-editorial-reveal .property-reveal-item {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: propertyItemFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.property-header-editorial-reveal .property-reveal-item.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.property-header-editorial-reveal .property-reveal-item.delay-2 {
+  animation-delay: 0.18s;
+}
+
+.property-header-editorial-reveal .property-reveal-item.delay-3 {
+  animation-delay: 0.28s;
+}
+
+@keyframes propertyItemFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .property-gallery-editorial-reveal,
+  .property-gallery-editorial-reveal .gallery-image,
+  .property-header-editorial-reveal .property-reveal-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .gallery-unfurl-beam {
+    display: none;
+  }
 }
 
 .gallery-hero-single {
@@ -6524,40 +6645,132 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   transform: scaleX(1);
 }
 
-/* Inverted CTA Section */
+/* ═══════════════════════════════════════════════════════════════════════════
+   INVERTED CTA SECTION (Obsidian Navy & Champagne Gold)
+   Used on Knowledge and other dark-themed sections
+   ═══════════════════════════════════════════════════════════════════════════ */
 .cta-section.cta-inverted {
   background-color: var(--navy);
+  border-top: 1px solid rgba(218, 185, 137, 0.15);
 }
-.cta-section.cta-inverted .cta-form-col {
-  background-color: var(--navy);
+
+/* Entire card becomes luxury dark obsidian */
+.cta-section.cta-inverted .cta-inner-card {
+  background-color: #031c28;
+  border: 1px solid rgba(218, 185, 137, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
+
+/* Gold corner brackets */
+.cta-section.cta-inverted .cta-inner-card::before {
+  border-top: 2px solid #dfc19a;
+  border-left: 2px solid #dfc19a;
+}
+
+.cta-section.cta-inverted .cta-inner-card::after {
+  border-bottom: 2px solid #dfc19a;
+  border-right: 2px solid #dfc19a;
+}
+
+/* Left text column */
+.cta-section.cta-inverted .cta-form-tag {
+  color: #dfc19a;
+}
+
 .cta-section.cta-inverted .cta-headline {
-  color: var(--white);
+  color: #ffffff;
 }
+
+.cta-section.cta-inverted .cta-headline .italic-serif {
+  color: #dfc19a;
+}
+
 .cta-section.cta-inverted .cta-subhead {
-  color: rgba(254, 252, 246, 0.7);
+  color: rgba(254, 252, 246, 0.8);
 }
+
+.cta-section.cta-inverted .cta-contact-details {
+  border-top: 1px solid rgba(218, 185, 137, 0.2);
+}
+
+.cta-section.cta-inverted .cta-detail-label {
+  color: #dfc19a;
+}
+
+.cta-section.cta-inverted .cta-detail-value {
+  color: #fefcf6;
+}
+
+.cta-section.cta-inverted .cta-detail-value:hover {
+  color: #dfc19a;
+}
+
+/* Divider */
+.cta-section.cta-inverted .cta-col-divider {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(218, 185, 137, 0.35) 15%,
+    rgba(218, 185, 137, 0.35) 85%,
+    transparent 100%
+  );
+}
+
+/* Right form column — seamlessly transparent inside card */
+.cta-section.cta-inverted .cta-form-col {
+  background: transparent;
+}
+
+.cta-section.cta-inverted .cta-input-label {
+  color: rgba(254, 252, 246, 0.65);
+}
+
 .cta-section.cta-inverted .cta-input, 
 .cta-section.cta-inverted .cta-textarea {
-  color: var(--white);
-  border-bottom: 1px solid rgba(254, 252, 246, 0.2);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(254, 252, 246, 0.22);
 }
+
 .cta-section.cta-inverted .cta-input::placeholder,
 .cta-section.cta-inverted .cta-textarea::placeholder {
-  color: rgba(254, 252, 246, 0.4);
+  color: rgba(254, 252, 246, 0.35);
 }
+
 .cta-section.cta-inverted .cta-input:focus, 
 .cta-section.cta-inverted .cta-textarea:focus {
-  border-bottom: 1px solid var(--bronze);
+  border-bottom: 1px solid #dfc19a;
   outline: none;
 }
-.cta-section.cta-inverted .explore-btn-dark {
-  background-color: var(--white);
-  color: var(--navy);
+
+/* Submit button — Champagne gold luxury styling */
+.cta-section.cta-inverted .cta-submit-btn {
+  background: rgba(218, 185, 137, 0.08);
+  color: #dfc19a;
+  border: 1px solid rgba(218, 185, 137, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.cta-section.cta-inverted .explore-btn-dark .explore-icon-wrapper {
-  background-color: var(--navy);
-  color: var(--white);
+
+.cta-section.cta-inverted .cta-submit-btn:hover {
+  background: #dfc19a;
+  color: #042433;
+  border-color: #dfc19a;
+  box-shadow: 0 4px 20px rgba(218, 185, 137, 0.25);
+}
+
+.cta-section.cta-inverted .cta-submit-btn svg {
+  stroke: currentColor;
+}
+
+@media (max-width: 1024px) {
+  .cta-section.cta-inverted .cta-col-divider {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(218, 185, 137, 0.35) 20%,
+      rgba(218, 185, 137, 0.35) 80%,
+      transparent 100%
+    );
+  }
 }
 .login-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 0; color: var(--white); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.4); }
 .login-icon-btn:hover { background: rgba(255,255,255,0.1); }
