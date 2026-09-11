@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/context/LanguageContext';
 import ContactFAQ from '@/components/ContactFAQ';
+import ContactHero from '@/components/ContactHero';
 
 export default function ContactPage() {
   const { ref: topRef, isVisible: topVisible } = useScrollReveal(0.1);
@@ -66,28 +66,15 @@ export default function ContactPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar invertOnLoad={true} />
-      
-      {/* 1. Top Section (Split Grid) */}
-      <section className="global-padding" ref={topRef} style={{ paddingTop: '10rem', paddingBottom: '6rem' }}>
+      {/* 1. Hero Section */}
+      <ContactHero />
+
+      {/* 2. Top Section (Split Grid) */}
+      <section className="global-padding" ref={topRef} style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
         <div className="inner-page-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '6rem' }}>
-          
-          {/* Left: Hero & Info */}
+
+          {/* Left: Info */}
           <div className={`reveal-base reveal-up ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column' }}>
-            
-            {/* Hero */}
-            <div style={{ marginBottom: '4rem' }}>
-              <p className="services-subtitle" style={{ marginBottom: '1.5rem' }}>
-                <span className="dot"></span> {contact.hero.tag}
-              </p>
-              <h1 className="editorial-headline" style={{ marginBottom: '1rem' }}>
-                <span style={{ letterSpacing: '-0.07em', marginRight: '0.5rem' }}>{contact.hero.title}</span>
-                <span className="italic-serif">{contact.hero.titleSerif}</span>
-              </h1>
-              <p style={{ fontSize: '1.2rem', color: 'rgba(4,36,51,0.7)' }}>
-                {contact.hero.subhead}
-              </p>
-            </div>
 
             {/* Contact Info (Stacked like reference) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>

@@ -31,9 +31,11 @@ export default function AboutPage() {
     <main style={{ backgroundColor: 'var(--cream)' }}>
       {/* 1. Hero Section */}
       <div className="properties-editorial-hero global-padding" ref={heroRef} style={{ paddingBottom: '0' }}>
+        <div className="properties-hero-bg" />
+        <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
         
-        <div className="inner-page-container" style={{ width: '100%', paddingBottom: '4rem' }}>
+        <div className="inner-page-container" style={{ width: '100%', paddingBottom: '4rem', position: 'relative', zIndex: 2 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 500px', fontWeight: 500, letterSpacing: '-0.05em' }}>
               {about.hero.title} <br/>
@@ -48,7 +50,7 @@ export default function AboutPage() {
         </div>
 
         {/* Cinematic Establishing Shot */}
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%', paddingBottom: '6rem' }}>
+        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%', paddingBottom: '6rem', position: 'relative', zIndex: 2 }}>
           <div style={{ width: '100%', height: '70vh', minHeight: '500px', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
             <Image 
               src="/images/owners_bg_wide.jpg"  

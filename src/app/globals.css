@@ -721,6 +721,17 @@ body {
   z-index: 1;
 }
 
+/* Same idea, but for hero pages whose next section is cream rather than
+   navy (about, owners, services, references, contact, knowledge) — a
+   single-hue cream alpha ramp so the illustration dissolves cleanly into
+   the page's own background instead of jumping hue. */
+.properties-hero-overlay-cream {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(254, 252, 246, 0) 55%, var(--cream) 100%);
+  z-index: 1;
+}
+
 .editorial-hero-content {
   position: relative;
   z-index: 2;
