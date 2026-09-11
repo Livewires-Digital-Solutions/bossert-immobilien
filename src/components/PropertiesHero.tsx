@@ -14,7 +14,7 @@ export default function PropertiesHero() {
   return (
     <div className="properties-editorial-hero" ref={heroRef}>
       <div className="properties-hero-bg" />
-      <div className="properties-hero-overlay" />
+      <div className="properties-hero-overlay-cream" />
       <Navbar invertOnLoad={true} />
 
       <div className="editorial-hero-content">

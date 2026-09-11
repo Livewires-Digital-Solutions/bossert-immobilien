@@ -716,20 +716,11 @@ body {
   z-index: 0;
 }
 
-.properties-hero-overlay {
-  position: absolute;
-  inset: 0;
-  /* Same stops as .hero-overlay on the home page — the fade lands on solid
-     navy exactly at the section's bottom edge, so it blends seamlessly into
-     .search-section-dark, which starts on that same navy with no gap. */
-  background: linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%);
-  z-index: 1;
-}
-
-/* Same idea, but for hero pages whose next section is cream rather than
-   navy (about, owners, services, references, contact, knowledge) — a
-   single-hue cream alpha ramp so the illustration dissolves cleanly into
-   the page's own background instead of jumping hue. */
+/* Single-hue cream alpha ramp so the illustration dissolves cleanly into
+   the page's own cream background instead of jumping hue — used by every
+   editorial hero (properties, about, owners, services, references,
+   contact, knowledge), since the search section below /properties' hero
+   is cream too now, same as the rest. */
 .properties-hero-overlay-cream {
   position: absolute;
   inset: 0;
@@ -2157,7 +2148,7 @@ body {
 }
 
 .search-section.search-section-dark {
-  background-color: var(--navy);
+  background-color: var(--cream);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   padding-top: 4.5rem;
@@ -2165,10 +2156,10 @@ body {
 }
 
 /* Properties page only: shift the search bar up by transform so it straddles
-   the seam where the hero's fade meets the navy section below — roughly
-   centered on that boundary rather than sitting fully beneath it. Transform
-   doesn't touch layout flow, so margin-bottom pulls the following section up
-   by the same amount to close the gap this would otherwise leave behind. */
+   the seam where the hero's fade meets the section below — roughly centered
+   on that boundary rather than sitting fully beneath it. Transform doesn't
+   touch layout flow, so margin-bottom pulls the following section up by the
+   same amount to close the gap this would otherwise leave behind. */
 .properties-editorial-hero + .search-section.search-section-dark {
   position: relative;
   z-index: 3;
@@ -2577,26 +2568,14 @@ body {
   text-align: center;
 }
 
-/* Dark mode overrides (for /properties page) */
-.search-section.search-section-dark .search-title,
-.search-section.search-section-dark .search-subhead,
-.search-section.search-section-dark .advanced-search-checkbox,
-.search-section.search-section-dark .more-options-toggle {
-  color: var(--white);
-}
-.search-section.search-section-dark .search-tab {
-  color: rgba(255, 255, 255, 0.65);
-}
-.search-section.search-section-dark .search-tab:hover {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-}
+/* Properties page search section: same light theme as everywhere else
+   (background, tab and text colors already match the base .search-tab /
+   .search-title / etc. styles above), just with the active tab kept white
+   instead of the base's navy fill, since the tab bar itself sits on cream
+   here rather than navy. */
 .search-section.search-section-dark .search-tab.active {
   background: #ffffff;
   color: var(--navy);
-}
-.search-section.search-section-dark .search-bar {
-  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .advanced-search-header {
