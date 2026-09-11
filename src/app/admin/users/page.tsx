@@ -82,7 +82,7 @@ export default async function AdminUsersPage(props: {
                 <td colSpan={4}>No users found.</td>
               </tr>
             ) : (
-              users.map((u) => {
+              users.map((u: { id: string; name: string | null; email: string; role: string; createdAt: Date }) => {
                 const elevated =
                   u.role === 'ADMIN' || u.role === 'SUPER_ADMIN' || isAdminEmail(u.email);
                 return (

@@ -137,23 +137,25 @@ const articles: Src[] = [
 ];
 
 async function main() {
+  const now = new Date();
   for (const a of articles) {
     const data = {
       category: a.category,
-      coverImage: a.image,
+      heroImage: a.image,
       status: 'PUBLISHED' as const,
       featured: Boolean(a.featured),
-      publishedAt: new Date(a.publishedAt),
+      date: a.publishedAt,
       titleEn: a.en.title,
       titleDe: a.de.title,
-      excerptEn: a.en.desc,
-      excerptDe: a.de.desc,
-      bodyEn: toHtml(a.en.content),
-      bodyDe: toHtml(a.de.content),
+      descEn: a.en.desc,
+      descDe: a.de.desc,
+      contentEn: toHtml(a.en.content),
+      contentDe: toHtml(a.de.content),
+      updatedAt: now,
     };
-    await prisma.article.upsert({
+    await prisma.articles.upsert({
       where: { slug: a.slug },
-      create: { slug: a.slug, ...data },
+      create: { id: crypto.randomUUID(), slug: a.slug, ...data },
       update: data,
     });
     console.log(`  ✓ ${a.slug}`);

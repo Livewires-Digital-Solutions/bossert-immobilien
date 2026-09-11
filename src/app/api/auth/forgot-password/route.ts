@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
   const parsed = schema.safeParse(await req.json().catch(() => null));
   if (parsed.success) {
-    const user = await prisma.user.findUnique({
+    const user = await (prisma as any).users.findUnique({
       where: { email: parsed.data.email.toLowerCase() },
     });
 

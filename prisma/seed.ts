@@ -15,19 +15,19 @@ async function main() {
     throw new Error('SUPERADMIN_EMAIL / SUPERADMIN_PASSWORD must be set in .env.local');
   }
 
-  const passwordHash = await bcrypt.hash(password, 12);
+  const passwordHashed = await bcrypt.hash(password, 12);
+  const { createId } = await import('@paralleldrive/cuid2');
 
-  const user = await prisma.user.upsert({
+  const user = await (prisma as any).users.upsert({
     where: { email: email.toLowerCase() },
-    // dev convenience: keep .env the source of truth. For production, drop
-    // `name` / `passwordHash` from `update` so a redeploy can't reset the password.
-    update: { role: 'SUPERADMIN', name, passwordHash },
+    update: { role: 'SUPER_ADMIN', name, password: passwordHashed, updatedAt: new Date() },
     create: {
+      id: createId(),
       email: email.toLowerCase(),
       name,
-      passwordHash,
-      role: 'SUPERADMIN',
-      emailVerified: new Date(),
+      password: passwordHashed,
+      role: 'SUPER_ADMIN',
+      updatedAt: new Date(),
     },
   });
 

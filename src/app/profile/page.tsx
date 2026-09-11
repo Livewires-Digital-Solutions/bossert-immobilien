@@ -7,7 +7,7 @@ import styles from './profile.module.css';
 export default async function ProfilePage() {
   const session = await requireUser('/profile');
 
-  const user = await prisma.user.findUnique({
+  const user = await (prisma as any).users.findUnique({
     where: { id: session.user.id },
     select: { name: true, email: true, role: true, createdAt: true },
   });

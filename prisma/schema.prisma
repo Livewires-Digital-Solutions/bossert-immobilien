@@ -260,17 +260,30 @@ model testimonials {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model users {
-  id          String       @id
-  name        String
-  email       String       @unique
-  password    String
-  role        users_role   @default(VIEWER)
-  isActive    Boolean      @default(true)
-  lastLoginAt DateTime?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime
-  audit_logs  audit_logs[]
-  sessions    sessions[]
+  id                    String                 @id
+  name                  String
+  email                 String                 @unique
+  password              String
+  role                  users_role             @default(VIEWER)
+  isActive              Boolean                @default(true)
+  lastLoginAt           DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime
+  audit_logs            audit_logs[]
+  sessions              sessions[]
+  password_reset_tokens password_reset_tokens[]
+}
+
+model password_reset_tokens {
+  id        String   @id
+  userId    String
+  tokenHash String   @unique
+  expires   DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+  users     users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 enum users_role {

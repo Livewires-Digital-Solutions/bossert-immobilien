@@ -1,5 +1,6 @@
 import 'server-only';
 import crypto from 'crypto';
+import { createId } from '@paralleldrive/cuid2';
 import { prisma } from '@/lib/prisma';
 
 const TTL_MS = 1000 * 60 * 60; // 1 hour
@@ -16,9 +17,10 @@ export const hashToken = (raw: string) =>
 export async function createResetToken(userId: string): Promise<string> {
   const raw = crypto.randomBytes(32).toString('hex');
 
-  await prisma.passwordResetToken.deleteMany({ where: { userId, usedAt: null } });
-  await prisma.passwordResetToken.create({
+  await prisma.password_reset_tokens.deleteMany({ where: { userId, usedAt: null } });
+  await prisma.password_reset_tokens.create({
     data: {
+      id: createId(),
       userId,
       tokenHash: hashToken(raw),
       expires: new Date(Date.now() + TTL_MS),

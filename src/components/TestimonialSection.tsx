@@ -4,12 +4,43 @@ import React, { useState, useEffect } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 
+interface ApiTestimonial {
+  id: string;
+  author: string;
+  location: string;
+  image: string;
+  en: { quote: string };
+  de: { quote: string };
+}
+
 export default function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const { ref: sectionRef, isVisible } = useScrollReveal(0.2);
-  const { t } = useLanguage();
-  const testimonials = t.testimonials.list;
+  const { t, lang } = useLanguage();
+  const [items, setItems] = useState<ApiTestimonial[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/testimonials')
+      .then((res) => (res.ok ? res.json() : { testimonials: [] }))
+      .then((json) => {
+        if (!cancelled) setItems(json.testimonials ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setItems([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const testimonials = (items ?? []).map((item) => ({
+    quote: lang === 'de' ? item.de.quote : item.en.quote,
+    author: item.author,
+    location: item.location,
+    image: item.image,
+  }));
 
   const goTo = (index: number) => {
     if (animating || index === activeIndex) return;
@@ -24,12 +55,17 @@ export default function TestimonialSection() {
   const prev = () => goTo((activeIndex - 1 + testimonials.length) % testimonials.length);
 
   useEffect(() => {
+    if (testimonials.length < 2) return;
     const interval = setInterval(next, 7000);
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, testimonials.length]);
 
-  const current = testimonials[activeIndex];
+  // Loading, or nothing to show — don't render the section (empty-state).
+  if (items === null || testimonials.length === 0) return null;
+
+  const safeIndex = activeIndex % testimonials.length;
+  const current = testimonials[safeIndex];
 
   return (
     <section className="testimonial-section" ref={sectionRef}>
@@ -60,30 +96,32 @@ export default function TestimonialSection() {
         </h2>
 
         {/* Navigation */}
-        <div className={`test-nav reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
-          <button className="test-arrow-plain" onClick={prev} aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 5l-7 7 7 7" />
-            </svg>
-          </button>
+        {testimonials.length > 1 && (
+          <div className={`test-nav reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+            <button className="test-arrow-plain" onClick={prev} aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 5l-7 7 7 7" />
+              </svg>
+            </button>
 
-          <div className="test-dots">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                className={`test-dot ${i === activeIndex ? 'test-dot-active' : ''}`}
-                onClick={() => goTo(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
+            <div className="test-dots">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  className={`test-dot ${i === safeIndex ? 'test-dot-active' : ''}`}
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button className="test-arrow-plain" onClick={next} aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
-
-          <button className="test-arrow-plain" onClick={next} aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
+        )}
       </div>
 
       {/* Vertical golden divider */}

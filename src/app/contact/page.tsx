@@ -5,16 +5,17 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/context/LanguageContext';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import ContactFAQ from '@/components/ContactFAQ';
 import ContactHero from '@/components/ContactHero';
 
 export default function ContactPage() {
   const { ref: topRef, isVisible: topVisible } = useScrollReveal(0.1);
   const { ref: imageRef, isVisible: imageVisible } = useScrollReveal(0.2);
-  
+
   const { t } = useLanguage();
   const contact = (t as any).contact;
-  const footer = (t as any).footer;
+  const settings = useSiteSettings();
 
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -84,7 +85,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p style={{ fontWeight: 500, color: 'var(--navy)', marginBottom: '0.25rem' }}>{contact.info.locationTitle}</p>
-                  <p style={{ color: 'rgba(4,36,51,0.7)', lineHeight: 1.6 }}>{footer.address1}<br/>{footer.address2}</p>
+                  <p style={{ color: 'rgba(4,36,51,0.7)', lineHeight: 1.6 }}>{settings.addressLine1}<br/>{settings.addressLine2}</p>
                 </div>
               </div>
               
@@ -94,7 +95,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p style={{ fontWeight: 500, color: 'var(--navy)', marginBottom: '0.25rem' }}>{contact.info.phoneTitle}</p>
-                  <a href="tel:+49691234567" style={{ color: 'rgba(4,36,51,0.7)', textDecoration: 'none' }}>+49 (0) 69 1234 567</a>
+                  <a href={settings.phoneHref} style={{ color: 'rgba(4,36,51,0.7)', textDecoration: 'none' }}>{settings.phone}</a>
                 </div>
               </div>
 
@@ -104,7 +105,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p style={{ fontWeight: 500, color: 'var(--navy)', marginBottom: '0.25rem' }}>{contact.info.emailTitle}</p>
-                  <a href="mailto:inquiry@bossert-immo.de" style={{ color: 'rgba(4,36,51,0.7)', textDecoration: 'none' }}>inquiry@bossert-immo.de</a>
+                  <a href={`mailto:${settings.email}`} style={{ color: 'rgba(4,36,51,0.7)', textDecoration: 'none' }}>{settings.email}</a>
                 </div>
               </div>
             </div>

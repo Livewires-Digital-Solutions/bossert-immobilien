@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 interface CtaSectionProps {
   variant?: 'default' | 'properties' | 'services' | 'knowledge' | 'about';
@@ -12,6 +13,7 @@ interface CtaSectionProps {
 export default function CtaSection({ variant = 'default', invert = false }: CtaSectionProps) {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.15);
   const { t } = useLanguage();
+  const settings = useSiteSettings();
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const headline = variant === 'properties' ? t.propertiesCta.headline : variant === 'services' ? (t as any).servicesCta.headline : t.cta.headline;
@@ -81,15 +83,15 @@ export default function CtaSection({ variant = 'default', invert = false }: CtaS
           <div className="cta-contact-details">
             <div className="cta-detail-item">
               <span className="cta-detail-label">Phone</span>
-              <a href="tel:+49691234567" className="cta-detail-value">+49 (0) 69 1234 567</a>
+              <a href={settings.phoneHref} className="cta-detail-value">{settings.phone}</a>
             </div>
             <div className="cta-detail-item">
               <span className="cta-detail-label">Email</span>
-              <a href="mailto:inquiry@bossert-immo.de" className="cta-detail-value">inquiry@bossert-immo.de</a>
+              <a href={`mailto:${settings.email}`} className="cta-detail-value">{settings.email}</a>
             </div>
             <div className="cta-detail-item">
               <span className="cta-detail-label">Address</span>
-              <span className="cta-detail-value">Opernplatz 14, Suite 200<br />60313 Frankfurt, Germany</span>
+              <span className="cta-detail-value">{settings.addressLine1}<br />{settings.addressLine2}</span>
             </div>
           </div>
         </div>

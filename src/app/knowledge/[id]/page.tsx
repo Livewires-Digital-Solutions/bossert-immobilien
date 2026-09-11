@@ -20,11 +20,15 @@ export default async function KnowledgeDetailPage({
   const article: ApiArticle = {
     slug: a.slug,
     category: a.category,
-    image: a.coverImage,
-    publishedAt: a.publishedAt.toISOString(),
+    image: a.heroImage ?? '',
+    publishedAt: new Date(a.date).toISOString(),
     featured: a.featured,
-    en: { title: a.titleEn, desc: a.excerptEn, content: a.bodyEn },
-    de: { title: a.titleDe, desc: a.excerptDe, content: a.bodyDe },
+    en: { title: a.titleEn, desc: a.descEn, content: a.contentEn },
+    de: {
+      title: a.titleDe || a.titleEn,
+      desc: a.descDe || a.descEn,
+      content: a.contentDe || a.contentEn,
+    },
   };
 
   return <KnowledgeDetailClient article={article} />;

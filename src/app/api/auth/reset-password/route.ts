@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'INVALID_INPUT' }, { status: 400 });
   }
 
-  const row = await prisma.passwordResetToken.findUnique({
+  const row = await prisma.password_reset_tokens.findUnique({
     where: { tokenHash: hashToken(parsed.data.token) },
   });
 
@@ -30,8 +30,8 @@ export async function POST(req: Request) {
 
   const passwordHash = await bcrypt.hash(parsed.data.password, 12);
   await prisma.$transaction([
-    prisma.user.update({ where: { id: row.userId }, data: { passwordHash } }),
-    prisma.passwordResetToken.update({ where: { id: row.id }, data: { usedAt: new Date() } }),
+    (prisma as any).users.update({ where: { id: row.userId }, data: { password: passwordHash } }),
+    prisma.password_reset_tokens.update({ where: { id: row.id }, data: { usedAt: new Date() } }),
   ]);
 
   return NextResponse.json({ ok: true });

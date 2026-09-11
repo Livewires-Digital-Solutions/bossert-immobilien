@@ -3,19 +3,24 @@
  */
 import { NextResponse } from 'next/server';
 import { getPublishedArticles } from '@/lib/articles';
+import type { ApiArticle } from '@/lib/article-client';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const rows = await getPublishedArticles();
-  const articles = rows.map((a) => ({
+  const articles: ApiArticle[] = rows.map((a) => ({
     slug: a.slug,
     category: a.category,
-    image: a.coverImage,
-    publishedAt: a.publishedAt.toISOString(),
+    image: a.heroImage ?? '',
+    publishedAt: new Date(a.date).toISOString(),
     featured: a.featured,
-    en: { title: a.titleEn, desc: a.excerptEn, content: a.bodyEn },
-    de: { title: a.titleDe, desc: a.excerptDe, content: a.bodyDe },
+    en: { title: a.titleEn, desc: a.descEn, content: a.contentEn },
+    de: {
+      title: a.titleDe || a.titleEn,
+      desc: a.descDe || a.descEn,
+      content: a.contentDe || a.contentEn,
+    },
   }));
   return NextResponse.json({ articles });
 }
