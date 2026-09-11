@@ -4078,6 +4078,46 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   border-right: 2px solid var(--bronze);
 }
 
+/* Reusable "editorial framed" card — thin bronze hairline border plus
+   opposing bronze corner brackets (same treatment as .auth-card), for
+   any content that wants that signature framed look elsewhere on the
+   site (e.g. services intro highlights). */
+.framed-card {
+  position: relative;
+  border: 1px solid var(--bronze);
+  background-color: var(--cream);
+  padding: 2.5rem 2rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.framed-card::before,
+.framed-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.framed-card::before {
+  top: -5px;
+  left: -5px;
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
+}
+
+.framed-card::after {
+  bottom: -5px;
+  right: -5px;
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
+}
+
+.framed-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(4, 36, 51, 0.08);
+}
+
 /* ── Left brand column ── */
 .auth-brand-col {
   display: flex;

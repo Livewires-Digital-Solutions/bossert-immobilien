@@ -600,7 +600,13 @@ export const en = {
       s2: '',
       l4: '',
       textLeft: 'Property management, marketing, and valuation each carry significant legal, pricing, and administrative complexity.',
-      textRight: 'We handle every aspect for you with professionalism and clarity, ensuring a seamless experience.'
+      textRight: 'We handle every aspect for you with professionalism and clarity, ensuring a seamless experience.',
+      highlights: [
+        { number: '35+', label: 'Years of Experience' },
+        { number: '500+', label: 'Properties Brokered' },
+        { number: '98%', label: 'Client Satisfaction' },
+        { number: '24/7', label: 'Dedicated Support' }
+      ]
     },
     benefits: {
       tag: 'OUR COMMITMENT TO YOU',

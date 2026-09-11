@@ -47,6 +47,52 @@ export default function ServicesPage() {
               <p className="why-subhead" style={{ fontSize: '1.25rem' }}>{servicesPageData.intro.textRight}</p>
             </div>
           </div>
+
+          {/* Framed highlight cards — signature bronze-corner treatment */}
+          {servicesPageData.intro.highlights && (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '3rem',
+                marginTop: '6rem',
+              }}
+            >
+              {servicesPageData.intro.highlights.map((h: { number: string; label: string }, idx: number) => (
+                <div
+                  key={idx}
+                  className={`framed-card reveal-base reveal-up delay-${(idx + 3) * 100} ${introVisible ? 'is-revealed' : ''}`}
+                  style={{ textAlign: 'center' }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-inter), sans-serif',
+                      fontWeight: 300,
+                      fontSize: '3rem',
+                      color: 'var(--bronze)',
+                      lineHeight: 1,
+                      letterSpacing: '-1px',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    {h.number}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      color: 'var(--navy)',
+                      opacity: 0.75,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {h.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

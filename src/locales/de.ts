@@ -600,7 +600,13 @@ export const de = {
       s2: '',
       l4: '',
       textLeft: 'Immobilienverwaltung, Vermarktung und Bewertung bringen jeweils erhebliche rechtliche, preisliche und administrative Komplexität mit sich.',
-      textRight: 'Wir übernehmen jeden Aspekt für Sie mit Professionalität und Klarheit, um einen reibungslosen Ablauf zu gewährleisten.'
+      textRight: 'Wir übernehmen jeden Aspekt für Sie mit Professionalität und Klarheit, um einen reibungslosen Ablauf zu gewährleisten.',
+      highlights: [
+        { number: '35+', label: 'Jahre Erfahrung' },
+        { number: '500+', label: 'Vermittelte Immobilien' },
+        { number: '98%', label: 'Kundenzufriedenheit' },
+        { number: '24/7', label: 'Persönlicher Support' }
+      ]
     },
     benefits: {
       tag: 'UNSER VERSPRECHEN',
