@@ -601,20 +601,6 @@ export const de = {
       l4: '',
       textLeft: 'Immobilienverwaltung, Vermarktung und Bewertung bringen jeweils erhebliche rechtliche, preisliche und administrative Komplexität mit sich.',
       textRight: 'Wir übernehmen jeden Aspekt für Sie mit Professionalität und Klarheit, um einen reibungslosen Ablauf zu gewährleisten.',
-      challenges: [
-        {
-          title: 'Immobilienverwaltung',
-          desc: 'Von der Mieterkoordination bis zur rechtlichen Compliance übernehmen wir den administrativen Alltag, damit Ihre Investition geschützt und sorgenfrei bleibt.'
-        },
-        {
-          title: 'Vermarktung & Positionierung',
-          desc: 'Strategische Preisgestaltung, professionelle Fotografie und gezielte Sichtbarkeit — jede Immobilie wird so präsentiert, dass sie genau die richtigen Käufer oder Mieter erreicht.'
-        },
-        {
-          title: 'Bewertung & Berichte',
-          desc: 'Zertifizierte, marktgerechte Bewertungen auf Basis jahrzehntelanger lokaler Expertise, damit jede Entscheidung auf präzisen Daten beruht.'
-        }
-      ],
       highlights: [
         { number: '35+', label: 'Jahre Erfahrung' },
         { number: '500+', label: 'Vermittelte Immobilien' },
@@ -929,16 +915,6 @@ export const de = {
       select: 'Bitte auswählen',
       close: 'Schließen',
     },
-  },
-  newsletterFooter: {
-    headline: 'Bleiben Sie informiert.',
-    subhead: 'Abonnieren Sie für Marktanalysen, exklusive Angebote und Off-Market-News.',
-    placeholder: 'Ihre E-Mail-Adresse',
-    submit: 'Abonnieren',
-    submitting: 'Wird abonniert…',
-    success: 'Vielen Dank — Sie sind angemeldet.',
-    error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
-    invalidEmail: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
   },
   admin: {
     nav: {
