@@ -13,8 +13,10 @@ export default function PropertiesHero() {
 
   return (
     <div className="properties-editorial-hero" ref={heroRef}>
+      <div className="properties-hero-bg" />
+      <div className="properties-hero-overlay" />
       <Navbar invertOnLoad={true} />
-      
+
       <div className="editorial-hero-content">
         <div className="editorial-hero-middle">
           <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
