@@ -2,11 +2,12 @@
  * GET /api/references/[id] — single reference by slug, for the detail page.
  */
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getReferenceBySlug, parseStats } from '@/lib/references';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+export const GET = withBackendGuard(async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const r = await getReferenceBySlug(id);
   if (!r) return NextResponse.json({ reference: null }, { status: 404 });
@@ -34,4 +35,4 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     },
   };
   return NextResponse.json({ reference });
-}
+});

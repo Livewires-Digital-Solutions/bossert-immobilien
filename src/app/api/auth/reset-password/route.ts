@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
@@ -10,7 +11,7 @@ const schema = z.object({
   password: z.string().min(8).max(200),
 });
 
-export async function POST(req: Request) {
+export const POST = withBackendGuard(async function POST(req: Request) {
   if (!assertSameOrigin(req)) {
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
@@ -35,4 +36,5 @@ export async function POST(req: Request) {
   ]);
 
   return NextResponse.json({ ok: true });
-}
+});
+

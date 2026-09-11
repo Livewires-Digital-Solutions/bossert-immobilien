@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import crypto from 'crypto';
 
 export const dynamic = 'force-dynamic';
@@ -13,7 +14,7 @@ function generateHmac(secret: string, timestamp: string, token: string, resource
   return crypto.createHmac('sha256', secret).update(message).digest('base64');
 }
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   const ts = Math.floor(Date.now() / 1000) - TS_OFFSET;
   const timestamp = ts.toString();
   const actionid = 'urn:onoffice-de-ns:smart:2.5:smartml:action:read';
@@ -46,4 +47,4 @@ export async function GET() {
 
   const json = await response.json();
   return NextResponse.json(json);
-}
+});

@@ -17,6 +17,8 @@ interface ApiReference {
   de: { title: string; fullDescription: string; features: string[] };
 }
 
+import { isBackendEnabledClient } from '@/lib/backend-config';
+
 export default function ReferenceDetailClient({ id }: { id: string }) {
   const { lang } = useLanguage();
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal(0.1);
@@ -24,6 +26,12 @@ export default function ReferenceDetailClient({ id }: { id: string }) {
 
   useEffect(() => {
     let cancelled = false;
+
+    if (!isBackendEnabledClient()) {
+      setData(null);
+      return;
+    }
+
     fetch(`/api/references/${id}`)
       .then((res) => (res.ok ? res.json() : { reference: null }))
       .then((json) => {

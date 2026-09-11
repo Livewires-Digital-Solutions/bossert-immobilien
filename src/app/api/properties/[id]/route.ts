@@ -5,15 +5,16 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getPublicPropertyView } from '@/lib/property-view';
 import { fetchOnOfficePropertyById } from '@/lib/onoffice';
 import { mockProperties } from '@/data/properties';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(
+export const GET = withBackendGuard(async function GET(
   _request: NextRequest,
-  context: { params: Promise<{ id: string }> },
+  context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params;
 
@@ -40,4 +41,4 @@ export async function GET(
       ? NextResponse.json(fallback)
       : NextResponse.json({ error: 'Failed to fetch property' }, { status: 500 });
   }
-}
+});

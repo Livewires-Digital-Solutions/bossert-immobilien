@@ -6,13 +6,14 @@
  */
 
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getPublicPropertyCards } from '@/lib/property-view';
 import { fetchOnOfficeProperties } from '@/lib/onoffice';
 import { mockProperties } from '@/data/properties';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   try {
     const curated = await getPublicPropertyCards();
     if (curated && curated.length > 0) {
@@ -29,4 +30,4 @@ export async function GET() {
     console.error('[/api/properties] Error:', error);
     return NextResponse.json(mockProperties);
   }
-}
+});

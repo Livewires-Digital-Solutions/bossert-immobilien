@@ -11,7 +11,8 @@
  */
 
 import crypto from 'crypto';
-import { Property } from '@/data/properties';
+import { Property, mockProperties } from '@/data/properties';
+import { isBackendEnabled } from '@/lib/backend-config';
 import { ESTATE_FIELD_DICTIONARY, humaniseFieldKey } from '@/lib/onoffice-fields';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
@@ -281,6 +282,10 @@ function mapEstateToProperty(
  * This dynamically retrieves all properties instead of using hardcoded IDs.
  */
 export async function fetchOnOfficeProperties(): Promise<Property[]> {
+  if (!isBackendEnabled()) {
+    return mockProperties;
+  }
+  
   if (!TOKEN || !SECRET) {
     return [];
   }
@@ -318,6 +323,10 @@ export async function fetchOnOfficeProperties(): Promise<Property[]> {
 export async function fetchOnOfficePropertyById(
   externalId: string,
 ): Promise<Property | null> {
+  if (!isBackendEnabled()) {
+    return mockProperties.find(p => p.id === externalId) || mockProperties[0];
+  }
+
   if (!TOKEN || !SECRET) {
     return null;
   }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { createResetToken } from '@/lib/reset-tokens';
@@ -7,7 +8,7 @@ import { assertSameOrigin } from '@/lib/http';
 
 const schema = z.object({ email: z.string().trim().email() });
 
-export async function POST(req: Request) {
+export const POST = withBackendGuard(async function POST(req: Request) {
   // Always respond { ok: true } — never reveal whether an account exists.
   if (!assertSameOrigin(req)) return NextResponse.json({ ok: true });
 
@@ -30,4 +31,5 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json({ ok: true });
-}
+});
+

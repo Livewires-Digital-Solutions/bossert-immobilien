@@ -2,11 +2,12 @@
  * GET /api/testimonials — active testimonials, both languages.
  */
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getActiveTestimonials } from '@/lib/testimonials';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   const rows = await getActiveTestimonials();
   const testimonials = rows.map((t) => ({
     id: t.id,
@@ -17,4 +18,4 @@ export async function GET() {
     de: { quote: t.quoteDe || t.quoteEn },
   }));
   return NextResponse.json({ testimonials });
-}
+});

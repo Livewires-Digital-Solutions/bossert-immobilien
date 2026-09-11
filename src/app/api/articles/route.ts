@@ -2,12 +2,13 @@
  * GET /api/articles — published Knowledge articles, both languages, for the feed.
  */
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getPublishedArticles } from '@/lib/articles';
 import type { ApiArticle } from '@/lib/article-client';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   const rows = await getPublishedArticles();
   const articles: ApiArticle[] = rows.map((a) => ({
     slug: a.slug,
@@ -23,4 +24,4 @@ export async function GET() {
     },
   }));
   return NextResponse.json({ articles });
-}
+});

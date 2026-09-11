@@ -7,6 +7,7 @@ import KnowledgeFeed from '@/components/KnowledgeFeed';
 import KnowledgeHero from '@/components/KnowledgeHero';
 import { useLanguage } from '@/context/LanguageContext';
 import { localizeArticle, type ApiArticle } from '@/lib/article-client';
+import { isBackendEnabledClient } from '@/lib/backend-config';
 
 export default function KnowledgePage() {
   const { t, lang } = useLanguage();
@@ -14,6 +15,12 @@ export default function KnowledgePage() {
 
   useEffect(() => {
     let alive = true;
+
+    if (!isBackendEnabledClient()) {
+      setItems([]);
+      return;
+    }
+
     fetch('/api/articles')
       .then((r) => r.json())
       .then((d) => {

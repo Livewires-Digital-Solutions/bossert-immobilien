@@ -7,6 +7,7 @@ import RevealCard from './RevealCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import { Property, mockProperties } from '../data/properties';
+import { isBackendEnabledClient } from '../lib/backend-config';
 
 export default function PropertiesGrid() {
   const { ref: gridRef, isVisible } = useScrollReveal(0);
@@ -24,6 +25,11 @@ export default function PropertiesGrid() {
     let cancelled = false;
     setLoading(true);
     setFetchError(null);
+
+    if (!isBackendEnabledClient()) {
+      setLoading(false);
+      return;
+    }
 
     fetch('/api/properties')
       .then((res) => {

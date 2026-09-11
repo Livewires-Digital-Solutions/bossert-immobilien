@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { z } from 'zod';
 import { createId } from '@paralleldrive/cuid2';
 import { prisma } from '@/lib/prisma';
@@ -21,7 +22,7 @@ const schema = z.object({
   company: z.string().max(200).optional(),
 });
 
-export async function POST(req: Request) {
+export const POST = withBackendGuard(async function POST(req: Request) {
   try {
     if (!assertSameOrigin(req)) {
       return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
@@ -65,7 +66,7 @@ export async function POST(req: Request) {
     console.error('CONTACT SUBMISSION ERROR:', error);
     return NextResponse.json({ error: 'INTERNAL_SERVER_ERROR' }, { status: 500 });
   }
-}
+});
 
 async function notifyAdmins(s: {
   name: string;

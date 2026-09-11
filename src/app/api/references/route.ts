@@ -2,11 +2,12 @@
  * GET /api/references — active references (featured + archive gallery), both languages.
  */
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getActiveReferences, parseStats } from '@/lib/references';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   const rows = await getActiveReferences();
   const references = rows.map((r) => ({
     id: r.slug,
@@ -31,4 +32,4 @@ export async function GET() {
     },
   }));
   return NextResponse.json({ references });
-}
+});

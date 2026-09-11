@@ -5,8 +5,25 @@ import styles from './admin.module.css';
 
 export const metadata = { title: 'Dashboard · Bossert Admin' };
 
+import { isBackendEnabled } from '@/lib/backend-config';
+
 export default async function AdminDashboardPage() {
   const session = await requireAdmin();
+
+  if (!isBackendEnabled()) {
+    return (
+      <section>
+        <div className={styles.eyebrow}>Overview</div>
+        <h1 className={styles.pageTitle}>Dashboard</h1>
+        <div style={{ padding: '2rem', backgroundColor: 'var(--cream)', borderRadius: '8px', border: '1px solid #f0e6d2', marginTop: '2rem' }}>
+          <h2 style={{ color: 'var(--navy)', marginBottom: '1rem', fontSize: '1.5rem' }}>Backend Disabled</h2>
+          <p style={{ color: 'var(--navy)', opacity: 0.8, lineHeight: 1.6 }}>
+            The backend is currently running in safe mode (`BACKEND_ENABLED=false`). Database queries and API integrations are disabled.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   const [
     userCount,

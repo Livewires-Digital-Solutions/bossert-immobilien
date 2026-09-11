@@ -2,11 +2,12 @@
  * GET /api/team-members — active team members, both languages.
  */
 import { NextResponse } from 'next/server';
+import { withBackendGuard } from '@/lib/backend-config';
 import { getActiveTeamMembers } from '@/lib/team-members';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withBackendGuard(async function GET() {
   const rows = await getActiveTeamMembers();
   const members = rows.map((m) => ({
     id: m.id,
@@ -16,4 +17,4 @@ export async function GET() {
     de: { title: m.titleDe || m.titleEn, quote: (m.quoteDe || m.quoteEn) ?? '' },
   }));
   return NextResponse.json({ members });
-}
+});
