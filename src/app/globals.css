@@ -798,7 +798,7 @@ body {
 
 .properties-grid-section {
   padding: 0 4rem 6rem 4rem;
-  background-color: var(--cream);
+  background-color: #ffffff;
   position: relative;
   z-index: 10;
 }
@@ -953,7 +953,7 @@ body {
   color: var(--white);
 }
 
-.properties-main-grid {
+.explore-grid.properties-main-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
@@ -961,13 +961,13 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .properties-main-grid {
+  .explore-grid.properties-main-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .properties-main-grid {
+  .explore-grid.properties-main-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -6545,6 +6545,7 @@ footer[class*="footer"],
 .property-card-new {
   display: flex;
   flex-direction: column;
+  height: 100%;
   background: #ffffff;
   border: 1px solid var(--gold, #9a7d54);
   border-radius: 4px;
@@ -6579,13 +6580,7 @@ footer[class*="footer"],
 }
 
 .pc-overlays {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: none;
 }
 
 /* Top Badges */
@@ -6597,8 +6592,8 @@ footer[class*="footer"],
 }
 
 .pc-badge-status {
-  background: var(--gold, #9a7d54);
-  color: #fff;
+  background: #fff;
+  color: var(--text-dark, #1a1a1a);
   font-size: 0.75rem;
   font-weight: 500;
   padding: 0.4rem 0.75rem;
@@ -6670,6 +6665,7 @@ footer[class*="footer"],
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 1rem;
 }
 
@@ -6763,7 +6759,7 @@ footer[class*="footer"],
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 0.5rem;
+  margin-top: auto;
 }
 
 .pc-price {
