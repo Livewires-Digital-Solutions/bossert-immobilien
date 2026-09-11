@@ -321,6 +321,8 @@ export const en = {
     form: {
       name: 'Full Name',
       namePlaceholder: 'Your name',
+      email: 'Email',
+      emailPlaceholder: 'Your email address',
       phone: 'Phone Number',
       phonePlaceholder: 'Your phone number',
       inquiry: 'Inquiry Type',
@@ -330,6 +332,7 @@ export const en = {
       submit: 'Submit Inquiry',
       submitting: 'Submitting...',
       success: 'Thank you. We will contact you discreetly within 24 hours.',
+      error: 'Something went wrong. Please try again or email us directly.',
       privacy: 'By submitting this form, I agree to the Privacy Policy.'
     },
     faq: {

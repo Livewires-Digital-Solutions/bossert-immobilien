@@ -8,16 +8,25 @@ export const metadata = { title: 'Dashboard · Bossert Admin' };
 export default async function AdminDashboardPage() {
   const session = await requireAdmin();
 
-  const [userCount, adminCount, newThisWeek, publishedListings, importedListings] =
-    await Promise.all([
-      (prisma as any).users.count(),
-      (prisma as any).users.count({ where: { role: { in: ['ADMIN', 'SUPER_ADMIN'] } } }),
-      (prisma as any).users.count({
-        where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
-      }),
-      (prisma as any).onoffice_properties.count({ where: { status: 'PUBLISHED' } }),
-      (prisma as any).onoffice_properties.count(),
-    ]);
+  const [
+    userCount,
+    adminCount,
+    newThisWeek,
+    publishedListings,
+    importedListings,
+    openEnquiries,
+    totalEnquiries,
+  ] = await Promise.all([
+    (prisma as any).users.count(),
+    (prisma as any).users.count({ where: { role: { in: ['ADMIN', 'SUPER_ADMIN'] } } }),
+    (prisma as any).users.count({
+      where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
+    }),
+    (prisma as any).onoffice_properties.count({ where: { status: 'PUBLISHED' } }),
+    (prisma as any).onoffice_properties.count(),
+    (prisma as any).contact_submissions.count({ where: { status: 'NEW' } }),
+    (prisma as any).contact_submissions.count(),
+  ]);
 
   return (
     <section>
@@ -46,8 +55,8 @@ export default async function AdminDashboardPage() {
         </div>
         <div className={styles.card}>
           <div className={styles.cardLabel}>Open enquiries</div>
-          <div className={styles.cardValue}>—</div>
-          <div className={styles.cardHint}>Coming soon</div>
+          <div className={styles.cardValue}>{openEnquiries}</div>
+          <div className={styles.cardHint}>{totalEnquiries} received in total</div>
         </div>
       </div>
 
@@ -61,7 +70,8 @@ export default async function AdminDashboardPage() {
       <div className={styles.panel}>
         <h2 className={styles.panelTitle}>Enquiries</h2>
         <p className={styles.panelText}>
-          Contact-form submissions and their status. Not yet wired up in this build.
+          Website contact-form submissions, with status tracking, in{' '}
+          <Link href="/admin/contact">Inquiries</Link>.
         </p>
       </div>
       <div className={styles.panel}>

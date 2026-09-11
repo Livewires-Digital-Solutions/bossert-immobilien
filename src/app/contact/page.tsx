@@ -18,14 +18,48 @@ export default function ContactPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    inquiryType: '',
+    message: '',
+    consent: false,
+    company: '', // honeypot
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) =>
+    setForm((f) => ({ ...f, [k]: v }));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!e.currentTarget.checkValidity()) {
+      e.currentTarget.reportValidity();
+      return;
+    }
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          inquiryType: form.inquiryType || contact.form.options?.[0] || '',
+          source: 'contact_page',
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.message || 'request failed');
+      }
       setSuccess(true);
-    }, 1500);
+    } catch {
+      setError(contact.form.error ?? 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (!contact) return null;
@@ -98,29 +132,62 @@ export default function ContactPage() {
                   <p style={{ color: 'var(--navy)', lineHeight: 1.6 }}>{contact.form.success}</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  
+                <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+                  {/* Honeypot — visually hidden, ignored by real users */}
+                  <input
+                    type="text"
+                    name="company"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={form.company}
+                    onChange={(e) => set('company', e.target.value)}
+                    style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                  />
+
                   <div>
-                    <input 
-                      type="text" 
-                      placeholder={contact.form.namePlaceholder} 
-                      required 
+                    <input
+                      type="text"
+                      placeholder={contact.form.namePlaceholder}
+                      required
+                      minLength={2}
+                      maxLength={120}
                       className="cta-input"
+                      value={form.name}
+                      onChange={(e) => set('name', e.target.value)}
                     />
                   </div>
 
                   <div>
-                    <input 
-                      type="tel" 
-                      placeholder={contact.form.phonePlaceholder} 
+                    <input
+                      type="email"
+                      placeholder={contact.form.emailPlaceholder ?? 'Your email address'}
+                      required
+                      maxLength={200}
                       className="cta-input"
+                      value={form.email}
+                      onChange={(e) => set('email', e.target.value)}
                     />
                   </div>
 
                   <div>
-                    <select 
+                    <input
+                      type="tel"
+                      placeholder={contact.form.phonePlaceholder}
+                      maxLength={60}
+                      className="cta-input"
+                      value={form.phone}
+                      onChange={(e) => set('phone', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <select
                       className="cta-input"
                       style={{ appearance: 'none', cursor: 'pointer' }}
+                      value={form.inquiryType || contact.form.options?.[0] || ''}
+                      onChange={(e) => set('inquiryType', e.target.value)}
                     >
                       {contact.form.options.map((opt: string, idx: number) => (
                         <option key={idx} value={opt}>{opt}</option>
@@ -129,16 +196,24 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <textarea 
-                      placeholder={contact.form.messagePlaceholder} 
-                      required 
+                    <textarea
+                      placeholder={contact.form.messagePlaceholder}
+                      required
+                      minLength={10}
+                      maxLength={4000}
                       rows={4}
                       className="cta-textarea"
+                      value={form.message}
+                      onChange={(e) => set('message', e.target.value)}
                     />
                   </div>
-                  
-                  <button 
-                    type="submit" 
+
+                  {error && (
+                    <p style={{ color: '#9a2b2b', fontSize: '0.85rem', margin: 0 }}>{error}</p>
+                  )}
+
+                  <button
+                    type="submit"
                     disabled={submitting}
                     className="explore-btn explore-btn-dark cta-submit-margin"
                     style={{ opacity: submitting ? 0.7 : 1, marginTop: '0.5rem' }}
@@ -152,7 +227,14 @@ export default function ContactPage() {
                   </button>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
-                    <input type="checkbox" id="privacy" required style={{ accentColor: 'var(--navy)' }} />
+                    <input
+                      type="checkbox"
+                      id="privacy"
+                      required
+                      checked={form.consent}
+                      onChange={(e) => set('consent', e.target.checked)}
+                      style={{ accentColor: 'var(--navy)' }}
+                    />
                     <label htmlFor="privacy" style={{ fontSize: '0.85rem', color: 'rgba(4,36,51,0.7)' }}>{contact.form.privacy}</label>
                   </div>
 

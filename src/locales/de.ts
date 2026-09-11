@@ -321,6 +321,8 @@ export const de = {
     form: {
       name: 'Vollständiger Name',
       namePlaceholder: 'Ihr Name',
+      email: 'E-Mail',
+      emailPlaceholder: 'Ihre E-Mail-Adresse',
       phone: 'Telefonnummer',
       phonePlaceholder: 'Ihre Telefonnummer',
       inquiry: 'Art der Anfrage',
@@ -330,6 +332,7 @@ export const de = {
       submit: 'Anfrage Senden',
       submitting: 'Senden...',
       success: 'Vielen Dank. Wir werden Sie innerhalb von 24 Stunden diskret kontaktieren.',
+      error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.',
       privacy: 'Durch Absenden dieses Formulars stimme ich der Datenschutzerklärung zu.'
     },
     faq: {
