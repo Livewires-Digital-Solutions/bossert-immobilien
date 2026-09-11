@@ -2453,6 +2453,23 @@ body {
   color: #E2BC72;
 }
 
+/* Properties page only: the whole filter row is already white, so keep the
+   button white too instead of a separate navy block at the end of the bar —
+   the home page's embedded search keeps its original navy/gold button. */
+.search-section-dark .search-submit-btn {
+  background-color: #ffffff;
+  color: var(--navy);
+}
+
+.search-section-dark .search-submit-btn svg {
+  stroke: currentColor;
+}
+
+.search-section-dark .search-submit-btn:hover {
+  background-color: var(--bronze);
+  color: #ffffff;
+}
+
 .search-submit-btn:hover svg {
   stroke: #E2BC72;
   transform: translateX(4px);

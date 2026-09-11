@@ -255,6 +255,8 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
             )}
           </div>
           
+          <div className="search-divider"></div>
+
           {/* Search Button */}
           <button type="button" className="search-submit-btn" onClick={handleSearch}>
             <span>{t.search.searchBtn?.toUpperCase() || 'SEARCH'}</span>
