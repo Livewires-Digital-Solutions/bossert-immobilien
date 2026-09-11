@@ -692,9 +692,14 @@ body {
 
 .properties-editorial-hero {
   position: relative;
-  min-height: 56vh;
+  /* Fixed height (not content-driven min-height) so every page using this
+     class renders at the exact same height as /properties, regardless of
+     whether its headline wraps to one line or two. padding-top pins the
+     headline to the same start position everywhere; the remaining space
+     below the content absorbs any length difference instead of the whole
+     box growing or shrinking. */
+  height: 50.7rem;
   padding-top: 16rem;
-  padding-bottom: 17rem;
   background-color: var(--cream);
   display: flex;
   flex-direction: column;
@@ -5077,10 +5082,13 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 @media (max-width: 768px) {
 
   /* Navbar */
-  /* Properties Editorial Hero */
+  /* Properties Editorial Hero — mobile stays content-driven (not a fixed
+     height) since headlines wrap more on narrow screens; forcing the same
+     fixed height here would risk clipping longer copy. */
   .properties-editorial-hero {
-    padding-bottom: 11rem;
+    height: auto;
     min-height: auto;
+    padding-bottom: 11rem;
   }
   .properties-hero-bg {
     background-position: center 20%;
