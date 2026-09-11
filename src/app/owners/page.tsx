@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import ConsultationModal from '@/components/modals/ConsultationModal';
 import ProcessList from '@/components/ProcessList';
+import CtaSection from '@/components/CtaSection';
 import BtnArrow from '@/components/BtnArrow';
 import styles from './owners.module.css';
 
@@ -25,9 +26,6 @@ export default function ForOwnersPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoute, setModalRoute] = useState<'top_contact' | 'consultation' | 'valuation' | 'buyer' | 'general' | 'profile'>('top_contact');
-
-  const [subscribeEmail, setSubscribeEmail] = useState('');
-  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const reduceMotionRef = useRef<boolean | null>(null);
   const canTiltRef = useRef<boolean | null>(null);
@@ -91,27 +89,6 @@ export default function ForOwnersPage() {
     e.currentTarget.style.setProperty('--ry', '0deg');
   };
 
-  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!subscribeEmail.trim()) return;
-    setSubscribeStatus('submitting');
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: subscribeEmail.trim() }),
-      });
-      const json = await res.json().catch(() => null);
-      if (!res.ok || !json?.ok) throw new Error('failed');
-      setSubscribeStatus('success');
-      setSubscribeEmail('');
-      setTimeout(() => setSubscribeStatus('idle'), 6000);
-    } catch {
-      setSubscribeStatus('error');
-      setTimeout(() => setSubscribeStatus('idle'), 6000);
-    }
-  };
-
   return (
     <main style={{ backgroundColor: 'var(--navy)', position: 'relative' }}>
       <ConsultationModal
@@ -152,20 +129,6 @@ export default function ForOwnersPage() {
         </div>
       </div>
 
-      {/* Cinematic Establishing Shot */}
-      <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingTop: '4rem', paddingBottom: '2rem' }}>
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div className={styles.shotFrame}>
-            <Image
-              src="/images/owners_editorial.jpg"
-              alt="Premium property under professional management"
-              fill
-              style={{ objectFit: 'cover' }}
-              priority
-            />
-          </div>
-        </div>
-      </section>
 
       {/* 2. The Narrative (Cream Background) */}
       <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '6rem' }}>
@@ -358,42 +321,8 @@ export default function ForOwnersPage() {
         </div>
       </section>
 
-      {/* 7. Newsletter / Lead Capture Strip */}
-      <section className="global-padding" style={{ padding: '8rem 0', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundColor: 'var(--navy)' }}>
-           <div style={{ position: 'absolute', top: '-50%', left: '-20%', width: '100%', height: '200%', background: 'radial-gradient(circle, rgba(181, 143, 98, 0.15) 0%, transparent 60%)' }}></div>
-        </div>
-
-        <div className="inner-page-container" style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto' }}>
-          <div className={styles.leadCard}>
-            <h3 className={styles.leadHeadline}>
-              The best decisions for your property begin with the right advice
-            </h3>
-            <form className={styles.leadForm} onSubmit={handleSubscribe}>
-              <div className={styles.leadInputGroup}>
-                <label htmlFor="owners-newsletter-email" className="sr-only" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
-                  Email address
-                </label>
-                <input
-                  id="owners-newsletter-email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  value={subscribeEmail}
-                  onChange={(e) => setSubscribeEmail(e.target.value)}
-                  className={styles.leadInput}
-                />
-              </div>
-              <button type="submit" className={styles.leadSubmit} disabled={subscribeStatus === 'submitting'}>
-                {subscribeStatus === 'submitting' ? 'Subscribing…' : 'Subscribe'}
-                <BtnArrow />
-              </button>
-            </form>
-            {subscribeStatus === 'success' && <p className={styles.leadMsg}>Thank you — you&apos;re on the list.</p>}
-            {subscribeStatus === 'error' && <p className={`${styles.leadMsg} ${styles.leadMsgError}`}>Something went wrong. Please try again.</p>}
-          </div>
-        </div>
-      </section>
+      {/* 7. Contact Section — same as the home page */}
+      <CtaSection />
 
       {/* 8. Final CTA Banner */}
       <section className="global-padding" ref={ctaRef} style={{ backgroundColor: 'var(--cream)', color: 'var(--navy)', paddingTop: '10rem', paddingBottom: '10rem', textAlign: 'center' }}>
@@ -401,7 +330,7 @@ export default function ForOwnersPage() {
           <h2 className="explore-headline" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
             Are you looking to sell, let, or gain clarity on your property's value?
           </h2>
-          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)' }}>
+          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)', textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
             We advise you personally and without obligation.
           </p>
           <button
