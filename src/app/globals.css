@@ -692,9 +692,14 @@ body {
 
 .properties-editorial-hero {
   position: relative;
-  min-height: 56vh;
+  /* Fixed height (not content-driven min-height) so every page using this
+     class renders at the exact same height as /properties, regardless of
+     whether its headline wraps to one line or two. padding-top pins the
+     headline to the same start position everywhere; the remaining space
+     below the content absorbs any length difference instead of the whole
+     box growing or shrinking. */
+  height: 50.7rem;
   padding-top: 16rem;
-  padding-bottom: 17rem;
   background-color: var(--cream);
   display: flex;
   flex-direction: column;
@@ -711,13 +716,20 @@ body {
   z-index: 0;
 }
 
-.properties-hero-overlay {
+/* Single-hue cream alpha ramp so the illustration dissolves cleanly into
+   the page's own cream background instead of jumping hue — used by every
+   editorial hero (properties, about, owners, services, references,
+   contact, knowledge), since the search section below /properties' hero
+   is cream too now, same as the rest. */
+.properties-hero-overlay-cream {
   position: absolute;
   inset: 0;
-  /* Same stops as .hero-overlay on the home page — the fade lands on solid
-     navy exactly at the section's bottom edge, so it blends seamlessly into
-     .search-section-dark, which starts on that same navy with no gap. */
-  background: linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%);
+  background:
+    /* Flat cream wash over the whole illustration so the dark navy
+       archway interiors read as a soft tone, not a blue patch */
+    linear-gradient(rgba(254, 252, 246, 0.55), rgba(254, 252, 246, 0.55)),
+    /* Bottom fade to solid cream, dissolving into the next section */
+    linear-gradient(to bottom, rgba(254, 252, 246, 0) 55%, var(--cream) 100%);
   z-index: 1;
 }
 
@@ -2141,7 +2153,7 @@ body {
 }
 
 .search-section.search-section-dark {
-  background-color: var(--navy);
+  background-color: var(--cream);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   padding-top: 4.5rem;
@@ -2149,10 +2161,10 @@ body {
 }
 
 /* Properties page only: shift the search bar up by transform so it straddles
-   the seam where the hero's fade meets the navy section below — roughly
-   centered on that boundary rather than sitting fully beneath it. Transform
-   doesn't touch layout flow, so margin-bottom pulls the following section up
-   by the same amount to close the gap this would otherwise leave behind. */
+   the seam where the hero's fade meets the section below — roughly centered
+   on that boundary rather than sitting fully beneath it. Transform doesn't
+   touch layout flow, so margin-bottom pulls the following section up by the
+   same amount to close the gap this would otherwise leave behind. */
 .properties-editorial-hero + .search-section.search-section-dark {
   position: relative;
   z-index: 3;
@@ -2437,6 +2449,23 @@ body {
   color: #E2BC72;
 }
 
+/* Properties page only: the whole filter row is already white, so keep the
+   button white too instead of a separate navy block at the end of the bar —
+   the home page's embedded search keeps its original navy/gold button. */
+.search-section-dark .search-submit-btn {
+  background-color: #ffffff;
+  color: var(--navy);
+}
+
+.search-section-dark .search-submit-btn svg {
+  stroke: currentColor;
+}
+
+.search-section-dark .search-submit-btn:hover {
+  background-color: var(--bronze);
+  color: #ffffff;
+}
+
 .search-submit-btn:hover svg {
   stroke: #E2BC72;
   transform: translateX(4px);
@@ -2544,26 +2573,14 @@ body {
   text-align: center;
 }
 
-/* Dark mode overrides (for /properties page) */
-.search-section.search-section-dark .search-title,
-.search-section.search-section-dark .search-subhead,
-.search-section.search-section-dark .advanced-search-checkbox,
-.search-section.search-section-dark .more-options-toggle {
-  color: var(--white);
-}
-.search-section.search-section-dark .search-tab {
-  color: rgba(255, 255, 255, 0.65);
-}
-.search-section.search-section-dark .search-tab:hover {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-}
+/* Properties page search section: same light theme as everywhere else
+   (background, tab and text colors already match the base .search-tab /
+   .search-title / etc. styles above), just with the active tab kept white
+   instead of the base's navy fill, since the tab bar itself sits on cream
+   here rather than navy. */
 .search-section.search-section-dark .search-tab.active {
-  background: #021721;
-  color: var(--white);
-}
-.search-section.search-section-dark .search-bar {
-  border-color: rgba(255, 255, 255, 0.15);
+  background: #ffffff;
+  color: var(--navy);
 }
 
 .advanced-search-header {
@@ -5066,10 +5083,13 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 @media (max-width: 768px) {
 
   /* Navbar */
-  /* Properties Editorial Hero */
+  /* Properties Editorial Hero — mobile stays content-driven (not a fixed
+     height) since headlines wrap more on narrow screens; forcing the same
+     fixed height here would risk clipping longer copy. */
   .properties-editorial-hero {
-    padding-bottom: 11rem;
+    height: auto;
     min-height: auto;
+    padding-bottom: 11rem;
   }
   .properties-hero-bg {
     background-position: center 20%;

@@ -59,29 +59,34 @@ export default function AboutPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--cream)' }}>
-      {/* 1. Hero Section */}
-      <div className="properties-editorial-hero global-padding" ref={heroRef} style={{ paddingBottom: '0' }}>
+      {/* 1. Hero Section — same bg image, fade, font, height and centered
+          text as the properties hero */}
+      <div className="properties-editorial-hero" ref={heroRef}>
+        <div className="properties-hero-bg" />
+        <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
-        
-        <div className="inner-page-container" style={{ width: '100%', paddingBottom: '4rem' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 500px', fontWeight: 500, letterSpacing: '-0.05em' }}>
-              {about.hero.title} <br/>
-              <span className="italic-serif" style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>{about.hero.titleSerif}</span>
+
+        <div className="editorial-hero-content">
+          <div className="editorial-hero-middle">
+            <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}>
+              {about.hero.title} <br /><span className="italic-serif">{about.hero.titleSerif}</span>
             </h1>
-            <div className={`reveal-base reveal-up delay-200 ${heroVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 300px', paddingTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
-              <p className="why-subhead" style={{ maxWidth: '400px' }}>
-                {about.hero.description}
-              </p>
-            </div>
+          </div>
+
+          <div className="editorial-hero-bottom">
+            <p className={`editorial-subhead reveal-base reveal-up delay-200 ${heroVisible ? 'is-revealed' : ''}`}>
+              {about.hero.description}
+            </p>
           </div>
         </div>
+      </div>
 
-        {/* Cinematic Establishing Shot */}
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%', paddingBottom: '6rem' }}>
+      {/* Cinematic Establishing Shot */}
+      <section className="global-padding" style={{ paddingTop: '4rem', paddingBottom: '2rem' }}>
+        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
           <div style={{ width: '100%', height: '70vh', minHeight: '500px', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
-            <Image 
-              src="/images/owners_bg_wide.jpg"  
+            <Image
+              src="/images/owners_bg_wide.jpg"
               alt="Bossert Immobilien Legacy"
               fill
               style={{ objectFit: 'cover' }}
@@ -89,7 +94,7 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </div>
+      </section>
         {/* 2. Our Approach (Massive Typography Layout) */}
         <section ref={heritageRef} style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
           <ApproachHeadline 
