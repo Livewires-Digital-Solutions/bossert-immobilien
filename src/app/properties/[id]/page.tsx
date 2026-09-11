@@ -15,7 +15,6 @@ import CuratedPropertyFacts from '@/components/property/CuratedPropertyFacts';
 import RevealSection from '@/components/property/RevealSection';
 import RevealCard from '@/components/RevealCard';
 import PropertyCard from '@/components/PropertyCard';
-import PropertyShowcase from '@/components/properties/PropertyShowcase';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -58,13 +57,6 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   const curated = sections.length > 0;
 
   const related = await getRelatedProperties(id, 3).catch(() => []);
-
-  // Published onOffice properties get the full cinematic showcase. The plain
-  // fallback tree below only renders for live/mock data (unpublished or
-  // onOffice temporarily unreachable), so the page never breaks.
-  if (curated) {
-    return <PropertyShowcase property={property} sections={sections} related={related} />;
-  }
 
   const inquiryHref = `/property-inquiry?property=${encodeURIComponent(id)}&title=${encodeURIComponent(
     property.title || property.type,
