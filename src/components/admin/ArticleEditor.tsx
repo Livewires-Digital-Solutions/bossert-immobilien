@@ -38,16 +38,16 @@ export default function ArticleEditor({ initial }: Props) {
     initial ?? {
       slug: '',
       category: CATEGORIES[0],
-      coverImage: '',
+      heroImage: '',
       status: 'DRAFT',
       featured: false,
-      publishedAt: new Date().toISOString().slice(0, 10),
+      date: new Date().toISOString().slice(0, 10),
       titleEn: '',
       titleDe: '',
-      excerptEn: '',
-      excerptDe: '',
-      bodyEn: '',
-      bodyDe: '',
+      descEn: '',
+      descDe: '',
+      contentEn: '',
+      contentDe: '',
     },
   );
   const [slugTouched, setSlugTouched] = useState(editing);
@@ -70,7 +70,7 @@ export default function ArticleEditor({ initial }: Props) {
     fd.append('file', file);
     const res = await uploadArticleImage(fd);
     setUploading(false);
-    if (res.ok) set('coverImage', res.url);
+    if (res.ok) set('heroImage', res.url);
     else setError(res.error);
   }
 
@@ -130,8 +130,8 @@ export default function ArticleEditor({ initial }: Props) {
           <input
             className={styles.input}
             type="date"
-            value={f.publishedAt}
-            onChange={(e) => set('publishedAt', e.target.value)}
+            value={f.date}
+            onChange={(e) => set('date', e.target.value)}
           />
         </label>
 
@@ -160,17 +160,17 @@ export default function ArticleEditor({ initial }: Props) {
       <div className={styles.field}>
         <span className={styles.label}>Cover image</span>
         <div className={styles.cover}>
-          {f.coverImage ? (
+          {f.heroImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={f.coverImage} alt="" className={styles.coverPreview} />
+            <img src={f.heroImage} alt="" className={styles.coverPreview} />
           ) : (
             <div className={styles.coverEmpty}>No image</div>
           )}
           <div className={styles.coverControls}>
             <input
               className={styles.input}
-              value={f.coverImage}
-              onChange={(e) => set('coverImage', e.target.value)}
+              value={f.heroImage}
+              onChange={(e) => set('heroImage', e.target.value)}
               placeholder="/uploads/articles/…  or  https://…"
             />
             <label className={styles.uploadBtn}>
@@ -217,12 +217,12 @@ export default function ArticleEditor({ initial }: Props) {
           <textarea
             className={styles.textarea}
             rows={3}
-            value={f.excerptEn}
-            onChange={(e) => set('excerptEn', e.target.value)}
+            value={f.descEn}
+            onChange={(e) => set('descEn', e.target.value)}
           />
         </label>
         <span className={styles.label}>Body (EN)</span>
-        <RichTextEditor value={f.bodyEn} onChange={(v) => set('bodyEn', v)} />
+        <RichTextEditor value={f.contentEn} onChange={(v) => set('contentEn', v)} />
       </div>
 
       <div hidden={lang !== 'de'}>
@@ -235,12 +235,12 @@ export default function ArticleEditor({ initial }: Props) {
           <textarea
             className={styles.textarea}
             rows={3}
-            value={f.excerptDe}
-            onChange={(e) => set('excerptDe', e.target.value)}
+            value={f.descDe}
+            onChange={(e) => set('descDe', e.target.value)}
           />
         </label>
         <span className={styles.label}>Body (DE)</span>
-        <RichTextEditor value={f.bodyDe} onChange={(v) => set('bodyDe', v)} />
+        <RichTextEditor value={f.contentDe} onChange={(v) => set('contentDe', v)} />
       </div>
 
       <div className={styles.actions}>

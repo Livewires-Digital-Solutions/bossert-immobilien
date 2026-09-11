@@ -20,16 +20,16 @@ export default async function EditArticlePage(props: {
     id: a.id,
     slug: a.slug,
     category: a.category,
-    coverImage: a.coverImage,
+    heroImage: a.heroImage ?? '',
     status: a.status,
     featured: a.featured,
-    publishedAt: a.publishedAt.toISOString().slice(0, 10),
+    date: a.date,
     titleEn: a.titleEn,
-    titleDe: a.titleDe,
-    excerptEn: a.excerptEn,
-    excerptDe: a.excerptDe,
-    bodyEn: a.bodyEn,
-    bodyDe: a.bodyDe,
+    titleDe: a.titleDe ?? '',
+    descEn: a.descEn,
+    descDe: a.descDe ?? '',
+    contentEn: a.contentEn,
+    contentDe: a.contentDe ?? '',
   };
 
   return (

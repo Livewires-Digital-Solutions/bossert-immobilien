@@ -17,16 +17,16 @@ const ArticleInput = z.object({
     .max(120)
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use lowercase letters, numbers and hyphens only'),
   category: z.string().trim().min(1).max(60),
-  coverImage: z.string().trim().min(1).max(500),
+  heroImage: z.string().trim().min(1).max(500),
   status: z.enum(['DRAFT', 'PUBLISHED']),
   featured: z.boolean(),
-  publishedAt: z.string().trim().min(1),
+  date: z.string().trim().min(1),
   titleEn: z.string().trim().min(1).max(200),
   titleDe: z.string().trim().min(1).max(200),
-  excerptEn: z.string().trim().min(1).max(600),
-  excerptDe: z.string().trim().min(1).max(600),
-  bodyEn: z.string().trim().min(1),
-  bodyDe: z.string().trim().min(1),
+  descEn: z.string().trim().min(1).max(600),
+  descDe: z.string().trim().min(1).max(600),
+  contentEn: z.string().trim().min(1),
+  contentDe: z.string().trim().min(1),
 });
 
 export type ArticleFormValues = z.infer<typeof ArticleInput>;
@@ -39,22 +39,22 @@ export async function saveArticle(input: ArticleFormValues): Promise<SaveResult>
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? 'Invalid input' };
   }
-  const { id, publishedAt, ...rest } = parsed.data;
+  const { id, ...rest } = parsed.data;
 
   // Enforce a single featured article.
   if (rest.featured) {
-    await prisma.article.updateMany({
+    await prisma.articles.updateMany({
       where: id ? { featured: true, NOT: { id } } : { featured: true },
       data: { featured: false },
     });
   }
 
-  const data = { ...rest, publishedAt: new Date(publishedAt) };
+  const now = new Date();
 
   try {
     const saved = id
-      ? await prisma.article.update({ where: { id }, data })
-      : await prisma.article.create({ data });
+      ? await prisma.articles.update({ where: { id }, data: { ...rest, updatedAt: now } })
+      : await prisma.articles.create({ data: { ...rest, id: randomUUID(), updatedAt: now } });
 
     revalidatePath('/knowledge');
     revalidatePath(`/knowledge/${saved.slug}`);
@@ -71,8 +71,8 @@ export async function saveArticle(input: ArticleFormValues): Promise<SaveResult>
 
 export async function deleteArticle(id: string): Promise<{ ok: boolean }> {
   await requireAdmin();
-  const a = await prisma.article.findUnique({ where: { id } });
-  await prisma.article.delete({ where: { id } });
+  const a = await prisma.articles.findUnique({ where: { id } });
+  await prisma.articles.delete({ where: { id } });
   if (a) revalidatePath(`/knowledge/${a.slug}`);
   revalidatePath('/knowledge');
   revalidatePath('/admin/articles');

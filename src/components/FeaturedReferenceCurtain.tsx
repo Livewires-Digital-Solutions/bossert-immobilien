@@ -12,6 +12,7 @@ interface Props {
     title: string;
     location: string;
     description: string;
+    image?: string;
     stats: { label: string; value: string }[];
   };
 }
@@ -111,8 +112,8 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
                 transition: 'none' // Disable CSS transition since we are binding to scroll directly
               }}
             >
-              <Image 
-                src="/test_bg_penthouse.jpg"
+              <Image
+                src={data.image || '/test_bg_penthouse.jpg'}
                 alt={data.title}
                 fill
                 style={{ objectFit: 'cover' }}

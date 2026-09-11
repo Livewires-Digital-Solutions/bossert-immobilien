@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface FAQ {
   q: string;
   a: string;
+}
+
+interface ApiFaq {
+  id: string;
+  en: { question: string; answer: string };
+  de: { question: string; answer: string };
 }
 
 interface Props {
@@ -22,11 +29,42 @@ interface Props {
 
 export default function ContactFAQ({ faqData }: Props) {
   const { ref, isVisible } = useScrollReveal(0.2);
+  const { lang } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [apiFaqs, setApiFaqs] = useState<ApiFaq[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/faqs')
+      .then((res) => (res.ok ? res.json() : { faqs: [] }))
+      .then((json) => {
+        if (!cancelled) setApiFaqs(json.faqs ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setApiFaqs([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Fall back to the static copy only while the DB-backed FAQs are still
+  // loading or the table is genuinely empty.
+  const questions: FAQ[] =
+    apiFaqs && apiFaqs.length > 0
+      ? apiFaqs.map((f) => ({
+          q: lang === 'de' ? f.de.question : f.en.question,
+          a: lang === 'de' ? f.de.answer : f.en.answer,
+        }))
+      : apiFaqs !== null
+        ? []
+        : faqData.questions;
 
   const toggleAccordion = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
+
+  if (apiFaqs !== null && questions.length === 0) return null;
 
   return (
     <section className="global-padding" ref={ref} style={{ paddingTop: '8rem', paddingBottom: '10rem' }}>
@@ -72,7 +110,7 @@ export default function ContactFAQ({ faqData }: Props) {
           {/* Right Side: Accordion */}
           <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ flex: '2 1 500px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {faqData.questions.map((faq, idx) => (
+              {questions.map((faq, idx) => (
                 <div 
                   key={idx} 
                   style={{ 
