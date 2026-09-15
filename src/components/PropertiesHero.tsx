@@ -15,7 +15,7 @@ export default function PropertiesHero() {
     <div className="properties-editorial-hero" ref={heroRef}>
       <div className="properties-hero-bg" />
       <div className="properties-hero-overlay-cream" />
-      <Navbar invertOnLoad={true} />
+      <Navbar invertOnLoad={true} navyLogo={true} />
 
       <div className="editorial-hero-content">
         <div className="editorial-hero-middle">

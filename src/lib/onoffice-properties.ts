@@ -161,6 +161,11 @@ export interface AdminPropertyDetail extends Omit<AdminPropertyRow, 'visibleCoun
   createdAt: Date;
   updatedAt: Date;
   sections: { name: string; fields: AdminPropertyField[] }[];
+  /** P-04 media toggles — admin-set, off by default. */
+  videoEnabled: boolean;
+  videoUrl: string | null;
+  virtualTourEnabled: boolean;
+  virtualTourUrl: string | null;
 }
 
 // ── Admin reads ──────────────────────────────────────────────────────────────
@@ -250,6 +255,10 @@ export async function getAdminProperty(id: string): Promise<AdminPropertyDetail 
     updatedAt: r.updatedAt,
     lastSyncedAt: r.lastSyncedAt,
     sections: orderSections(fields),
+    videoEnabled: Boolean(r.videoEnabled),
+    videoUrl: r.videoUrl ?? null,
+    virtualTourEnabled: Boolean(r.virtualTourEnabled),
+    virtualTourUrl: r.virtualTourUrl ?? null,
   };
 }
 
@@ -275,6 +284,11 @@ export interface PublicProperty {
   sections: { name: string; fields: PublicPropertyField[] }[];
   /** Flat lookup for one-off rendering, e.g. `fields['heizungsart']`. */
   fields: Record<string, PublicPropertyField>;
+  /** P-04 media toggles — admin-set, off by default. */
+  videoEnabled: boolean;
+  videoUrl: string | null;
+  virtualTourEnabled: boolean;
+  virtualTourUrl: string | null;
 }
 
 function toPublic(r: any): PublicProperty {
@@ -322,6 +336,10 @@ function toPublic(r: any): PublicProperty {
     images,
     sections,
     fields: flat,
+    videoEnabled: Boolean(r.videoEnabled),
+    videoUrl: r.videoUrl ?? null,
+    virtualTourEnabled: Boolean(r.virtualTourEnabled),
+    virtualTourUrl: r.virtualTourUrl ?? null,
   };
 }
 

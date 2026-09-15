@@ -241,6 +241,10 @@ function mapToProperty(p: PublicProperty): PublicPropertyView {
     condition: val('zustand') || val('objektzustand') || undefined,
     energy,
     commission: val('aussen_courtage') || val('provisionshinweis') || undefined,
+    videoEnabled: p.videoEnabled,
+    videoUrl: p.videoUrl ?? undefined,
+    virtualTourEnabled: p.virtualTourEnabled,
+    virtualTourUrl: p.virtualTourUrl ?? undefined,
     detailedSpecs: {
       livingArea: toNumber(val('wohnflaeche')) ?? toNumber(val('nutzflaeche')),
       rooms: toNumber(val('anzahl_zimmer')),

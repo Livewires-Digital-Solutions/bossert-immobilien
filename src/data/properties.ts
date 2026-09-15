@@ -21,8 +21,13 @@ export interface Property {
   description?: string;
   amenities?: string[];
   videoUrl?: string;
+  /** Per-property toggle (P-04) — the Video tab only renders when this is true AND `videoUrl` is set. Off by default. */
+  videoEnabled?: boolean;
   virtualTourUrl?: string;
+  /** Per-property toggle (P-04) — the 3D Virtual Tour tab only renders when this is true AND `virtualTourUrl` is set. Off by default. */
+  virtualTourEnabled?: boolean;
   floorPlans?: string[];
+  /** Future feature, gated behind client login/contact details — never rendered publicly today (P-04). */
   documents?: { title: string; url: string }[];
   locationData?: {
     coordinates?: [number, number];

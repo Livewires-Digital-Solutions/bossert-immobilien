@@ -1019,6 +1019,34 @@ body {
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, padding 0.4s ease;
 }
 
+.navbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Property detail page only (P-03): scale the header down slightly and let
+   `.inner-page-container` (reused, not a new class) supply the side padding
+   so the logo row shares the same left/right edges as the content below. */
+.navbar.navbar-contained {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.navbar.navbar-contained.fixed {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.navbar.navbar-contained .logo-img {
+  width: 95px;
+}
+
 .navbar.navbar-invert .nav-item,
 .navbar.fixed .nav-item {
   color: var(--navy);
@@ -1069,6 +1097,26 @@ body {
 .navbar.navbar-invert .logo-img,
 .navbar.fixed .logo-img {
   filter: invert(1);
+}
+
+/* Properties pages only (P-02): navy logo instead of the invert()-to-black
+   trick. Recolors the same /logo.png via mask (so no new art asset is
+   needed) on a non-replaced element, since filter/invert can't target an
+   arbitrary hex. Equal-specificity override of the invert() rule above —
+   must stay after it in source order. */
+.navbar .logo-img.logo-img-navy {
+  filter: none;
+  display: inline-block;
+  width: 115px;
+  height: auto;
+  aspect-ratio: 398 / 290;
+  background-color: var(--navy);
+  -webkit-mask: url('/logo.png') center / contain no-repeat;
+  mask: url('/logo.png') center / contain no-repeat;
+}
+
+.navbar.navbar-contained .logo-img.logo-img-navy {
+  width: 95px;
 }
 
 .navbar.fixed {

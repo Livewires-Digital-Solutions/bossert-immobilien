@@ -54,7 +54,13 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   const data = await loadProperty(id);
   if (!data) notFound();
 
-  const { property, sections } = data;
+  // P-04: Documents (brochure/EPC) are a future feature gated behind client
+  // login/contact details — strip them here, at the single point where data
+  // enters the page, so they never reach any downstream client component's
+  // serialized props (and therefore never appear in the rendered response),
+  // regardless of which data source populated them.
+  const { documents: _documents, ...property } = data.property;
+  const { sections } = data;
   const curated = sections.length > 0;
 
   const related = await getRelatedProperties(id, 3).catch(() => []);
@@ -69,7 +75,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         propertyType={property.type}
         propertyLocation={property.location}
       />
-      <Navbar invertOnLoad={true} />
+      <Navbar invertOnLoad={true} navyLogo={true} contained={true} />
 
       <div className="inner-page-container">
         <PropertyGallery images={property.galleryImages} fallbackImage={property.imageSrc} />

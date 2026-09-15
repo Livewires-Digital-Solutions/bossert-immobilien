@@ -329,6 +329,12 @@ model onoffice_properties {
   imagesJson    String?                    @db.LongText
   rawJson       String                     @db.LongText
   status        onoffice_properties_status @default(DRAFT)
+  // P-04: admin-curated media toggles — onOffice never supplies these, so
+  // they're set manually and off by default for every property.
+  videoEnabled       Boolean               @default(false)
+  videoUrl           String?               @db.Text
+  virtualTourEnabled Boolean               @default(false)
+  virtualTourUrl     String?               @db.Text
   lastSyncedAt  DateTime
   createdAt     DateTime                   @default(now())
   updatedAt     DateTime

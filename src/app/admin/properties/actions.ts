@@ -262,6 +262,39 @@ export async function setPropertyStatus(
   return { ok: true };
 }
 
+// ── P-04 media toggles ───────────────────────────────────────────────────────
+
+const MediaSettingsInput = z.object({
+  propertyId: z.string().min(1),
+  videoEnabled: z.boolean(),
+  videoUrl: z.string().trim().max(2048).optional().default(''),
+  virtualTourEnabled: z.boolean(),
+  virtualTourUrl: z.string().trim().max(2048).optional().default(''),
+});
+
+export async function setMediaSettings(
+  input: z.infer<typeof MediaSettingsInput>,
+): Promise<ActionResult> {
+  await requireAdmin();
+  const parsed = MediaSettingsInput.safeParse(input);
+  if (!parsed.success) return { ok: false, error: 'Invalid input' };
+
+  const { propertyId, videoEnabled, videoUrl, virtualTourEnabled, virtualTourUrl } = parsed.data;
+  await db.onoffice_properties.update({
+    where: { id: propertyId },
+    data: {
+      videoEnabled,
+      videoUrl: videoUrl || null,
+      virtualTourEnabled,
+      virtualTourUrl: virtualTourUrl || null,
+      updatedAt: new Date(),
+    },
+  });
+  revalidatePath(`/admin/properties/${propertyId}`);
+  revalidatePublic();
+  return { ok: true };
+}
+
 export async function deleteProperty(id: string): Promise<ActionResult> {
   await requireAdmin();
   await db.onoffice_properties.delete({ where: { id } });

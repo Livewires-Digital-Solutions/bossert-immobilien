@@ -6,7 +6,15 @@ import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolean }) {
+interface NavbarProps {
+  invertOnLoad?: boolean;
+  /** Navy (not CSS-inverted-black) logo — Properties pages only, per P-02. */
+  navyLogo?: boolean;
+  /** Center the nav row on the same edges as `.inner-page-container` — Property detail page only, per P-03. */
+  contained?: boolean;
+}
+
+export default function Navbar({ invertOnLoad = false, navyLogo = false, contained = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
@@ -67,15 +75,20 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass}`}>
+      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${contained ? 'navbar-contained' : ''}`}>
+        <div className={`navbar-row ${contained ? 'inner-page-container' : ''}`}>
         {/* Mobile Logo (hidden on desktop) */}
         <Link href="/" className="logo mobile-only-logo">
-          <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+          {navyLogo ? (
+            <span className="logo-img logo-img-navy" role="img" aria-label="Bossert Immobilien Logo" />
+          ) : (
+            <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+          )}
         </Link>
 
         {/* Desktop Nav */}
         <div className="desktop-nav">
-          
+
           <div className="nav-left-section">
             <div className="lang-toggle">
               <span
@@ -102,7 +115,11 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
 
           <div className="nav-center-section">
             <Link href="/" className="logo">
-              <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+              {navyLogo ? (
+                <span className="logo-img logo-img-navy" role="img" aria-label="Bossert Immobilien Logo" />
+              ) : (
+                <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
+              )}
             </Link>
           </div>
 
@@ -168,6 +185,7 @@ export default function Navbar({ invertOnLoad = false }: { invertOnLoad?: boolea
             <span></span>
             <span></span>
           </button>
+        </div>
         </div>
       </nav>
 
