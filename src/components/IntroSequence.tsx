@@ -36,12 +36,12 @@ export default function IntroSequence() {
     };
 
     // Open the doors shortly after mount.
-    const openTimer = setTimeout(() => setStage('opening'), 320);
-    // Door swing is 1.8s — finish just after it completes.
+    const openTimer = setTimeout(() => setStage('opening'), 280);
+    // Door swing is 1.1s — finish just after it completes.
     const doneTimer = setTimeout(() => {
       setStage('done');
       unlock();
-    }, 2400);
+    }, 1550);
 
     return () => {
       clearTimeout(openTimer);
@@ -56,12 +56,18 @@ export default function IntroSequence() {
     <div className={styles.introWrapper} aria-hidden="true">
       <div className={`${styles.door} ${styles.leftDoor} ${stage === 'opening' ? styles.doorOpenLeft : ''}`}>
         <div className={styles.logoContainer}>
-          <img src="/logo.png" alt="Logo" className={styles.logoImage} />
+          <img src="/logo_monogram.png" alt="Logo" className={styles.logoImage} />
+        </div>
+        <div className={styles.markSlot}>
+          <span className={styles.mark}>EST</span>
         </div>
       </div>
       <div className={`${styles.door} ${styles.rightDoor} ${stage === 'opening' ? styles.doorOpenRight : ''}`}>
         <div className={styles.logoContainer}>
-          <img src="/logo.png" alt="Logo" className={styles.logoImage} />
+          <img src="/logo_monogram.png" alt="Logo" className={styles.logoImage} />
+        </div>
+        <div className={styles.markSlot}>
+          <span className={styles.mark}>1991</span>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@ export default function HeroSection() {
         {/* Main Content */}
         <div className="main-grid has-carousel">
           <div className="left-content">
-            <div className="hero-top-group">
+            <div className={`hero-top-group ${isVisible ? 'is-revealed' : ''}`}>
               <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
                 {t.hero.since}
               </div>
