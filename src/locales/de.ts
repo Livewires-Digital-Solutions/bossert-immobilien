@@ -147,6 +147,7 @@ export const de = {
     stat3: 'Globale Ultra-High-Net-Worth Family Offices in unserem direkten Netzwerk. Wir umgehen den öffentlichen Markt komplett, wenn Diskretion es erfordert.'
   },
   testimonials: {
+    title: 'Was unsere Kunden sagen',
     tag: 'KUNDENERFAHRUNGEN',
     headline: 'Ein Erbe',
     headlineSerif: 'außergewöhnlicher Ergebnisse.',

@@ -147,6 +147,7 @@ export const en = {
     stat3: 'Global ultra-high-net-worth family offices within our direct dial network. We bypass the public market entirely when discretion demands it.'
   },
   testimonials: {
+    title: 'What Clients Say About Us',
     tag: 'CLIENT EXPERIENCES',
     headline: 'A legacy of',
     headlineSerif: 'exceptional results.',

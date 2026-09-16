@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -19,7 +19,8 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastY = useRef(0);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const userInitial =
     (session?.user?.name ?? session?.user?.email)?.trim()?.charAt(0)?.toUpperCase() ?? null;
@@ -29,29 +30,31 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
     session?.user?.role === 'SUPERADMIN';
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // If we've scrolled past the top
-      if (currentScrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const isScrollingDown = y > lastY.current;
+      setIsScrolled(y > 40);
+
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+
+      if (isScrollingDown && y > 280) {
+        setIsHidden(true); // scrolling down past 280px -> hide immediately
+      } else if (!isScrollingDown) {
+        setIsHidden(false); // scrolling up -> show immediately
+        if (y > 280) {
+          hideTimer.current = setTimeout(() => setIsHidden(true), 2000); // auto-hide after 2s idle
+        }
       }
-      
-      // Hide on scroll down, show on scroll up
-      if (currentScrollY > lastScrollY && currentScrollY > 300) {
-        setIsHidden(true);
-      } else if (currentScrollY < lastScrollY) {
-        setIsHidden(false);
-      }
-      
-      setLastScrollY(currentScrollY);
+
+      lastY.current = y;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {

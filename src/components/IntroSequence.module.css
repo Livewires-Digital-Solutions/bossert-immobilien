@@ -20,8 +20,10 @@
      bleeds through faintly before the doors swing open. */
   background-color: color-mix(in srgb, var(--navy, #042433) 80%, transparent);
   overflow: hidden;
-  transition: transform 1.1s cubic-bezier(0.65, 0, 0.15, 1),
-              box-shadow 1.1s cubic-bezier(0.65, 0, 0.15, 1);
+  /* Slow, smooth symmetric ease-in-out (expo-style curve): gentle push to
+     open, gentle settle on landing, no snap at either end. */
+  transition: transform 2.3s cubic-bezier(0.76, 0, 0.24, 1),
+              box-shadow 2.3s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -59,37 +61,36 @@
 
 .logoImage {
   position: relative;
-  width: 280px;
+  width: 500px;
   height: auto;
   object-fit: contain;
   z-index: 2;
-  /* Monogram ships in its own brand colours — shown as-is on the navy gate. */
+  /* SVG mark — scales to any size with zero quality loss (no raster
+     upscaling/blur concern at all, unlike a PNG). Ships in its own brand
+     colour (white), shown as-is with no filters applied. EST / 1991 aren't
+     part of this asset, so they're hardcoded text below (.markSlot/.mark). */
 }
 
-/* Sits within the door's own 50% width (unlike .logoContainer, which spans
-   both doors so the monogram reconstructs itself across the seam) so the
-   EST / 1991 marks stay whole on their own leaf instead of splitting.
-   Hugs the door's inner edge (the seam, where the logo actually sits) so
-   the pair reads as one tight line directly under the monogram. */
+/* EST / 1991 sit clear of the arch's own left/right edges (not hugging the
+   door seam, which is the arch's own centre and would overlap it) — offset
+   = half the mark's rendered width (250px at 500px wide) + a gap, matching
+   the flanking layout in public/logo.png. Positioned off the door's outer
+   edge (not the seam) so they land at the same spot regardless of which
+   door they're on. */
 .markSlot {
   position: absolute;
   top: 50%;
-  width: 50%;
-  display: flex;
-  transform: translateY(160px);
+  transform: translateY(180px);
   z-index: 2;
+  white-space: nowrap;
 }
 
 .leftDoor .markSlot {
-  right: 0;
-  justify-content: flex-end;
-  padding-right: 6px;
+  right: 270px;
 }
 
 .rightDoor .markSlot {
-  left: 0;
-  justify-content: flex-start;
-  padding-left: 6px;
+  left: 270px;
 }
 
 .mark {
@@ -108,7 +109,7 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.1s cubic-bezier(0.65, 0, 0.15, 1);
+  transition: opacity 2.3s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
   z-index: 1;
 }
@@ -149,27 +150,21 @@
     perspective: 800px;
   }
   .logoImage {
-    width: 180px;
+    width: 280px;
+    height: auto;
   }
   .mark {
     font-size: 11px;
     letter-spacing: 0.18em;
   }
   .markSlot {
-    transform: translateY(108px);
+    transform: translateY(101px);
   }
-}
-
-@media (max-width: 420px) {
-  .logoImage {
-    width: 140px;
+  .leftDoor .markSlot {
+    right: 151px;
   }
-  .mark {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-  }
-  .markSlot {
-    transform: translateY(88px);
+  .rightDoor .markSlot {
+    left: 151px;
   }
 }
 

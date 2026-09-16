@@ -32,6 +32,46 @@ async function main() {
   });
 
   console.log(`✅ Superadmin ready: ${user.email}`);
+
+  const testimonials = [
+    {
+      id: 'seed-testimonial-schneider',
+      quoteEn: "On downsizing after our children moved out; Bossert Immobilien supported us not just in selling our previous property but also in finding a new, suitable home. The guidance felt professional, personal, and reliable throughout.",
+      quoteDe: "Beim Verkleinern, nachdem unsere Kinder ausgezogen waren, hat uns Bossert Immobilien nicht nur beim Verkauf unserer bisherigen Immobilie unterstützt, sondern auch bei der Suche nach einem neuen, passenden Zuhause. Die Beratung war durchweg professionell, persönlich und verlässlich.",
+      author: 'Schneider',
+      location: 'Home Sale & Purchase',
+      image: '/test_bg_villa.jpg',
+      order: 0,
+    },
+    {
+      id: 'seed-testimonial-fr-h',
+      quoteEn: 'Excellent property exposé, prompt responsiveness, and accurate property description. The experience was fully satisfactory.',
+      quoteDe: 'Ein hervorragendes Exposé, schnelle Reaktionszeiten und eine präzise Objektbeschreibung. Die Erfahrung war rundum zufriedenstellend.',
+      author: 'Fr. H',
+      location: 'Property Purchase',
+      image: '/test_bg_penthouse.jpg',
+      order: 1,
+    },
+    {
+      id: 'seed-testimonial-w-mayer',
+      quoteEn: 'We have worked with Bossert Immobilien multiple times over the years for property marketing. Each experience has been a genuine relief and consistently positive.',
+      quoteDe: 'Wir haben über die Jahre mehrfach mit Bossert Immobilien für die Vermarktung von Immobilien zusammengearbeitet. Jede Erfahrung war eine echte Erleichterung und durchweg positiv.',
+      author: 'W. Mayer',
+      location: 'Multiple Transactions',
+      image: '/test_bg_estate.jpg',
+      order: 2,
+    },
+  ];
+
+  for (const t of testimonials) {
+    await (prisma as any).testimonials.upsert({
+      where: { id: t.id },
+      update: { ...t, updatedAt: new Date() },
+      create: { ...t, updatedAt: new Date() },
+    });
+  }
+
+  console.log(`✅ Seeded ${testimonials.length} sample testimonials`);
 }
 
 main()

@@ -259,10 +259,10 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
 
           {/* Search Button */}
           <button type="button" className="search-submit-btn" onClick={handleSearch}>
-            <span>{t.search.searchBtn?.toUpperCase() || 'SEARCH'}</span>
+            <span>{t.search.searchBtn || 'Search'}</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </button>
         </div>

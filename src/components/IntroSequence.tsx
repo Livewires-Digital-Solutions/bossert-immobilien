@@ -37,11 +37,11 @@ export default function IntroSequence() {
 
     // Open the doors shortly after mount.
     const openTimer = setTimeout(() => setStage('opening'), 280);
-    // Door swing is 1.1s — finish just after it completes.
+    // Door swing is 2.3s — finish just after it completes.
     const doneTimer = setTimeout(() => {
       setStage('done');
       unlock();
-    }, 1550);
+    }, 2700);
 
     return () => {
       clearTimeout(openTimer);
@@ -56,7 +56,7 @@ export default function IntroSequence() {
     <div className={styles.introWrapper} aria-hidden="true">
       <div className={`${styles.door} ${styles.leftDoor} ${stage === 'opening' ? styles.doorOpenLeft : ''}`}>
         <div className={styles.logoContainer}>
-          <img src="/logo_monogram.png" alt="Logo" className={styles.logoImage} />
+          <img src="/bossert-logo-mark.svg" alt="Bossert Immobilien Logo" className={styles.logoImage} />
         </div>
         <div className={styles.markSlot}>
           <span className={styles.mark}>EST</span>
@@ -64,7 +64,7 @@ export default function IntroSequence() {
       </div>
       <div className={`${styles.door} ${styles.rightDoor} ${stage === 'opening' ? styles.doorOpenRight : ''}`}>
         <div className={styles.logoContainer}>
-          <img src="/logo_monogram.png" alt="Logo" className={styles.logoImage} />
+          <img src="/bossert-logo-mark.svg" alt="Bossert Immobilien Logo" className={styles.logoImage} />
         </div>
         <div className={styles.markSlot}>
           <span className={styles.mark}>1991</span>
