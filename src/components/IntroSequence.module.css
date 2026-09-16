@@ -80,7 +80,9 @@
 .markSlot {
   position: absolute;
   top: 50%;
-  transform: translateY(180px);
+  /* Centres the slot itself on the target line (not just its top edge) so
+     it stays correctly aligned regardless of how tall .mark's text is. */
+  transform: translateY(calc(-50% + 180px));
   z-index: 2;
   white-space: nowrap;
 }
@@ -95,9 +97,13 @@
 
 .mark {
   font-family: var(--font-serif, inherit);
-  font-size: 13px;
+  /* Scaled to match the mark's own size (public/logo.png's EST/1991 sit at
+     roughly 18% of the arch's height) now that the arch renders far bigger
+     than it used to. Letter-spacing tightened in kind — 0.22em reads as
+     way too wide once the font itself is this large. */
+  font-size: 94px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
@@ -154,11 +160,10 @@
     height: auto;
   }
   .mark {
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 53px;
   }
   .markSlot {
-    transform: translateY(101px);
+    transform: translateY(calc(-50% + 101px));
   }
   .leftDoor .markSlot {
     right: 151px;
