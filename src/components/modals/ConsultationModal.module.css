@@ -54,7 +54,7 @@
 }
 
 .modalTitle {
-  font-family: var(--font-satoshi), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.75rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -107,7 +107,7 @@
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--navy);
-  font-family: var(--font-satoshi), sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .selectorButton:hover {
@@ -140,7 +140,7 @@
   border: 1px solid rgba(4, 36, 51, 0.2);
   border-radius: 6px;
   background-color: white;
-  font-family: var(--font-satoshi), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   color: var(--navy);
   transition: border-color 0.2s;
@@ -205,7 +205,7 @@
   color: var(--cream);
   border: none;
   border-radius: 6px;
-  font-family: var(--font-satoshi), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;

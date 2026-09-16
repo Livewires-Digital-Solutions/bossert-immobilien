@@ -1,6 +1,7 @@
 import 'server-only';
 import { createId } from '@paralleldrive/cuid2';
 import { prisma } from '@/lib/prisma';
+import { isBackendEnabled } from '@/lib/backend-config';
 import {
   SECTION_ORDER,
   fetchEstateFieldCatalog,
@@ -344,6 +345,10 @@ function toPublic(r: any): PublicProperty {
 }
 
 export async function getPublishedProperties(): Promise<PublicProperty[]> {
+  // Backend OFF is an intentional, documented state (see CLAUDE.md) — return
+  // no rows instead of letting the disabled-backend Prisma proxy throw, so
+  // callers fall through to onOffice/mock data without error-log noise.
+  if (!isBackendEnabled()) return [];
   const rows = await db.onoffice_properties.findMany({
     where: { status: 'PUBLISHED' },
     orderBy: [{ updatedAt: 'desc' }],
@@ -353,6 +358,7 @@ export async function getPublishedProperties(): Promise<PublicProperty[]> {
 }
 
 export async function getPublishedProperty(idOrExternalId: string): Promise<PublicProperty | null> {
+  if (!isBackendEnabled()) return null;
   const r = await db.onoffice_properties.findFirst({
     where: {
       status: 'PUBLISHED',

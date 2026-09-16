@@ -77,6 +77,13 @@ html, body {
   overflow-x: clip;
 }
 
+/* G-04: only two fonts on the site (Inter, The Seasons) — form controls
+   don't inherit the page font by default, so they'd silently fall back to
+   the browser's UI font (e.g. Arial) without this. */
+button, input, select, textarea {
+  font: inherit;
+}
+
 body {
   font-family: var(--font-inter), sans-serif;
   color: var(--white);
@@ -1047,56 +1054,134 @@ body {
   width: 95px;
 }
 
-.navbar.navbar-invert .nav-item,
-.navbar.fixed .nav-item {
+.navbar.navbar-invert .nav-item {
   color: var(--navy);
 }
 
-.navbar.navbar-invert .nav-item::after,
-.navbar.fixed .nav-item::after {
+.navbar.navbar-invert .nav-item::after {
   background-color: var(--navy);
 }
 
-.navbar.navbar-invert .contact-btn,
-.navbar.fixed .contact-btn {
+.navbar.navbar-invert .contact-btn {
   border-color: rgba(4, 36, 51, 0.4);
   color: var(--navy);
 }
 
-.navbar.navbar-invert .contact-btn:hover,
-.navbar.fixed .contact-btn:hover {
+.navbar.navbar-invert .contact-btn:hover {
   background-color: var(--navy);
   color: var(--white);
 }
 
-.navbar.navbar-invert .lang-btn,
-.navbar.fixed .lang-btn {
+.navbar.navbar-invert .lang-btn {
   color: rgba(4, 36, 51, 0.5);
 }
 
-.navbar.navbar-invert .lang-btn.active,
-.navbar.fixed .lang-btn.active {
+.navbar.navbar-invert .lang-btn.active {
   color: var(--navy);
 }
 
-.navbar.navbar-invert .lang-sep,
-.navbar.fixed .lang-sep {
+.navbar.navbar-invert .lang-sep {
   color: rgba(4, 36, 51, 0.3);
 }
 
-.navbar.navbar-invert svg,
-.navbar.fixed svg {
+.navbar.navbar-invert svg {
   stroke: var(--navy);
 }
 
-.navbar.navbar-invert .hamburger-btn span,
-.navbar.fixed .hamburger-btn span {
+.navbar.navbar-invert .hamburger-btn span {
   background-color: var(--navy);
 }
 
-.navbar.navbar-invert .logo-img,
-.navbar.fixed .logo-img {
+.navbar.navbar-invert .logo-img {
   filter: invert(1);
+}
+
+/* G-03: sticky header stays navy (white text/logo, same as the default
+   transparent state) on every page — it must never fall back to the cream
+   used below, or it blends into beige sections on scroll. Properties pages
+   are the one deliberate exception, styled right after this block. */
+.navbar.fixed .nav-item {
+  color: var(--white);
+}
+
+.navbar.fixed .nav-item::after {
+  background-color: var(--white);
+}
+
+.navbar.fixed .contact-btn {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--white);
+}
+
+.navbar.fixed .contact-btn:hover {
+  background-color: var(--white);
+  color: var(--navy);
+}
+
+.navbar.fixed .lang-btn {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar.fixed .lang-btn.active {
+  color: var(--white);
+}
+
+.navbar.fixed .lang-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar.fixed svg {
+  stroke: var(--white);
+}
+
+.navbar.fixed .hamburger-btn span {
+  background-color: var(--white);
+}
+
+/* G-03: Properties pages (listing + detail) are the only ones that keep a
+   light sticky header — beige background, navy logo & menu — instead of
+   navy. `navbar-properties` is set whenever `navyLogo` is passed, which is
+   exclusive to the Properties pages today (see Navbar.tsx). */
+.navbar.navbar-properties.fixed {
+  background: var(--cream);
+}
+
+.navbar.navbar-properties.fixed .nav-item {
+  color: var(--navy);
+}
+
+.navbar.navbar-properties.fixed .nav-item::after {
+  background-color: var(--navy);
+}
+
+.navbar.navbar-properties.fixed .contact-btn {
+  border-color: rgba(4, 36, 51, 0.4);
+  color: var(--navy);
+}
+
+.navbar.navbar-properties.fixed .contact-btn:hover {
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+.navbar.navbar-properties.fixed .lang-btn {
+  color: rgba(4, 36, 51, 0.5);
+}
+
+.navbar.navbar-properties.fixed .lang-btn.active {
+  color: var(--navy);
+}
+
+.navbar.navbar-properties.fixed .lang-sep {
+  color: rgba(4, 36, 51, 0.3);
+}
+
+.navbar.navbar-properties.fixed svg {
+  stroke: var(--navy);
+}
+
+.navbar.navbar-properties.fixed .hamburger-btn span {
+  background-color: var(--navy);
 }
 
 /* Properties pages only (P-02): navy logo instead of the invert()-to-black
@@ -1121,7 +1206,7 @@ body {
 
 .navbar.fixed {
   padding: 0.75rem 4rem;
-  background: var(--cream);
+  background: var(--navy);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -1189,9 +1274,10 @@ body {
 .nav-item {
   color: var(--white);
   text-decoration: none;
-  font-size: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
   font-weight: 400;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
   position: relative;
@@ -1222,9 +1308,10 @@ body {
   padding: 0.6rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
   text-decoration: none;
-  font-size: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
   transition: all 0.3s ease;
 }
 
@@ -1238,8 +1325,9 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.75rem;
-  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6875rem;
+  font-family: var(--font-serif);
+  letter-spacing: 0.08em;
   color: var(--white);
 }
 
@@ -1252,7 +1340,6 @@ body {
   padding: 0.2rem 0.4rem;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
-  letter-spacing: 0.5px;
   transition: all 0.2s ease;
 }
 
@@ -1278,7 +1365,7 @@ body {
 
 .lang-sep {
   color: rgba(255, 255, 255, 0.3);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
 }
 
 .lang-divider {
@@ -4886,6 +4973,24 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   stroke: var(--white) !important;
 }
 
+/* Properties pages: scrolled state stays beige, so the mobile lang toggle
+   needs the navy variant instead of the white one above. */
+.navbar.navbar-properties.fixed .mobile-lang-inline {
+  color: var(--navy);
+}
+.navbar.navbar-properties.fixed .mobile-lang-inline .lang-btn {
+  color: rgba(4, 36, 51, 0.5);
+}
+.navbar.navbar-properties.fixed .mobile-lang-inline .lang-btn.active {
+  color: var(--navy);
+}
+.navbar.navbar-properties.fixed .mobile-lang-inline .lang-divider {
+  color: rgba(4, 36, 51, 0.3);
+}
+.navbar.navbar-properties.fixed .mobile-lang-inline svg {
+  stroke: var(--navy) !important;
+}
+
 .mobile-drawer {
   position: fixed;
   top: 0;
@@ -6629,10 +6734,10 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 }
 .login-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 0; color: var(--white); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.4); }
 .login-icon-btn:hover { background: rgba(255,255,255,0.1); }
-.navbar.navbar-invert .login-icon-btn,
-.navbar.fixed .login-icon-btn { color: var(--navy); border-color: rgba(4,36,51,0.4); }
-.navbar.navbar-invert .login-icon-btn:hover,
-.navbar.fixed .login-icon-btn:hover { background: rgba(4,36,51,0.05); }
+.navbar.navbar-invert .login-icon-btn { color: var(--navy); border-color: rgba(4,36,51,0.4); }
+.navbar.navbar-invert .login-icon-btn:hover { background: rgba(4,36,51,0.05); }
+.navbar.navbar-properties.fixed .login-icon-btn { color: var(--navy); border-color: rgba(4,36,51,0.4); }
+.navbar.navbar-properties.fixed .login-icon-btn:hover { background: rgba(4,36,51,0.05); }
 
 @media (max-width: 1024px) {
   .desktop-nav {

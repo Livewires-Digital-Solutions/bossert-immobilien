@@ -26,6 +26,13 @@ export const en = {
     statsNumber: '30+',
     statsDesc: 'Years of\nexpertise'
   },
+  introPromo: {
+    tag: 'EXPERTISE & TRUST',
+    headline: 'Comprehensive Property Solutions',
+    headlineSub: 'from initial consultation to successful closing',
+    body: "Whether you're buying, selling, or seeking a valuation, we support you with tailored strategies, personalized guidance, and in-depth market expertise.",
+    cta: 'Request a free consultation'
+  },
   search: {
     tag: 'PREMIUM LIVING',
     headline: 'Find your ideal property.',

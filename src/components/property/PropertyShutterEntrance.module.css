@@ -42,7 +42,7 @@
 }
 
 .shutterBrand {
-  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+  font-family: var(--font-inter), sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.35em;
@@ -58,7 +58,7 @@
 }
 
 .shutterTitle {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 2.2rem;
   font-style: italic;
   color: #ffffff;
@@ -67,7 +67,7 @@
 }
 
 .shutterLocation {
-  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+  font-family: var(--font-inter), sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;

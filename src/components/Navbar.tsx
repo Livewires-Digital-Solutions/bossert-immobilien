@@ -10,11 +10,9 @@ interface NavbarProps {
   invertOnLoad?: boolean;
   /** Navy (not CSS-inverted-black) logo — Properties pages only, per P-02. */
   navyLogo?: boolean;
-  /** Center the nav row on the same edges as `.inner-page-container` — Property detail page only, per P-03. */
-  contained?: boolean;
 }
 
-export default function Navbar({ invertOnLoad = false, navyLogo = false, contained = false }: NavbarProps) {
+export default function Navbar({ invertOnLoad = false, navyLogo = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
@@ -72,11 +70,11 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
   }, [menuOpen]);
 
   const invertClass = invertOnLoad && !isScrolled && !menuOpen ? 'navbar-invert' : '';
+  const propertiesClass = navyLogo ? 'navbar-properties' : '';
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${contained ? 'navbar-contained' : ''}`}>
-        <div className={`navbar-row ${contained ? 'inner-page-container' : ''}`}>
+      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass}`}>
         {/* Mobile Logo (hidden on desktop) */}
         <Link href="/" className="logo mobile-only-logo">
           {navyLogo ? (
@@ -185,7 +183,6 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
             <span></span>
             <span></span>
           </button>
-        </div>
         </div>
       </nav>
 

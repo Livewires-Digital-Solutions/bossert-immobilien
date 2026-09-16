@@ -26,6 +26,13 @@ export const de = {
     statsNumber: '30+',
     statsDesc: 'Jahre\nErfahrung'
   },
+  introPromo: {
+    tag: 'EXPERTISE & VERTRAUEN',
+    headline: 'Umfassende Immobilienlösungen',
+    headlineSub: 'von der ersten Beratung bis zum erfolgreichen Abschluss',
+    body: 'Ob Sie kaufen, verkaufen oder eine Bewertung wünschen – wir unterstützen Sie mit maßgeschneiderten Strategien, persönlicher Beratung und fundierter Marktkenntnis.',
+    cta: 'Kostenlose Beratung anfragen'
+  },
   search: {
     tag: 'PREMIUM LIVING',
     headline: 'Finden Sie Ihre ideale Immobilie.',

@@ -11,7 +11,7 @@ import IntroSequence from '@/components/IntroSequence';
 
 export default function Home() {
   return (
-    <main>
+    <main className="home-page">
       <IntroSequence />
       <HeroSection />
       {/* <StatsSection /> */}

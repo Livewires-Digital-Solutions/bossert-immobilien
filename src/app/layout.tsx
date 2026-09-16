@@ -12,6 +12,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Bossert Immobilien | Premium Real Estate Rhein-Main",
   description: "Bossert Immobilien — Discretion and precision in every transaction. Premium residential real estate in the Rhein-Main region since 1991.",
+  icons: {
+    icon: [
+      { url: "/icon-light-mode.png", media: "(prefers-color-scheme: light)", type: "image/png" },
+      { url: "/icon-dark-mode.png", media: "(prefers-color-scheme: dark)", type: "image/png" },
+    ],
+  },
 };
 
 const inter = Inter({

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { mockProperties, type Property } from '@/data/properties';
 import { getPublicPropertyView, getRelatedProperties, type PublicPropertyView } from '@/lib/property-view';
 import { fetchOnOfficePropertyById } from '@/lib/onoffice';
+import { BackendDisabledError } from '@/lib/prisma';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyShutterEntrance from '@/components/property/PropertyShutterEntrance';
@@ -35,7 +36,12 @@ async function loadProperty(
     const curated = await getPublicPropertyView(id);
     if (curated) return curated;
   } catch (err) {
-    console.error(`[property/${id}] curated lookup failed:`, err);
+    // Backend OFF (BACKEND_ENABLED=false) is an intentional, documented state
+    // (see CLAUDE.md) — falling through to onOffice/mock data is expected,
+    // so don't log it as an error. Anything else (a real DB failure) still is.
+    if (!(err instanceof BackendDisabledError)) {
+      console.error(`[property/${id}] curated lookup failed:`, err);
+    }
   }
 
   // Fallbacks so the page keeps working during setup / if unpublished.
@@ -75,7 +81,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         propertyType={property.type}
         propertyLocation={property.location}
       />
-      <Navbar invertOnLoad={true} navyLogo={true} contained={true} />
+      <Navbar invertOnLoad={true} navyLogo={true} />
 
       <div className="inner-page-container">
         <PropertyGallery images={property.galleryImages} fallbackImage={property.imageSrc} />
