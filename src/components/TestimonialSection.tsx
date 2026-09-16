@@ -13,6 +13,34 @@ interface ApiTestimonial {
   de: { quote: string };
 }
 
+// Placeholder content for client review while the backend is disabled.
+const DUMMY_TESTIMONIALS: ApiTestimonial[] = [
+  {
+    id: 'dummy-1',
+    author: 'Alexander Reinhardt',
+    location: 'Munich, Germany',
+    image: '',
+    en: { quote: 'Bosser Immo handled the sale of our family estate with a level of discretion and professionalism we did not think possible. Every step felt effortless.' },
+    de: { quote: 'Bosser Immo hat den Verkauf unseres Familienanwesens mit einer Diskretion und Professionalität abgewickelt, die wir nicht für möglich gehalten hätten. Jeder Schritt fühlte sich mühelos an.' },
+  },
+  {
+    id: 'dummy-2',
+    author: 'Sophia Lindqvist',
+    location: 'Zurich, Switzerland',
+    image: '',
+    en: { quote: 'From the first consultation to closing, the team anticipated every question. Their network found us a buyer within weeks, entirely off-market.' },
+    de: { quote: 'Von der ersten Beratung bis zum Abschluss hat das Team jede Frage vorausgesehen. Ihr Netzwerk fand uns innerhalb weniger Wochen einen Käufer, vollständig abseits des offenen Marktes.' },
+  },
+  {
+    id: 'dummy-3',
+    author: 'Julien Moreau',
+    location: 'Geneva, Switzerland',
+    image: '',
+    en: { quote: 'An exceptional experience. They understood exactly what we were looking for and presented only properties that matched our vision.' },
+    de: { quote: 'Eine außergewöhnliche Erfahrung. Sie verstanden genau, wonach wir suchten, und präsentierten nur Immobilien, die unserer Vorstellung entsprachen.' },
+  },
+];
+
 export default function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -25,10 +53,10 @@ export default function TestimonialSection() {
     fetch('/api/testimonials')
       .then((res) => (res.ok ? res.json() : { testimonials: [] }))
       .then((json) => {
-        if (!cancelled) setItems(json.testimonials ?? []);
+        if (!cancelled) setItems(json.testimonials?.length ? json.testimonials : DUMMY_TESTIMONIALS);
       })
       .catch(() => {
-        if (!cancelled) setItems([]);
+        if (!cancelled) setItems(DUMMY_TESTIMONIALS);
       });
     return () => {
       cancelled = true;

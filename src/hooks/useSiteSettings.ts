@@ -18,6 +18,8 @@ const DEFAULTS = {
   email: 'inquiry@bossert-immo.de',
   addressLine1: 'Opernplatz 14, Suite 200',
   addressLine2: '60313 Frankfurt, Germany',
+  socialInstagram: '#',
+  socialFacebook: '#',
 };
 
 /** Operational contact details — DB-backed when set in /admin/site-settings, else the site defaults. */
@@ -54,7 +56,7 @@ export function useSiteSettings() {
     email: pick('email', DEFAULTS.email),
     addressLine1: pick('addressLine1', DEFAULTS.addressLine1),
     addressLine2: pick('addressLine2', DEFAULTS.addressLine2),
-    socialInstagram: settings?.socialInstagram ? pick('socialInstagram', '') : '',
-    socialFacebook: settings?.socialFacebook ? pick('socialFacebook', '') : '',
+    socialInstagram: pick('socialInstagram', DEFAULTS.socialInstagram),
+    socialFacebook: pick('socialFacebook', DEFAULTS.socialFacebook),
   };
 }

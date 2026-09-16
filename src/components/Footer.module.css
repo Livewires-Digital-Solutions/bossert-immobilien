@@ -9,6 +9,19 @@
   z-index: 10;
 }
 
+/* ── Top section with rule ── */
+.topSection {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: #042433 !important;
+}
+
+.topRule {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
 /* ── Full-width image band ── */
 .imageBand {
   width: 100%;
@@ -24,11 +37,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(4, 36, 51, 0.3) 0%,
-    rgba(4, 36, 51, 0.7) 100%
-  );
+  background: rgba(4, 36, 51, 0.65);
 }
 
 /* ── Wordmark block ── */
@@ -36,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2.5rem 2rem 2rem 2rem;
+  padding: 3rem 2rem 2.5rem 2rem;
   background-color: #042433 !important;
 }
 
@@ -44,27 +53,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1.15;
+  text-align: center;
+  line-height: 1.4;
 }
 
-.logoImg {
-  width: 160px;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.95;
-  filter: brightness(0) invert(1);
+.wordmarkLine {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FEFCF6;
 }
 
 @media (max-width: 600px) {
-  .logoImg { width: 88px; }
+  .wordmarkLine { font-size: 1.05rem; }
 }
 
-/* ── Horizontal rule ── */
-.rule {
+/* ── Middle section with rule ── */
+.middleSection {
+  width: 100%;
+  background-color: #042433 !important;
+  display: flex;
+  justify-content: center;
+}
+
+.middleRule {
   width: 100%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: none;
+  background: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* ── Centered nav row ── */
@@ -73,33 +90,20 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 2rem 2rem;
+  gap: 1rem 3.5rem;
+  padding: 2.5rem 2rem 1rem 2rem;
   background-color: #042433 !important;
-  text-transform: uppercase;
 }
 
 .navLink {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(254, 252, 246, 0.75) !important;
+  letter-spacing: 0.02em;
+  color: rgba(254, 252, 246, 0.85) !important;
   text-decoration: none;
-  padding: 0.25rem 1.5rem;
   transition: color 0.25s ease;
   position: relative;
-}
-
-.navLink + .navLink::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 12px;
-  width: 1px;
-  background: rgba(254, 252, 246, 0.2);
 }
 
 .navLink:hover {
@@ -112,12 +116,12 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  padding: 0 2rem 2.5rem 2rem;
+  padding: 1.5rem 2rem 1.5rem 2rem;
   background-color: #042433 !important;
 }
 
 .socialLink {
-  color: rgba(254, 252, 246, 0.65) !important;
+  color: rgba(254, 252, 246, 0.7) !important;
   transition: color 0.25s ease, transform 0.25s ease;
   display: flex;
   align-items: center;
@@ -128,25 +132,67 @@
   transform: translateY(-2px);
 }
 
-/* ── Bottom bar ── */
-.bottomBar {
+/* ── Bottom area ── */
+.bottomArea {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 1.5rem 0;
+  background-color: #042433 !important;
+}
+
+.cookieRow {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.cookieBtn {
+  background: #042433;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEFCF6;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+  z-index: 2;
+  border-radius: 2px;
+}
+
+.cookieBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cookieBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.bottomRule {
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6) !important;
+  position: relative;
+  z-index: 1;
+}
+
+.bottomTextRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.9rem 2rem;
+  padding: 0.75rem 2rem 0 2rem;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(254, 252, 246, 0.45) !important;
-  background-color: #042433 !important;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: rgba(254, 252, 246, 0.6) !important;
 }
 
 .copyText {
   font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .bottomRight {
@@ -156,14 +202,13 @@
 }
 
 .sep {
-  color: rgba(254, 252, 246, 0.3);
+  color: rgba(254, 252, 246, 0.4);
 }
 
 .imprintLink {
-  color: rgba(254, 252, 246, 0.45) !important;
+  color: rgba(254, 252, 246, 0.6) !important;
   text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   transition: color 0.25s ease;
 }
 
@@ -176,8 +221,10 @@
   .imageBand {
     height: 200px;
   }
+  .navRow {
+    gap: 1rem 1.5rem;
+  }
   .navLink {
-    padding: 0.35rem 1rem;
     font-size: 0.9rem;
   }
 }

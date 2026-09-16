@@ -228,7 +228,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 8rem 4rem 2rem 7rem;
+  padding: 8rem 6rem 2rem 8rem;
 }
 
 /* --- Hero Carousel (Premium Overlapping Card Layout) --- */
@@ -1472,15 +1472,24 @@ body {
 .main-grid.has-carousel {
   align-items: center;
 }
+.main-grid.has-carousel .hero-right {
+  margin-right: clamp(0.5rem, 3vw, 2.5rem);
+}
 .main-grid.has-carousel .left-content {
-  max-width: 40ch;
+  max-width: 50ch;
 }
 .main-grid.has-carousel .hero-headline {
   max-width: 100%;
 }
+.main-grid.has-carousel .hero-headline-top {
+  font-size: clamp(1.1rem, 1.7vw, 1.55rem);
+}
 .main-grid.has-carousel .hero-headline-mid {
-  font-size: clamp(2.6rem, 4vw, 4.2rem);
+  font-size: clamp(3.2rem, 5.6vw, 5.6rem);
   white-space: normal;
+}
+.main-grid.has-carousel .hero-headline-bot {
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
 }
 
 .hsc2-wrapper {
@@ -2600,9 +2609,9 @@ body {
   color: var(--white);
   border: none;
   align-self: center;
-  height: calc(100% - 16px);
-  margin: 0 8px 0 0.25rem;
-  padding: 0 1.8rem;
+  height: 48px;
+  margin: 0 14px 0 10px;
+  padding: 0 2.4rem;
   border-radius: 9999px;
   cursor: pointer;
   display: flex;
@@ -3748,7 +3757,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
 .test-quote-text {
   font-family: var(--font-serif);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.1rem, 1.6vw, 1.35rem);
   line-height: 1.75;
   color: rgba(254, 252, 246, 0.9);

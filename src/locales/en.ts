@@ -195,7 +195,15 @@ export const en = {
     address2: '60313 Frankfurt, Germany',
     hours: 'Mon – Fri · 9:00 AM – 6:00 PM',
     privacy: 'Privacy Policy',
-    imprint: 'Imprint'
+    imprint: 'imprint',
+    brandLine1: 'Bossert',
+    brandLine2: 'Real Estate',
+    linkProperties: 'Real estate offers',
+    linkServices: 'Services',
+    linkCancelContract: 'Cancel contract',
+    linkCompany: 'Company',
+    linkContact: 'contact',
+    copyright: 'Copywrite'
   },
   propertiesPage: {
     heroTag: 'THE COLLECTION',
