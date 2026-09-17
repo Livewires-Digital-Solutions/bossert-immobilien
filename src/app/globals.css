@@ -1274,15 +1274,23 @@ body {
 .desktop-nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  column-gap: 3vw;
   width: 100%;
   align-items: center;
   opacity: 0;
   animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
 }
 
+/* space-between anchors the outer group (lang toggle / contact+profile) to
+   the screen edge via .navbar's own padding, and the inner group (the main
+   links) to the grid's column-gap next to the logo — both fixed distances,
+   on both sides, no matter the viewport. Any extra width a wide viewport
+   provides is spent as breathing room between the two groups instead of
+   piling up as unused space at one end. */
 .nav-left-section {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 3vw;
 }
 
@@ -1294,7 +1302,7 @@ body {
 .nav-right-section {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 3vw;
 }
 
@@ -1368,6 +1376,11 @@ body {
   font-family: var(--font-serif);
   letter-spacing: 0.08em;
   color: var(--white);
+}
+
+.lang-globe-icon {
+  flex-shrink: 0;
+  margin-right: 0.15rem;
 }
 
 .mobile-lang-inline {
