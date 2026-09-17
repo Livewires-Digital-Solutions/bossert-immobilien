@@ -202,7 +202,7 @@ export const en = {
     linkServices: 'Services',
     linkCancelContract: 'Cancel contract',
     linkCompany: 'Company',
-    linkContact: 'contact',
+    linkContact: 'Contact',
     copyright: 'Copywrite'
   },
   propertiesPage: {

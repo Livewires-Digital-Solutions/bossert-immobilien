@@ -11,8 +11,8 @@
 
 /* ── Top section with rule ── */
 .topSection {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
   background-color: #042433 !important;
 }
 
@@ -25,10 +25,10 @@
 /* ── Full-width image band ── */
 .imageBand {
   width: 100%;
-  height: 280px;
+  height: 240px;
   background-image: url('/footerbg.png');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 42%;
   position: relative;
   flex-shrink: 0;
 }
@@ -37,7 +37,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(4, 36, 51, 0.65);
+  background: rgba(4, 36, 51, 0.8);
 }
 
 /* ── Wordmark block ── */
@@ -45,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem 2rem 2.5rem 2rem;
+  padding: 3.5rem 2rem 3.5rem 2rem;
   background-color: #042433 !important;
 }
 
@@ -91,7 +91,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem 3.5rem;
-  padding: 2.5rem 2rem 1rem 2rem;
+  padding: 3.5rem 2rem 1.5rem 2rem;
   background-color: #042433 !important;
 }
 
