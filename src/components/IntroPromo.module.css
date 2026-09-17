@@ -1,42 +1,79 @@
-/* ── H-04: light section (Version 2) with a scroll-scrubbed reveal ──
-   The illustration wipes in top-down starting at 0% scroll progress, then
-   the text follows, staged by scroll position (see IntroPromo.tsx). Track
-   is ~150vh (was 250vh) so no scroll position shows an empty screen — the
-   background is cream throughout, matching the section either side of it. */
-.scrollTrack {
+/* ── H-04: light section with a one-shot, snap-in reveal ──
+   Triggers once via IntersectionObserver (see IntroPromo.tsx) instead of
+   being scrubbed across a pinned scroll track — the whole choreography
+   (illustration wipe + scanline, then headline/subhead/body/button) fires
+   in ~0.7–0.9s the moment the section enters view, so there's never a long
+   stretch of near-empty cream while the visitor scrolls through it. */
+.promoSection {
   position: relative;
   width: 100%;
-  height: 150vh;
-  background-color: var(--cream);
-}
-
-.stickyStage {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7rem 4rem;
   background-color: var(--cream);
+  overflow: hidden;
 }
 
-/* ── Architectural line illustration, recolored navy via mask ──
-   Same technique as the navy logo (see globals.css .logo-img-navy): the
-   source art is a white silhouette on transparent, so we use it as a mask
-   over a solid navy fill instead of shipping a second, recolored asset. */
+/* Parallax wrapper: tracks the cursor with its own short transition,
+   kept separate from the reveal transform below so the two never fight
+   over the same `transform` transition. */
+.illustrationStage {
+  position: absolute;
+  inset: -3%;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
 .vectorIllustration {
   position: absolute;
   inset: 0;
   background-color: var(--navy);
-  opacity: 0.9;
+  opacity: 0;
   -webkit-mask: url('/aboutbg.png') center bottom / cover no-repeat;
   mask: url('/aboutbg.png') center bottom / cover no-repeat;
-  z-index: 1;
-  pointer-events: none;
-  will-change: clip-path;
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.06);
+  transition:
+    clip-path 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s ease-out;
+  will-change: clip-path, transform, opacity;
+}
+
+.vectorIllustration.revealed {
+  opacity: 0.9;
+  clip-path: inset(0 0 0% 0);
+  transform: scale(1);
+}
+
+/* A bright bronze scanline that sweeps down in lockstep with the wipe,
+   the "interaction" beat that ties the illustration's reveal to the text
+   sequence starting right behind it. */
+.wipeScan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--bronze) 40%, #f3e3c4 50%, var(--bronze) 60%, transparent);
+  box-shadow: 0 0 24px 2px rgba(175, 140, 83, 0.55);
+  opacity: 0;
+}
+
+.wipeScan.revealed {
+  animation: scanSweep 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scanSweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
 }
 
 .content {
@@ -48,6 +85,18 @@
   text-align: center;
   gap: 1.25rem;
   max-width: 720px;
+}
+
+/* Shared quick fade-up used by the tag, subhead, body and CTA. */
+.fadeUp {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fadeUp.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .tag {
@@ -72,6 +121,27 @@
   margin: 0;
 }
 
+/* Per-word "punch up" reveal: each word rises out of a clipped mask on
+   its own beat instead of the whole line fading in at once. */
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.word {
+  display: inline-block;
+  transform: translateY(115%) rotate(3deg);
+  opacity: 0;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease-out;
+  transform-origin: left bottom;
+}
+
+.word.revealed {
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+}
+
 .subhead {
   font-family: var(--font-serif);
   font-size: clamp(1.05rem, 1.8vw, 1.35rem);
@@ -89,6 +159,18 @@
   max-width: 560px;
   letter-spacing: 0.01em;
   margin: 0.5rem 0 0;
+}
+
+.ctaWrap {
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 0.5rem;
+}
+
+.ctaWrap.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* ── Consultation CTA Button: solid bronze fill ── */
@@ -115,13 +197,36 @@
   transform: translateY(-2px);
 }
 
+/* ── Reduced motion: skip the wipe, scan and word-pop; just fade in ── */
+@media (prefers-reduced-motion: reduce) {
+  .illustrationStage {
+    transition: none;
+    transform: none !important;
+  }
+  .vectorIllustration {
+    transition: opacity 0.3s linear;
+    clip-path: none !important;
+    transform: none !important;
+  }
+  .vectorIllustration.revealed {
+    opacity: 0.9;
+  }
+  .wipeScan {
+    display: none;
+  }
+  .fadeUp,
+  .word,
+  .ctaWrap {
+    transition: opacity 0.25s linear !important;
+    transform: none !important;
+    transition-delay: 0ms !important;
+  }
+}
+
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
-  .scrollTrack {
-    height: 130vh;
-  }
-
-  .stickyStage {
+  .promoSection {
+    min-height: 0;
     padding: 5rem 1.5rem;
   }
 

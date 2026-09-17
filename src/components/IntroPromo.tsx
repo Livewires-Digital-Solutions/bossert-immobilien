@@ -1,93 +1,117 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import styles from './IntroPromo.module.css';
 
+// Timing for the choreographed entrance (ms). The illustration and the tag
+// fire together the instant the section enters view, then the headline
+// pops in word-by-word, and the rest cascades right behind it — one quick,
+// deliberate sequence instead of something smeared across a scroll range.
+const HEADLINE_BASE_DELAY = 120;
+const HEADLINE_WORD_STEP = 90;
+const SUBHEAD_GAP = 60;
+const BODY_GAP = 110;
+const BUTTON_GAP = 130;
+
 export default function IntroPromo() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.25);
   const { t } = useLanguage();
 
-  useEffect(() => {
-    let animationFrameId: number;
+  const illustrationRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const canParallaxRef = useRef<boolean | null>(null);
 
-    const handleScroll = () => {
-      if (!trackRef.current) return;
-      const rect = trackRef.current.getBoundingClientRect();
-      const maxScroll = trackRef.current.offsetHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
+  // Subtle cursor-parallax on the illustration — CSS-var driven, no re-render.
+  // Disabled for touch pointers and prefers-reduced-motion.
+  const canParallax = () => {
+    if (typeof window === 'undefined') return false;
+    if (canParallaxRef.current === null) {
+      canParallaxRef.current =
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return canParallaxRef.current;
+  };
 
-      const currentScroll = -rect.top;
-      const p = Math.max(0, Math.min(1, currentScroll / maxScroll));
-      setProgress(p);
-    };
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!canParallax()) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      illustrationRef.current?.style.setProperty('--px', `${px * -16}px`);
+      illustrationRef.current?.style.setProperty('--py', `${py * -16}px`);
+    });
+  };
 
-    const onScroll = () => {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(handleScroll);
-    };
+  const resetParallax = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    illustrationRef.current?.style.setProperty('--px', '0px');
+    illustrationRef.current?.style.setProperty('--py', '0px');
+  };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  // ── Phase 1 (0 → 0.5): the illustration wipes in top-down, starting the
-  // instant the section enters view — never a blank beat before it moves. ──
-  const illustrationProgress = Math.max(0, Math.min(1, progress / 0.5));
-  const illustrationReveal = `inset(0 0 ${(1 - illustrationProgress) * 100}% 0)`;
-
-  // ── Phase 2 (0.4 → 1): the text reveals after, staggered line by line ──
-  const contentProgress = Math.max(0, Math.min(1, (progress - 0.4) / 0.6));
-  const tagOpacity = Math.max(0, Math.min(1, contentProgress / 0.3));
-  const headlineOpacity = Math.max(0, Math.min(1, (contentProgress - 0.15) / 0.3));
-  const subheadOpacity = Math.max(0, Math.min(1, (contentProgress - 0.3) / 0.3));
-  const bodyOpacity = Math.max(0, Math.min(1, (contentProgress - 0.45) / 0.3));
-  const buttonOpacity = Math.max(0, Math.min(1, (contentProgress - 0.6) / 0.3));
-
-  const getTransform = (op: number) => `translateY(${(1 - op) * 16}px)`;
+  const headlineWords = t.introPromo.headline.trim().split(/\s+/);
+  const afterHeadline = HEADLINE_BASE_DELAY + headlineWords.length * HEADLINE_WORD_STEP;
+  const subheadDelay = afterHeadline + SUBHEAD_GAP;
+  const bodyDelay = subheadDelay + BODY_GAP;
+  const buttonDelay = bodyDelay + BUTTON_GAP;
 
   return (
-    <div className={styles.scrollTrack} ref={trackRef}>
-      <div className={styles.stickyStage}>
-        {/* ── Architectural line illustration, recolored navy via mask ── */}
-        <div
-          className={styles.vectorIllustration}
-          style={{ clipPath: illustrationReveal, WebkitClipPath: illustrationReveal }}
-          aria-hidden="true"
-        />
+    <section
+      className={styles.promoSection}
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetParallax}
+    >
+      {/* Architectural line illustration, recolored navy via mask.
+          Same technique as the navy logo (see globals.css .logo-img-navy):
+          the source art is a white silhouette on transparent, so we use it
+          as a mask over a solid navy fill instead of shipping a second,
+          recolored asset. */}
+      <div className={styles.illustrationStage} ref={illustrationRef} aria-hidden="true">
+        <div className={`${styles.vectorIllustration} ${isVisible ? styles.revealed : ''}`} />
+        <div className={`${styles.wipeScan} ${isVisible ? styles.revealed : ''}`} />
+      </div>
 
-        <div className={styles.content}>
-          <p className={styles.tag} style={{ opacity: tagOpacity, transform: getTransform(tagOpacity), transition: 'transform 0.15s ease-out' }}>
-            <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
-          </p>
+      <div className={styles.content}>
+        <p className={`${styles.tag} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: '0ms' }}>
+          <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
+        </p>
 
-          <h2 className={styles.headline} style={{ opacity: headlineOpacity, transform: getTransform(headlineOpacity), transition: 'transform 0.15s ease-out' }}>
-            {t.introPromo.headline}
-          </h2>
-          <p className={styles.subhead} style={{ opacity: subheadOpacity, transform: getTransform(subheadOpacity), transition: 'transform 0.15s ease-out' }}>
-            {t.introPromo.headlineSub}
-          </p>
+        <h2 className={styles.headline}>
+          {headlineWords.map((word, i) => (
+            <React.Fragment key={i}>
+              <span className={styles.wordMask}>
+                <span
+                  className={`${styles.word} ${isVisible ? styles.revealed : ''}`}
+                  style={{ transitionDelay: `${HEADLINE_BASE_DELAY + i * HEADLINE_WORD_STEP}ms` }}
+                >
+                  {word}
+                </span>
+              </span>
+              {i < headlineWords.length - 1 ? ' ' : ''}
+            </React.Fragment>
+          ))}
+        </h2>
 
-          <p className={styles.bodyText} style={{ opacity: bodyOpacity, transform: getTransform(bodyOpacity), transition: 'transform 0.15s ease-out' }}>
-            {t.introPromo.body}
-          </p>
+        <p className={`${styles.subhead} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${subheadDelay}ms` }}>
+          {t.introPromo.headlineSub}
+        </p>
 
-          <div style={{ opacity: buttonOpacity, transform: getTransform(buttonOpacity), transition: 'transform 0.15s ease-out', marginTop: '0.5rem' }}>
-            <Link href="/contact" className={styles.ctaButton}>
-              {t.introPromo.cta}
-            </Link>
-          </div>
+        <p className={`${styles.bodyText} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${bodyDelay}ms` }}>
+          {t.introPromo.body}
+        </p>
+
+        <div className={`${styles.ctaWrap} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${buttonDelay}ms` }}>
+          <Link href="/contact" className={styles.ctaButton}>
+            {t.introPromo.cta}
+          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

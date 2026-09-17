@@ -1500,6 +1500,9 @@ body {
   width: fit-content;
   max-width: 100%;
   flex-shrink: 0;
+  /* Purely visual resize/shift — a transform never affects layout, so it
+     can't drag the hero text along with it via the shared flex alignment. */
+  transform: translateY(28px) scale(1.08);
 }
 
 .hsc2-root {
