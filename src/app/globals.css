@@ -107,6 +107,33 @@ body {
   background: var(--cream);
 }
 
+/* --- Home page section dividers — full-width bronze line marking the seam
+   between sections. Applied via ::before so it never joins the flex/grid
+   flow of each section's own children (position: absolute lifts it out).
+   IntroPromo's own divider lives in IntroPromo.module.css — that component
+   uses CSS Modules, not this global class namespace. --- */
+.services-section::before,
+.explore-section::before,
+.why-section::before,
+.testimonial-section::before,
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--bronze);
+  z-index: 3;
+}
+.services-section,
+.explore-section,
+.why-section,
+.cta-section {
+  position: relative;
+}
+
 /* --- Hero Section --- */
 .hero-section {
   position: relative;
@@ -1288,7 +1315,7 @@ body {
   text-decoration: none;
   font-family: var(--font-serif);
   font-size: 0.825rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.08em;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
@@ -1888,7 +1915,8 @@ body {
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--white);
-  margin: 0.35rem 0;
+  margin-top: 0.35rem;
+  margin-bottom: -0.15em;
   white-space: nowrap;
   display: inline-block;
   max-width: 100%;
@@ -5018,7 +5046,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 .mobile-nav-item {
   font-family: var(--font-inter), sans-serif;
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 700;
   color: rgba(246, 243, 238, 0.85);
   text-decoration: none;
   letter-spacing: -0.5px;
