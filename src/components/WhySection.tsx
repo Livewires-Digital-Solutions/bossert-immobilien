@@ -3,6 +3,8 @@
 import React from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
+import SectionGuideLine from './SectionGuideLine';
+import guideLineStyles from './SectionGuideLine.module.css';
 
 export default function WhySection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.3);
@@ -11,10 +13,11 @@ export default function WhySection() {
   return (
     <section className="why-section" ref={sectionRef}>
       <div className="why-container">
-        
+
         {/* Left Column: Sticky Headline */}
         <div className="why-left-col">
           <div className="why-header-sticky">
+            <SectionGuideLine isVisible={isVisible} className={guideLineStyles.noMargin} />
             <p className={`services-subtitle reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '1rem' }}>
               <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.why.tag}
             </p>

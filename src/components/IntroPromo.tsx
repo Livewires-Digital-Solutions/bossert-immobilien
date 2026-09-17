@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import SectionGuideLine from './SectionGuideLine';
 import styles from './IntroPromo.module.css';
 
 // Timing for the choreographed entrance (ms). The illustration and the tag
@@ -78,6 +79,7 @@ export default function IntroPromo() {
       </div>
 
       <div className={styles.content}>
+        <SectionGuideLine isVisible={isVisible} />
         <p className={`${styles.tag} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: '0ms' }}>
           <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
         </p>

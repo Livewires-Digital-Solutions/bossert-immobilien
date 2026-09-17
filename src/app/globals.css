@@ -107,26 +107,6 @@ body {
   background: var(--cream);
 }
 
-/* --- Home page section dividers — full-width bronze line marking the seam
-   between sections. Applied via ::before so it never joins the flex/grid
-   flow of each section's own children (position: absolute lifts it out).
-   IntroPromo's own divider lives in IntroPromo.module.css — that component
-   uses CSS Modules, not this global class namespace. --- */
-.services-section::before,
-.explore-section::before,
-.why-section::before,
-.testimonial-section::before,
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--bronze);
-  z-index: 3;
-}
 .services-section,
 .explore-section,
 .why-section,
@@ -1309,7 +1289,7 @@ body {
 .nav-links-inner {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2.8rem;
 }
 
 .nav-actions {
