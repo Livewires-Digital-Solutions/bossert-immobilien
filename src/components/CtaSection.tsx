@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
-import SectionGuideLine from './SectionGuideLine';
-import guideLineStyles from './SectionGuideLine.module.css';
 
 interface CtaSectionProps {
   variant?: 'default' | 'properties' | 'services' | 'knowledge' | 'about';
@@ -69,7 +67,6 @@ export default function CtaSection({ variant = 'default', invert = false }: CtaS
 
         {/* ── Left column: Text content ── */}
         <div className={`cta-text-col reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
-          <SectionGuideLine isVisible={isVisible} className={guideLineStyles.noMargin} />
           <div className="cta-form-tag">
             <span className="dot" />
             Get in Touch

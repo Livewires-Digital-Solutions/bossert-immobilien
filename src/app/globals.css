@@ -1845,34 +1845,6 @@ body {
   padding-left: 2.5rem;
   margin-bottom: 2.5rem;
 }
-/* Vertical accent line — draws downward once the intro gate opens,
-   instead of sitting on screen fully formed. */
-.hero-top-group::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  transform-origin: top;
-  transform: scaleY(0);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-top-group.is-revealed::before {
-  transform: scaleY(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-top-group::before {
-    transition: opacity 0.4s ease;
-    transform: scaleY(1);
-    opacity: 0;
-  }
-  .hero-top-group.is-revealed::before {
-    opacity: 1;
-  }
-}
 .since-text {
   font-family: var(--font-inter), sans-serif;
   font-size: 0.85rem;
@@ -2090,7 +2062,7 @@ body {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .services-left {
@@ -3033,7 +3005,7 @@ body {
 
 /* --- EXPLORE SECTION --- */
 .explore-section {
-  padding: 4rem 4rem 8rem 4rem;
+  padding: 4rem 4rem 6rem 4rem;
   background-color: var(--cream);
 }
 
@@ -3564,7 +3536,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
 /* --- WHY BOSSERT SECTION --- */
 .why-section {
-  padding: 10rem 4rem;
+  padding: 6rem 4rem;
   background-color: var(--cream);
   color: var(--navy);
   border-top: 1px solid rgba(4, 36, 51, 0.15);
@@ -5136,10 +5108,12 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
     gap: 2rem;
   }
 
-  /* Services */
+  /* Services — stacked layout, so align-items switches back to centering
+     the columns horizontally (cross-axis flips with flex-direction). */
   .services-section {
     height: auto;
     flex-direction: column;
+    align-items: center;
     padding: 4rem 2rem;
     gap: 3rem;
   }

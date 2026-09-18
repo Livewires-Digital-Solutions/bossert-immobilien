@@ -1,13 +1,24 @@
-/* ── H-04: light section with a one-shot, snap-in reveal ──
-   Triggers once via IntersectionObserver (see IntroPromo.tsx) instead of
-   being scrubbed across a pinned scroll track — the whole choreography
-   (illustration wipe + scanline, then headline/subhead/body/button) fires
-   in ~0.7–0.9s the moment the section enters view, so there's never a long
-   stretch of near-empty cream while the visitor scrolls through it. */
+/* ── H-04: pinned, scroll-scrubbed reveal ──
+   .promoSection is a tall track (--promo-track); .stickyViewport pins to
+   the top of the screen while the user scrolls through it, so the two-beat
+   sequence in IntroPromo.tsx — picture wipes in, then the message pops up
+   at the center — plays out across a real scroll distance instead of
+   finishing inside a single wheel tick. Every element's opacity/transform
+   is set inline from live scroll progress; only the illustration's
+   scanline sweep stays a one-shot CSS animation, since that reads better
+   as a single flourish than scrubbed frame-by-frame. */
 .promoSection {
+  --promo-track: 240vh;
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: var(--promo-track);
+}
+
+.stickyViewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,27 +44,13 @@
   position: absolute;
   inset: 0;
   background-color: var(--navy);
-  opacity: 0;
   -webkit-mask: url('/aboutbg.png') center bottom / cover no-repeat;
   mask: url('/aboutbg.png') center bottom / cover no-repeat;
-  clip-path: inset(0 0 100% 0);
-  transform: scale(1.06);
-  transition:
-    clip-path 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.5s ease-out;
   will-change: clip-path, transform, opacity;
 }
 
-.vectorIllustration.revealed {
-  opacity: 0.9;
-  clip-path: inset(0 0 0% 0);
-  transform: scale(1);
-}
-
-/* A bright bronze scanline that sweeps down in lockstep with the wipe,
-   the "interaction" beat that ties the illustration's reveal to the text
-   sequence starting right behind it. */
+/* A bright bronze scanline that sweeps down once the picture starts
+   revealing — the "interaction" beat that leads into the message pop. */
 .wipeScan {
   position: absolute;
   left: 0;
@@ -85,18 +82,7 @@
   text-align: center;
   gap: 1.25rem;
   max-width: 720px;
-}
-
-/* Shared quick fade-up used by the tag, subhead, body and CTA. */
-.fadeUp {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.fadeUp.revealed {
-  opacity: 1;
-  transform: translateY(0);
+  will-change: transform, opacity;
 }
 
 .tag {
@@ -121,27 +107,6 @@
   margin: 0;
 }
 
-/* Per-word "punch up" reveal: each word rises out of a clipped mask on
-   its own beat instead of the whole line fading in at once. */
-.wordMask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-}
-
-.word {
-  display: inline-block;
-  transform: translateY(115%) rotate(3deg);
-  opacity: 0;
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease-out;
-  transform-origin: left bottom;
-}
-
-.word.revealed {
-  transform: translateY(0) rotate(0deg);
-  opacity: 1;
-}
-
 .subhead {
   font-family: var(--font-serif);
   font-size: clamp(1.05rem, 1.8vw, 1.35rem);
@@ -162,15 +127,7 @@
 }
 
 .ctaWrap {
-  opacity: 0;
-  transform: translateY(14px) scale(0.97);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   margin-top: 0.5rem;
-}
-
-.ctaWrap.revealed {
-  opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 /* ── Consultation CTA Button: solid bronze fill ── */
@@ -197,36 +154,36 @@
   transform: translateY(-2px);
 }
 
-/* ── Reduced motion: skip the wipe, scan and word-pop; just fade in ── */
+/* ── Reduced motion: collapse the pinned track back to a normal single-
+   viewport section (pure CSS, so it applies at first paint with no flash),
+   and useScrollProgress separately reports progress=1 so every
+   inline-styled element renders at its final revealed values. Only the
+   decorative scanline sweep needs an explicit opt-out here. ── */
 @media (prefers-reduced-motion: reduce) {
+  .promoSection {
+    height: auto;
+  }
+  .stickyViewport {
+    position: static;
+    height: auto;
+    min-height: 100vh;
+  }
   .illustrationStage {
     transition: none;
     transform: none !important;
   }
-  .vectorIllustration {
-    transition: opacity 0.3s linear;
-    clip-path: none !important;
-    transform: none !important;
-  }
-  .vectorIllustration.revealed {
-    opacity: 0.9;
-  }
   .wipeScan {
     display: none;
-  }
-  .fadeUp,
-  .word,
-  .ctaWrap {
-    transition: opacity 0.25s linear !important;
-    transform: none !important;
-    transition-delay: 0ms !important;
   }
 }
 
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
   .promoSection {
-    min-height: 0;
+    --promo-track: 200vh;
+  }
+
+  .stickyViewport {
     padding: 5rem 1.5rem;
   }
 

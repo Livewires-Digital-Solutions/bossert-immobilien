@@ -1,29 +1,34 @@
 "use client";
 
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
-import { useScrollReveal } from '../hooks/useScrollReveal';
+import { usePinnedScrollProgress, stage, easeOutBack } from '../hooks/useScrollProgress';
 import SectionGuideLine from './SectionGuideLine';
 import styles from './IntroPromo.module.css';
 
-// Timing for the choreographed entrance (ms). The illustration and the tag
-// fire together the instant the section enters view, then the headline
-// pops in word-by-word, and the rest cascades right behind it — one quick,
-// deliberate sequence instead of something smeared across a scroll range.
-const HEADLINE_BASE_DELAY = 120;
-const HEADLINE_WORD_STEP = 90;
-const SUBHEAD_GAP = 60;
-const BODY_GAP = 110;
-const BUTTON_GAP = 130;
+// Pin-and-scrub sequence, in two clearly separated beats instead of one
+// overlapping cascade: first the illustration wipes in as the section is
+// pinned on screen (PICTURE_RANGE), then — only once that's finished — the
+// message pops up at the center (CONTENT_RANGE), scaling in with an
+// ease-out-back overshoot that's driven live by scroll position rather
+// than a fixed-timer keyframe. The outer track is taller than one
+// viewport (see .promoSection / .stickyViewport in the CSS) so this plays
+// out across a real scroll distance instead of finishing in one wheel tick.
+const PICTURE_RANGE: [number, number] = [0, 0.45];
+const CONTENT_RANGE: [number, number] = [0.55, 0.9];
 
 export default function IntroPromo() {
-  const { ref: sectionRef, isVisible } = useScrollReveal(0.25);
+  const { ref: trackRef, progress } = usePinnedScrollProgress<HTMLElement>();
   const { t } = useLanguage();
 
   const illustrationRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const canParallaxRef = useRef<boolean | null>(null);
+
+  const hasStartedRef = useRef(false);
+  if (progress > 0.02) hasStartedRef.current = true;
+  const hasStarted = hasStartedRef.current;
 
   // Subtle cursor-parallax on the illustration — CSS-var driven, no re-render.
   // Disabled for touch pointers and prefers-reduced-motion.
@@ -55,63 +60,55 @@ export default function IntroPromo() {
     illustrationRef.current?.style.setProperty('--py', '0px');
   };
 
-  const headlineWords = t.introPromo.headline.trim().split(/\s+/);
-  const afterHeadline = HEADLINE_BASE_DELAY + headlineWords.length * HEADLINE_WORD_STEP;
-  const subheadDelay = afterHeadline + SUBHEAD_GAP;
-  const bodyDelay = subheadDelay + BODY_GAP;
-  const buttonDelay = bodyDelay + BUTTON_GAP;
+  const pictureStage = stage(progress, PICTURE_RANGE[0], PICTURE_RANGE[1]);
+  const contentStage = stage(progress, CONTENT_RANGE[0], CONTENT_RANGE[1]);
+  const contentScale = 0.85 + 0.15 * easeOutBack(contentStage);
+  const contentOpacity = Math.min(1, contentStage * 1.6);
+  const contentLift = (1 - contentStage) * 28;
 
   return (
-    <section
-      className={styles.promoSection}
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={resetParallax}
-    >
-      {/* Architectural line illustration, recolored navy via mask.
-          Same technique as the navy logo (see globals.css .logo-img-navy):
-          the source art is a white silhouette on transparent, so we use it
-          as a mask over a solid navy fill instead of shipping a second,
-          recolored asset. */}
-      <div className={styles.illustrationStage} ref={illustrationRef} aria-hidden="true">
-        <div className={`${styles.vectorIllustration} ${isVisible ? styles.revealed : ''}`} />
-        <div className={`${styles.wipeScan} ${isVisible ? styles.revealed : ''}`} />
-      </div>
+    <section className={styles.promoSection} ref={trackRef}>
+      <div className={styles.stickyViewport} onMouseMove={handleMouseMove} onMouseLeave={resetParallax}>
+        {/* Architectural line illustration, recolored navy via mask.
+            Same technique as the navy logo (see globals.css .logo-img-navy):
+            the source art is a white silhouette on transparent, so we use it
+            as a mask over a solid navy fill instead of shipping a second,
+            recolored asset. */}
+        <div className={styles.illustrationStage} ref={illustrationRef} aria-hidden="true">
+          <div
+            className={styles.vectorIllustration}
+            style={{
+              opacity: pictureStage * 0.9,
+              clipPath: `inset(0 0 ${(1 - pictureStage) * 100}% 0)`,
+              transform: `scale(${1 + (1 - pictureStage) * 0.06})`,
+            }}
+          />
+          <div className={`${styles.wipeScan} ${hasStarted ? styles.revealed : ''}`} />
+        </div>
 
-      <div className={styles.content}>
-        <SectionGuideLine isVisible={isVisible} />
-        <p className={`${styles.tag} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: '0ms' }}>
-          <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
-        </p>
+        <div
+          className={styles.content}
+          style={{
+            opacity: contentOpacity,
+            transform: `translateY(${contentLift}px) scale(${contentScale})`,
+          }}
+        >
+          <SectionGuideLine isVisible={hasStarted} />
+          <p className={styles.tag}>
+            <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
+          </p>
 
-        <h2 className={styles.headline}>
-          {headlineWords.map((word, i) => (
-            <React.Fragment key={i}>
-              <span className={styles.wordMask}>
-                <span
-                  className={`${styles.word} ${isVisible ? styles.revealed : ''}`}
-                  style={{ transitionDelay: `${HEADLINE_BASE_DELAY + i * HEADLINE_WORD_STEP}ms` }}
-                >
-                  {word}
-                </span>
-              </span>
-              {i < headlineWords.length - 1 ? ' ' : ''}
-            </React.Fragment>
-          ))}
-        </h2>
+          <h2 className={styles.headline}>{t.introPromo.headline}</h2>
 
-        <p className={`${styles.subhead} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${subheadDelay}ms` }}>
-          {t.introPromo.headlineSub}
-        </p>
+          <p className={styles.subhead}>{t.introPromo.headlineSub}</p>
 
-        <p className={`${styles.bodyText} ${styles.fadeUp} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${bodyDelay}ms` }}>
-          {t.introPromo.body}
-        </p>
+          <p className={styles.bodyText}>{t.introPromo.body}</p>
 
-        <div className={`${styles.ctaWrap} ${isVisible ? styles.revealed : ''}`} style={{ transitionDelay: `${buttonDelay}ms` }}>
-          <Link href="/contact" className={styles.ctaButton}>
-            {t.introPromo.cta}
-          </Link>
+          <div className={styles.ctaWrap}>
+            <Link href="/contact" className={styles.ctaButton}>
+              {t.introPromo.cta}
+            </Link>
+          </div>
         </div>
       </div>
     </section>
