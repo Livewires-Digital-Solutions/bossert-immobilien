@@ -1,24 +1,15 @@
-/* ── H-04: pinned, scroll-scrubbed reveal ──
-   .promoSection is a tall track (--promo-track); .stickyViewport pins to
-   the top of the screen while the user scrolls through it, so the two-beat
-   sequence in IntroPromo.tsx — picture wipes in, then the message pops up
-   at the center — plays out across a real scroll distance instead of
-   finishing inside a single wheel tick. Every element's opacity/transform
-   is set inline from live scroll progress. Both reveal ranges (see
-   IntroPromo.tsx) sit close to the 0–1 edges of the track on purpose, so
-   there's no long blank hold at the start or end of the pin. */
+/* ── H-04: scroll-scrubbed reveal ──
+   Every element's opacity/transform is set inline from live scroll
+   progress (see useScrollProgress + IntroPromo.tsx) rather than a fixed
+   timer, so the section unfolds in step with the scrollbar — scroll down
+   to reveal, scroll back up to retract. Only the illustration's scanline
+   sweep and the final content "pop" (below) remain one-shot CSS
+   animations, since those read better as a single flourish than scrubbed
+   frame-by-frame. */
 .promoSection {
-  --promo-track: 170vh;
   position: relative;
   width: 100%;
-  height: var(--promo-track);
-}
-
-.stickyViewport {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +40,31 @@
   will-change: clip-path, transform, opacity;
 }
 
+/* A bright bronze scanline that sweeps down in lockstep with the wipe,
+   the "interaction" beat that ties the illustration's reveal to the text
+   sequence starting right behind it. */
+.wipeScan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--bronze) 40%, #f3e3c4 50%, var(--bronze) 60%, transparent);
+  box-shadow: 0 0 24px 2px rgba(175, 140, 83, 0.55);
+  opacity: 0;
+}
+
+.wipeScan.revealed {
+  animation: scanSweep 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scanSweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
 .content {
   position: relative;
   z-index: 2;
@@ -58,7 +74,20 @@
   text-align: center;
   gap: 1.25rem;
   max-width: 720px;
-  will-change: transform, opacity;
+}
+
+/* Final flourish once scroll progress completes the reveal: a quick
+   overshoot "pop" on the whole centered content block. Hysteresis in
+   IntroPromo.tsx (on above 0.95, off below 0.8) keeps small scroll jitter
+   near the threshold from re-triggering it. */
+.content.popped {
+  animation: contentPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes contentPop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.035); }
+  100% { transform: scale(1); }
 }
 
 .tag {
@@ -83,6 +112,20 @@
   margin: 0;
 }
 
+/* Per-word "punch up" reveal: each word rises out of a clipped mask on
+   its own beat instead of the whole line fading in at once. */
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.word {
+  display: inline-block;
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+}
+
 .subhead {
   font-family: var(--font-serif);
   font-size: clamp(1.05rem, 1.8vw, 1.35rem);
@@ -104,6 +147,7 @@
 
 .ctaWrap {
   margin-top: 0.5rem;
+  will-change: transform, opacity;
 }
 
 /* ── Consultation CTA Button: solid bronze fill ── */
@@ -130,32 +174,27 @@
   transform: translateY(-2px);
 }
 
-/* ── Reduced motion: collapse the pinned track back to a normal single-
-   viewport section (pure CSS, so it applies at first paint with no flash),
-   and useScrollProgress separately reports progress=1 so every
-   inline-styled element renders at its final revealed values. ── */
+/* ── Reduced motion: useScrollProgress already reports progress=1 straight
+   away in this case, so every inline-styled element renders at its final
+   revealed values with no scroll-driven animation. Only the decorative
+   scanline sweep and the content pop need an explicit opt-out here. ── */
 @media (prefers-reduced-motion: reduce) {
-  .promoSection {
-    height: auto;
-  }
-  .stickyViewport {
-    position: static;
-    height: auto;
-    min-height: 100vh;
-  }
   .illustrationStage {
     transition: none;
     transform: none !important;
+  }
+  .wipeScan {
+    display: none;
+  }
+  .content.popped {
+    animation: none;
   }
 }
 
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
   .promoSection {
-    --promo-track: 140vh;
-  }
-
-  .stickyViewport {
+    min-height: 0;
     padding: 5rem 1.5rem;
   }
 
