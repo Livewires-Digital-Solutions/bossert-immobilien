@@ -4,11 +4,11 @@
    sequence in IntroPromo.tsx — picture wipes in, then the message pops up
    at the center — plays out across a real scroll distance instead of
    finishing inside a single wheel tick. Every element's opacity/transform
-   is set inline from live scroll progress; only the illustration's
-   scanline sweep stays a one-shot CSS animation, since that reads better
-   as a single flourish than scrubbed frame-by-frame. */
+   is set inline from live scroll progress. Both reveal ranges (see
+   IntroPromo.tsx) sit close to the 0–1 edges of the track on purpose, so
+   there's no long blank hold at the start or end of the pin. */
 .promoSection {
-  --promo-track: 240vh;
+  --promo-track: 170vh;
   position: relative;
   width: 100%;
   height: var(--promo-track);
@@ -47,30 +47,6 @@
   -webkit-mask: url('/aboutbg.png') center bottom / cover no-repeat;
   mask: url('/aboutbg.png') center bottom / cover no-repeat;
   will-change: clip-path, transform, opacity;
-}
-
-/* A bright bronze scanline that sweeps down once the picture starts
-   revealing — the "interaction" beat that leads into the message pop. */
-.wipeScan {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--bronze) 40%, #f3e3c4 50%, var(--bronze) 60%, transparent);
-  box-shadow: 0 0 24px 2px rgba(175, 140, 83, 0.55);
-  opacity: 0;
-}
-
-.wipeScan.revealed {
-  animation: scanSweep 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes scanSweep {
-  0% { top: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
 }
 
 .content {
@@ -157,8 +133,7 @@
 /* ── Reduced motion: collapse the pinned track back to a normal single-
    viewport section (pure CSS, so it applies at first paint with no flash),
    and useScrollProgress separately reports progress=1 so every
-   inline-styled element renders at its final revealed values. Only the
-   decorative scanline sweep needs an explicit opt-out here. ── */
+   inline-styled element renders at its final revealed values. ── */
 @media (prefers-reduced-motion: reduce) {
   .promoSection {
     height: auto;
@@ -172,15 +147,12 @@
     transition: none;
     transform: none !important;
   }
-  .wipeScan {
-    display: none;
-  }
 }
 
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
   .promoSection {
-    --promo-track: 200vh;
+    --promo-track: 140vh;
   }
 
   .stickyViewport {

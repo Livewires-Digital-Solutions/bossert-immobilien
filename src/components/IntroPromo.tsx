@@ -4,7 +4,6 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { usePinnedScrollProgress, stage, easeOutBack } from '../hooks/useScrollProgress';
-import SectionGuideLine from './SectionGuideLine';
 import styles from './IntroPromo.module.css';
 
 // Pin-and-scrub sequence, in two clearly separated beats instead of one
@@ -15,8 +14,11 @@ import styles from './IntroPromo.module.css';
 // than a fixed-timer keyframe. The outer track is taller than one
 // viewport (see .promoSection / .stickyViewport in the CSS) so this plays
 // out across a real scroll distance instead of finishing in one wheel tick.
-const PICTURE_RANGE: [number, number] = [0, 0.45];
-const CONTENT_RANGE: [number, number] = [0.55, 0.9];
+// Both ranges stay close to the 0–1 edges (no long pause up front, no long
+// hold at the end) so the pinned section doesn't linger as a blank screen
+// once the sequence finishes.
+const PICTURE_RANGE: [number, number] = [0, 0.4];
+const CONTENT_RANGE: [number, number] = [0.48, 0.97];
 
 export default function IntroPromo() {
   const { ref: trackRef, progress } = usePinnedScrollProgress<HTMLElement>();
@@ -25,10 +27,6 @@ export default function IntroPromo() {
   const illustrationRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const canParallaxRef = useRef<boolean | null>(null);
-
-  const hasStartedRef = useRef(false);
-  if (progress > 0.02) hasStartedRef.current = true;
-  const hasStarted = hasStartedRef.current;
 
   // Subtle cursor-parallax on the illustration — CSS-var driven, no re-render.
   // Disabled for touch pointers and prefers-reduced-motion.
@@ -83,7 +81,6 @@ export default function IntroPromo() {
               transform: `scale(${1 + (1 - pictureStage) * 0.06})`,
             }}
           />
-          <div className={`${styles.wipeScan} ${hasStarted ? styles.revealed : ''}`} />
         </div>
 
         <div
@@ -93,7 +90,6 @@ export default function IntroPromo() {
             transform: `translateY(${contentLift}px) scale(${contentScale})`,
           }}
         >
-          <SectionGuideLine isVisible={hasStarted} />
           <p className={styles.tag}>
             <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
           </p>
