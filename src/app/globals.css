@@ -1254,8 +1254,10 @@ body {
 .desktop-nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  column-gap: 3vw;
+  column-gap: clamp(1.5rem, 3vw, 3rem);
   width: 100%;
+  max-width: 1900px;
+  margin: 0 auto;
   align-items: center;
   opacity: 0;
   animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
@@ -1264,14 +1266,15 @@ body {
 /* space-between anchors the outer group (lang toggle / contact+profile) to
    the screen edge via .navbar's own padding, and the inner group (the main
    links) to the grid's column-gap next to the logo — both fixed distances,
-   on both sides, no matter the viewport. Any extra width a wide viewport
-   provides is spent as breathing room between the two groups instead of
-   piling up as unused space at one end. */
+   on both sides, no matter the viewport. The gap is clamped (rather than a
+   bare vw value) and .desktop-nav itself is width-capped, so on very wide
+   screens the leftover space stops pooling as a growing dead zone between
+   the two groups — both sides stay the same, equal distance from the logo. */
 .nav-left-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3vw;
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .nav-center-section {
@@ -1283,13 +1286,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3vw;
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .nav-links-inner {
   display: flex;
   align-items: center;
   gap: 4.2rem;
+}
+
+/* Push each link group a bit further from the logo (and from the lang
+   toggle / contact+profile group), while the mirrored margins keep both
+   groups equidistant from center. */
+.nav-left-section .nav-links-inner {
+  margin-right: 3rem;
+}
+
+.nav-right-section .nav-links-inner {
+  margin-left: 3rem;
 }
 
 .nav-actions {
@@ -1496,21 +1510,22 @@ body {
   margin-right: clamp(0.5rem, 3vw, 2.5rem);
 }
 .main-grid.has-carousel .left-content {
-  max-width: 50ch;
+  max-width: 54ch;
+  margin-left: clamp(0.5rem, 2vw, 1.5rem);
 }
 .main-grid.has-carousel .hero-headline {
   max-width: 100%;
 }
 .main-grid.has-carousel .hero-headline-top {
-  font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+  font-size: clamp(3.4rem, 6vw, 6.2rem);
   white-space: normal;
 }
 .main-grid.has-carousel .hero-headline-mid {
-  font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+  font-size: clamp(3.4rem, 6vw, 6.2rem);
   white-space: normal;
 }
 .main-grid.has-carousel .hero-headline-bot {
-  font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+  font-size: clamp(3.4rem, 6vw, 6.2rem);
 }
 
 .hsc2-wrapper {
@@ -1523,7 +1538,7 @@ body {
   flex-shrink: 0;
   /* Purely visual resize/shift — a transform never affects layout, so it
      can't drag the hero text along with it via the shared flex alignment. */
-  transform: translateY(28px) scale(1.08);
+  transform: translate(-24px, 42px) scale(1.14);
 }
 
 .hsc2-root {
@@ -1784,8 +1799,11 @@ body {
 
 @media (max-width: 1024px) {
   .main-grid.has-carousel { align-items: flex-start; }
-  .main-grid.has-carousel .left-content { max-width: 100%; }
+  .main-grid.has-carousel .left-content { max-width: 100%; margin-left: 0; }
   .hero-right { width: 100%; justify-content: center; }
+  /* The carousel is centered as its own row here, so drop the desktop-only
+     leftward shift — keep it, just re-centered. */
+  .hsc2-wrapper { transform: translateY(42px) scale(1.14); }
 }
 @media (max-width: 560px) {
   :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-spread: 58px; }
@@ -1846,7 +1864,7 @@ body {
 .hero-top-group {
   position: relative;
   padding-left: 2.5rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.75rem;
 }
 /* Vertical accent line — draws downward once the intro gate opens,
    instead of sitting on screen fully formed. */
@@ -1879,7 +1897,7 @@ body {
 .since-text {
   font-family: var(--font-serif);
   font-size: 1.05rem;
-  color: var(--bronze);
+  color: #E8CB93;
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
@@ -1888,7 +1906,7 @@ body {
 .hero-headline {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   max-width: 820px;
 }
 .hero-headline-top {
@@ -1955,11 +1973,11 @@ body {
   font-family: var(--font-serif);
   font-style: normal;
   font-size: 1.25rem;
-  color: var(--bronze);
+  color: #E8CB93;
   letter-spacing: 0;
   margin-bottom: 0.75rem;
   font-weight: 400;
-  opacity: 0.9;
+  opacity: 1;
   /* Lines up with .hero-top-group's own padding-left (made room for the
      vertical accent line) so the whole left column shares one edge. */
   padding-left: 2.5rem;

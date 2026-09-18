@@ -7,7 +7,6 @@ import { useLanguage } from '../context/LanguageContext';
 import { Property, mockProperties } from '../data/properties';
 import SearchSection from './SearchSection';
 import BtnArrow from './BtnArrow';
-import SectionGuideLine from './SectionGuideLine';
 
 export default function ExploreSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
@@ -64,7 +63,6 @@ export default function ExploreSection() {
         {/* Top Header */}
         <div className="explore-header">
           <div className={`explore-header-left reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
-            <SectionGuideLine isVisible={isVisible} />
             <div className="explore-subtitle">
               <span className="dot"></span> {t.explore.tag}
             </div>

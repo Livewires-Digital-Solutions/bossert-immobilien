@@ -4,7 +4,6 @@ import React from 'react';
 import AccordionCard from './AccordionCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
-import SectionGuideLine from './SectionGuideLine';
 
 export default function ServicesSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
@@ -56,7 +55,6 @@ export default function ServicesSection() {
   return (
     <section className="services-section" ref={sectionRef}>
       <div className={`services-left reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`}>
-        <SectionGuideLine isVisible={isVisible} />
         <div className="services-subtitle">
           <span className="dot"></span> {t.services.tag}
         </div>

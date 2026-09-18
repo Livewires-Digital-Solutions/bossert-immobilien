@@ -2,19 +2,29 @@
    Every element's opacity/transform is set inline from live scroll
    progress (see useScrollProgress + IntroPromo.tsx) rather than a fixed
    timer, so the section unfolds in step with the scrollbar — scroll down
-   to reveal, scroll back up to retract. Only the illustration's scanline
-   sweep and the final content "pop" (below) remain one-shot CSS
-   animations, since those read better as a single flourish than scrubbed
-   frame-by-frame. */
+   to reveal, scroll back up to retract. Only the final content "pop"
+   (below) remains a one-shot CSS animation, since it reads better as a
+   single flourish than scrubbed frame-by-frame. */
+/* The outer track: taller than one viewport so the sticky inner viewport
+   below has real scroll distance to pin against — this is what turns
+   scroll into a 0→1 progress value in usePinnedScrollProgress instead of
+   the whole reveal completing within a single wheel tick. */
 .promoSection {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 250vh;
+  background-color: var(--cream);
+}
+
+.stickyViewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7rem 4rem;
-  background-color: var(--cream);
   overflow: hidden;
 }
 
@@ -31,38 +41,26 @@
   will-change: transform;
 }
 
-.vectorIllustration {
+/* Two full-size copies of the same mask, each clipped to one half of the
+   frame. Because both share identical sizing/position ("cover", centered
+   bottom), their masked pixels line up exactly — clip-path just hides the
+   other half, so sliding both to translateX(0) reconstitutes one seamless
+   image. */
+.illustrationHalf {
   position: absolute;
   inset: 0;
   background-color: var(--navy);
   -webkit-mask: url('/aboutbg.png') center bottom / cover no-repeat;
   mask: url('/aboutbg.png') center bottom / cover no-repeat;
-  will-change: clip-path, transform, opacity;
+  will-change: transform, opacity;
 }
 
-/* A bright bronze scanline that sweeps down in lockstep with the wipe,
-   the "interaction" beat that ties the illustration's reveal to the text
-   sequence starting right behind it. */
-.wipeScan {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--bronze) 40%, #f3e3c4 50%, var(--bronze) 60%, transparent);
-  box-shadow: 0 0 24px 2px rgba(175, 140, 83, 0.55);
-  opacity: 0;
+.illustrationHalfLeft {
+  clip-path: inset(0 50% 0 0);
 }
 
-.wipeScan.revealed {
-  animation: scanSweep 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes scanSweep {
-  0% { top: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+.illustrationHalfRight {
+  clip-path: inset(0 0 0 50%);
 }
 
 .content {
@@ -179,12 +177,17 @@
    revealed values with no scroll-driven animation. Only the decorative
    scanline sweep and the content pop need an explicit opt-out here. ── */
 @media (prefers-reduced-motion: reduce) {
+  .promoSection {
+    height: auto;
+  }
+  .stickyViewport {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
   .illustrationStage {
     transition: none;
     transform: none !important;
-  }
-  .wipeScan {
-    display: none;
   }
   .content.popped {
     animation: none;
@@ -194,6 +197,12 @@
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
   .promoSection {
+    height: auto;
+  }
+
+  .stickyViewport {
+    position: relative;
+    height: auto;
     min-height: 0;
     padding: 5rem 1.5rem;
   }

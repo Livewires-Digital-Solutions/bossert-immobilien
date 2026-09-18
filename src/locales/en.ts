@@ -14,7 +14,7 @@ export const en = {
   },
   hero: {
     since: 'SEIT 1991',
-    headlineTop: 'YOUR TRUSTED PARTNER',
+    headlineTop: 'Your Trusted Partner',
     headlineMid: 'for residential',
     headlineBotPre: 'real',
     headlineBotBold: 'estate.',

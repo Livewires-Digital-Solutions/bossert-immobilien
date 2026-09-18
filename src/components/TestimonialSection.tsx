@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useLanguage } from '../context/LanguageContext';
-import SectionGuideLine from './SectionGuideLine';
 
 interface ApiTestimonial {
   id: string;
@@ -99,7 +98,6 @@ export default function TestimonialSection() {
   return (
     <section className="testimonial-section" ref={sectionRef}>
       <div className={`test-content reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
-        <SectionGuideLine isVisible={isVisible} />
         <div className="test-quote-icon" aria-hidden="true">&ldquo;</div>
 
         <h2 className="test-headline">{t.testimonials.title}</h2>

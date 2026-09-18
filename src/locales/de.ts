@@ -14,7 +14,7 @@ export const de = {
   },
   hero: {
     since: 'SEIT 1991',
-    headlineTop: 'IHR VERLÄSSLICHER PARTNER',
+    headlineTop: 'Ihr Verlässlicher Partner',
     headlineMid: 'für anspruchsvolle',
     headlineBotPre: 'Wohn',
     headlineBotBold: 'immobilien.',

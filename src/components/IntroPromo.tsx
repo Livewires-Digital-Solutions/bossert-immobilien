@@ -1,24 +1,24 @@
 "use client";
 
-import { useRef } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { usePinnedScrollProgress, stage, easeOutBack } from '../hooks/useScrollProgress';
 import styles from './IntroPromo.module.css';
 
-// Pin-and-scrub sequence, in two clearly separated beats instead of one
-// overlapping cascade: first the illustration wipes in as the section is
-// pinned on screen (PICTURE_RANGE), then — only once that's finished — the
-// message pops up at the center (CONTENT_RANGE), scaling in with an
-// ease-out-back overshoot that's driven live by scroll position rather
-// than a fixed-timer keyframe. The outer track is taller than one
-// viewport (see .promoSection / .stickyViewport in the CSS) so this plays
-// out across a real scroll distance instead of finishing in one wheel tick.
-// Both ranges stay close to the 0–1 edges (no long pause up front, no long
-// hold at the end) so the pinned section doesn't linger as a blank screen
-// once the sequence finishes.
-const PICTURE_RANGE: [number, number] = [0, 0.4];
-const CONTENT_RANGE: [number, number] = [0.48, 0.97];
+// Pin-and-scrub sequence where the illustration and the copy reveal
+// together instead of one after another: the artwork splits into a left
+// and a right half that slide in from the outer edges toward the center,
+// and the headline/subhead/body/CTA cascade in over that *same* scroll
+// span — both ranges start at progress 0, so they read as one unified
+// reveal rather than "picture, then text". The outer track is taller than
+// one viewport (see .promoSection / .stickyViewport in the CSS) so this
+// plays out across a real scroll distance instead of finishing in one
+// wheel tick.
+const PICTURE_RANGE: [number, number] = [0, 0.6];
+const CONTENT_RANGE: [number, number] = [0, 0.78];
+
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export default function IntroPromo() {
   const { ref: trackRef, progress } = usePinnedScrollProgress<HTMLElement>();
@@ -59,10 +59,31 @@ export default function IntroPromo() {
   };
 
   const pictureStage = stage(progress, PICTURE_RANGE[0], PICTURE_RANGE[1]);
+  const pictureEase = easeOutCubic(pictureStage);
   const contentStage = stage(progress, CONTENT_RANGE[0], CONTENT_RANGE[1]);
-  const contentScale = 0.85 + 0.15 * easeOutBack(contentStage);
-  const contentOpacity = Math.min(1, contentStage * 1.6);
-  const contentLift = (1 - contentStage) * 28;
+
+  // Gentle whole-block settle once the cascade lands, layered on top of the
+  // per-element reveals below rather than replacing them.
+  const contentScale = 0.97 + 0.03 * easeOutBack(contentStage);
+
+  // The final content "pop" is a one-shot flourish, so it's gated by
+  // hysteresis (on past one threshold, off past a lower one) instead of
+  // re-triggering on every pixel of scroll jitter near the boundary.
+  const [popped, setPopped] = useState(false);
+
+  useEffect(() => {
+    if (!popped && contentStage > 0.95) setPopped(true);
+    else if (popped && contentStage < 0.8) setPopped(false);
+  }, [contentStage, popped]);
+
+  const words = t.introPromo.headline.split(' ');
+  const wordStep = 0.09;
+  const wordDur = 0.45;
+
+  const tagStage = stage(contentStage, 0, 0.28);
+  const subheadStage = stage(contentStage, 0.26, 0.58);
+  const bodyStage = stage(contentStage, 0.4, 0.72);
+  const ctaStage = stage(contentStage, 0.55, 0.92);
 
   return (
     <section className={styles.promoSection} ref={trackRef}>
@@ -71,36 +92,90 @@ export default function IntroPromo() {
             Same technique as the navy logo (see globals.css .logo-img-navy):
             the source art is a white silhouette on transparent, so we use it
             as a mask over a solid navy fill instead of shipping a second,
-            recolored asset. */}
+            recolored asset. Rendered as two full-size copies, each clipped
+            to one half and slid in from its own edge, so they reconstitute
+            the same image once both land at translateX(0). */}
         <div className={styles.illustrationStage} ref={illustrationRef} aria-hidden="true">
           <div
-            className={styles.vectorIllustration}
+            className={`${styles.illustrationHalf} ${styles.illustrationHalfLeft}`}
             style={{
-              opacity: pictureStage * 0.9,
-              clipPath: `inset(0 0 ${(1 - pictureStage) * 100}% 0)`,
-              transform: `scale(${1 + (1 - pictureStage) * 0.06})`,
+              opacity: Math.min(1, pictureStage * 1.6),
+              transform: `translateX(${(1 - pictureEase) * -55}%)`,
+            }}
+          />
+          <div
+            className={`${styles.illustrationHalf} ${styles.illustrationHalfRight}`}
+            style={{
+              opacity: Math.min(1, pictureStage * 1.6),
+              transform: `translateX(${(1 - pictureEase) * 55}%)`,
             }}
           />
         </div>
 
         <div
-          className={styles.content}
-          style={{
-            opacity: contentOpacity,
-            transform: `translateY(${contentLift}px) scale(${contentScale})`,
-          }}
+          className={`${styles.content} ${popped ? styles.popped : ''}`}
+          style={{ transform: `scale(${contentScale})` }}
         >
-          <p className={styles.tag}>
+          <p
+            className={styles.tag}
+            style={{
+              opacity: tagStage,
+              transform: `translateY(${(1 - tagStage) * 14}px)`,
+            }}
+          >
             <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {t.introPromo.tag}
           </p>
 
-          <h2 className={styles.headline}>{t.introPromo.headline}</h2>
+          <h2 className={styles.headline}>
+            {words.map((word, i) => {
+              const wordStage = stage(contentStage, i * wordStep, i * wordStep + wordDur);
+              const wordEase = easeOutCubic(wordStage);
+              return (
+                <Fragment key={i}>
+                  <span className={styles.wordMask}>
+                    <span
+                      className={styles.word}
+                      style={{
+                        transform: `translateY(${(1 - wordEase) * 100}%)`,
+                        opacity: wordStage,
+                      }}
+                    >
+                      {word}
+                    </span>
+                  </span>
+                  {i < words.length - 1 ? ' ' : ''}
+                </Fragment>
+              );
+            })}
+          </h2>
 
-          <p className={styles.subhead}>{t.introPromo.headlineSub}</p>
+          <p
+            className={styles.subhead}
+            style={{
+              opacity: subheadStage,
+              transform: `translateY(${(1 - subheadStage) * 16}px)`,
+            }}
+          >
+            {t.introPromo.headlineSub}
+          </p>
 
-          <p className={styles.bodyText}>{t.introPromo.body}</p>
+          <p
+            className={styles.bodyText}
+            style={{
+              opacity: bodyStage,
+              transform: `translateY(${(1 - bodyStage) * 16}px)`,
+            }}
+          >
+            {t.introPromo.body}
+          </p>
 
-          <div className={styles.ctaWrap}>
+          <div
+            className={styles.ctaWrap}
+            style={{
+              opacity: ctaStage,
+              transform: `translateY(${(1 - ctaStage) * 14}px)`,
+            }}
+          >
             <Link href="/contact" className={styles.ctaButton}>
               {t.introPromo.cta}
             </Link>
