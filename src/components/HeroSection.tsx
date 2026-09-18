@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import HeroServicesCarousel from './HeroServicesCarousel';
 import BtnArrow from './BtnArrow';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { useFitText } from '../hooks/useFitText';
+import { useFitTextGroup } from '../hooks/useFitText';
 import { useLanguage } from '../context/LanguageContext';
 
 // Render a headline line with its final word emphasized in white italic
@@ -44,11 +44,15 @@ export default function HeroSection() {
 
   const isVisible = scrollVisible && gateReady;
 
-  // Each headline line shrinks to fit its own single line — never wraps,
-  // regardless of viewport width or how long the translated string is.
-  const topFitRef = useFitText<HTMLSpanElement>([t.hero.headlineTop]);
-  const midFitRef = useFitText<HTMLSpanElement>([t.hero.headlineMid]);
-  const botFitRef = useFitText<HTMLSpanElement>([t.hero.headlineBotPre, t.hero.headlineBotBold]);
+  // The three headline lines shrink together by one shared ratio — each
+  // stays on a single line, and none renders larger than the others just
+  // because its text happens to be shorter.
+  const [topFitRef, midFitRef, botFitRef] = useFitTextGroup<HTMLSpanElement>(3, [
+    t.hero.headlineTop,
+    t.hero.headlineMid,
+    t.hero.headlineBotPre,
+    t.hero.headlineBotBold,
+  ]);
 
   return (
     <div className="hero-section" ref={heroRef}>

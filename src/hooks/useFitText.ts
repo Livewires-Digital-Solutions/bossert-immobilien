@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
 
 /**
  * Keeps a headline on a single line, on every viewport, in every
@@ -75,4 +75,85 @@ export function useFitText<T extends HTMLElement = HTMLElement>(
   }, deps);
 
   return ref;
+}
+
+/**
+ * Like useFitText, but fits several lines as one unit: every line shrinks
+ * by the same ratio (the one needed by whichever line is tightest), so
+ * lines that share a design size still render at the same visual size
+ * instead of each shrinking independently to its own text length.
+ */
+export function useFitTextGroup<T extends HTMLElement = HTMLElement>(
+  count: number,
+  deps: React.DependencyList = []
+) {
+  const elsRef = useRef<(T | null)[]>(Array(count).fill(null));
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  const refs = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => (node: T | null) => {
+        elsRef.current[i] = node;
+      }),
+    [count]
+  );
+
+  useLayoutEffect(() => {
+    const fit = () => {
+      const els = elsRef.current.filter((el): el is T => !!el);
+      if (!els.length) return;
+
+      if (!canvasRef.current) canvasRef.current = document.createElement('canvas');
+      const ctx = canvasRef.current.getContext('2d');
+      if (!ctx) return;
+
+      // Reset to the CSS clamp()'s true value before measuring.
+      els.forEach((el) => {
+        el.style.fontSize = '';
+      });
+
+      const infos = els.map((el) => {
+        const parent = el.parentElement;
+        const cs = getComputedStyle(el);
+        const baseFontSize = parseFloat(cs.fontSize);
+        const available = parent?.clientWidth ?? 0;
+        const text = (el.textContent ?? '').trim();
+        ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${baseFontSize}px ${cs.fontFamily}`;
+        const letterSpacing = parseFloat(cs.letterSpacing) || 0;
+        const naturalWidth = text
+          ? ctx.measureText(text).width + letterSpacing * Math.max(0, text.length - 1)
+          : 0;
+        return { el, baseFontSize, available, naturalWidth };
+      });
+
+      let minRatio = 1;
+      infos.forEach(({ baseFontSize, available, naturalWidth }) => {
+        if (!available || !baseFontSize || naturalWidth <= 0) return;
+        minRatio = Math.min(minRatio, (available / naturalWidth) * 0.985);
+      });
+
+      if (minRatio < 1) {
+        infos.forEach(({ el, baseFontSize }) => {
+          el.style.fontSize = `${baseFontSize * minRatio}px`;
+        });
+      }
+    };
+
+    fit();
+
+    const ro = new ResizeObserver(fit);
+    elsRef.current.forEach((el) => {
+      if (el?.parentElement) ro.observe(el.parentElement);
+    });
+    window.addEventListener('resize', fit);
+    document.fonts?.ready?.then(fit).catch(() => {});
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', fit);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+
+  return refs;
 }
