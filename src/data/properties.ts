@@ -108,7 +108,7 @@ const baseProperties: Property[] = [
     type: 'Penthouse',
     title: 'Exclusive penthouse with skyline views and a private roof terrace',
     summary: 'A living dream above the rooftops of the city. High-end finishes and a spectacular outlook.',
-    status: 'Sold',
+    status: 'Reserved',
     transactionType: 'Buy',
     price: '€1,250,000',
     location: 'FRANKFURT / WESTEND',
