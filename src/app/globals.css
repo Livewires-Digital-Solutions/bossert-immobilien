@@ -4095,6 +4095,94 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
 
 
+/* --- Discreet Network Section (off-market split, bronze rules) --- */
+.discreet-network-section {
+  width: 100%;
+  background-color: var(--cream);
+  border-top: 1px solid rgba(175, 140, 83, 0.35);
+  border-bottom: 1px solid rgba(175, 140, 83, 0.35);
+}
+
+.discreet-network-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.5rem) var(--gutter);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+.discreet-network-image-col {
+  position: relative;
+  min-height: clamp(20rem, 30vw, 27rem);
+  overflow: hidden;
+}
+
+.discreet-network-text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.discreet-network-tag {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--bronze);
+  margin: 0 0 1rem;
+}
+
+.discreet-network-headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.4vw, 3.15rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  margin: 0 0 1.5rem;
+  max-width: 14ch;
+}
+
+.discreet-network-desc {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(4, 36, 51, 0.68);
+  max-width: 32rem;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .discreet-network-container {
+    grid-template-columns: 1fr;
+    padding: 3rem var(--gutter);
+    gap: 2.25rem;
+  }
+
+  .discreet-network-image-col {
+    min-height: 20rem;
+  }
+
+  .discreet-network-headline {
+    font-size: 2rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .discreet-network-container {
+    padding: 2.5rem var(--gutter);
+  }
+
+  .discreet-network-image-col {
+    min-height: 16rem;
+  }
+}
+
+
+
 
 
 
@@ -4947,8 +5035,8 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
     display: none;
   }
   .mobile-only-hamburger {
-    grid-column: 1;
-    justify-self: start;
+    grid-column: 3;
+    justify-self: end;
   }
   .mobile-only-logo {
     grid-column: 2;
@@ -4956,8 +5044,8 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   }
   .mobile-nav-right {
     display: flex;
-    grid-column: 3;
-    justify-self: end;
+    grid-column: 1;
+    justify-self: start;
   }
   .hamburger-btn {
     display: flex;

@@ -190,6 +190,11 @@ export const de = {
     desc: 'Wir bieten Ihnen klare Markteinblicke und verlässliche Unterstützung in jedem Schritt.',
     btn: 'Beratung anfragen'
   },
+  discreetNetwork: {
+    tag: 'Diskreter Netzwerkverkauf',
+    headline: 'Nicht jede Immobilie wird öffentlich angeboten.',
+    desc: 'Ausgewählte Angebote werden diskret vermarktet, um die Privatsphäre unserer Kunden zu schützen, und ausschließlich verifizierten, qualifizierten Käufern zugänglich gemacht. Auf Wunsch kuratieren wir maßgeschneiderte Empfehlungen aus unserem privaten Netzwerk.'
+  },
   cta: {
     headline: 'Kontakt',
     headlineSerif: 'mit Bossert.',

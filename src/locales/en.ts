@@ -190,6 +190,11 @@ export const en = {
     desc: 'We deliver clear market insights and reliable support at every step.',
     btn: 'Request Your Consultation'
   },
+  discreetNetwork: {
+    tag: 'Discreet Network Sales',
+    headline: 'Not every property is made public.',
+    desc: 'Selected listings are placed off-market to protect the privacy of our clients and are shared only with verified, qualified buyers. On request, we curate bespoke recommendations from our private network.'
+  },
   cta: {
     headline: 'Connect',
     headlineSerif: 'with Bossert.',

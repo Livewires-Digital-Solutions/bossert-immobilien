@@ -344,7 +344,7 @@ export default function ForOwnersPage() {
           <h2 className="explore-headline" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
             Are you looking to sell, let, or gain clarity on your property's value?
           </h2>
-          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)' }}>
+          <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)', marginLeft: 'auto', marginRight: 'auto' }}>
             We advise you personally and without obligation.
           </p>
           <button
