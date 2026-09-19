@@ -44,7 +44,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
   };
 
   return (
-    <section className="global-padding" ref={ref} style={{ backgroundColor: 'var(--navy)', color: 'var(--white)', paddingTop: '10rem', paddingBottom: '10rem', position: 'relative', overflow: 'hidden' }}>
+    <section className="global-padding" ref={ref} style={{ backgroundColor: 'var(--navy)', color: 'var(--white)', paddingTop: 'clamp(5rem, 10vw, 10rem)', paddingBottom: 'clamp(5rem, 10vw, 10rem)', position: 'relative', overflow: 'hidden' }}>
       
       <style>{`
         @keyframes floatIcon {
@@ -145,7 +145,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
         <div 
           className="benefit-grid-container"
           onMouseMove={handleMouseMove}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '2rem' }}
         >
           {data.list.map((benefit, idx) => (
             <div 

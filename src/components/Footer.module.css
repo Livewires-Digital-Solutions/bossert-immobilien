@@ -236,12 +236,41 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .imageBand {
-    height: 200px;
+    height: 180px;
   }
   .navRow {
     gap: 1rem 1.5rem;
+    padding: 2.5rem 1rem 1rem 1rem;
   }
   .navLink {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+  .wordmarkBlock {
+    padding: 2.5rem 1rem;
+  }
+  .bottomTextRow {
+    padding: 0.6rem 1rem 0 1rem;
+  }
+  .cookieRow {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageBand {
+    height: 140px;
+  }
+  .wordmarkLine {
+    font-size: 0.95rem;
+  }
+  .navRow {
+    gap: 0.75rem 1.25rem;
+  }
+  .navLink {
+    font-size: 0.8rem;
+  }
+  .topSection {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
   }
 }
