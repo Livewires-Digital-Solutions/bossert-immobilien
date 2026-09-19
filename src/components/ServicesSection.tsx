@@ -73,7 +73,7 @@ export default function ServicesSection() {
 
       <div className="services-right accordion-container">
         {cards.map((card, idx) => (
-          <AccordionCard key={idx} {...card} />
+          <AccordionCard key={idx} {...card} delay={idx * 100} />
         ))}
       </div>
     </section>

@@ -2270,6 +2270,18 @@ body {
   flex: 1.8;
 }
 
+/* Scroll-reveal entrance for each card (see AccordionCard.tsx). Higher
+   specificity than the plain .accordion-card rule (desktop) and its mobile
+   height-transition override below, so opacity/transform join rather than
+   replace the existing flex/height hover transitions. */
+.accordion-card.reveal-base {
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    flex 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
 .accordion-bg {
   position: absolute;
   top: 0;
@@ -5149,7 +5161,9 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
   /* Hero */
   .hero-content {
-    padding: 5.5rem 1.25rem 1.5rem 1.25rem;
+    /* Clears the fixed mobile logo (≈108px tall incl. navbar padding) with
+       room to spare, so the accent line below doesn't start under/behind it. */
+    padding: 8rem 1.25rem 1.5rem 1.25rem;
   }
   .hero-top-group {
     padding-left: 1.5rem;
