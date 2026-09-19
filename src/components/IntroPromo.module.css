@@ -168,6 +168,16 @@
   }
 }
 
+/* ── Large-screen scaling (27"+ / ≥1920px) — see the matching block at the
+   end of globals.css. The clamp() above plateaus at 3rem by ~1875px
+   viewport width, so it stays frozen on large monitors; this picks up
+   from that same value and keeps it growing, modestly and capped. ── */
+@media (min-width: 1920px) {
+  .headline {
+    font-size: clamp(3rem, calc(3rem + (100vw - 1920px) * 0.015), 3.85rem);
+  }
+}
+
 /* ── Mobile responsiveness ── */
 @media (max-width: 768px) {
   .promoSection {

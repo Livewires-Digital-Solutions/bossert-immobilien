@@ -7031,3 +7031,107 @@ html[data-theme='dark'] .pc-badge-heart {
   font-size: clamp(2.5rem, 4vw, 4.5rem) !important;
 }
 
+/* ════════════════════════════════════════════════════════════════════
+   Large-screen scaling — 27"+ / ultra-wide monitors (≥1920px viewport)
+   Every clamp() above this point hits its own upper bound by ~1600-1920px
+   viewport width and then stays pinned at that fixed px size forever, so
+   on a 2560px+ monitor the hero and section headlines render at the same
+   physical size as on a 1440px laptop screen while the canvas around them
+   keeps growing — that reads as "zoomed out". Each rule below starts from
+   that same pinned value (so there's no jump at the breakpoint) and keeps
+   scaling, modestly and capped, as the viewport keeps growing — so large
+   monitors get a proportionally fuller composition instead of a frozen
+   one. Below 1920px, nothing here applies and the site is unchanged.
+   ════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1920px) {
+  :root {
+    --gutter: clamp(4rem, calc(4rem + (100vw - 1920px) * 0.02), 5.25rem);
+    --container-max: clamp(1600px, calc(1600px + (100vw - 1920px) * 0.469), 2000px);
+    --hsc2-w: clamp(300px, calc(300px + (100vw - 1920px) * 0.078), 370px);
+    --hsc2-h: clamp(470px, calc(470px + (100vw - 1920px) * 0.125), 580px);
+    --hsc2-spread: clamp(96px, calc(96px + (100vw - 1920px) * 0.025), 120px);
+  }
+
+  /* Hero */
+  .main-grid.has-carousel .hero-headline-top,
+  .main-grid.has-carousel .hero-headline-mid,
+  .main-grid.has-carousel .hero-headline-bot {
+    font-size: clamp(4.8rem, calc(4.8rem + (100vw - 1920px) * 0.03), 6.5rem);
+  }
+  .hero-headline-de .hero-headline-top,
+  .hero-headline-de .hero-headline-mid,
+  .hero-headline-de .hero-headline-bot {
+    font-size: clamp(4.5rem, calc(4.5rem + (100vw - 1920px) * 0.025), 5.75rem) !important;
+  }
+
+  /* Editorial hero — shared by Properties, Services, References, Knowledge,
+     Contact and About/Owners page headers */
+  .editorial-headline {
+    font-size: clamp(5rem, calc(5rem + (100vw - 1920px) * 0.03), 6.5rem);
+  }
+  .editorial-headline .italic-serif {
+    font-size: clamp(6rem, calc(6rem + (100vw - 1920px) * 0.035), 7.75rem);
+  }
+
+  /* Intro Promo */
+  .intro-promo-headline {
+    font-size: clamp(4rem, calc(4rem + (100vw - 1920px) * 0.0225), 5.25rem);
+  }
+
+  /* Services (home) */
+  .headline-mid-s {
+    font-size: clamp(6rem, calc(6rem + (100vw - 1920px) * 0.025), 7.25rem);
+  }
+
+  /* Explore */
+  .explore-headline {
+    font-size: clamp(3.5rem, calc(3.5rem + (100vw - 1920px) * 0.02), 4.6rem);
+  }
+  .explore-headline .italic-serif {
+    font-size: clamp(5.5rem, calc(5.5rem + (100vw - 1920px) * 0.03), 7rem);
+  }
+  .search-title {
+    font-size: clamp(4.2rem, calc(4.2rem + (100vw - 1920px) * 0.0225), 5.4rem);
+  }
+
+  /* Why */
+  .why-headline {
+    font-size: clamp(4rem, calc(4rem + (100vw - 1920px) * 0.0225), 5.25rem);
+  }
+  .why-headline .italic-serif {
+    font-size: clamp(7rem, calc(7rem + (100vw - 1920px) * 0.0375), 9rem);
+  }
+  .why-feature-title {
+    font-size: clamp(2.5rem, calc(2.5rem + (100vw - 1920px) * 0.0125), 3.2rem);
+  }
+
+  /* Testimonial */
+  .testimonial-section .test-headline {
+    font-size: clamp(2.6rem, calc(2.6rem + (100vw - 1920px) * 0.015), 3.4rem);
+  }
+
+  /* Action prompt + CTA */
+  .action-prompt-headline {
+    font-size: clamp(2.75rem, calc(2.75rem + (100vw - 1920px) * 0.01625), 3.6rem);
+  }
+  .cta-headline {
+    font-size: clamp(2.8rem, calc(2.8rem + (100vw - 1920px) * 0.015), 3.6rem);
+  }
+  .cta-headline .italic-serif {
+    font-size: clamp(3.6rem, calc(3.6rem + (100vw - 1920px) * 0.02), 4.7rem);
+  }
+
+  /* Footer newsletter */
+  .news-headline {
+    font-size: clamp(3.5rem, calc(3.5rem + (100vw - 1920px) * 0.02), 4.6rem);
+  }
+  .news-headline .italic-serif {
+    font-size: clamp(5.5rem, calc(5.5rem + (100vw - 1920px) * 0.03), 7rem);
+  }
+
+  /* Discreet network (About/Owners) */
+  .discreet-network-headline {
+    font-size: clamp(3.15rem, calc(3.15rem + (100vw - 1920px) * 0.0175), 4.1rem);
+  }
+}
+
