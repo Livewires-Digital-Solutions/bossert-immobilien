@@ -23,7 +23,7 @@ function HighlightLastWord({ text }: { text: string }) {
 
 export default function HeroSection() {
   const { ref: heroRef, isVisible: scrollVisible } = useScrollReveal(0.1);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [gateReady, setGateReady] = useState(false);
   const [bgZoom, setBgZoom] = useState(false);
 
@@ -71,7 +71,7 @@ export default function HeroSection() {
               <div className={`since-text reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
                 {t.hero.since}
               </div>
-              <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+              <h1 className={`hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''} ${lang === 'de' ? 'hero-headline-de' : ''}`}>
                 <span ref={topFitRef} className="hero-headline-top">{t.hero.headlineTop}</span>
                 <span ref={midFitRef} className="hero-headline-mid"><HighlightLastWord text={t.hero.headlineMid} /></span>
                 <span ref={botFitRef} className="hero-headline-bot">

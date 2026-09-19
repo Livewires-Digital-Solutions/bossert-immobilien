@@ -27,11 +27,48 @@
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@media (min-width: 640px) {
+  .modalContainer {
+    max-width: 920px;
+    flex-direction: row;
+  }
+}
+
+.imagePanel {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .imagePanel {
+    width: 38%;
+    height: auto;
+  }
+}
+
+.imagePanelImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.contentPanel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
 .closeButton {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  background: none;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
   border: none;
   cursor: pointer;
   z-index: 10;
@@ -45,7 +82,7 @@
 }
 
 .closeButton:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .modalHeader {

@@ -55,7 +55,7 @@ export default function ExploreSection() {
     if (activeFilter === 'waterfront') return prop.type.toLowerCase().includes('waterfront') || prop.type.toLowerCase().includes('see');
     if (activeFilter === 'offMarket')  return prop.type.toLowerCase().includes('mansion') || prop.type.toLowerCase().includes('estate') || prop.type.toLowerCase().includes('mehrfamilien');
     return true;
-  }).slice(0, 4);
+  }).slice(0, 3);
 
   return (
     <section className="explore-section" ref={sectionRef}>

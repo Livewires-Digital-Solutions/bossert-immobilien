@@ -38,7 +38,7 @@ export default function ActionPromptSection() {
 
       <div className={`action-prompt-image-col reveal-base reveal-scale delay-100 ${isVisible ? 'is-revealed' : ''}`}>
         <Image
-          src="/images/prop_apartment_new.jpg"
+          src="/request consulation .jpeg"
           alt={data.headline}
           fill
           sizes="(max-width: 900px) 100vw, 58vw"

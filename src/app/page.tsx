@@ -9,11 +9,13 @@ import ActionPromptSection from '@/components/ActionPromptSection';
 import CtaSection from '@/components/CtaSection';
 import Footer from '@/components/Footer';
 import IntroSequence from '@/components/IntroSequence';
+import MobileSectionSnap from '@/components/MobileSectionSnap';
 
 export default function Home() {
   return (
     <main className="home-page">
       <IntroSequence />
+      <MobileSectionSnap />
       <HeroSection />
       {/* <StatsSection /> */}
       <IntroPromo />

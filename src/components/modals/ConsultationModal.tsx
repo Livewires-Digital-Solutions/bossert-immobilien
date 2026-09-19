@@ -97,6 +97,16 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
           </svg>
         </button>
 
+        <div className={styles.imagePanel} aria-hidden="true">
+          <img
+            src="/request%20consulation%20.jpeg"
+            alt=""
+            className={styles.imagePanelImg}
+          />
+        </div>
+
+        <div className={styles.contentPanel}>
+
         {/* TOP CONTACT SELECTOR (Popup 5) */}
         {route === 'top_contact' && (
           <>
@@ -474,6 +484,7 @@ export default function ConsultationModal({ isOpen, onClose, initialRoute = 'top
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
