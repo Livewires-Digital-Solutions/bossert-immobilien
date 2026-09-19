@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { usePinnedScrollProgress, stage, easeOutBack } from '../hooks/useScrollProgress';
@@ -66,16 +66,6 @@ export default function IntroPromo() {
   // per-element reveals below rather than replacing them.
   const contentScale = 0.97 + 0.03 * easeOutBack(contentStage);
 
-  // The final content "pop" is a one-shot flourish, so it's gated by
-  // hysteresis (on past one threshold, off past a lower one) instead of
-  // re-triggering on every pixel of scroll jitter near the boundary.
-  const [popped, setPopped] = useState(false);
-
-  useEffect(() => {
-    if (!popped && contentStage > 0.95) setPopped(true);
-    else if (popped && contentStage < 0.8) setPopped(false);
-  }, [contentStage, popped]);
-
   const words = t.introPromo.headline.split(' ');
   const wordStep = 0.09;
   const wordDur = 0.45;
@@ -92,28 +82,23 @@ export default function IntroPromo() {
             Same technique as the navy logo (see globals.css .logo-img-navy):
             the source art is a white silhouette on transparent, so we use it
             as a mask over a solid navy fill instead of shipping a second,
-            recolored asset. Rendered as two full-size copies, each clipped
-            to one half and slid in from its own edge, so they reconstitute
-            the same image once both land at translateX(0). */}
+            recolored asset. Revealed with a top-down clip-path wipe (bottom
+            inset shrinks from 100% to 0) so it appears to scroll into view
+            from the top rather than sliding in from the sides. */}
         <div className={styles.illustrationStage} ref={illustrationRef} aria-hidden="true">
           <div
-            className={`${styles.illustrationHalf} ${styles.illustrationHalfLeft}`}
+            className={styles.illustrationImage}
             style={{
               opacity: Math.min(1, pictureStage * 1.6),
-              transform: `translateX(${(1 - pictureEase) * -55}%)`,
-            }}
-          />
-          <div
-            className={`${styles.illustrationHalf} ${styles.illustrationHalfRight}`}
-            style={{
-              opacity: Math.min(1, pictureStage * 1.6),
-              transform: `translateX(${(1 - pictureEase) * 55}%)`,
+              clipPath: `inset(0 0 ${(1 - pictureEase) * 100}% 0)`,
+              WebkitClipPath: `inset(0 0 ${(1 - pictureEase) * 100}% 0)`,
+              transform: `translateY(${(1 - pictureEase) * -30}px)`,
             }}
           />
         </div>
 
         <div
-          className={`${styles.content} ${popped ? styles.popped : ''}`}
+          className={styles.content}
           style={{ transform: `scale(${contentScale})` }}
         >
           <p

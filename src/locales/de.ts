@@ -173,6 +173,12 @@ export const de = {
       }
     ]
   },
+  actionPrompt: {
+    brand: 'Bossert\nImmobilien',
+    headline: 'Ist jetzt der richtige Zeitpunkt, für Ihre Immobilie zu handeln?',
+    desc: 'Wir bieten Ihnen klare Markteinblicke und verlässliche Unterstützung in jedem Schritt.',
+    btn: 'Beratung anfragen'
+  },
   cta: {
     headline: 'Kontakt',
     headlineSerif: 'mit Bossert.',

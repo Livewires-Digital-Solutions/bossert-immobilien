@@ -68,9 +68,10 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
             }}>
               {data.tag}
             </p>
-            <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
-              color: 'var(--navy)', 
+            <h2 style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              color: 'var(--navy)',
               lineHeight: 1.1,
               letterSpacing: '-1.5px',
               fontWeight: 400

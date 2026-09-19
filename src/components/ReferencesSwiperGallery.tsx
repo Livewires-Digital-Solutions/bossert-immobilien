@@ -161,8 +161,9 @@ export default function ReferencesSwiperGallery({ data }: Props) {
                     }}>
                       {item.type}
                     </p>
-                    <h3 style={{ 
-                      fontSize: '1.75rem', 
+                    <h3 style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '1.75rem',
                       fontWeight: 400,
                       lineHeight: 1.1,
                       letterSpacing: '-0.5px',

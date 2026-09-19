@@ -92,6 +92,7 @@ export default function ReferenceDetailClient({ id }: { id: string }) {
                 {data.location}
               </p>
               <h1 style={{
+                fontFamily: 'var(--font-serif)',
                 fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
                 color: 'var(--navy)',
                 lineHeight: 1.1,

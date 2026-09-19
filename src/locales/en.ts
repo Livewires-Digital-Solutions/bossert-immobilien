@@ -173,6 +173,12 @@ export const en = {
       }
     ]
   },
+  actionPrompt: {
+    brand: 'Bossert\nImmobilien',
+    headline: 'Is this the right time to act for your property?',
+    desc: 'We deliver clear market insights and reliable support at every step.',
+    btn: 'Request Your Consultation'
+  },
   cta: {
     headline: 'Connect',
     headlineSerif: 'with Bossert.',
@@ -197,7 +203,7 @@ export const en = {
     privacy: 'Privacy Policy',
     imprint: 'imprint',
     brandLine1: 'Bossert',
-    brandLine2: 'Real Estate',
+    brandLine2: 'Immobilien',
     linkProperties: 'Real estate offers',
     linkServices: 'Services',
     linkCancelContract: 'Cancel contract',

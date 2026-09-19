@@ -41,26 +41,17 @@
   will-change: transform;
 }
 
-/* Two full-size copies of the same mask, each clipped to one half of the
-   frame. Because both share identical sizing/position ("cover", centered
-   bottom), their masked pixels line up exactly — clip-path just hides the
-   other half, so sliding both to translateX(0) reconstitutes one seamless
-   image. */
-.illustrationHalf {
+/* Single mask image, revealed top-to-bottom via an animated clip-path
+   inset (see IntroPromo.tsx: bottom inset runs from 100% down to 0%),
+   so it reads as the artwork scrolling/unveiling downward rather than
+   sliding in from the sides. */
+.illustrationImage {
   position: absolute;
   inset: 0;
   background-color: var(--navy);
   -webkit-mask: url('/aboutbg.png') center bottom / cover no-repeat;
   mask: url('/aboutbg.png') center bottom / cover no-repeat;
-  will-change: transform, opacity;
-}
-
-.illustrationHalfLeft {
-  clip-path: inset(0 50% 0 0);
-}
-
-.illustrationHalfRight {
-  clip-path: inset(0 0 0 50%);
+  will-change: clip-path, transform, opacity;
 }
 
 .content {
@@ -72,20 +63,6 @@
   text-align: center;
   gap: 1.25rem;
   max-width: 720px;
-}
-
-/* Final flourish once scroll progress completes the reveal: a quick
-   overshoot "pop" on the whole centered content block. Hysteresis in
-   IntroPromo.tsx (on above 0.95, off below 0.8) keeps small scroll jitter
-   near the threshold from re-triggering it. */
-.content.popped {
-  animation: contentPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes contentPop {
-  0% { transform: scale(1); }
-  45% { transform: scale(1.035); }
-  100% { transform: scale(1); }
 }
 
 .tag {
@@ -188,9 +165,6 @@
   .illustrationStage {
     transition: none;
     transform: none !important;
-  }
-  .content.popped {
-    animation: none;
   }
 }
 

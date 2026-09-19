@@ -61,7 +61,7 @@ export default function CtaSection({ variant = 'default', invert = false }: CtaS
   };
 
   return (
-    <section className={`cta-section ${invert ? 'cta-inverted' : ''}`} ref={sectionRef}>
+    <section id="contact" className={`cta-section ${invert ? 'cta-inverted' : ''}`} ref={sectionRef}>
       {/* Inner framed card */}
       <div className="cta-inner-card">
 
