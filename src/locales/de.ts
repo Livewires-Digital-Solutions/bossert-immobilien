@@ -142,9 +142,20 @@ export const de = {
     desc1: 'Wir jagen keinem Volumen nach; wir kuratieren Bedeutung. Unsere private Vertretung stellt sicher, dass Ihre Immobilienziele mit kompromissloser Diskretion und unübertroffenem architektonischen Scharfsinn erreicht werden.',
     desc2: 'Warum Bossert die einzige Wahl ist.',
     btn: 'UNSERE GESCHICHTE LESEN',
-    stat1: 'Gesamtwert der kuratierten Vermögenswerte, die derzeit unter unserer exklusiven privaten Verwaltung stehen. Wir jagen keinem Volumen nach; wir kuratieren Bedeutung.',
-    stat2: 'Off-Market-Ausfallquote. Unser Prüfungsprozess ist unerbittlich. Wenn wir das Mandat zur Vertretung Ihrer Immobilie annehmen, platzieren wir sie.',
-    stat3: 'Globale Ultra-High-Net-Worth Family Offices in unserem direkten Netzwerk. Wir umgehen den öffentlichen Markt komplett, wenn Diskretion es erfordert.'
+    features: [
+      {
+        title: 'Umfassende Expertise',
+        desc: '30 Jahre Immobilien-Erfahrung — wir bieten fachkundige Beratung und professionelle Umsetzung auf Deutsch und Englisch.'
+      },
+      {
+        title: 'Maßgeschneiderte Lösungen',
+        desc: 'Personalisierte Strategien, die exakt auf Ihre Immobilie und Ihre individuellen Ziele abgestimmt sind.'
+      },
+      {
+        title: 'Transparente Kommunikation',
+        desc: 'Klare Prozesse, ehrliche Beratung und volle Transparenz in jeder Phase.'
+      }
+    ]
   },
   testimonials: {
     title: 'Was unsere Kunden sagen',

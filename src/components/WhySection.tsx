@@ -30,30 +30,43 @@ export default function WhySection() {
           </div>
         </div>
 
-        {/* Right Column: Numbers & Philosophy */}
+        {/* Right Column: Features */}
         <div className="why-right-col">
-          
-          <div className="why-stat-block">
-            <div className={`why-stat-number reveal-base reveal-scale delay-100 ${isVisible ? 'is-revealed' : ''}`}>€1.2B</div>
-            <div className={`why-stat-text reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
-              {t.why.stat1}
-            </div>
-          </div>
-          
-          <div className="why-stat-block">
-            <div className={`why-stat-number reveal-base reveal-scale delay-200 ${isVisible ? 'is-revealed' : ''}`}>0%</div>
-            <div className={`why-stat-text reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}>
-              {t.why.stat2}
-            </div>
-          </div>
-          
-          <div className="why-stat-block">
-            <div className={`why-stat-number reveal-base reveal-scale delay-300 ${isVisible ? 'is-revealed' : ''}`}>14</div>
-            <div className={`why-stat-text reveal-base reveal-up delay-400 ${isVisible ? 'is-revealed' : ''}`}>
-              {t.why.stat3}
-            </div>
-          </div>
-
+          {t.why.features.map((feature: any, index: number) => {
+            const delay = 100 + index * 100;
+            return (
+              <div className="why-feature-block" key={index}>
+                <div className={`why-feature-header reveal-base reveal-scale delay-${delay} ${isVisible ? 'is-revealed' : ''}`}>
+                  {index === 0 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="why-feature-icon">
+                      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"/>
+                      <path d="M9 18h6"/>
+                      <path d="M10 22h4"/>
+                    </svg>
+                  )}
+                  {index === 1 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="why-feature-icon">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="6"/>
+                      <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                  )}
+                  {index === 2 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className="why-feature-icon">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <path d="M10.5 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                      <line x1="12.5" y1="14.5" x2="15" y2="17"/>
+                    </svg>
+                  )}
+                  <h3 className="why-feature-title">{feature.title}</h3>
+                </div>
+                <div className={`why-feature-desc reveal-base reveal-up delay-${delay + 100} ${isVisible ? 'is-revealed' : ''}`}>
+                  {feature.desc}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>

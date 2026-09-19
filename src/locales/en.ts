@@ -142,9 +142,20 @@ export const en = {
     desc1: 'We do not chase volume; we curate significance. Our private representation ensures your real estate goals are met with uncompromising discretion and unmatched architectural acumen.',
     desc2: 'Why Bossert is the singular choice.',
     btn: 'READ OUR STORY',
-    stat1: 'Total value of curated assets currently under our exclusive private management. We do not chase volume; we curate significance.',
-    stat2: 'Off-market fail rate. Our vetting process is ruthless. If we accept the mandate to represent your property, we place it.',
-    stat3: 'Global ultra-high-net-worth family offices within our direct dial network. We bypass the public market entirely when discretion demands it.'
+    features: [
+      {
+        title: 'Comprehensive Expertise',
+        desc: '30 years of real estate experience — delivering expert guidance and professional execution in both German and English.'
+      },
+      {
+        title: 'Tailored Solutions',
+        desc: 'Personalized strategies precisely aligned with your property and your individual goals.'
+      },
+      {
+        title: 'Transparent Communication',
+        desc: 'Clear processes, honest advice, and full transparency at every stage.'
+      }
+    ]
   },
   testimonials: {
     title: 'What Clients Say About Us',

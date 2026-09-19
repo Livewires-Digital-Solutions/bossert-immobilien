@@ -2592,6 +2592,20 @@ body {
   z-index: 4;
 }
 
+@media (max-width: 768px) {
+  .search-tabs-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .search-tabs-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .search-tabs-container {
+    width: max-content;
+  }
+}
+
 /* Main Search Bar Strip */
 .search-bar {
   width: 100%;
@@ -3708,7 +3722,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   flex-direction: column;
 }
 
-.why-stat-block {
+.why-feature-block {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -3716,20 +3730,31 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   border-bottom: 1px solid rgba(4, 36, 51, 0.15);
 }
 
-.why-stat-block:first-child {
+.why-feature-block:first-child {
   padding-top: 0;
 }
 
-.why-stat-number {
-  font-family: var(--font-serif);
-  font-size: clamp(4rem, 8vw, 8rem);
-  font-weight: 400;
-  color: var(--navy);
-  line-height: 1;
-  letter-spacing: -3px;
+.why-feature-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
 }
 
-.why-stat-text {
+.why-feature-icon {
+  color: var(--bronze);
+}
+
+.why-feature-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.why-feature-desc {
   font-family: var(--font-inter), sans-serif;
   font-size: 1.25rem;
   font-weight: 300;
@@ -3737,6 +3762,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   opacity: 0.8;
   line-height: 1.6;
   max-width: 500px;
+  margin: 0;
 }
 
 /* --- Testimonial Section (H-07: centered V2 design) --- */
@@ -4019,11 +4045,12 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   .action-prompt-section {
     flex-direction: column;
     min-height: 0;
+    padding-left: 0;
   }
 
   .action-prompt-text-col {
     flex: none;
-    padding: 3.5rem var(--gutter) 3.5rem 0;
+    padding: 3.5rem var(--gutter);
   }
 
   .action-prompt-card {
@@ -4044,7 +4071,7 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 
 @media (max-width: 480px) {
   .action-prompt-text-col {
-    padding: 2.5rem var(--gutter) 2.5rem 0;
+    padding: 2.5rem var(--gutter);
   }
 
   .action-prompt-card {
