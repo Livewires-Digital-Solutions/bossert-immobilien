@@ -1940,6 +1940,7 @@ body {
   color: #E8CB93;
   letter-spacing: 3px;
   text-transform: uppercase;
+  margin-top: 0;
   margin-bottom: 1.5rem;
   font-weight: 500;
 }
@@ -4708,6 +4709,10 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
    MOBILE NAV â€” Hamburger & Drawer
    ============================================= */
 
+.mobile-only-hamburger {
+  display: none;
+}
+
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -4932,12 +4937,27 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
    TABLET & SMALL LAPTOP â€” max-width: 1250px
    ============================================= */
 @media (max-width: 1250px) {
-  /* Navbar */
+  /* Navbar: hamburger (left) / logo (true center) / lang toggle (right) */
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
   .desktop-nav {
     display: none;
   }
+  .mobile-only-hamburger {
+    grid-column: 1;
+    justify-self: start;
+  }
+  .mobile-only-logo {
+    grid-column: 2;
+    justify-self: center;
+  }
   .mobile-nav-right {
     display: flex;
+    grid-column: 3;
+    justify-self: end;
   }
   .hamburger-btn {
     display: flex;
@@ -5153,10 +5173,13 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   }
   
   .navbar {
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem 1rem;
   }
   .navbar.fixed {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
+  }
+  .mobile-only-logo .logo-img {
+    width: 85px;
   }
 
   /* Hero */
@@ -6690,7 +6713,14 @@ footer[class*="footer"],
 }
 
 .pc-overlays {
-  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  pointer-events: none;
 }
 
 /* Top Badges */

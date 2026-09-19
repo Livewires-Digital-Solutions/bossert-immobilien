@@ -93,6 +93,17 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
   return (
     <>
       <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass}`}>
+        {/* Mobile Hamburger (hidden on desktop) */}
+        <button
+          className={`hamburger-btn mobile-only-hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         {/* Mobile Logo (hidden on desktop) */}
         <Link href="/" className="logo mobile-only-logo">
           {navyLogo ? (
@@ -178,7 +189,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
         </div>
 
-        {/* Mobile Right Side: Lang Toggle + Hamburger */}
+        {/* Mobile Right Side: Lang Toggle */}
         <div className="mobile-nav-right">
           <div className="lang-toggle mobile-lang-inline">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mobile-lang-icon">
@@ -196,16 +207,6 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
               onClick={() => setLang('de')}
             >DE</span>
           </div>
-
-          <button
-            className={`hamburger-btn ${menuOpen ? 'open' : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
         </div>
       </nav>
 
