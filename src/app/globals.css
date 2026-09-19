@@ -2059,6 +2059,12 @@ body {
   gap: 0.6rem;
 }
 
+@media (max-width: 768px) {
+  .scroll-center {
+    display: none;
+  }
+}
+
 .scroll-label {
   font-size: 0.58rem;
   letter-spacing: 0.2em;
