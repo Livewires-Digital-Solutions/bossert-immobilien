@@ -1813,8 +1813,12 @@ body {
   .main-grid.has-carousel .left-content { max-width: 100%; margin-left: 0; }
   .hero-right { width: 100%; justify-content: center; }
   /* The carousel is centered as its own row here, so drop the desktop-only
-     leftward shift — keep it, just re-centered. */
-  .hsc2-wrapper { transform: translateY(42px) scale(1.14); }
+     leftward shift. A transform never reserves layout space, so the old
+     translateY(42px) scale(1.14) painted past the wrapper's real box and
+     spilled into whatever section follows once the headline+carousel stack
+     no longer fits in the hero's 100vh — use real margin plus a modest
+     scale instead so the visual size stays close to the box it occupies. */
+  .hsc2-wrapper { transform: scale(1.05); margin-top: 2.5rem; }
 }
 @media (max-width: 560px) {
   :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-spread: 58px; }
@@ -1822,6 +1826,9 @@ body {
   .hsc2-nav-prev { left: -25px; }
   .hsc2-nav-next { right: -25px; }
   .hsc2-card { padding: 0.7rem 0.7rem 0; gap: 0.65rem; }
+  /* Smallest phones: drop the scale entirely so the card stack can't push
+     past the viewport width or overlap the section below. */
+  .hsc2-wrapper { transform: none; margin-top: 1.5rem; }
 }
 
 .experience-text {
@@ -4868,6 +4875,15 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
 @media (max-width: 1024px) {
 
   /* Hero */
+  /* main-grid stacks into a column below this breakpoint (headline copy
+     above the services carousel), which can be taller than one viewport.
+     The base .hero-section locks height to 100vh with overflow: hidden for
+     the full-bleed desktop look — let it grow with its content here instead
+     so the stacked carousel never gets clipped against the next section. */
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+  }
   .hero-content {
     padding: 8rem 2rem 2rem 2rem;
   }
@@ -5132,13 +5148,16 @@ html[data-theme='dark'] .explore-section .pc-badge-status {
   }
   .accordion-card {
     flex: none;
-    height: 160px;
+    /* Tall enough for badge + title + subtitle + link without clipping the
+       link against the card's own overflow: hidden edge (160px cut off
+       "EXPLORE PROPERTIES" mid-letter). */
+    height: 215px;
     width: 100%;
     transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
   .accordion-card:hover {
     flex: none;
-    height: 260px;
+    height: 300px;
   }
   .accordion-bg {
     width: 100%;

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useLanguage } from '../context/LanguageContext';
+import { useLenis } from '../context/LenisContext';
 
 interface NavbarProps {
   invertOnLoad?: boolean;
@@ -17,6 +18,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
   const { data: session } = useSession();
+  const lenis = useLenis();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const lastY = useRef(0);
@@ -56,20 +58,33 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
     };
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll + pause Lenis smooth-scroll when mobile menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      lenis?.stop();
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      lenis?.start();
     }
-    
+
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
+      lenis?.start();
     };
+  }, [menuOpen, lenis]);
+
+  // Close the mobile menu on Escape
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [menuOpen]);
 
   const invertClass = invertOnLoad && !isScrolled && !menuOpen ? 'navbar-invert' : '';
