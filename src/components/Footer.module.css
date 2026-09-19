@@ -7,6 +7,11 @@
   align-items: stretch;
   position: relative;
   z-index: 10;
+  /* Footer's own gutter (2rem) is kept as-is below 1600px so laptop widths
+     are pixel-identical; above 1600px it re-centers to the shared
+     1600px container while the navy background stays full-bleed. */
+  --footer-gutter: 2rem;
+  --footer-pad-x: max(var(--footer-gutter), calc((100% - var(--container-max)) / 2 + var(--footer-gutter)));
 }
 
 .footer::before {
@@ -57,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3.5rem 2rem 3.5rem 2rem;
+  padding: 3.5rem var(--footer-pad-x) 3.5rem var(--footer-pad-x);
   background-color: #042433 !important;
 }
 
@@ -103,7 +108,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem 3.5rem;
-  padding: 3.5rem 2rem 1.5rem 2rem;
+  padding: 3.5rem var(--footer-pad-x) 1.5rem var(--footer-pad-x);
   background-color: #042433 !important;
 }
 
@@ -128,7 +133,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  padding: 1.5rem 2rem 1.5rem 2rem;
+  padding: 1.5rem var(--footer-pad-x) 1.5rem var(--footer-pad-x);
   background-color: #042433 !important;
 }
 
@@ -156,7 +161,7 @@
   display: flex;
   align-items: flex-end;
   width: 100%;
-  padding-left: 2rem;
+  padding-left: var(--footer-pad-x);
 }
 
 .cookieBtn {
@@ -195,7 +200,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 2rem 0 2rem;
+  padding: 0.75rem var(--footer-pad-x) 0 var(--footer-pad-x);
   font-family: var(--font-inter), sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.02em;

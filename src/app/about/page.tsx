@@ -135,7 +135,7 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '6rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))', gap: '6rem' }}>
             {members.map((member, idx) => (
               <div key={idx} className={`reveal-base reveal-up delay-${((idx % 3) + 1) * 200} ${teamVisible ? 'is-revealed' : ''}`}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', borderRadius: '4px', overflow: 'hidden', marginBottom: '2rem' }}>

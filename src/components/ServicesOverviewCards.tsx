@@ -23,7 +23,7 @@ export default function ServicesOverviewCards({ data, images }: Props) {
   const containerRef = useRef<HTMLElement>(null);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="global-padding"
       style={{
@@ -35,7 +35,7 @@ export default function ServicesOverviewCards({ data, images }: Props) {
       }}
     >
       <div className="inner-page-container">
-        
+
         {/* Header */}
         <div style={{ marginBottom: '6rem', maxWidth: '600px' }}>
           <p className="services-subtitle">
@@ -56,28 +56,24 @@ export default function ServicesOverviewCards({ data, images }: Props) {
             return (
               <div
                 key={idx}
+                className="sopc-card"
                 style={{
-                  position: 'sticky',
                   top: `calc(15vh + ${idx * 40}px)`,
-                  height: '60vh',
-                  minHeight: '450px',
                   backgroundColor: 'var(--white)',
                   borderRadius: '24px',
                   boxShadow: '0 -20px 50px rgba(4,36,51,0.08)',
                   border: '1px solid rgba(4,36,51,0.05)',
                   overflow: 'hidden',
-                  display: 'flex',
-                  alignItems: 'stretch',
                   zIndex: idx + 1,
                   willChange: 'transform' // Smooth scrolling optimization
                 }}
               >
                 {/* Text Side (Left) */}
-                <div style={{ flex: '1 1 50%', padding: '5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 2, backgroundColor: 'var(--white)' }}>
-                  <div className="italic-serif" style={{ fontSize: '8rem', color: 'rgba(4,36,51,0.03)', lineHeight: 0.8, marginBottom: '1rem', marginLeft: '-0.5rem' }}>
+                <div className="sopc-text" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 2, backgroundColor: 'var(--white)' }}>
+                  <div className="italic-serif sopc-watermark" style={{ color: 'rgba(4,36,51,0.03)', lineHeight: 0.8, marginBottom: '1rem', marginLeft: '-0.5rem' }}>
                     0{idx + 1}
                   </div>
-                  <h3 className="explore-headline" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
+                  <h3 className="explore-headline sopc-title" style={{ marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
                     {pillar.title}
                   </h3>
                   <p className="why-subhead" style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'rgba(4,36,51,0.7)', maxWidth: '90%' }}>
@@ -86,11 +82,12 @@ export default function ServicesOverviewCards({ data, images }: Props) {
                 </div>
 
                 {/* Image Side (Right) */}
-                <div style={{ flex: '1 1 50%', position: 'relative' }}>
-                  <Image 
-                    src={images[idx % images.length]} 
+                <div className="sopc-image" style={{ position: 'relative' }}>
+                  <Image
+                    src={images[idx % images.length]}
                     alt={pillar.title}
                     fill
+                    sizes="(max-width: 1023px) 100vw, 50vw"
                     style={{ objectFit: 'cover' }}
                   />
                   {/* Subtle Gradient Overlay for blend effect */}
@@ -102,6 +99,56 @@ export default function ServicesOverviewCards({ data, images }: Props) {
         </div>
 
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .sopc-card {
+          position: sticky;
+          display: flex;
+          flex-direction: row;
+          align-items: stretch;
+          height: 60vh;
+          min-height: 450px;
+        }
+        .sopc-text {
+          flex: 1 1 50%;
+          padding: 5rem;
+        }
+        .sopc-watermark { font-size: 8rem; }
+        .sopc-title { font-size: 2.5rem; }
+        .sopc-image {
+          flex: 1 1 50%;
+        }
+        @media (max-width: 1023px) {
+          .sopc-card {
+            /* Stacked text+image content can exceed short mobile/tablet
+               viewports, which would clip the sticky-pinned card before
+               the user ever scrolls past it — disable the pin below
+               1024px so cards scroll normally instead. */
+            position: static;
+            flex-direction: column;
+            height: auto;
+            min-height: 0;
+          }
+          .sopc-text {
+            flex: none;
+            padding: 3rem 2rem;
+          }
+          .sopc-watermark { font-size: 5.5rem; }
+          .sopc-title { font-size: 2rem; }
+          .sopc-image {
+            flex: none;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+          }
+        }
+        @media (max-width: 480px) {
+          .sopc-text {
+            padding: 2.5rem 1.5rem;
+          }
+          .sopc-watermark { font-size: 4.5rem; }
+          .sopc-title { font-size: 1.75rem; }
+        }
+      `}} />
     </section>
   );
 }
