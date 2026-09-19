@@ -16,7 +16,7 @@ export default function DiscreetNetworkSection() {
 
         <div className={`discreet-network-image-col reveal-base reveal-scale ${isVisible ? 'is-revealed' : ''}`}>
           <Image
-            src="/images/luxury_estate_hero.jpg"
+            src="/images/prop_penthouse_1787771396787.jpg"
             alt={data.headline}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
