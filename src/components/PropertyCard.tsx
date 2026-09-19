@@ -73,10 +73,10 @@ export default function PropertyCard({
           <div className="pc-badges-left">
             {status && (
               <span className="pc-badge-status">
-                <span className="pc-dot"></span> {getStatusTrans(status)}
+                {getStatusTrans(status)}
               </span>
             )}
-            {transactionType && (
+            {transactionType && status !== 'Reserved' && status !== 'Sold' && (
               <span className="pc-badge-type">{getTypeTrans(transactionType)}</span>
             )}
           </div>
