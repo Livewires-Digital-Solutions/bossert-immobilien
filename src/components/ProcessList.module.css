@@ -57,7 +57,7 @@
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 0.125rem;
+  height: 2px;
   background: var(--bronze);
   transform: scaleX(0);
   transform-origin: left;
@@ -70,7 +70,7 @@
 
 .stepperPanel {
   position: relative;
-  min-height: 13.75rem;
+  min-height: 220px;
 }
 
 .stepperContent {
@@ -119,8 +119,8 @@
 }
 
 .stepperDot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -171,7 +171,7 @@
 
 .railCard {
   flex: 0 0 auto;
-  width: min(20rem, 78vw);
+  width: min(320px, 78vw);
   scroll-snap-align: center;
   border: 1px solid rgba(4, 36, 51, 0.12);
   padding: 2.25rem;
@@ -235,7 +235,7 @@
 .railProgressTrack {
   position: relative;
   flex: 1;
-  height: 0.125rem;
+  height: 2px;
   background: rgba(4, 36, 51, 0.12);
 }
 .railWrap[data-invert='true'] .railProgressTrack {
@@ -251,8 +251,8 @@
 
 .railNavBtn {
   flex: 0 0 auto;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -292,10 +292,10 @@
   height: auto;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1024px) {
   .hoverAccordionWrap {
     flex-direction: row;
-    height: 30rem;
+    height: 480px;
     gap: 1rem;
   }
 }
@@ -303,7 +303,7 @@
 .haCard {
   flex: 1;
   position: relative;
-  border-radius: 1rem;
+  border-radius: 16px;
   overflow: hidden;
   transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease;
   background: rgba(4, 36, 51, 0.03);
@@ -412,7 +412,7 @@
 @media (max-width: 1023px) {
   .haCard {
     flex: none;
-    height: 6.25rem;
+    height: 100px;
     justify-content: center;
   }
   .haCardActive {
@@ -438,7 +438,7 @@
 
 .carouselStage {
   position: relative;
-  height: 30rem;
+  height: 480px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -448,10 +448,10 @@
 
 .carouselCard {
   position: absolute;
-  width: min(21.25rem, 85vw);
-  height: 23.75rem;
+  width: min(340px, 85vw);
+  height: 380px;
   background: var(--cream);
-  border-radius: 1rem;
+  border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -513,8 +513,8 @@
 }
 
 .carouselBtn {
-  width: 3rem;
-  height: 3rem;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -542,8 +542,8 @@
 }
 
 .carouselDot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -570,7 +570,7 @@
 
 .spotCardWrapper {
   position: relative;
-  border-radius: 1rem;
+  border-radius: 16px;
   background: rgba(4, 36, 51, 0.05);
   overflow: hidden;
   padding: 1px; /* border thickness */
@@ -599,7 +599,7 @@
   z-index: 1;
   background: var(--cream);
   height: 100%;
-  border-radius: 0.9375rem;
+  border-radius: 15px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;

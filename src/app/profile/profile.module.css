@@ -9,7 +9,7 @@
 }
 
 .inner {
-  max-width: 60rem;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -26,7 +26,7 @@
 
 .eyebrow::before {
   content: '';
-  width: 1rem;
+  width: 16px;
   height: 1px;
   background: var(--bronze);
 }
@@ -63,22 +63,22 @@
 .card::after {
   content: '';
   position: absolute;
-  width: 1.125rem;
-  height: 1.125rem;
+  width: 18px;
+  height: 18px;
 }
 
 .card::before {
   top: -5px;
   left: -5px;
-  border-top: 0.125rem solid var(--bronze);
-  border-left: 0.125rem solid var(--bronze);
+  border-top: 2px solid var(--bronze);
+  border-left: 2px solid var(--bronze);
 }
 
 .card::after {
   bottom: -5px;
   right: -5px;
-  border-bottom: 0.125rem solid var(--bronze);
-  border-right: 0.125rem solid var(--bronze);
+  border-bottom: 2px solid var(--bronze);
+  border-right: 2px solid var(--bronze);
 }
 
 .cardHead {

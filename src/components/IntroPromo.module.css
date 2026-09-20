@@ -62,7 +62,7 @@
   align-items: center;
   text-align: center;
   gap: 1.25rem;
-  max-width: 45rem;
+  max-width: 720px;
 }
 
 .tag {
@@ -115,7 +115,7 @@
   font-size: 0.95rem;
   line-height: 1.75;
   color: rgba(4, 36, 51, 0.7);
-  max-width: 35rem;
+  max-width: 560px;
   letter-spacing: 0.01em;
   margin: 0.5rem 0 0;
 }
@@ -174,7 +174,7 @@
    from that same value and keeps it growing, modestly and capped. ── */
 @media (min-width: 1920px) {
   .headline {
-    font-size: clamp(3rem, calc(3rem + (100vw - 120rem) * 0.015), 3.85rem);
+    font-size: clamp(3rem, calc(3rem + (100vw - 1920px) * 0.015), 3.85rem);
   }
 }
 

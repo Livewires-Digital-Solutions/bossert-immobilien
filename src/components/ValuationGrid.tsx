@@ -39,7 +39,7 @@ export default function ValuationGrid({ valuationData }: Props) {
       <div className="inner-page-container" style={{ position: 'relative', zIndex: 2 }}>
         
         {/* Header */}
-        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '50rem', margin: '0 auto 6rem auto' }}>
+        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
           <p className="services-subtitle" style={{ color: 'var(--white)', marginBottom: '1.5rem', justifyContent: 'center' }}>
             <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {valuationData.tag}
           </p>
@@ -53,11 +53,11 @@ export default function ValuationGrid({ valuationData }: Props) {
         </div>
 
         {/* Benefits Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15.625rem, 1fr))', gap: '4rem', marginBottom: '8rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '4rem', marginBottom: '8rem' }}>
           {valuationData.benefits.map((benefit, idx) => (
             <div key={idx} className={`reveal-base reveal-up delay-${(idx + 1) * 100} ${isVisible ? 'is-revealed' : ''}`}>
               <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid var(--bronze)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                <div style={{ width: '0.5rem', height: '0.5rem', backgroundColor: 'var(--bronze)', borderRadius: '50%' }}></div>
+                <div style={{ width: '8px', height: '8px', backgroundColor: 'var(--bronze)', borderRadius: '50%' }}></div>
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 500, marginBottom: '0.75rem', color: 'var(--white)' }}>
                 {benefit.title}

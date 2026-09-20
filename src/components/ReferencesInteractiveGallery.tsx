@@ -61,7 +61,7 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
       <div className="global-padding">
         
         {/* Section Header */}
-        <div style={{ marginBottom: '6rem', maxWidth: '50rem' }}>
+        <div style={{ marginBottom: '6rem', maxWidth: '800px' }}>
           <p className={`services-subtitle reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
             <span className="dot" style={{ backgroundColor: 'var(--ink)' }}></span> {data.tag}
           </p>
@@ -128,7 +128,7 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
 
                 {/* Mobile Fallback Image (Shows only on mobile) */}
                 {isMobile && (
-                  <div style={{ marginTop: '2rem', position: 'relative', width: '100%', height: '18.75rem', borderRadius: '0.75rem', overflow: 'hidden' }}>
+                  <div style={{ marginTop: '2rem', position: 'relative', width: '100%', height: '300px', borderRadius: '12px', overflow: 'hidden' }}>
                     <Image src={item.image} alt={item.title} fill style={{ objectFit: 'cover' }} />
                   </div>
                 )}
@@ -155,8 +155,8 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
                     style={{
                       position: 'absolute',
                       top: 0, left: 0,
-                      width: '25rem',
-                      height: '31.25rem',
+                      width: '400px',
+                      height: '500px',
                       // Smoothly follow the mouse, centered on the cursor
                       transform: `translate(${mousePos.x - 200}px, ${mousePos.y - 250}px) scale(${isActive ? 1 : 0.8}) rotate(${isActive ? (mousePos.x % 10 - 5) : 0}deg)`,
                       opacity: isActive ? 1 : 0,

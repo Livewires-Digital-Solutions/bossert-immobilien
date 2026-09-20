@@ -55,7 +55,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
         .benefit-card-spotlight {
           position: relative;
           background: rgba(255, 255, 255, 0.02);
-          border-radius: 1rem;
+          border-radius: 16px;
           padding: 3rem 2rem;
           transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -65,7 +65,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
           position: absolute;
           inset: 0;
           border-radius: inherit;
-          padding: 0.125rem;
+          padding: 2px;
           background: radial-gradient(
             800px circle at var(--mouse-x) var(--mouse-y),
             rgba(200, 160, 110, 0.5),
@@ -122,13 +122,13 @@ export default function ServicesBenefitsGrid({ data }: Props) {
       `}</style>
 
       {/* Abstract Glowing Background */}
-      <div style={{ position: 'absolute', top: '20%', left: '-10%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(200, 160, 110, 0.08) 0%, rgba(4,36,51,0) 70%)', borderRadius: '50%', filter: 'blur(3.75rem)', zIndex: 0 }}></div>
-      <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(200, 160, 110, 0.05) 0%, rgba(4,36,51,0) 70%)', borderRadius: '50%', filter: 'blur(3.75rem)', zIndex: 0 }}></div>
+      <div style={{ position: 'absolute', top: '20%', left: '-10%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(200, 160, 110, 0.08) 0%, rgba(4,36,51,0) 70%)', borderRadius: '50%', filter: 'blur(60px)', zIndex: 0 }}></div>
+      <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(200, 160, 110, 0.05) 0%, rgba(4,36,51,0) 70%)', borderRadius: '50%', filter: 'blur(60px)', zIndex: 0 }}></div>
 
       <div className="inner-page-container" style={{ position: 'relative', zIndex: 2 }}>
         
         {/* Header */}
-        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '50rem', margin: '0 auto 6rem auto' }}>
+        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
           <p className="services-subtitle" style={{ color: 'var(--white)', marginBottom: '1.5rem', justifyContent: 'center' }}>
             <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {data.tag}
           </p>
@@ -145,7 +145,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
         <div 
           className="benefit-grid-container"
           onMouseMove={handleMouseMove}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(16.25rem, 100%), 1fr))', gap: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '2rem' }}
         >
           {data.list.map((benefit, idx) => (
             <div 
@@ -161,8 +161,8 @@ export default function ServicesBenefitsGrid({ data }: Props) {
                 <div 
                   className="benefit-icon-container"
                   style={{ 
-                    width: '3.5rem', 
-                    height: '3.5rem', 
+                    width: '56px', 
+                    height: '56px', 
                     borderRadius: '12px', 
                     background: 'rgba(200, 160, 110, 0.1)',
                     border: '1px solid rgba(200, 160, 110, 0.2)',
@@ -201,7 +201,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
                   position: 'absolute',
                   bottom: '-3rem', // pushed down to bottom edge of padding
                   left: '-2rem',
-                  height: '0.1875rem',
+                  height: '3px',
                   width: hoveredCard === idx ? 'calc(100% + 4rem)' : '0%',
                   background: 'linear-gradient(90deg, transparent, var(--bronze), transparent)',
                   transition: 'width 0.5s cubic-bezier(0.16, 1, 0.3, 1)',

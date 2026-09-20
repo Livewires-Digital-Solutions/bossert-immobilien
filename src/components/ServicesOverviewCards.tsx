@@ -37,7 +37,7 @@ export default function ServicesOverviewCards({ data, images }: Props) {
       <div className="inner-page-container">
 
         {/* Header */}
-        <div style={{ marginBottom: '6rem', maxWidth: '37.5rem' }}>
+        <div style={{ marginBottom: '6rem', maxWidth: '600px' }}>
           <p className="services-subtitle">
             <span className="dot"></span> {data.tag}
           </p>
@@ -107,7 +107,7 @@ export default function ServicesOverviewCards({ data, images }: Props) {
           flex-direction: row;
           align-items: stretch;
           height: 60vh;
-          min-height: 28.125rem;
+          min-height: 450px;
         }
         .sopc-text {
           flex: 1 1 50%;

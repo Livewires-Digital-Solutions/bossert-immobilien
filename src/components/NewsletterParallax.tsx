@@ -62,7 +62,7 @@ export default function NewsletterParallax() {
           boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
         }}
       >
-        <span className="services-subtitle" style={{ color: 'var(--bronze)', justifyContent: 'center', marginBottom: '1.5rem', letterSpacing: '0.125rem' }}>
+        <span className="services-subtitle" style={{ color: 'var(--bronze)', justifyContent: 'center', marginBottom: '1.5rem', letterSpacing: '2px' }}>
           <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> 
           STAY INFORMED
         </span>
@@ -71,7 +71,7 @@ export default function NewsletterParallax() {
           Market Intelligence.
         </h2>
         
-        <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '31.25rem', margin: '0 auto 3rem auto' }}>
+        <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '500px', margin: '0 auto 3rem auto' }}>
           Subscribe to receive expert real estate knowledge, exclusive off-market trends, and our latest property updates directly to your inbox.
         </p>
         
@@ -107,10 +107,10 @@ export default function NewsletterParallax() {
             type="submit"
             style={{
               position: 'absolute',
-              right: '0.5rem',
-              top: '0.5rem',
-              bottom: '0.5rem',
-              width: '2.75rem',
+              right: '8px',
+              top: '8px',
+              bottom: '8px',
+              width: '44px',
               backgroundColor: 'var(--white)',
               color: 'var(--navy)',
               border: 'none',

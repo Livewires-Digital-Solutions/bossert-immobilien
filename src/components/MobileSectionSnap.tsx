@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useLenis } from '@/context/LenisContext';
 
-const MOBILE_QUERY = '(max-width: 48rem)';
+const MOBILE_QUERY = '(max-width: 768px)';
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const SNAP_EPSILON = 6;
 const SETTLE_DELAY = 150;

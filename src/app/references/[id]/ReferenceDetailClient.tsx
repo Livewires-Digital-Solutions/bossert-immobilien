@@ -64,7 +64,7 @@ export default function ReferenceDetailClient({ id }: { id: string }) {
   const galleryImages = data.images && data.images.length > 0 ? data.images : [heroImage];
 
   return (
-    <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '10rem' }}>
+    <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '160px' }}>
       <Navbar invertOnLoad={true} />
 
       <div className="inner-page-container">

@@ -16,7 +16,7 @@ export default function PropertyPOIs({ locationData }: PropertyPOIsProps) {
   if (!hasSchools && !hasTransport) return null;
 
   return (
-    <div className="property-sidebar-widget location-pois-widget" style={{ padding: '2rem', background: 'var(--white)', borderRadius: '0.75rem', boxShadow: '0 0.625rem 1.875rem rgba(0, 0, 0, 0.05)', marginBottom: '2rem' }}>
+    <div className="property-sidebar-widget location-pois-widget" style={{ padding: '2rem', background: 'var(--white)', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)', marginBottom: '2rem' }}>
       <div className="location-pois-list">
         {hasSchools && (
           <div className="poi-column" style={{ marginBottom: hasTransport ? '2rem' : '0' }}>

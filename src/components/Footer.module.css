@@ -7,7 +7,7 @@
   align-items: stretch;
   position: relative;
   z-index: 10;
-  /* Footer's own gutter (2rem) is kept as-is below 100rem so laptop widths
+  /* Footer's own gutter (2rem) is kept as-is below 1600px so laptop widths
      are pixel-identical; above 1600px it re-centers to the shared
      1600px container while the navy background stays full-bleed. */
   --footer-gutter: 2rem;
@@ -42,7 +42,7 @@
 /* ── Full-width image band ── */
 .imageBand {
   width: 100%;
-  height: 15rem;
+  height: 240px;
   background-image: url('/footerbg.png');
   background-size: cover;
   background-position: center 42%;
@@ -176,7 +176,7 @@
   transition: background 0.2s;
   position: relative;
   z-index: 2;
-  border-radius: 0.125rem;
+  border-radius: 2px;
 }
 
 .cookieBtn:hover {
@@ -184,8 +184,8 @@
 }
 
 .cookieBtn svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
 }
 
 .bottomRule {
@@ -236,7 +236,7 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .imageBand {
-    height: 11.25rem;
+    height: 180px;
   }
   .navRow {
     gap: 1rem 1.5rem;
@@ -258,7 +258,7 @@
 
 @media (max-width: 480px) {
   .imageBand {
-    height: 8.75rem;
+    height: 140px;
   }
   .wordmarkLine {
     font-size: 0.95rem;

@@ -80,18 +80,18 @@ export default function NotFound() {
           gap: '2rem'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ height: '1px', width: '2.5rem', backgroundColor: 'var(--bronze)' }}></span>
+            <span style={{ height: '1px', width: '40px', backgroundColor: 'var(--bronze)' }}></span>
             <p className="services-subtitle" style={{ color: 'var(--bronze)', margin: 0 }}>
               404 ERROR
             </p>
-            <span style={{ height: '1px', width: '2.5rem', backgroundColor: 'var(--bronze)' }}></span>
+            <span style={{ height: '1px', width: '40px', backgroundColor: 'var(--bronze)' }}></span>
           </div>
           
           <h1 className="editorial-headline" style={{ color: 'var(--white)', fontSize: 'clamp(3rem, 6vw, 6rem)', lineHeight: 1.1, margin: 0 }}>
             Lost in the <br/><span className="italic-serif">Architecture.</span>
           </h1>
           
-          <p style={{ fontSize: '1.4rem', color: 'rgba(255,255,255,0.7)', maxWidth: '25rem', margin: '0 auto', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.4rem', color: 'rgba(255,255,255,0.7)', maxWidth: '400px', margin: '0 auto', lineHeight: 1.6 }}>
             Even the most exquisite properties can't be found sometimes. The page you are looking for has been moved or no longer exists.
           </p>
           

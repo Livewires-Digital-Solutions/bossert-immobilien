@@ -65,7 +65,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
         {featured && (
         <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '8rem' }}>
           <Link href={`/knowledge/${featured.id || 'featured'}`} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }} className="featured-card">
-            <div style={{ position: 'relative', borderRadius: '1.5rem', overflow: 'hidden', backgroundColor: 'var(--navy)', color: 'var(--white)', minHeight: '40.625rem', display: 'flex', alignItems: 'flex-end', padding: '4rem' }}>
+            <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', backgroundColor: 'var(--navy)', color: 'var(--white)', minHeight: '650px', display: 'flex', alignItems: 'flex-end', padding: '4rem' }}>
               <div className="image-wrapper" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
                 <img
                   src={featured.image}
@@ -78,7 +78,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
 
               <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  <span className="services-subtitle" style={{ color: 'var(--bronze)', margin: 0, letterSpacing: '0.125rem' }}>
+                  <span className="services-subtitle" style={{ color: 'var(--bronze)', margin: 0, letterSpacing: '2px' }}>
                     <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {featuredTag}
                   </span>
                   <span style={{ color: 'rgba(254,252,246,0.5)', fontSize: '0.8rem', letterSpacing: '1px' }}>{featured.date}</span>
@@ -151,7 +151,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                     
                     {/* Image Side */}
                     <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
-                      <div style={{ width: '100%', aspectRatio: '4/3', position: 'relative', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 1.25rem 2.5rem rgba(4,36,51,0.05)' }}>
+                      <div style={{ width: '100%', aspectRatio: '4/3', position: 'relative', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(4,36,51,0.05)' }}>
                         <img 
                           src={article.image} 
                           alt={article.title} 
@@ -162,7 +162,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                     </div>
 
                     {/* Content Side */}
-                    <div style={{ flex: '1 1 55%', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: '18.75rem' }} className="row-content">
+                    <div style={{ flex: '1 1 55%', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: '300px' }} className="row-content">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <span className="services-subtitle" style={{ color: 'var(--navy)', margin: 0 }}>
                           <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {article.category}

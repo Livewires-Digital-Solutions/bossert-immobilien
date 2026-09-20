@@ -54,14 +54,14 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
     <section style={{ backgroundColor: 'var(--cream)', padding: '8rem 0' }}>
       
       {/* Editorial Split Header */}
-      <div className="global-padding" ref={headerRef} style={{ marginBottom: '4rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '2rem', alignItems: 'end' }}>
-          
-          <div style={{ gridColumn: 'span 8' }} className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
-            <p style={{ 
-              fontSize: '0.8rem', 
-              letterSpacing: '2px', 
-              textTransform: 'uppercase', 
+      <div className="global-padding curtain-header" ref={headerRef} style={{ marginBottom: '4rem' }}>
+        <div className="curtain-header-grid">
+
+          <div className={`curtain-title-col reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+            <p style={{
+              fontSize: '0.8rem',
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
               color: 'var(--bronze)',
               marginBottom: '1rem',
               fontWeight: 500
@@ -79,14 +79,13 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
               {data.title}
             </h2>
           </div>
-          
-          <div style={{ gridColumn: 'span 4' }} className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
-            <p style={{ 
-              fontSize: '1rem', 
-              lineHeight: 1.6, 
+
+          <div className={`curtain-desc-col reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+            <p style={{
+              fontSize: '1rem',
+              lineHeight: 1.6,
               color: 'rgba(4, 36, 51, 0.7)',
-              fontWeight: 300,
-              maxWidth: '350px'
+              fontWeight: 300
             }}>
               {data.description}
             </p>
@@ -144,22 +143,20 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
             </div>
 
             {/* Stats Overlay */}
-            <div 
+            <div
+              className="curtain-stats-row"
               style={{
                 position: 'absolute',
-                bottom: 0, 
-                left: 0, 
+                bottom: 0,
+                left: 0,
                 right: 0,
-                padding: '3rem',
-                display: 'flex',
-                gap: '4rem',
                 zIndex: 2,
                 opacity: scrollProgress, // Fades in purely based on scroll progress!
                 transform: `translateY(${20 * (1 - scrollProgress)}px)` // Slides up on scroll!
               }}
             >
               {data.stats.map((stat, idx) => (
-                <div key={idx} style={{ color: 'var(--white)' }}>
+                <div key={idx} className="curtain-stat" style={{ color: 'var(--white)' }}>
                   <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.8, marginBottom: '0.5rem' }}>
                     {stat.label}
                   </p>
@@ -178,6 +175,36 @@ export default function FeaturedReferenceCurtain({ data }: Props) {
         .curtain-container:hover .curtain-hover-btn {
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
+        }
+        .curtain-header-grid {
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+          gap: 2rem;
+          align-items: end;
+        }
+        .curtain-title-col { grid-column: span 8; }
+        .curtain-desc-col { grid-column: span 4; }
+        .curtain-desc-col p { max-width: 350px; }
+        .curtain-stats-row {
+          padding: 3rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4rem;
+        }
+        @media (max-width: 768px) {
+          .curtain-header-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+          .curtain-title-col, .curtain-desc-col { grid-column: span 1; }
+          .curtain-desc-col p { max-width: none; }
+        }
+        @media (max-width: 640px) {
+          .curtain-stats-row {
+            padding: 1.5rem;
+            gap: 1.5rem 2rem;
+          }
+          .curtain-stat p.italic-serif { font-size: 1.5rem; }
         }
       `}</style>
     </section>
