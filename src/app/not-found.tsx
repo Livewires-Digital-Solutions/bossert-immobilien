@@ -54,7 +54,7 @@ export default function NotFound() {
           top: '50%',
           left: '50%',
           transform: `translate(calc(-50% + ${mousePosition.x}px), calc(-50% + ${mousePosition.y}px))`,
-          fontSize: '40vw',
+          fontSize: 'clamp(8rem, 40vw, 24rem)',
           fontFamily: 'var(--font-serif)',
           fontWeight: 400,
           color: 'transparent',

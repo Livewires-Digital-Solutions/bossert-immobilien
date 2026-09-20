@@ -72,6 +72,16 @@
      the 320-1024px range is newly fluid instead of hard breakpoint jumps. */
   --gutter: clamp(1.5rem, 0.36rem + 5.69vw, 4rem);
   --container-max: 1600px;
+  /* Narrower "card" containers that intentionally stay tighter than
+     --container-max. Defined as tokens (rather than literals) so they can
+     be scaled in step with --container-max on ultra-wide monitors below,
+     instead of freezing while the text inside them keeps growing. */
+  --search-max: 1320px;
+  --cta-card-max: 1180px;
+  --auth-card-max: 1080px;
+  --expertise-max: 1400px;
+  --newsletter-max: 800px;
+  --test-content-max: 860px;
 }
 
 * {
@@ -2286,7 +2296,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  width: 800px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -2491,7 +2501,7 @@ body {
 
 .search-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: var(--search-max);
   margin: 0 auto;
   background: transparent;
   border-radius: 0;
@@ -3591,7 +3601,7 @@ body {
 
 .test-content {
   width: 100%;
-  max-width: 860px;
+  max-width: var(--test-content-max);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -4001,7 +4011,7 @@ body {
 /* Framed inner card */
 .cta-inner-card {
   width: 100%;
-  max-width: 1180px;
+  max-width: var(--cta-card-max);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: start;
@@ -4270,7 +4280,7 @@ body {
 
 .auth-card {
   width: 100%;
-  max-width: 1080px;
+  max-width: var(--auth-card-max);
   min-width: 0;
   display: grid;
   grid-template-columns: 1fr auto 1.05fr;
@@ -4501,7 +4511,7 @@ body {
 }
 
 .newsletter-container {
-  max-width: 800px;
+  max-width: var(--newsletter-max);
   width: 100%;
 }
 
@@ -4913,7 +4923,8 @@ body {
     padding-top: 1rem;
   }
   .services-right {
-    height: 500px;
+    min-height: 500px;
+    height: auto;
     width: 100%;
   }
 
@@ -5649,13 +5660,13 @@ body {
 }
 
 .expertise-container {
-  max-width: 1400px;
+  max-width: var(--expertise-max);
   margin: 0 auto;
 }
 
 .expertise-headline {
   font-family: var(--font-serif);
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 2.05rem + 1.88vw, 3.5rem);
   font-weight: 300;
   letter-spacing: -1px;
   margin-bottom: 4rem;
@@ -5696,9 +5707,6 @@ body {
   .expertise-grid {
     gap: 2rem;
   }
-  .expertise-headline {
-    font-size: 3rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -5706,7 +5714,6 @@ body {
     padding: 4rem 2rem;
   }
   .expertise-headline {
-    font-size: 2.5rem;
     margin-bottom: 3rem;
   }
   .expertise-grid {
@@ -5740,6 +5747,20 @@ body {
   padding: 0 var(--gutter);
 }
 
+/* Property detail page <main> — clears the fixed navbar. Was an inline
+   style (couldn't respond to breakpoints); the 768px value matches the
+   ≈108px fixed-navbar height at that width used elsewhere (see the hero's
+   own mobile clearance comment above .hero-content's 768px padding-top). */
+.property-page-main {
+  padding-top: 160px;
+}
+
+@media (max-width: 768px) {
+  .property-page-main {
+    padding-top: 7.5rem;
+  }
+}
+
 .global-padding {
   padding-left: var(--gutter);
   padding-right: var(--gutter);
@@ -5750,7 +5771,7 @@ body {
   margin-bottom: 3rem;
   border-radius: 12px;
   overflow: hidden;
-  height: 500px;
+  height: clamp(320px, 34vw, 560px);
 }
 
 .gallery-hero-single {
@@ -5763,7 +5784,7 @@ body {
 .gallery-mosaic {
   display: grid;
   gap: 0.5rem;
-  height: 500px;
+  height: clamp(320px, 34vw, 560px);
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -5991,7 +6012,7 @@ body {
 
 .property-title {
   font-family: var(--font-serif);
-  font-size: 3.5rem;
+  font-size: clamp(2.25rem, 1.6rem + 2.5vw, 3.5rem);
   font-weight: 300;
   color: var(--navy);
   margin-bottom: 1rem;
@@ -6032,7 +6053,7 @@ body {
 
 .property-price {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
   font-weight: 300;
   color: var(--navy);
 }
@@ -6393,11 +6414,12 @@ body {
 
 @media (max-width: 768px) {
 
-  /* Gallery Grid Mobile */
+  /* Gallery Grid Mobile — height comes from .property-gallery-container's
+     own clamp(), so the grid just fills it rather than fixing its own. */
   .gallery-mosaic {
     grid-template-columns: 1fr !important;
-    grid-template-rows: 400px !important;
-    height: 400px;
+    grid-template-rows: 1fr !important;
+    height: 100%;
   }
   .gallery-mosaic-item {
     display: none;
@@ -6412,10 +6434,6 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
-  }
-  
-  .property-header-info h1 {
-    font-size: 2.5rem;
   }
   
   .property-header-action {
@@ -6464,7 +6482,7 @@ body {
 
 /* --- Owners Page Pillar Cards --- */
 .pillar-card {
-  padding: 4rem 3rem;
+  padding: clamp(2rem, 1.2rem + 3vw, 4rem) clamp(1.5rem, 1rem + 2vw, 3rem);
   background-color: var(--white);
   border-radius: 12px;
   height: 100%;
@@ -6946,7 +6964,7 @@ html[data-theme='dark'] .pc-badge-heart {
   grid-column: span 4;
 }
 .editorial-item-offset {
-  margin-top: 10vw;
+  margin-top: clamp(1rem, 10vw, 4rem);
 }
 
 @media (max-width: 900px) {
@@ -7050,6 +7068,31 @@ html[data-theme='dark'] .pc-badge-heart {
     --hsc2-w: clamp(300px, calc(300px + (100vw - 1920px) * 0.078), 370px);
     --hsc2-h: clamp(470px, calc(470px + (100vw - 1920px) * 0.125), 580px);
     --hsc2-spread: clamp(96px, calc(96px + (100vw - 1920px) * 0.025), 120px);
+    --search-max: clamp(1320px, calc(1320px + (100vw - 1920px) * 0.28), 1500px);
+    --cta-card-max: clamp(1180px, calc(1180px + (100vw - 1920px) * 0.25), 1340px);
+    --auth-card-max: clamp(1080px, calc(1080px + (100vw - 1920px) * 0.22), 1220px);
+    --expertise-max: clamp(1400px, calc(1400px + (100vw - 1920px) * 0.31), 1600px);
+    --newsletter-max: clamp(800px, calc(800px + (100vw - 1920px) * 0.125), 880px);
+    --test-content-max: clamp(860px, calc(860px + (100vw - 1920px) * 0.14), 950px);
+  }
+
+  /* Property detail page — title/price/gallery are otherwise absent from
+     this block, so they stay frozen at their 1024px-and-up size while
+     .inner-page-container (via --container-max above) keeps growing. */
+  .property-title {
+    font-size: clamp(3.5rem, calc(3.5rem + (100vw - 1920px) * 0.02), 4.25rem);
+  }
+  .property-price {
+    font-size: clamp(2.5rem, calc(2.5rem + (100vw - 1920px) * 0.015), 3rem);
+  }
+  .property-gallery-container,
+  .gallery-mosaic {
+    height: clamp(560px, calc(560px + (100vw - 1920px) * 0.125), 640px);
+  }
+
+  /* Expertise (Properties page) */
+  .expertise-headline {
+    font-size: clamp(3.5rem, calc(3.5rem + (100vw - 1920px) * 0.02), 4.2rem);
   }
 
   /* Hero */

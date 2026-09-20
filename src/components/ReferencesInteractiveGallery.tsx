@@ -22,17 +22,22 @@ interface Props {
   };
 }
 
+// Single source of truth for the mobile cutoff — used by both the JS
+// matchMedia check below and the injected <style> block's @media rule,
+// so the two can't drift apart.
+const MOBILE_BREAKPOINT = 768;
+
 export default function ReferencesInteractiveGallery({ data }: Props) {
   const { ref: sectionRef, isVisible } = useScrollReveal(0.2);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if we are on a touch device / mobile width
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window));
+    const checkMobile = () => setIsMobile(window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches || ('ontouchstart' in window));
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -184,7 +189,7 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
           transform: translateX(30px);
           color: var(--white);
         }
-        @media (max-width: 768px) {
+        @media (max-width: ${MOBILE_BREAKPOINT}px) {
           .interactive-list-item {
             flex-direction: column;
             align-items: flex-start !important;

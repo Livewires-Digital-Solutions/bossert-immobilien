@@ -239,9 +239,10 @@ export default function ContactPage() {
         <div className={`inner-page-container reveal-base reveal-scale ${imageVisible ? 'is-revealed' : ''}`}>
           <div style={{ position: 'relative', width: '100%', height: '60vh', minHeight: '500px', borderRadius: '16px', overflow: 'hidden' }}>
             <Image 
-              src="/images/prop_penthouse_1787771396787.jpg"  
+              src="/images/prop_penthouse_1787771396787.jpg"
               alt="Luxury Bossert Property"
               fill
+              sizes="(max-width: 900px) 100vw, 500px"
               style={{ objectFit: 'cover' }}
             />
           </div>

@@ -76,7 +76,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   )}`;
 
   return (
-    <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh', paddingTop: '160px' }}>
+    <main className="property-page-main" style={{ backgroundColor: 'var(--cream)', minHeight: '100vh' }}>
       <PropertyShutterEntrance
         propertyType={property.type}
         propertyLocation={property.location}

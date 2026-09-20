@@ -89,6 +89,7 @@ export default function AboutPage() {
               src="/images/owners_bg_wide.jpg"
               alt="Bossert Immobilien Legacy"
               fill
+              sizes="100vw"
               style={{ objectFit: 'cover' }}
               priority
             />
@@ -143,6 +144,7 @@ export default function AboutPage() {
                     src={member.image}
                     alt={member.name}
                     fill
+                    sizes="(max-width: 640px) 100vw, 400px"
                     style={{ objectFit: 'cover' }}
                   />
                 </div>

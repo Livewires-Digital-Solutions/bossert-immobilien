@@ -137,6 +137,7 @@ export default function ForOwnersPage() {
               src="/images/owners_editorial.jpg"
               alt="Premium property under professional management"
               fill
+              sizes="100vw"
               style={{ objectFit: 'cover' }}
               priority
             />
@@ -198,6 +199,7 @@ export default function ForOwnersPage() {
                         src={bgImages[idx] || '/images/services_hero.jpg'}
                         alt=""
                         fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
@@ -252,7 +254,7 @@ export default function ForOwnersPage() {
             <div className={`${styles.bentoCard} ${styles.bentoCardDark} ${styles.bento0} reveal-base reveal-scale delay-100 ${valuationVisible ? 'is-revealed' : ''}`}>
               <div className={styles.bentoImgWrap}>
                 <div className={styles.bentoImg}>
-                  <Image src="/images/prop_villa_1787771383699.jpg" alt="" fill style={{ objectFit: 'cover' }} />
+                  <Image src="/images/prop_villa_1787771383699.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
                 </div>
                 <div className={styles.bentoOverlayUp}></div>
               </div>
@@ -291,7 +293,7 @@ export default function ForOwnersPage() {
             <div className={`${styles.bentoCard} ${styles.bentoCardDark} ${styles.bento3} reveal-base reveal-scale delay-400 ${valuationVisible ? 'is-revealed' : ''}`}>
               <div className={styles.bentoImgWrap}>
                 <div className={styles.bentoImg}>
-                  <Image src="/images/valuation_blueprint.jpg" alt="" fill style={{ objectFit: 'cover' }} />
+                  <Image src="/images/valuation_blueprint.jpg" alt="" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
                 </div>
                 <div className={styles.bentoOverlayLeft}></div>
               </div>

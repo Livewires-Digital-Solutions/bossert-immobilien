@@ -61,7 +61,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
       </div>
 
       {/* 3D Coverflow Slider - Exactly 3 Cards */}
-      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '1150px', margin: '0 auto', padding: '0 4rem' }}>
+      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '1150px', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 4rem)' }}>
         <Swiper
           effect={'coverflow'}
           grabCursor={true}
@@ -116,7 +116,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           }}
         >
           {data.items.map((item) => (
-            <SwiperSlide key={item.id} style={{ width: '350px', height: '500px' }}>
+            <SwiperSlide key={item.id} className="references-slide">
               <Link href={`/references/${item.id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
                 <div 
                   className="swiper-card"
@@ -231,7 +231,22 @@ export default function ReferencesSwiperGallery({ data }: Props) {
         .references-slider .swiper-slide {
           transition: filter 0.4s ease;
         }
-        
+        .references-slide {
+          width: 350px;
+          height: 500px;
+        }
+        @media (max-width: 480px) {
+          .references-slide {
+            width: min(78vw, 300px);
+            height: min(111.4vw, 429px);
+          }
+          .swiper-btn-prev-custom,
+          .swiper-btn-next-custom {
+            width: 40px !important;
+            height: 40px !important;
+          }
+        }
+
         .references-slider .swiper-slide:not(.swiper-slide-active) {
           filter: grayscale(60%) brightness(0.6);
         }
