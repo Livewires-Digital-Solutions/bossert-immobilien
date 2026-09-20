@@ -2214,7 +2214,7 @@ body {
 
 .services-left {
   flex: 0 0 35%;
-  max-width: 450px;
+  max-width: 28.125rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -2251,7 +2251,12 @@ body {
 .headline-mid-s {
   font-family: var(--font-serif);
   font-style: normal;
-  font-size: clamp(3.5rem, 5vw, 6rem);
+  /* Bounds are px, not rem: this is nowrap text in a narrow column, so the
+     upper bound must stay a hard ceiling even though html's root font-size
+     now grows above 1536px — a rem-based max here would grow right along
+     with the 5vw term instead of capping it, and the unbroken line would
+     overflow into the cards beside it. */
+  font-size: clamp(56px, 5vw, 120px);
   line-height: 0.8;
   font-weight: 400;
   letter-spacing: -3px;
