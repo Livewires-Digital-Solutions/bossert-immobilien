@@ -61,7 +61,7 @@
 
 .logoImage {
   position: relative;
-  width: 500px;
+  width: 31.25rem;
   height: auto;
   object-fit: contain;
   z-index: 2;
@@ -82,17 +82,17 @@
   top: 50%;
   /* Centres the slot itself on the target line (not just its top edge) so
      it stays correctly aligned regardless of how tall .mark's text is. */
-  transform: translateY(calc(-50% + 180px));
+  transform: translateY(calc(-50% + 11.25rem));
   z-index: 2;
   white-space: nowrap;
 }
 
 .leftDoor .markSlot {
-  right: 270px;
+  right: 16.875rem;
 }
 
 .rightDoor .markSlot {
-  left: 270px;
+  left: 16.875rem;
 }
 
 .mark {
@@ -101,7 +101,7 @@
      roughly 18% of the arch's height) now that the arch renders far bigger
      than it used to. Letter-spacing tightened in kind — 0.22em reads as
      way too wide once the font itself is this large. */
-  font-size: 94px;
+  font-size: 5.875rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;

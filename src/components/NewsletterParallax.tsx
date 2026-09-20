@@ -71,7 +71,7 @@ export default function NewsletterParallax() {
           Market Intelligence.
         </h2>
         
-        <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '500px', margin: '0 auto 3rem auto' }}>
+        <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '31.25rem', margin: '0 auto 3rem auto' }}>
           Subscribe to receive expert real estate knowledge, exclusive off-market trends, and our latest property updates directly to your inbox.
         </p>
         

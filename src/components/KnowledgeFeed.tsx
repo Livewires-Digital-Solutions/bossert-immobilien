@@ -65,7 +65,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
         {featured && (
         <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '8rem' }}>
           <Link href={`/knowledge/${featured.id || 'featured'}`} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }} className="featured-card">
-            <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', backgroundColor: 'var(--navy)', color: 'var(--white)', minHeight: '650px', display: 'flex', alignItems: 'flex-end', padding: '4rem' }}>
+            <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', backgroundColor: 'var(--navy)', color: 'var(--white)', minHeight: '40.625rem', display: 'flex', alignItems: 'flex-end', padding: '4rem' }}>
               <div className="image-wrapper" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, overflow: 'hidden' }}>
                 <img
                   src={featured.image}
@@ -76,7 +76,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
               </div>
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(4,36,51,0.95) 0%, rgba(4,36,51,0.1) 80%)', zIndex: 1 }}></div>
 
-              <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px' }}>
+              <div style={{ position: 'relative', zIndex: 2, maxWidth: '56.25rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
                   <span className="services-subtitle" style={{ color: 'var(--bronze)', margin: 0, letterSpacing: '2px' }}>
                     <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {featuredTag}
@@ -87,7 +87,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                   {featured.title}
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start' }}>
-                  <p style={{ fontSize: '1.25rem', color: 'rgba(254,252,246,0.8)', lineHeight: 1.6, maxWidth: '650px' }}>
+                  <p style={{ fontSize: '1.25rem', color: 'rgba(254,252,246,0.8)', lineHeight: 1.6, maxWidth: '40.625rem' }}>
                     {featured.desc}
                   </p>
                   <div className="explore-btn animated-arrow-btn" style={{ padding: '0.8rem 1rem 0.8rem 2rem', border: 'none', cursor: 'pointer' }}>
@@ -150,7 +150,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                   }}>
                     
                     {/* Image Side */}
-                    <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
+                    <div style={{ flex: '1 1 45%', minWidth: '18.75rem' }}>
                       <div style={{ width: '100%', aspectRatio: '4/3', position: 'relative', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(4,36,51,0.05)' }}>
                         <img 
                           src={article.image} 
@@ -162,7 +162,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                     </div>
 
                     {/* Content Side */}
-                    <div style={{ flex: '1 1 55%', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: '300px' }} className="row-content">
+                    <div style={{ flex: '1 1 55%', display: 'flex', flexDirection: 'column', gap: '1.5rem', minWidth: '18.75rem' }} className="row-content">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <span className="services-subtitle" style={{ color: 'var(--navy)', margin: 0 }}>
                           <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {article.category}

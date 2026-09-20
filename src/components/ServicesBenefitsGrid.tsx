@@ -128,7 +128,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
       <div className="inner-page-container" style={{ position: 'relative', zIndex: 2 }}>
         
         {/* Header */}
-        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '800px', margin: '0 auto 6rem auto' }}>
+        <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '6rem', textAlign: 'center', maxWidth: '50rem', margin: '0 auto 6rem auto' }}>
           <p className="services-subtitle" style={{ color: 'var(--white)', marginBottom: '1.5rem', justifyContent: 'center' }}>
             <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {data.tag}
           </p>
@@ -145,7 +145,7 @@ export default function ServicesBenefitsGrid({ data }: Props) {
         <div 
           className="benefit-grid-container"
           onMouseMove={handleMouseMove}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(16.25rem, 100%), 1fr))', gap: '2rem' }}
         >
           {data.list.map((benefit, idx) => (
             <div 

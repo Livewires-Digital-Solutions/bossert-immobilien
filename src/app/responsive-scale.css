@@ -1,0 +1,51 @@
+html {
+  /* 100% keeps the user's own browser font-size setting as the minimum */
+  font-size: clamp(100%, min(1.0417vw, 2.1vh), 44px);
+}
+
+@media (min-width: 1251px) {
+  :root {
+    --container-max: 100rem;
+    --search-max: 82.5rem;
+    --cta-card-max: 73.75rem;
+    --auth-card-max: 67.5rem;
+    --expertise-max: 87.5rem;
+    --newsletter-max: 50rem;
+    --test-content-max: 53.75rem;
+    --hero-left-max: 54ch;
+    --hsc2-w: 18.75rem;
+    --hsc2-h: calc(var(--hsc2-w) * 1.5667);
+    --hsc2-spread: calc(var(--hsc2-w) * 0.32);
+  }
+
+  .logo-img { width: 7.1875rem; }
+  .navbar .logo-img.logo-img-navy { width: 7.1875rem; }
+  .navbar.navbar-contained .logo-img { width: 5.9375rem; }
+  .navbar.navbar-contained .logo-img.logo-img-navy { width: 5.9375rem; }
+  .login-icon-btn { width: 2.5rem; height: 2.5rem; }
+
+  .hsc2-wrapper { transform: translate(-1.5rem, 2.625rem) scale(1.14); }
+  .hsc2-nav { width: 2.75rem; height: 2.75rem; }
+  .hsc2-nav-prev { left: -1.6875rem; }
+  .hsc2-nav-next { right: -1.6875rem; }
+  .hsc2-btn-badge { width: 1.625rem; height: 1.625rem; }
+  .hsc2-dot { width: 2rem; }
+  .hsc2-dot-active { width: 2.5rem; }
+  .scroll-line { height: 2.5rem; }
+
+  .stats-grid { max-width: 75rem; }
+  .intro-promo-inner { max-width: 51.25rem; }
+  .search-bar { min-height: 5.125rem; }
+  .search-submit-btn { height: 3rem; }
+  .property-page-main { padding-top: 10rem; }
+  .property-gallery-container,
+  .gallery-mosaic { height: clamp(20rem, 34vw, 35rem); }
+
+  .editorial-headline,
+  .explore-headline,
+  .why-headline,
+  .news-headline,
+  .headline-mid-s,
+  .headline-bot-s { letter-spacing: -0.1875rem; }
+  .cta-headline { letter-spacing: -0.125rem; }
+}

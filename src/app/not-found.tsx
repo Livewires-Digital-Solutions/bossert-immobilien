@@ -91,7 +91,7 @@ export default function NotFound() {
             Lost in the <br/><span className="italic-serif">Architecture.</span>
           </h1>
           
-          <p style={{ fontSize: '1.4rem', color: 'rgba(255,255,255,0.7)', maxWidth: '400px', margin: '0 auto', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.4rem', color: 'rgba(255,255,255,0.7)', maxWidth: '25rem', margin: '0 auto', lineHeight: 1.6 }}>
             Even the most exquisite properties can't be found sometimes. The page you are looking for has been moved or no longer exists.
           </p>
           

@@ -37,7 +37,7 @@ export default function ServicesOverviewCards({ data, images }: Props) {
       <div className="inner-page-container">
 
         {/* Header */}
-        <div style={{ marginBottom: '6rem', maxWidth: '600px' }}>
+        <div style={{ marginBottom: '6rem', maxWidth: '37.5rem' }}>
           <p className="services-subtitle">
             <span className="dot"></span> {data.tag}
           </p>

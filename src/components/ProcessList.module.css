@@ -438,7 +438,7 @@
 
 .carouselStage {
   position: relative;
-  height: 480px;
+  height: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -448,8 +448,8 @@
 
 .carouselCard {
   position: absolute;
-  width: min(340px, 85vw);
-  height: 380px;
+  width: min(21.25rem, 85vw);
+  height: 23.75rem;
   background: var(--cream);
   border-radius: 16px;
   padding: 2.5rem;
@@ -513,8 +513,8 @@
 }
 
 .carouselBtn {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -542,8 +542,8 @@
 }
 
 .carouselDot {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   border: 1px solid var(--bronze);
   background: transparent;
@@ -563,7 +563,7 @@
 
 .spotGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
   gap: 1.5rem;
   position: relative;
 }

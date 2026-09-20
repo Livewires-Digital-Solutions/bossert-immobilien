@@ -357,7 +357,7 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
                 </div>
               </div>
 
-              <div className="adv-filter-box clickable" style={{ maxWidth: '250px' }} onClick={() => toggleDropdown('availability')}>
+              <div className="adv-filter-box clickable" style={{ maxWidth: '15.625rem' }} onClick={() => toggleDropdown('availability')}>
                 <div className="adv-label">{t.search.availability}</div>
                 <div className="adv-dropdown">
                   <span>{availability === 'Any' ? t.search.any : availability}</span> 

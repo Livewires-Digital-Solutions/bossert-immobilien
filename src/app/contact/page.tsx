@@ -75,7 +75,7 @@ export default function ContactPage() {
         <div className="inner-page-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '6rem' }}>
 
           {/* Left: Info */}
-          <div className={`reveal-base reveal-up ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column' }}>
+          <div className={`reveal-base reveal-up ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 25rem', display: 'flex', flexDirection: 'column' }}>
 
             {/* Contact Info (Stacked like reference) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
@@ -112,7 +112,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right: The Form Card */}
-          <div className={`reveal-base reveal-up delay-200 ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 500px' }}>
+          <div className={`reveal-base reveal-up delay-200 ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 31.25rem' }}>
             <div style={{ backgroundColor: 'var(--white)', padding: '3rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(4,36,51,0.03)' }}>
               {success ? (
                 <div style={{ textAlign: 'center', padding: '4rem 0' }}>
@@ -237,7 +237,7 @@ export default function ContactPage() {
       {/* 2. Cinematic Anchor Image */}
       <section className="global-padding" ref={imageRef}>
         <div className={`inner-page-container reveal-base reveal-scale ${imageVisible ? 'is-revealed' : ''}`}>
-          <div style={{ position: 'relative', width: '100%', height: '60vh', minHeight: '500px', borderRadius: '16px', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', width: '100%', height: '60vh', minHeight: '31.25rem', borderRadius: '16px', overflow: 'hidden' }}>
             <Image 
               src="/images/prop_penthouse_1787771396787.jpg"
               alt="Luxury Bossert Property"

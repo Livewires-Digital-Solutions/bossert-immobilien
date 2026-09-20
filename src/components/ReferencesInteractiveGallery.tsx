@@ -61,7 +61,7 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
       <div className="global-padding">
         
         {/* Section Header */}
-        <div style={{ marginBottom: '6rem', maxWidth: '800px' }}>
+        <div style={{ marginBottom: '6rem', maxWidth: '50rem' }}>
           <p className={`services-subtitle reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
             <span className="dot" style={{ backgroundColor: 'var(--ink)' }}></span> {data.tag}
           </p>
@@ -128,7 +128,7 @@ export default function ReferencesInteractiveGallery({ data }: Props) {
 
                 {/* Mobile Fallback Image (Shows only on mobile) */}
                 {isMobile && (
-                  <div style={{ marginTop: '2rem', position: 'relative', width: '100%', height: '300px', borderRadius: '12px', overflow: 'hidden' }}>
+                  <div style={{ marginTop: '2rem', position: 'relative', width: '100%', height: '18.75rem', borderRadius: '12px', overflow: 'hidden' }}>
                     <Image src={item.image} alt={item.title} fill style={{ objectFit: 'cover' }} />
                   </div>
                 )}

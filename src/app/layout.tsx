@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./responsive-scale.css";
 
 export const viewport: Viewport = {
   width: "device-width",

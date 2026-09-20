@@ -40,10 +40,10 @@ export default function ServicesPage() {
           />
           
           <div className={`reveal-base reveal-up delay-200 ${introVisible ? 'is-revealed' : ''}`} style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', marginTop: '4rem' }}>
-            <div style={{ flex: '1 1 300px' }}>
+            <div style={{ flex: '1 1 18.75rem' }}>
               <p className="why-subhead" style={{ fontSize: '1.25rem' }}>{servicesPageData.intro.textLeft}</p>
             </div>
-            <div style={{ flex: '1 1 300px' }}>
+            <div style={{ flex: '1 1 18.75rem' }}>
               <p className="why-subhead" style={{ fontSize: '1.25rem' }}>{servicesPageData.intro.textRight}</p>
             </div>
           </div>

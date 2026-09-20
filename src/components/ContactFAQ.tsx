@@ -86,7 +86,7 @@ export default function ContactFAQ({ faqData }: Props) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem' }}>
           
           {/* Left Side: Card */}
-          <div className={`reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 350px' }}>
+          <div className={`reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 21.875rem' }}>
             <div style={{ 
               backgroundColor: 'var(--navy)', 
               borderRadius: '8px', 
@@ -108,7 +108,7 @@ export default function ContactFAQ({ faqData }: Props) {
           </div>
 
           {/* Right Side: Accordion */}
-          <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ flex: '2 1 500px' }}>
+          <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ flex: '2 1 31.25rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {questions.map((faq, idx) => (
                 <div 

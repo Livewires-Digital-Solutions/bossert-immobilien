@@ -244,7 +244,7 @@ export default function ForOwnersPage() {
               {data.valuation.title} <br />
               <span className="italic-serif">{data.valuation.titleSerif}</span>
             </h2>
-            <p className="why-subhead" style={{ maxWidth: '800px', margin: '0 auto', color: 'rgba(4,36,51,0.8)', fontSize: '1.2rem' }}>
+            <p className="why-subhead" style={{ maxWidth: '50rem', margin: '0 auto', color: 'rgba(4,36,51,0.8)', fontSize: '1.2rem' }}>
               {data.valuation.subhead}
             </p>
           </div>
@@ -315,7 +315,7 @@ export default function ForOwnersPage() {
             <h3 className="explore-headline" style={{ fontSize: '2.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
               Our Valuation Process
             </h3>
-            <p className="why-subhead" style={{ maxWidth: '600px', margin: '0 auto', color: 'rgba(4,36,51,0.7)', fontSize: '1.2rem' }}>
+            <p className="why-subhead" style={{ maxWidth: '37.5rem', margin: '0 auto', color: 'rgba(4,36,51,0.7)', fontSize: '1.2rem' }}>
               A structured approach to ensure you receive the most accurate and reliable market value for your property.
             </p>
           </div>
@@ -342,7 +342,7 @@ export default function ForOwnersPage() {
 
       {/* 8. Final CTA Banner */}
       <section className="global-padding" ref={ctaRef} style={{ backgroundColor: 'var(--cream)', color: 'var(--navy)', paddingTop: '10rem', paddingBottom: '10rem', textAlign: 'center' }}>
-        <div className={`inner-page-container reveal-base reveal-up ${ctaVisible ? 'is-revealed' : ''}`} style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div className={`inner-page-container reveal-base reveal-up ${ctaVisible ? 'is-revealed' : ''}`} style={{ maxWidth: '50rem', margin: '0 auto' }}>
           <h2 className="explore-headline" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
             Are you looking to sell, let, or gain clarity on your property's value?
           </h2>

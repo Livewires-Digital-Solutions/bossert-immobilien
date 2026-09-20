@@ -61,7 +61,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
       </div>
 
       {/* 3D Coverflow Slider - Exactly 3 Cards */}
-      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '1150px', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 4rem)' }}>
+      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '71.875rem', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 4rem)' }}>
         <Swiper
           effect={'coverflow'}
           grabCursor={true}

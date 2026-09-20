@@ -416,7 +416,7 @@ export default function ProcessList({ processData, invertBackground = false, var
                 {processData.title} <br/>
                 <span className="italic-serif">{processData.titleSerif}</span>
               </h2>
-              <p style={{ color: descColor, fontSize: '1.25rem', lineHeight: 1.6, maxWidth: '500px' }}>
+              <p style={{ color: descColor, fontSize: '1.25rem', lineHeight: 1.6, maxWidth: '31.25rem' }}>
                 {processData.subhead}
               </p>
             </div>

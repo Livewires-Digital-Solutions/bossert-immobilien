@@ -51,7 +51,7 @@
 }
 
 .goldLine {
-  width: 48px;
+  width: 3rem;
   height: 1px;
   background: linear-gradient(90deg, transparent, #dfc19a, transparent);
   margin: 0.25rem 0;

@@ -248,7 +248,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                 }}
               >
                 {/* Left — card content */}
-                <div style={{ flex: '1 1 400px', maxWidth: '560px' }}>
+                <div style={{ flex: '1 1 25rem', maxWidth: '35rem' }}>
                   <p style={{ fontSize: 'clamp(5rem, 12vw, 10rem)', fontWeight: 300, color: 'rgba(255,255,255,0.08)', lineHeight: 1, marginBottom: '2rem', fontFamily: 'var(--font-serif)' }}>
                     {ROMAN[idx]}
                   </p>
@@ -256,14 +256,14 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                     {pillar.title}
                   </h3>
                   <div style={{ width: '3rem', height: '2px', backgroundColor: 'var(--bronze)', marginBottom: '2rem' }} />
-                  <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: '480px' }}>
+                  <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: '30rem' }}>
                     {pillar.description}
                   </p>
                 </div>
 
                 {/* Right — image */}
                 {img && (
-                  <div style={{ flex: '1 1 350px', maxWidth: '520px', aspectRatio: '4/5', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div style={{ flex: '1 1 21.875rem', maxWidth: '32.5rem', aspectRatio: '4/5', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
                     <Image
                       src={img}
                       alt={pillar.title}
