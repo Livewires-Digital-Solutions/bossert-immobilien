@@ -61,7 +61,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
       </div>
 
       {/* 3D Coverflow Slider - Exactly 3 Cards */}
-      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '1150px', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 4rem)' }}>
+      <div className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`} style={{ position: 'relative', maxWidth: '71.875rem', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 4rem)' }}>
         <Swiper
           effect={'coverflow'}
           grabCursor={true}
@@ -189,8 +189,8 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           transform: 'translateY(-50%)',
           zIndex: 10,
           cursor: 'pointer',
-          width: '50px',
-          height: '50px',
+          width: '3.125rem',
+          height: '3.125rem',
           borderRadius: '50%',
           backgroundColor: 'var(--white)',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -210,8 +210,8 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           transform: 'translateY(-50%)',
           zIndex: 10,
           cursor: 'pointer',
-          width: '50px',
-          height: '50px',
+          width: '3.125rem',
+          height: '3.125rem',
           borderRadius: '50%',
           backgroundColor: 'var(--white)',
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -232,18 +232,18 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           transition: filter 0.4s ease;
         }
         .references-slide {
-          width: 350px;
-          height: 500px;
+          width: 21.875rem;
+          height: 31.25rem;
         }
         @media (max-width: 480px) {
           .references-slide {
-            width: min(78vw, 300px);
-            height: min(111.4vw, 429px);
+            width: min(78vw, 18.75rem);
+            height: min(111.4vw, 26.8125rem);
           }
           .swiper-btn-prev-custom,
           .swiper-btn-next-custom {
-            width: 40px !important;
-            height: 40px !important;
+            width: 2.5rem !important;
+            height: 2.5rem !important;
           }
         }
 

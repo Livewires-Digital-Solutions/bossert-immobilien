@@ -65,7 +65,7 @@ export default function PropertyGallery({ images, fallbackImage }: PropertyGalle
         
         {displayImages.length > 0 && (
           <button className="show-all-photos-btn" onClick={() => openLightbox(0)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16" style={{marginRight: '6px'}}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16" style={{marginRight: '0.375rem'}}>
               <circle cx="9" cy="9" r="2"></circle>
               <circle cx="15" cy="9" r="2"></circle>
               <circle cx="9" cy="15" r="2"></circle>

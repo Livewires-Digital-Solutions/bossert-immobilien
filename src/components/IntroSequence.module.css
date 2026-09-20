@@ -61,7 +61,7 @@
 
 .logoImage {
   position: relative;
-  width: 500px;
+  width: 31.25rem;
   height: auto;
   object-fit: contain;
   z-index: 2;
@@ -73,7 +73,7 @@
 
 /* EST / 1991 sit clear of the arch's own left/right edges (not hugging the
    door seam, which is the arch's own centre and would overlap it) — offset
-   = half the mark's rendered width (250px at 500px wide) + a gap, matching
+   = half the mark's rendered width (15.625rem at 31.25rem wide) + a gap, matching
    the flanking layout in public/logo.png. Positioned off the door's outer
    edge (not the seam) so they land at the same spot regardless of which
    door they're on. */
@@ -88,11 +88,11 @@
 }
 
 .leftDoor .markSlot {
-  right: 270px;
+  right: 16.875rem;
 }
 
 .rightDoor .markSlot {
-  left: 270px;
+  left: 16.875rem;
 }
 
 .mark {
@@ -101,7 +101,7 @@
      roughly 18% of the arch's height) now that the arch renders far bigger
      than it used to. Letter-spacing tightened in kind — 0.22em reads as
      way too wide once the font itself is this large. */
-  font-size: 94px;
+  font-size: 5.875rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -156,20 +156,20 @@
     perspective: 800px;
   }
   .logoImage {
-    width: 280px;
+    width: 17.5rem;
     height: auto;
   }
   .mark {
-    font-size: 53px;
+    font-size: 3.3125rem;
   }
   .markSlot {
     transform: translateY(calc(-50% + 101px));
   }
   .leftDoor .markSlot {
-    right: 151px;
+    right: 9.4375rem;
   }
   .rightDoor .markSlot {
-    left: 151px;
+    left: 9.4375rem;
   }
 }
 

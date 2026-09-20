@@ -23,10 +23,10 @@ function ProcessStepItem({ step, idx, invertBackground, totalSteps }: { step: Pr
       {idx !== totalSteps - 1 && (
         <div style={{
           position: 'absolute',
-          left: '11px',
+          left: '0.6875rem',
           top: '3rem',
           bottom: '-1rem',
-          width: '2px',
+          width: '0.125rem',
           backgroundColor: borderColor,
           zIndex: 0
         }}>
@@ -47,8 +47,8 @@ function ProcessStepItem({ step, idx, invertBackground, totalSteps }: { step: Pr
           position: 'absolute',
           left: '0',
           top: '0.4rem',
-          width: '24px',
-          height: '24px',
+          width: '1.5rem',
+          height: '1.5rem',
           borderRadius: '50%',
           backgroundColor: isVisible ? 'var(--bronze)' : (invertBackground ? 'var(--navy)' : 'var(--cream)'),
           border: `2px solid ${isVisible ? 'var(--bronze)' : borderColor}`,
@@ -396,7 +396,7 @@ export default function ProcessList({ processData, invertBackground = false, var
             grid-template-columns: 1fr;
             gap: 4rem;
           }
-          @media (min-width: 1024px) {
+          @media (min-width: 1100px) {
             .timeline-layout {
               grid-template-columns: 1fr 1.2fr;
               gap: 8rem;

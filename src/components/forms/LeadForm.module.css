@@ -26,11 +26,11 @@
 .modalContainer {
   position: relative;
   width: 100%;
-  max-width: 660px;
-  max-height: min(90vh, 900px);
+  max-width: 41.25rem;
+  max-height: min(90vh, 56.25rem);
   background: var(--cream);
   color: var(--navy);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -88,10 +88,10 @@
 
 .standaloneCard {
   width: 100%;
-  max-width: 660px;
+  max-width: 41.25rem;
   background: var(--cream);
   color: var(--navy);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 20px 45px rgba(4, 36, 51, 0.18);
   display: flex;
@@ -148,11 +148,11 @@
 }
 
 .body::-webkit-scrollbar {
-  width: 6px;
+  width: 0.375rem;
 }
 .body::-webkit-scrollbar-thumb {
   background: rgba(4, 36, 51, 0.2);
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 /* ── Section labels within a form ────────────────────────── */
@@ -203,7 +203,7 @@
   padding: 0.8rem 1rem;
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(4, 36, 51, 0.15);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 0.95rem;
   color: var(--navy);
@@ -221,7 +221,7 @@
 
 .textarea {
   resize: vertical;
-  min-height: 92px;
+  min-height: 5.75rem;
   line-height: 1.55;
 }
 
@@ -264,8 +264,8 @@
 
 .checkbox {
   margin-top: 0.15rem;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   accent-color: var(--bronze);
   flex-shrink: 0;
   cursor: pointer;
@@ -315,8 +315,8 @@
 
 .radioLabel input {
   accent-color: var(--bronze);
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   cursor: pointer;
 }
 
@@ -335,7 +335,7 @@
   padding: 1.25rem 1.4rem;
   background: var(--white);
   border: 1px solid rgba(4, 36, 51, 0.12);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   font-weight: 500;
@@ -368,8 +368,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 2.625rem;
+  height: 2.625rem;
   border-radius: 50%;
   background: rgba(175, 140, 83, 0.1);
   color: var(--bronze);
@@ -395,9 +395,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.375rem;
   border: 1px solid rgba(4, 36, 51, 0.25);
   background: transparent;
   font-family: var(--font-inter), sans-serif;
@@ -424,7 +424,7 @@
   flex: 1;
   height: 1px;
   background: rgba(4, 36, 51, 0.2);
-  min-width: 12px;
+  min-width: 0.75rem;
 }
 
 .stepConnectorDone {
@@ -479,7 +479,7 @@
   background: var(--navy);
   color: var(--white);
   border: 1px solid var(--navy);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
@@ -506,7 +506,7 @@
   background: transparent;
   color: var(--navy);
   border: 1px solid rgba(4, 36, 51, 0.3);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
@@ -543,8 +543,8 @@
 }
 
 .successIcon {
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   margin: 0 auto 1.5rem;
   border-radius: 50%;
   background: rgba(175, 140, 83, 0.12);

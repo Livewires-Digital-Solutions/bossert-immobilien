@@ -16,9 +16,9 @@
   background-color: var(--cream);
   color: var(--navy);
   width: 100%;
-  max-width: 600px;
+  max-width: 37.5rem;
   max-height: 90vh;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
 
 @media (min-width: 640px) {
   .modalContainer {
-    max-width: 920px;
+    max-width: 57.5rem;
     flex-direction: row;
   }
 }
@@ -37,7 +37,7 @@
 .imagePanel {
   position: relative;
   width: 100%;
-  height: 140px;
+  height: 8.75rem;
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -115,14 +115,14 @@
 }
 
 .modalBody::-webkit-scrollbar {
-  width: 6px;
+  width: 0.375rem;
 }
 .modalBody::-webkit-scrollbar-track {
   background: transparent;
 }
 .modalBody::-webkit-scrollbar-thumb {
   background: rgba(4, 36, 51, 0.2);
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 .selectorGrid {
@@ -138,7 +138,7 @@
   padding: 1.25rem 1.5rem;
   background-color: white;
   border: 1px solid rgba(4, 36, 51, 0.1);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1.1rem;
@@ -175,7 +175,7 @@
   width: 100%;
   padding: 0.875rem 1rem;
   border: 1px solid rgba(4, 36, 51, 0.2);
-  border-radius: 6px;
+  border-radius: 0.375rem;
   background-color: white;
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
@@ -191,7 +191,7 @@
 
 .formTextarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 6.25rem;
 }
 
 .checkboxGrid {
@@ -211,8 +211,8 @@
 .checkboxInput {
   margin-top: 0.2rem;
   accent-color: var(--bronze);
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .radioGroup {
@@ -231,8 +231,8 @@
 
 .radioInput {
   accent-color: var(--bronze);
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .submitButton {
@@ -241,7 +241,7 @@
   background-color: var(--navy);
   color: var(--cream);
   border: none;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   font-family: var(--font-inter), sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
@@ -281,8 +281,8 @@
 }
 
 .successIcon {
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   background-color: rgba(181, 143, 98, 0.1);
   color: var(--bronze);
   border-radius: 50%;

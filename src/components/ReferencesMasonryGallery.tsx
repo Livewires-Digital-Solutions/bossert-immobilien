@@ -71,7 +71,7 @@ function EditorialCard({ item, index }: { item: GalleryItem, index: number }) {
       <Link href={`/references/${item.id}`} style={{ display: 'block', textDecoration: 'none' }}>
         <div 
           className="editorial-card"
-          style={{ width: '100%', height, minHeight: '400px' }}
+          style={{ width: '100%', height, minHeight: '25rem' }}
         >
           {/* Grayscale to Color Image */}
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
@@ -153,7 +153,7 @@ export default function ReferencesMasonryGallery({ data }: Props) {
       <div className="global-padding">
         
         {/* Section Header */}
-        <div ref={headerRef} style={{ marginBottom: '8rem', maxWidth: '800px' }}>
+        <div ref={headerRef} style={{ marginBottom: '8rem', maxWidth: '50rem' }}>
           <p className={`services-subtitle reveal-base reveal-up ${headerVisible ? 'is-revealed' : ''}`}>
             <span className="dot" style={{ backgroundColor: 'var(--ink)' }}></span> {data.tag}
           </p>

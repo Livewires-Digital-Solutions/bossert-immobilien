@@ -70,7 +70,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
         <div ref={sectionRef} style={{ marginBottom: '3rem' }}>
           <p
             className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}
-            style={{ fontSize: '0.8rem', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--bronze)', marginBottom: '1.5rem', fontWeight: 600 }}
+            style={{ fontSize: '0.8rem', letterSpacing: '0.1875rem', textTransform: 'uppercase', color: 'var(--bronze)', marginBottom: '1.5rem', fontWeight: 600 }}
           >
             {tag}
           </p>
@@ -99,15 +99,15 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                 <p style={{ fontSize: 'clamp(3.5rem, 16vw, 5rem)', fontWeight: 300, color: 'rgba(255,255,255,0.08)', lineHeight: 1, marginBottom: '1rem', fontFamily: 'var(--font-serif)' }}>
                   {ROMAN[idx]}
                 </p>
-                <h3 style={{ fontSize: 'clamp(1.75rem, 6vw, 2.25rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.5px', marginBottom: '1.25rem', lineHeight: 1.1 }}>
+                <h3 style={{ fontSize: 'clamp(1.75rem, 6vw, 2.25rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.0.3125rem', marginBottom: '1.25rem', lineHeight: 1.1 }}>
                   {pillar.title}
                 </h3>
-                <div style={{ width: '3rem', height: '2px', backgroundColor: 'var(--bronze)', marginBottom: '1.25rem' }} />
+                <div style={{ width: '3rem', height: '0.125rem', backgroundColor: 'var(--bronze)', marginBottom: '1.25rem' }} />
                 <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', fontWeight: 300, marginBottom: img ? '1.5rem' : 0 }}>
                   {pillar.description}
                 </p>
                 {img && (
-                  <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: '0.5rem', overflow: 'hidden' }}>
                     <Image src={img} alt={pillar.title} fill sizes="100vw" style={{ objectFit: 'cover', filter: 'brightness(0.8)' }} />
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.6) 0%, transparent 60%)' }} />
                   </div>
@@ -206,7 +206,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                 key={i}
                 style={{
                   width: active ? '2rem' : '0.5rem',
-                  height: '3px',
+                  height: '0.1875rem',
                   borderRadius: '999px',
                   backgroundColor: active ? 'var(--bronze)' : 'rgba(255,255,255,0.3)',
                   transition: 'width 0.4s ease, background-color 0.4s ease',
@@ -252,10 +252,10 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
                   <p style={{ fontSize: 'clamp(5rem, 12vw, 10rem)', fontWeight: 300, color: 'rgba(255,255,255,0.08)', lineHeight: 1, marginBottom: '2rem', fontFamily: 'var(--font-serif)' }}>
                     {ROMAN[idx]}
                   </p>
-                  <h3 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.5px', marginBottom: '2rem', lineHeight: 1.1 }}>
+                  <h3 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.0.3125rem', marginBottom: '2rem', lineHeight: 1.1 }}>
                     {pillar.title}
                   </h3>
-                  <div style={{ width: '3rem', height: '2px', backgroundColor: 'var(--bronze)', marginBottom: '2rem' }} />
+                  <div style={{ width: '3rem', height: '0.125rem', backgroundColor: 'var(--bronze)', marginBottom: '2rem' }} />
                   <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: '480px' }}>
                     {pillar.description}
                   </p>

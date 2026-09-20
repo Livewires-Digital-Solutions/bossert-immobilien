@@ -97,7 +97,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 <>
                   <RevealSection className="property-section">
                     <h2 className="property-section-title">Eckdaten</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(12.5rem, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
                       {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
                       {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
                       {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
@@ -111,7 +111,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                   {property.energy && (
                     <RevealSection className="property-section" delay={80}>
                       <h2 className="property-section-title">Energie & Heizung</h2>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(12.5rem, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
                         {property.energy.heatingType && <div><strong>Heizungsart:</strong><br/>{property.energy.heatingType}</div>}
                         {property.energy.firing && <div><strong>Befeuerung:</strong><br/>{property.energy.firing}</div>}
                         {property.energy.energyPassType && <div><strong>Energieausweistyp:</strong><br/>{property.energy.energyPassType}</div>}

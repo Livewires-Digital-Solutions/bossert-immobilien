@@ -16,16 +16,16 @@ export default function Marquee() {
       <div className="marquee-container" style={{ display: 'flex', whiteSpace: 'nowrap' }}>
         {/* Render text twice for seamless looping */}
         <div className="marquee-content italic-serif">
-          MARKET INSIGHTS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          OFF-MARKET TRENDS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          PREMIUM ESTATES <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          EXPERT VALUATION <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span>
+          MARKET INSIGHTS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          OFF-MARKET TRENDS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          PREMIUM ESTATES <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          EXPERT VALUATION <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span>
         </div>
         <div className="marquee-content italic-serif" aria-hidden="true">
-          MARKET INSIGHTS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          OFF-MARKET TRENDS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          PREMIUM ESTATES <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span> 
-          EXPERT VALUATION <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '12px', height: '12px' }}></span>
+          MARKET INSIGHTS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          OFF-MARKET TRENDS <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          PREMIUM ESTATES <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span> 
+          EXPERT VALUATION <span className="dot" style={{ display: 'inline-block', margin: '0 2rem', backgroundColor: 'var(--bronze)', width: '0.75rem', height: '0.75rem' }}></span>
         </div>
       </div>
 

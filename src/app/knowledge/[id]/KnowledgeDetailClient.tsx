@@ -39,7 +39,7 @@ export default function KnowledgeDetailClient({ article }: { article: ApiArticle
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.9) 0%, rgba(4,36,51,0.2) 80%)' }} />
 
         <div className="global-padding" style={{ position: 'relative', width: '100%', zIndex: 10 }}>
-          <div className="inner-page-container" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <div className="inner-page-container" style={{ maxWidth: '50rem', margin: '0 auto', textAlign: 'center' }}>
             <div
               className={`reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1.5rem' }}
@@ -62,7 +62,7 @@ export default function KnowledgeDetailClient({ article }: { article: ApiArticle
       {/* Content Section */}
       <article className="global-padding" style={{ padding: '6rem 0 10rem 0' }}>
         <div className="inner-page-container">
-          <div className="reveal-base reveal-up delay-300 is-revealed" style={{ maxWidth: '720px', margin: '0 auto' }}>
+          <div className="reveal-base reveal-up delay-300 is-revealed" style={{ maxWidth: '45rem', margin: '0 auto' }}>
             <p style={{ fontSize: '1.5rem', lineHeight: 1.6, color: 'var(--navy)', fontWeight: 500, marginBottom: '3rem' }}>
               {data.desc}
             </p>

@@ -81,7 +81,7 @@ export default function AboutStats({ stats }: Props) {
   return (
     <section className="global-padding" ref={sectionRef} style={{ backgroundColor: 'var(--navy)', color: 'var(--white)', paddingTop: '8rem', paddingBottom: '8rem' }}>
       <div className={`inner-page-container reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', textAlign: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(12.5rem, 1fr))', gap: '4rem', textAlign: 'center' }}>
           {stats.map((stat, idx) => (
             <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 300, color: 'var(--bronze)', lineHeight: 1, fontFamily: 'var(--font-serif)' }}>

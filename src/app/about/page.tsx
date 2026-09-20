@@ -84,7 +84,7 @@ export default function AboutPage() {
       {/* Cinematic Establishing Shot */}
       <section className="global-padding" style={{ paddingTop: '4rem', paddingBottom: '2rem' }}>
         <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div style={{ width: '100%', height: '70vh', minHeight: '500px', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
+          <div style={{ width: '100%', height: '70vh', minHeight: '31.25rem', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
             <Image
               src="/images/owners_bg_wide.jpg"
               alt="Bossert Immobilien Legacy"
@@ -136,10 +136,10 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))', gap: '6rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(25rem, 100%), 1fr))', gap: '6rem' }}>
             {members.map((member, idx) => (
               <div key={idx} className={`reveal-base reveal-up delay-${((idx % 3) + 1) * 200} ${teamVisible ? 'is-revealed' : ''}`}>
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', borderRadius: '4px', overflow: 'hidden', marginBottom: '2rem' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', borderRadius: '0.25rem', overflow: 'hidden', marginBottom: '2rem' }}>
                   <Image
                     src={member.image}
                     alt={member.name}

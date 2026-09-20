@@ -27,7 +27,7 @@
 .modalContainer {
   position: relative;
   width: 100%;
-  max-width: 430px;
+  max-width: 26.875rem;
   background: #f8f6f1;
   border: 1px solid var(--bronze);
   border-radius: 0;
@@ -45,21 +45,21 @@
 .modalContainer::after {
   content: '';
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   pointer-events: none;
 }
 .modalContainer::before {
   top: -5px;
   left: -5px;
-  border-top: 2px solid var(--bronze);
-  border-left: 2px solid var(--bronze);
+  border-top: 0.125rem solid var(--bronze);
+  border-left: 0.125rem solid var(--bronze);
 }
 .modalContainer::after {
   bottom: -5px;
   right: -5px;
-  border-bottom: 2px solid var(--bronze);
-  border-right: 2px solid var(--bronze);
+  border-bottom: 0.125rem solid var(--bronze);
+  border-right: 0.125rem solid var(--bronze);
 }
 
 .closeButton {
@@ -94,7 +94,7 @@
 }
 
 .modalLogo {
-  width: 92px;
+  width: 5.75rem;
   height: auto;
   display: block;
   /* logo.png ships white — invert to dark on the cream modal */
@@ -214,8 +214,8 @@
 }
 
 .checkboxGroup input[type='checkbox'] {
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   accent-color: var(--bronze);
   border-radius: 0;
 }
@@ -269,8 +269,8 @@
   right: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
+  width: 0.9375rem;
+  height: 0.9375rem;
   background-color: currentColor;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m13 6 6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m13 6 6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
