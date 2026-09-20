@@ -171,10 +171,30 @@
 /* ── Large-screen scaling (27"+ / ≥1920px) — see the matching block at the
    end of globals.css. The clamp() above plateaus at 3rem by ~1875px
    viewport width, so it stays frozen on large monitors; this picks up
-   from that same value and keeps it growing, modestly and capped. ── */
+   from that same value and keeps it growing, modestly and capped.
+   .stickyViewport is intentionally NOT touched here — its 100vh height is
+   load-bearing for usePinnedScrollProgress's pin/scrub timing, so instead
+   the content block itself grows to fill more of that fixed space rather
+   than shrinking the container. */
 @media (min-width: 1920px) {
+  .content {
+    max-width: clamp(720px, calc(720px + (100vw - 1920px) * 0.235), 960px);
+    gap: clamp(1.25rem, calc(1.25rem + (100vw - 1920px) * 0.0163), 2.25rem);
+  }
   .headline {
-    font-size: clamp(3rem, calc(3rem + (100vw - 1920px) * 0.015), 3.85rem);
+    font-size: clamp(3rem, calc(3rem + (100vw - 1920px) * 0.028), 4.5rem);
+  }
+  .subhead {
+    font-size: clamp(1.35rem, calc(1.35rem + (100vw - 1920px) * 0.008), 1.7rem);
+  }
+  .bodyText {
+    font-size: clamp(0.95rem, calc(0.95rem + (100vw - 1920px) * 0.005), 1.15rem);
+    max-width: clamp(560px, calc(560px + (100vw - 1920px) * 0.15), 700px);
+  }
+  .ctaButton {
+    padding: clamp(1.05rem, calc(1.05rem + (100vw - 1920px) * 0.003), 1.3rem)
+             clamp(2.5rem, calc(2.5rem + (100vw - 1920px) * 0.01), 3.2rem);
+    font-size: clamp(0.72rem, calc(0.72rem + (100vw - 1920px) * 0.002), 0.85rem);
   }
 }
 
