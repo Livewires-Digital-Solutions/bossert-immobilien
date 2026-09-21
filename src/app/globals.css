@@ -2075,7 +2075,7 @@ body {
   font-size: clamp(0.875rem, 1.5vw, 1rem);
   color: var(--white);
   line-height: 1.7;
-  max-width: 480px;
+  max-width: 30rem;
   opacity: 0.75;
   font-weight: 300;
   padding-left: 2.5rem;
@@ -3190,9 +3190,10 @@ body {
 }
 
 .explore-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   align-items: flex-end;
+  gap: clamp(2rem, 6vw, 5rem);
   padding-bottom: 3rem;
   border-bottom: 1px solid rgba(4, 36, 51, 0.15);
 }
@@ -3247,7 +3248,7 @@ body {
   font-weight: 300;
   color: var(--navy);
   opacity: 0.8;
-  max-width: 450px;
+  max-width: 28.125rem;
   line-height: 1.6;
   margin: 0;
 }
@@ -3562,7 +3563,7 @@ body {
   opacity: 0.8;
   line-height: 1.6;
   margin: 0;
-  max-width: 450px;
+  max-width: 28.125rem;
 }
 
 .why-editorial-phrase {
@@ -3617,7 +3618,7 @@ body {
   color: var(--navy);
   opacity: 0.8;
   line-height: 1.6;
-  max-width: 500px;
+  max-width: 31.25rem;
   margin: 0;
 }
 
@@ -3669,21 +3670,19 @@ body {
   margin: 1.5rem 0 3rem;
 }
 
-/* Arrows + quote row */
+/* Arrows + quote row — arrows sit close to the quote (gap-based), not
+   pinned to the edges of the (large-screen-scaled) content column, so the
+   two don't drift apart into empty space on wide viewports. */
 .test-carousel {
-  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
   min-height: 160px;
 }
 
 .test-arrow-plain {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3697,9 +3696,6 @@ body {
   transition: border-color 0.3s, background 0.3s, color 0.3s;
   flex-shrink: 0;
 }
-
-.test-arrow-left { left: 0; }
-.test-arrow-right { right: 0; }
 
 .test-arrow-plain svg {
   width: 16px;
@@ -3719,8 +3715,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  max-width: 640px;
-  margin: 0 auto;
+  max-width: 40rem;
 }
 
 /* Fade animation */
@@ -3790,9 +3785,6 @@ body {
   .testimonial-section {
     padding: 6rem 3rem;
   }
-  .test-carousel {
-    padding: 0 4rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -3800,7 +3792,7 @@ body {
     padding: 5rem 1.5rem;
   }
   .test-carousel {
-    padding: 0 3rem;
+    gap: 1rem;
     min-height: 200px;
   }
   .test-arrow-plain {
@@ -3821,33 +3813,34 @@ body {
 
 
 
-/* --- Action Prompt Section (framed text card + full-bleed image) --- */
+/* --- Action Prompt Section (framed text card + image, contained like the
+   rest of the page's split sections so the image can't balloon past a
+   sensible size on ultra-wide screens) --- */
 .action-prompt-section {
   width: 100%;
-  display: flex;
-  align-items: stretch;
-  min-height: clamp(30rem, 42vw, 40rem);
   background-color: var(--cream);
   border-top: 1px solid rgba(4, 36, 51, 0.12);
-  /* Only the left edge aligns to the shared container above >=1600px —
-     the image column stays intentionally full-bleed to the right edge. */
-  padding-left: max(var(--gutter), calc((100% - var(--container-max)) / 2 + var(--gutter)));
+}
+
+.action-prompt-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter);
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  min-height: clamp(26rem, 32vw, 34rem);
 }
 
 .action-prompt-text-col {
-  flex: 0 0 42%;
   display: flex;
-  align-items: center;
-  /* Left gutter now lives on .action-prompt-section; this keeps only the
-     internal breathing room between the text and the image column. */
-  padding: 4rem var(--gutter) 4rem 0;
-  box-sizing: border-box;
 }
 
 .action-prompt-card {
   width: 100%;
-  max-width: 480px;
+  max-width: 28rem;
   border: 1px solid rgba(4, 36, 51, 0.15);
   padding: 3rem;
   box-sizing: border-box;
@@ -3869,7 +3862,7 @@ body {
 .action-prompt-headline {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(2.1rem, 3vw, 2.75rem);
+  font-size: clamp(2.1rem, 2.4vw, 2.5rem);
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--navy);
@@ -3881,7 +3874,7 @@ body {
   font-size: 0.92rem;
   line-height: 1.7;
   color: rgba(4, 36, 51, 0.6);
-  max-width: 380px;
+  max-width: 23.75rem;
   margin: 0;
 }
 
@@ -3892,21 +3885,17 @@ body {
 
 .action-prompt-image-col {
   position: relative;
-  flex: 1 1 58%;
   min-height: 22rem;
+  align-self: stretch;
   overflow: hidden;
 }
 
 @media (max-width: 900px) {
-  .action-prompt-section {
-    flex-direction: column;
+  .action-prompt-container {
+    grid-template-columns: 1fr;
     min-height: 0;
-    padding-left: 0;
-  }
-
-  .action-prompt-text-col {
-    flex: none;
     padding: 3.5rem var(--gutter);
+    gap: 2.5rem;
   }
 
   .action-prompt-card {
@@ -3919,14 +3908,13 @@ body {
   }
 
   .action-prompt-image-col {
-    flex: none;
     height: 22rem;
     min-height: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .action-prompt-text-col {
+  .action-prompt-container {
     padding: 2.5rem var(--gutter);
   }
 
@@ -4990,7 +4978,7 @@ body {
     padding: 4rem var(--gutter) 6rem var(--gutter);
   }
   .explore-header {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 2rem;
   }
@@ -5326,7 +5314,7 @@ body {
     padding: 3rem var(--gutter) 4rem var(--gutter);
   }
   .explore-header {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 2rem;
     padding-bottom: 2rem;
