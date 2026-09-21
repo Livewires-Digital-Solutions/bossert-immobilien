@@ -26,6 +26,35 @@ export const de = {
     statsNumber: '30+',
     statsDesc: 'Jahre\nErfahrung'
   },
+  heroCarousel: {
+    learnMore: 'Mehr erfahren',
+    prevLabel: 'Vorheriger Service',
+    nextLabel: 'Nächster Service',
+    goToLabel: 'Zu Service {n} wechseln',
+    slides: [
+      {
+        category: 'Bewertung',
+        titleLine1: 'Ihre Immobilie',
+        titleLine2: 'bewerten lassen',
+        desc: 'Erhalten Sie eine präzise und professionelle Immobilienbewertung von unseren erfahrenen Experten.',
+        href: '/owners',
+      },
+      {
+        category: 'Verkauf',
+        titleLine1: 'Verkaufen Sie',
+        titleLine2: 'strategisch',
+        desc: 'Mit präzisen Markteinblicken und einer maßgeschneiderten Verkaufsstrategie sorgen wir dafür, dass Ihre Immobilie die richtigen Käufer zum richtigen Preis erreicht.',
+        href: '/services',
+      },
+      {
+        category: 'Kauf',
+        titleLine1: 'Finden Sie Ihre',
+        titleLine2: 'nächste Immobilie',
+        desc: 'Ihre neue Immobilie wartet auf Sie. Wir begleiten Sie bei jedem Schritt — von der Suche über die Bewertung bis zum Erwerb des passenden Objekts, ob zur Eigennutzung oder als Kapitalanlage.',
+        href: '/properties',
+      },
+    ],
+  },
   introPromo: {
     tag: 'EXPERTISE & VERTRAUEN',
     headline: 'Umfassende Immobilienlösungen',

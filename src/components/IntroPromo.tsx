@@ -15,8 +15,16 @@ import styles from './IntroPromo.module.css';
 // one viewport (see .promoSection / .stickyViewport in the CSS) so this
 // plays out across a real scroll distance instead of finishing in one
 // wheel tick.
-const PICTURE_RANGE: [number, number] = [0, 0.6];
-const CONTENT_RANGE: [number, number] = [0, 0.78];
+// Both ranges end well before progress=1 (rather than stretching near the
+// full 0.78-0.92 span they used to) so the reveal is front-loaded: it
+// starts firing within the first ~10% of the pin instead of sitting at
+// near-zero opacity for a few hundred px first. That gap used to read as
+// a blank section — the pin had already engaged (no more Hero on screen)
+// but nothing was visible yet. The remaining scroll distance after the
+// reveal completes is intentional hold time to read the copy before it
+// unpins into the next section.
+const PICTURE_RANGE: [number, number] = [0, 0.32];
+const CONTENT_RANGE: [number, number] = [0, 0.52];
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
@@ -67,13 +75,13 @@ export default function IntroPromo() {
   const contentScale = 0.97 + 0.03 * easeOutBack(contentStage);
 
   const words = t.introPromo.headline.split(' ');
-  const wordStep = 0.09;
-  const wordDur = 0.45;
+  const wordStep = 0.055;
+  const wordDur = 0.32;
 
-  const tagStage = stage(contentStage, 0, 0.28);
-  const subheadStage = stage(contentStage, 0.26, 0.58);
-  const bodyStage = stage(contentStage, 0.4, 0.72);
-  const ctaStage = stage(contentStage, 0.55, 0.92);
+  const tagStage = stage(contentStage, 0, 0.16);
+  const subheadStage = stage(contentStage, 0.16, 0.42);
+  const bodyStage = stage(contentStage, 0.3, 0.58);
+  const ctaStage = stage(contentStage, 0.46, 0.85);
 
   return (
     <section className={styles.promoSection} ref={trackRef}>

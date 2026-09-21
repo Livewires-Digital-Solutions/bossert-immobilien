@@ -26,6 +26,35 @@ export const en = {
     statsNumber: '30+',
     statsDesc: 'Years of\nexpertise'
   },
+  heroCarousel: {
+    learnMore: 'Learn more',
+    prevLabel: 'Previous service',
+    nextLabel: 'Next service',
+    goToLabel: 'Go to service {n}',
+    slides: [
+      {
+        category: 'Valuation',
+        titleLine1: 'Get your property',
+        titleLine2: 'valuation',
+        desc: 'Receive an accurate and professional property valuation from our experienced experts.',
+        href: '/owners',
+      },
+      {
+        category: 'Selling',
+        titleLine1: 'Sell your property',
+        titleLine2: 'strategically',
+        desc: 'With precise market insights and a bespoke sales strategy, we ensure your property reaches the right buyers at the right price.',
+        href: '/services',
+      },
+      {
+        category: 'Buying',
+        titleLine1: 'Acquire your next',
+        titleLine2: 'property',
+        desc: 'Your new property is waiting for you. We guide you through every step of identifying, evaluating, and acquiring the right asset — whether for personal use or as an investment.',
+        href: '/properties',
+      },
+    ],
+  },
   introPromo: {
     tag: 'EXPERTISE & TRUST',
     headline: 'Comprehensive Property Solutions',
