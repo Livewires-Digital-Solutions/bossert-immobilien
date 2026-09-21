@@ -1493,11 +1493,23 @@ body {
 }
 
 /* --- Main Content --- */
+/* margin-top/bottom: auto (not a fixed 2vh + auto) so the hero content
+   vertically centers itself in whatever vertical slack the viewport
+   actually has, instead of always hugging the top. Auto margins can only
+   ever claim space that's genuinely free — when the stacked/scaled
+   content already fills the 100vh box (short viewports, laptops) both
+   resolve to ~0 and it still hugs the top exactly as before; when there's
+   real slack (tall viewports — common on external/desktop displays where
+   the browser window isn't necessarily maximized in width) it centers
+   instead of leaving a lopsided gap above the scroll indicator. This
+   replaces a width-gated `min-width: 1537px` override that missed
+   viewports which are tall but not that wide (e.g. a 24" iMac's default
+   logical resolution, or any non-maximized wide-monitor browser window). */
 .main-grid {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2vh;
+  margin-top: auto;
   margin-bottom: auto;
   gap: 3rem;
 }
