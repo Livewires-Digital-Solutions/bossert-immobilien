@@ -59,13 +59,17 @@ html {
    larger rather than just re-centered. */
 @media (min-width: 1537px) {
   :root {
-    --hsc2-w: 20.625rem;
+    --hsc2-w: 19.5rem;
   }
 
   .main-grid { margin-top: auto; }
+  /* Floor only — space-between already throws its leftover width into
+     this gap, this just guarantees a minimum if that ever comes up
+     short instead of letting the card and headline crowd together. */
+  .main-grid.has-carousel { gap: 5rem; }
   .main-grid.has-carousel .hero-headline-top,
   .main-grid.has-carousel .hero-headline-mid,
   .main-grid.has-carousel .hero-headline-bot {
-    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    font-size: clamp(2.5rem, 4.6vw, 5rem);
   }
 }
