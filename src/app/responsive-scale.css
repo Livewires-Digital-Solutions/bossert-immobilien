@@ -49,3 +49,24 @@ html {
   .headline-bot-s { letter-spacing: -0.1875rem; }
   .cta-headline { letter-spacing: -0.125rem; }
 }
+
+/* Large-monitor-only hero refinement (27"+, strictly above the 1536px
+   laptop boundary so 1280/1366/1536 stay byte-identical to the block
+   above). .main-grid's margin-bottom:auto hugs the hero content to the
+   top of the 100vh section by design at laptop sizes; on a tall large
+   screen that leaves a big empty gap above the scroll indicator, so it's
+   re-centered here instead. The headline and carousel card also get a
+   modest extra size bump so the composition reads as intentionally
+   larger rather than just re-centered. */
+@media (min-width: 1537px) {
+  :root {
+    --hsc2-w: 20.625rem;
+  }
+
+  .main-grid { margin-top: auto; }
+  .main-grid.has-carousel .hero-headline-top,
+  .main-grid.has-carousel .hero-headline-mid,
+  .main-grid.has-carousel .hero-headline-bot {
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+  }
+}
