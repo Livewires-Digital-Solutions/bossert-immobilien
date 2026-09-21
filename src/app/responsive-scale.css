@@ -45,8 +45,7 @@ html {
   .explore-headline,
   .why-headline,
   .news-headline,
-  .headline-mid-s,
-  .headline-bot-s { letter-spacing: -0.1875rem; }
+  .headline-mid-s { letter-spacing: -0.1875rem; }
   .cta-headline { letter-spacing: -0.125rem; }
 }
 

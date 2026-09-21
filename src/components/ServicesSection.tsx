@@ -60,8 +60,7 @@ export default function ServicesSection() {
         </div>
         <div className="services-headline">
           <div className="headline-top-s">{t.services.headline}</div>
-          <div className="headline-mid-s">{t.services.headlineMid}</div>
-          <div className="headline-bot-s"><span>{t.services.headlineSerif}</span> {t.services.headlineBot}</div>
+          <div className="headline-mid-s">{t.services.headlineMid} <span>{t.services.headlineSerif}</span> {t.services.headlineBot}</div>
         </div>
         <div className="services-desc">
           {t.services.subhead}
