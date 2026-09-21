@@ -92,7 +92,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass}`}>
+      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass} ${isAdmin ? 'has-admin' : ''}`}>
         {/* Mobile Hamburger (hidden on desktop) */}
         <button
           className={`hamburger-btn mobile-only-hamburger ${menuOpen ? 'open' : ''}`}

@@ -8,11 +8,16 @@
 /* The outer track: taller than one viewport so the sticky inner viewport
    below has real scroll distance to pin against — this is what turns
    scroll into a 0→1 progress value in usePinnedScrollProgress instead of
-   the whole reveal completing within a single wheel tick. */
+   the whole reveal completing within a single wheel tick. 170vh (rather
+   than a much taller track) keeps the post-reveal hold — the pinned time
+   between "everything's fully revealed" and unpinning into the next
+   section — to about 3 scroll ticks instead of dragging on for a full
+   extra viewport; see IntroPromo.tsx's range comment for the matching
+   progress-fraction math. */
 .promoSection {
   position: relative;
   width: 100%;
-  height: 250vh;
+  height: 170vh;
   background-color: var(--cream);
 }
 

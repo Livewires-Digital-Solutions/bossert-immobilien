@@ -11,6 +11,18 @@ import { useEffect, useRef, useState } from 'react';
  * tick — measured directly (not by IntersectionObserver timing), and
  * continuous in both directions so scrolling back up retracts it.
  *
+ * The budget starts counting as soon as the track's top edge touches the
+ * *bottom* of the viewport, not only once it reaches the top (fully pinned).
+ * When the previous section ends exactly at 100vh with no gap (as the hero
+ * does here), that pre-pin approach is a full viewport-height of scrolling
+ * during which the section is already rising into view — without this, the
+ * section sits at progress=0 (everything invisible) for that whole
+ * approach, so a blank track visibly slides up and only starts animating
+ * once it's already fully covered the screen. Folding the approach into the
+ * budget means the reveal is already under way by the time it's fully in
+ * view, instead of the reveal only starting once the blank page has taken
+ * over. See IntroPromo.tsx for the range tuning that assumes this.
+ *
  * Verified against this project's Lenis smooth-scroll (SmoothScroll.tsx):
  * Lenis drives real `window.scrollTo`, so native scroll events and
  * getBoundingClientRect stay accurate — no extra wiring needed here.
@@ -45,7 +57,12 @@ export function usePinnedScrollProgress<T extends HTMLElement = HTMLDivElement>(
         setProgress(1);
         return;
       }
-      const raw = -rect.top / total;
+      // Budget = the approach (rect.top: innerHeight → 0) + the pinned
+      // scrub (0 → -total), so progress reaches the same 0/1 endpoints as
+      // before but starts accruing while the section is still rising into
+      // view rather than only once it's fully pinned.
+      const budget = window.innerHeight + total;
+      const raw = (window.innerHeight - rect.top) / budget;
       setProgress(Math.max(0, Math.min(1, raw)));
     };
 

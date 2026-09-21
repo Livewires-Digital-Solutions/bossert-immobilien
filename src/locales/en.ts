@@ -50,7 +50,7 @@ export const en = {
         category: 'Buying',
         titleLine1: 'Acquire your next',
         titleLine2: 'property',
-        desc: 'Your new property is waiting for you. We guide you through every step of identifying, evaluating, and acquiring the right asset — whether for personal use or as an investment.',
+        desc: 'Your new property is waiting for you. We guide you through every step — from search and evaluation to a confident acquisition.',
         href: '/properties',
       },
     ],
