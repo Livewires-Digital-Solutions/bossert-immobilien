@@ -17,20 +17,21 @@ import styles from './IntroPromo.module.css';
 // wheel tick.
 // progress now starts accruing while the section is still rising into view
 // (see usePinnedScrollProgress) — the budget is the section's own track
-// height (.promoSection, 170vh), and with the hero at exactly 100vh, the
-// pre-pin approach eats ~59% of that (progress 0-0.59). The section's own
+// height (.promoSection, 200vh), and with the hero at exactly 100vh, the
+// pre-pin approach eats half of that (progress 0-0.5). The section's own
 // centered content doesn't physically reach the middle of the screen until
 // roughly halfway through that rise, either. Starting the ranges at
 // progress 0 made the reveal complete before the content was even visible
 // on screen — no motion to see, just a fully-formed block sliding up. So
 // these start partway through the rise instead: it stays blank while the
 // section is still mostly below the fold (the expected "blank page rising"
-// beat), then visibly animates in as it finishes rising and locks into the
-// pin, landing shortly (~230px) after. The remaining budget past ~0.74 is
-// hold time to read the copy — kept short (~400px, about 3 scroll ticks)
-// rather than a long dead pause before it unpins into the next section.
-const PICTURE_RANGE: [number, number] = [0.26, 0.62];
-const CONTENT_RANGE: [number, number] = [0.32, 0.74];
+// beat), then visibly animates in — slower than the first pass, ~900px of
+// scroll rather than ~640px — as it finishes rising and locks into the
+// pin. The remaining budget past ~0.77 is hold time to read the copy,
+// kept to a few hundred px rather than a long dead pause before it unpins
+// into the next section.
+const PICTURE_RANGE: [number, number] = [0.22, 0.65];
+const CONTENT_RANGE: [number, number] = [0.27, 0.77];
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 

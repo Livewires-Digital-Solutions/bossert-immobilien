@@ -2307,29 +2307,35 @@ body {
 }
 .headline-top-s {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 300;
-  letter-spacing: -1px;
-  line-height: 1.2;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+  line-height: 1.4;
+  white-space: nowrap;
 }
 .headline-mid-s {
   font-family: var(--font-serif);
   font-style: normal;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 300;
-  letter-spacing: -1px;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--navy);
   margin-left: 0;
-  line-height: 1.2;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 .headline-bot-s {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 300;
-  letter-spacing: -1px;
-  line-height: 1.2;
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+  line-height: 1.4;
+  white-space: nowrap;
 }
 .headline-bot-s span {
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .services-desc {

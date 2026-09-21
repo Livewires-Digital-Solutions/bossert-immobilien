@@ -110,10 +110,10 @@ export const en = {
   },
   services: {
     tag: 'WHAT WE DO',
-    headline: 'A MORE CONSIDERED WAY',
-    headlineMid: 'to navigate',
-    headlineSerif: 'real',
-    headlineBot: 'estate.',
+    headline: 'A More Considered Way',
+    headlineMid: 'to   navigate',
+    headlineSerif: 'real  ',
+    headlineBot: ' estate.',
     subhead: 'From finding the right property to understanding its value, Bossert brings together local expertise, personal advice and a complete range of real-estate services — from the first conversation to the final handover.',
     footer: 'Rhein-Main Region • Since 1991',
     cards: [
@@ -496,15 +496,15 @@ export const en = {
         house: "Single-Family or Multi-Family Home",
         apartment: "Apartment",
         commercial: "Commercial",
-        
+
         houseFormTitle: "Share a few details about your property",
         apartmentFormTitle: "Tell us briefly about your property",
         commercialFormTitle: "Share a few details about your property",
-        
+
         houseType: "House Type",
         apartmentType: "Apartment Type",
         commercialType: "Type of Commercial Property",
-        
+
         yearBuilt: "Year Built (approx.)",
         livingArea: "Living Area (approx.)",
         plotArea: "Plot Area (approx.)",
@@ -514,19 +514,19 @@ export const en = {
         bathrooms: "Number of Bathrooms",
         parkingSpaces: "Number of Parking Spaces",
         condition: "Condition",
-        
+
         features: "Does your property have any of these features?",
-        
+
         plans: "Plans for the property",
         sell: "Sell",
         rentOut: "Rent out",
-        
+
         timeframe: "Timeframe",
         notDecided: "Not decided yet",
         laterPoint: "At a later point in time",
         fewMonths: "Within the next few months",
         yesSoon: "Yes, soon",
-        
+
         additional: "Tell us anything else we should know about your property.",
         location: "Location",
         contactInfo: "Contact info",
@@ -534,10 +534,10 @@ export const en = {
         lastName: "Last Name",
         email: "E-Mail",
         phone: "Phone Number",
-        
+
         consent: "I have read the Terms & Conditions and the Privacy Policy and consent to the processing of my data for the purpose of handling my inquiry.",
         submit: "Submit ⟶",
-        
+
         rentalStatus: "Is the property currently rented?",
         yes: "Yes",
         no: "No",
