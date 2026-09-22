@@ -2072,7 +2072,6 @@ body {
   color: var(--white);
   line-height: 1.05;
   margin-bottom: 0.1em;
-  text-transform: uppercase;
   /* Allow wrapping on mobile — nowrap on desktop only via media query below */
   white-space: normal;
   display: inline-block;
@@ -2087,7 +2086,6 @@ body {
   letter-spacing: -0.02em;
   color: var(--white);
   margin-bottom: 0.1em;
-  text-transform: uppercase;
   white-space: normal;
   display: inline-block;
   max-width: 100%;
@@ -2103,7 +2101,6 @@ body {
   letter-spacing: -0.02em;
   color: var(--white);
   line-height: 1.05;
-  text-transform: uppercase;
   white-space: normal;
   display: inline-block;
   max-width: 100%;
@@ -5192,10 +5189,10 @@ body {
     padding: 8rem 1.25rem 1.5rem 1.25rem;
   }
   .hero-top-group {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
   }
   .hero-subhead {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
   }
   .hero-desc {
     padding-left: 1.5rem;
@@ -7155,28 +7152,9 @@ html[data-theme='dark'] .pc-badge-heart {
   .navbar {
     padding: 0.5rem var(--gutter) !important;
     height: 72px !important;
-    background: rgba(4, 36, 51, 0.70) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
   }
-  
-  /* Force white foreground on mobile, overriding any .navbar-invert or .navbar-properties styles */
   .navbar .logo-img {
     height: 32px !important;
-  }
-  .navbar .logo-img.logo-img-navy {
-    background-color: var(--white) !important;
-  }
-  .navbar .lang-btn,
-  .navbar .lang-btn.active,
-  .navbar .lang-sep {
-    color: var(--white) !important;
-  }
-  .navbar .hamburger-btn span {
-    background-color: var(--white) !important;
-  }
-  .navbar svg {
-    stroke: var(--white) !important;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7261,8 +7239,8 @@ html[data-theme='dark'] .pc-badge-heart {
     --gutter: 1.25rem !important;
   }
   
-  h1, .h1, .hero-headline-top, .hero-headline-mid, .hero-headline-bot {
-    font-size: clamp(1.75rem, 8vw, 2.75rem) !important;
+  h1, .h1 {
+    font-size: clamp(2rem, 8vw, 2.75rem) !important;
     line-height: 1.1 !important;
   }
   h2, .h2 {
