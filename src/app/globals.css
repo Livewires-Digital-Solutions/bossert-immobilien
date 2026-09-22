@@ -7152,9 +7152,28 @@ html[data-theme='dark'] .pc-badge-heart {
   .navbar {
     padding: 0.5rem var(--gutter) !important;
     height: 72px !important;
+    background: rgba(4, 36, 51, 0.70) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
   }
+  
+  /* Force white foreground on mobile, overriding any .navbar-invert or .navbar-properties styles */
   .navbar .logo-img {
     height: 32px !important;
+  }
+  .navbar .logo-img.logo-img-navy {
+    background-color: var(--white) !important;
+  }
+  .navbar .lang-btn,
+  .navbar .lang-btn.active,
+  .navbar .lang-sep {
+    color: var(--white) !important;
+  }
+  .navbar .hamburger-btn span {
+    background-color: var(--white) !important;
+  }
+  .navbar svg {
+    stroke: var(--white) !important;
   }
   
   /* Mobile Menu Drawer animation override */
