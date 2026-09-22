@@ -7144,3 +7144,128 @@ html[data-theme='dark'] .pc-badge-heart {
   font-size: clamp(2.5rem, 4vw, 4.5rem) !important;
 }
 
+/* ==========================================================================
+   MOBILE & TABLET OVERRIDES (<= 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* A. Navigation & Navbar */
+  .navbar {
+    padding: 0.5rem var(--gutter) !important;
+    height: 64px !important;
+  }
+  .navbar .logo-img {
+    height: 28px !important;
+  }
+  
+  /* Mobile Menu Drawer animation override */
+  .mobile-drawer {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease !important;
+  }
+  
+  /* Touch Targets */
+  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* B. Layout Restructuring */
+  /* General Grid Overrides - convert multi-col grids to 1 col */
+  .stats-grid,
+  .properties-main-grid,
+  .explore-grid,
+  .why-container,
+  .action-prompt-container,
+  .discreet-network-container,
+  .cta-form-row,
+  .expertise-grid,
+  .property-details-grid,
+  .property-amenities-list,
+  .media-floorplans-grid,
+  .location-pois-grid,
+  .pc-specs-grid,
+  .gallery-mosaic,
+  .editorial-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Hero Section Restructuring */
+  .hero-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+  
+  /* Form stacking */
+  .form-row, .lead-form-row {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  input, select, textarea, .form-input, .lead-input {
+    min-height: 48px !important;
+    width: 100% !important;
+  }
+
+  /* C. Spacing & Typography */
+  :root {
+    --section-padding: 60px !important;
+    --gutter: 1.25rem !important;
+  }
+  
+  h1, .h1 {
+    font-size: clamp(2rem, 8vw, 2.75rem) !important;
+    line-height: 1.1 !important;
+  }
+  h2, .h2 {
+    font-size: clamp(1.75rem, 6vw, 2.25rem) !important;
+  }
+  .staggered-text {
+    font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
+  }
+
+  /* D. Animations */
+  .reveal-up {
+    transform: translateY(16px) !important;
+  }
+  .reveal-scale {
+    transform: translateY(16px) scale(0.97) !important;
+  }
+  .reveal-left {
+    transform: translateX(-16px) !important;
+  }
+  .reveal-right {
+    transform: translateX(16px) !important;
+  }
+  
+  /* Global snappier animation timing on mobile */
+  .reveal-base, .clip-reveal, .staggered-word, .accordion-card.reveal-base {
+    transition-duration: 0.4s !important;
+  }
+}
+
+/* Global Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .reveal-base, .reveal-up, .reveal-scale, .reveal-left, .reveal-right, .clip-reveal, .staggered-word, .is-revealed {
+    transform: none !important;
+    filter: none !important;
+    transition: opacity 0.2s linear !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+
