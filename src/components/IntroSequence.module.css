@@ -16,6 +16,7 @@
   top: 0;
   width: 50%;
   height: 100vh;
+  height: 100dvh;
   /* Primary brand navy, with a touch of transparency so the hero page
      bleeds through faintly before the doors swing open. */
   background-color: color-mix(in srgb, var(--navy, #042433) 80%, transparent);
@@ -156,20 +157,21 @@
     perspective: 800px;
   }
   .logoImage {
-    width: 280px;
+    width: 60vw;
+    max-width: 280px;
     height: auto;
   }
   .mark {
-    font-size: 53px;
+    font-size: clamp(32px, 10vw, 53px);
   }
   .markSlot {
-    transform: translateY(calc(-50% + 101px));
+    transform: translateY(calc(-50% + 18vw));
   }
   .leftDoor .markSlot {
-    right: 151px;
+    right: 32vw;
   }
   .rightDoor .markSlot {
-    left: 151px;
+    left: 32vw;
   }
 }
 

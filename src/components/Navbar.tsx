@@ -89,6 +89,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
   const invertClass = invertOnLoad && !isScrolled && !menuOpen ? 'navbar-invert' : '';
   const propertiesClass = navyLogo ? 'navbar-properties' : '';
+  const showNavyLogo = navyLogo || isScrolled || (invertOnLoad && !isScrolled && !menuOpen);
 
   return (
     <>
@@ -106,7 +107,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
         {/* Mobile Logo (hidden on desktop) */}
         <Link href="/" className="logo mobile-only-logo">
-          {navyLogo ? (
+          {showNavyLogo ? (
             <span className="logo-img logo-img-navy" role="img" aria-label="Bossert Immobilien Logo" />
           ) : (
             <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />
@@ -147,7 +148,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
           <div className="nav-center-section">
             <Link href="/" className="logo">
-              {navyLogo ? (
+              {showNavyLogo ? (
                 <span className="logo-img logo-img-navy" role="img" aria-label="Bossert Immobilien Logo" />
               ) : (
                 <img src="/logo.png" alt="Bossert Immobilien Logo" className="logo-img" />

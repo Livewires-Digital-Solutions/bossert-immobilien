@@ -1142,7 +1142,7 @@ body {
 }
 
 .navbar.navbar-invert .logo-img {
-  filter: invert(1);
+  /* Mask applied dynamically via Navbar logic instead of lossy inversion */
 }
 
 /* G-03: sticky header stays navy (white text/logo, same as the default
@@ -4474,7 +4474,7 @@ body {
   height: auto;
   display: block;
   /* logo.png ships white — invert to dark on the cream card, same as the navbar */
-  filter: invert(1);
+  /* filter: invert(1); removed in favor of using logo-img-navy mask logic */
 }
 
 .auth-eyebrow {
@@ -7151,10 +7151,10 @@ html[data-theme='dark'] .pc-badge-heart {
   /* A. Navigation & Navbar */
   .navbar {
     padding: 0.5rem var(--gutter) !important;
-    height: 64px !important;
+    height: 72px !important;
   }
   .navbar .logo-img {
-    height: 28px !important;
+    height: 32px !important;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7169,6 +7169,11 @@ html[data-theme='dark'] .pc-badge-heart {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .hamburger-btn {
+    background: transparent !important;
+    border: none !important;
   }
 
   /* B. Layout Restructuring */
@@ -7194,14 +7199,28 @@ html[data-theme='dark'] .pc-badge-heart {
 
   /* Hero Section Restructuring */
   .hero-section {
-    min-height: auto !important;
+    min-height: 100dvh !important;
     height: auto !important;
-    padding-top: 100px !important;
-    padding-bottom: 60px !important;
+    padding-top: 80px !important;
+    padding-bottom: 20px !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     position: relative !important;
+  }
+
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-content {
+    min-height: calc(100dvh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 2rem;
   }
   
   /* Form stacking */
@@ -7229,6 +7248,56 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   .staggered-text {
     font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
+  }
+
+  /* Expertise & Trust (Action Prompt) */
+  .action-prompt-image-col {
+    height: 40vh !important;
+    min-height: 300px;
+  }
+  
+  /* What We Do (Services) Spacing */
+  .services-section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* Selected Properties Tabs Layout */
+  .search-tabs-wrapper {
+    overflow-x: visible !important;
+  }
+  .search-tabs-container {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+  }
+  .search-tab {
+    padding: 0.6rem 0.5rem !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.05em !important;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Search Filters Padding/Border */
+  .search-filter {
+    border-radius: 4px !important;
+    padding: 0.75rem 1rem !important;
+  }
+  .filter-icon {
+    transform: scale(0.85);
+  }
+
+  /* Property Cards Spacing */
+  .property-card {
+    min-height: auto !important;
+  }
+  .pc-content {
+    padding: 1.25rem !important;
+  }
+  .pc-title {
+    font-size: 1.25rem !important;
   }
 
   /* D. Animations */
