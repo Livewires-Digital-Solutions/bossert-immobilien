@@ -81,7 +81,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         propertyType={property.type}
         propertyLocation={property.location}
       />
-      <Navbar invertOnLoad={true} navyLogo={true} />
+      <Navbar invertOnLoad={true} navyLogo={true} contained={true} />
 
       <div className="inner-page-container">
         <PropertyGallery images={property.galleryImages} fallbackImage={property.imageSrc} />

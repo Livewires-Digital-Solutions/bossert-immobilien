@@ -1103,6 +1103,15 @@ body {
   width: 95px;
 }
 
+.navbar.navbar-contained .nav-item {
+  font-size: 0.75rem;
+}
+
+.navbar.navbar-contained .contact-btn {
+  font-size: 0.72rem;
+  padding: 0.5rem 1.25rem;
+}
+
 .navbar.navbar-invert .nav-item {
   color: var(--navy);
 }

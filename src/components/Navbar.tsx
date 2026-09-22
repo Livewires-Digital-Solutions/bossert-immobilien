@@ -11,9 +11,11 @@ interface NavbarProps {
   invertOnLoad?: boolean;
   /** Navy (not CSS-inverted-black) logo — Properties pages only, per P-02. */
   navyLogo?: boolean;
+  /** Constrains the navbar content to the page's inner container width (P-03). */
+  contained?: boolean;
 }
 
-export default function Navbar({ invertOnLoad = false, navyLogo = false }: NavbarProps) {
+export default function Navbar({ invertOnLoad = false, navyLogo = false, contained = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
@@ -89,11 +91,13 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
 
   const invertClass = invertOnLoad && !isScrolled && !menuOpen ? 'navbar-invert' : '';
   const propertiesClass = navyLogo ? 'navbar-properties' : '';
-  const showNavyLogo = navyLogo || isScrolled || (invertOnLoad && !isScrolled && !menuOpen);
+  const containedClass = contained ? 'navbar-contained' : '';
+  const showNavyLogo = navyLogo || (invertOnLoad && !isScrolled && !menuOpen);
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass} ${isAdmin ? 'has-admin' : ''}`}>
+      <nav className={`navbar ${isScrolled ? 'fixed' : ''} ${isHidden ? 'hidden' : ''} ${invertClass} ${propertiesClass} ${containedClass} ${isAdmin ? 'has-admin' : ''}`}>
+        <div className={contained ? "navbar-row inner-page-container" : "navbar-row"}>
         {/* Mobile Hamburger (hidden on desktop) */}
         <button
           className={`hamburger-btn mobile-only-hamburger ${menuOpen ? 'open' : ''}`}
@@ -203,6 +207,7 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false }: Navba
               onClick={() => setLang('de')}
             >DE</span>
           </div>
+        </div>
         </div>
       </nav>
 
