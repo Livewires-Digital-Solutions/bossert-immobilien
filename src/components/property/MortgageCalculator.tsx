@@ -24,17 +24,15 @@ export default function MortgageCalculator({ priceStr, financials }: MortgageCal
     const monthlyRate = interestRate / 100 / 12;
     const numPayments = loanTerm * 12;
 
-    if (monthlyRate === 0) {
-      setMonthlyPayment(principal / numPayments);
-    } else {
-      const payment = (principal * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-      
-      // Add monthly taxes and HOA if available
-      const monthlyTaxes = (financials?.propertyTax || 0) / 12;
-      const monthlyHOA = financials?.hoaFees || 0;
-      
-      setMonthlyPayment(payment + monthlyTaxes + monthlyHOA);
-    }
+    const payment = monthlyRate === 0
+      ? principal / numPayments
+      : (principal * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+    // Add monthly taxes and HOA if available
+    const monthlyTaxes = (financials?.propertyTax || 0) / 12;
+    const monthlyHOA = financials?.hoaFees || 0;
+
+    setMonthlyPayment(payment + monthlyTaxes + monthlyHOA);
   }, [homePrice, downPaymentPercent, interestRate, loanTerm, financials]);
 
   return (
