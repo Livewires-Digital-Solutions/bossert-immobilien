@@ -1644,7 +1644,19 @@ body {
   .main-grid.has-carousel .hero-headline-top,
   .main-grid.has-carousel .hero-headline-mid,
   .main-grid.has-carousel .hero-headline-bot {
-    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    /* Was a 2.2rem floor — at 320-414px, 9vw stays under any reasonable
+       floor here (9vw is only ~29-37px across that range), so the floor
+       IS what renders, flat, across all four required widths; only above
+       ~622px does the vw term start exceeding it. useFitText still
+       shrinks this further per-string if it doesn't fit — this only
+       raises the ceiling it shrinks from. */
+    font-size: clamp(2.75rem, 9vw, 4rem);
+    /* Tighter than the base -0.02em: useFitText's natural-width measurement
+       includes letter-spacing directly (naturalWidth = measureText().width
+       + letterSpacing * (len-1)), so this reduces what the hook has to
+       shrink to fit, independent of the available-width change above —
+       the two levers stack rather than substitute for each other. */
+    letter-spacing: -0.04em;
   }
 }
 
@@ -3702,6 +3714,21 @@ body {
   border-top: 1px solid rgba(4, 36, 51, 0.15);
 }
 
+/* Section-to-section differentiation, mobile/tablet only (Testimonials is
+   already navy, Why/CTA/Action-Prompt already carry a border somewhere —
+   Services and Explore were the two identical-cream sections with no
+   boundary at all between them and their neighbors on a single-column
+   mobile scroll). Matches .why-section's existing divider treatment
+   rather than introducing a third distinct value. */
+@media (max-width: 1024px) {
+  .services-section {
+    border-top: 1px solid rgba(4, 36, 51, 0.15);
+  }
+  .explore-section {
+    border-top: 1px solid rgba(4, 36, 51, 0.15);
+  }
+}
+
 .why-container {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -5383,7 +5410,14 @@ body {
     padding-top: max(1rem, env(safe-area-inset-top));
   }
   .mobile-only-logo .logo-img {
-    width: 85px;
+    /* logo.png is a single raster crest — "EST" / "1991" and the building
+       mark are pixels baked into that one image, not separate elements,
+       so their relative spacing isn't independently adjustable via CSS;
+       this width is the only lever available, and it scales everything
+       (crest + EST/1991 + wordmark) up together. Sized to its natural
+       aspect ratio's height (~69px) fitting inside the 88px navbar above
+       with a few px to spare — see that rule for why the navbar grew too. */
+    width: 95px;
   }
   .mobile-drawer {
     padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
@@ -5391,9 +5425,18 @@ body {
 
   /* Hero */
   .hero-content {
-    /* Clears the fixed mobile logo (≈108px tall incl. navbar padding) with
-       room to spare, so the accent line below doesn't start under/behind it. */
-    padding: 8rem 1.25rem 1.5rem 1.25rem;
+    /* Clears the fixed mobile logo/navbar (now 88px, up from 72px — see
+       .navbar above) with room to spare, so the accent line below doesn't
+       start under/behind it.
+       Right padding trimmed from 1.25rem: useFitText's shrink math makes
+       the rendered headline size a function of available width divided by
+       the text's natural width — raising the CSS clamp ceiling alone (see
+       .main-grid.has-carousel .hero-headline-* below) has no effect once
+       the hook is already shrinking, since the ceiling cancels out of that
+       ratio algebraically. Available width is the only lever that actually
+       moves the rendered size; the left side keeps its full inset since
+       .hero-top-group's own padding-left clears the vertical accent line. */
+    padding: 9rem 0.5rem 1.5rem 1.25rem;
   }
   .hero-top-group {
     padding-left: 1.5rem;
@@ -7391,7 +7434,7 @@ html[data-theme='dark'] .pc-badge-heart {
 .hero-headline-de .hero-headline-top,
 .hero-headline-de .hero-headline-mid,
 .hero-headline-de .hero-headline-bot {
-  font-size: clamp(2.5rem, 4vw, 4.5rem) !important;
+  font-size: clamp(2.75rem, 4vw, 4.5rem) !important;
 }
 
 /* ==========================================================================
@@ -7401,10 +7444,23 @@ html[data-theme='dark'] .pc-badge-heart {
   /* A. Navigation & Navbar */
   .navbar {
     padding: 0.5rem var(--gutter) !important;
-    height: 72px !important;
+    /* Was 72px. The crest's true aspect ratio (revealed once the
+       height:32px !important fix above stopped squashing it) is taller
+       than wide — a width big enough to read clearly needs more vertical
+       room than 72px - 16px padding (border-box) had available. Grown
+       just enough for a 95px-wide logo at its natural ~69px height to sit
+       inside with a few px to spare, not maximized further. */
+    height: 88px !important;
   }
+  /* Was height: 32px !important, decoupled from width entirely — with
+     object-fit:contain that fixed height (not the width set elsewhere)
+     was the actual binding constraint, so widening .mobile-only-logo's
+     own width rule had no visible effect: the image just gained empty
+     padding within a box it could no longer fill. height:auto restores
+     proportional scaling (matches .logo-img's own base rule, which this
+     was overriding). */
   .navbar .logo-img {
-    height: 32px !important;
+    height: auto;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7466,20 +7522,21 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   
   .left-content {
-    /* Was min-height: calc(100dvh - 100px) (~712px at a typical 812px-tall
-       phone) with justify-content:center — a second, later-cascading
-       .left-content rule (this one, part of the catch-all block) that
-       silently wins over the earlier, better-tuned
-       "calc(100svh - 11rem)" version elsewhere in the file, since both
-       have equal specificity and this one comes later. Against ~360px of
-       actual content (eyebrow + headline + subhead + desc + button), that
-       left ~170px of dead space centered above the text — the empty gap
-       under the navbar the client flagged. .hero-section already carries
-       its own min-height: 100vh for the full-bleed image, so this element
-       doesn't need to force a near-viewport-tall box too; sizing to its
-       own content lets the text sit right below the navbar clearance. */
+    /* Round 2 removed this rule's min-height to fix a dead-gap-above-text
+       bug (centering short content in a too-tall box). That fix stands —
+       no justify-content:center here, so content still sits right below
+       the navbar clearance either way. This min-height comes back for a
+       different reason: without it, .hero-right (the services carousel,
+       .left-content's next sibling in .main-grid) starts partway down the
+       first viewport instead of after it, so the carousel was visible
+       without scrolling. The offset below accounts for .hero-content's
+       80px top padding, this element's own 2rem bottom padding, and
+       .main-grid's row gap, so .hero-right's top lands just past 100dvh —
+       verified empirically, not just computed, since a few px of error
+       here means a sliver of carousel peeking through either way. */
     display: flex;
     flex-direction: column;
+    min-height: calc(100dvh - 130px);
     padding-bottom: 2rem;
   }
   
