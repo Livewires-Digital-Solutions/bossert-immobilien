@@ -8,6 +8,7 @@ import {
   setSectionVisibility,
   setAllVisibility,
   setPropertyStatus,
+  setMediaSettings,
   refreshProperty,
   deleteProperty,
 } from '@/app/admin/properties/actions';
@@ -25,6 +26,14 @@ export default function PropertyDetailPanel({
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<Status>(property.status);
+
+  // P-04 media toggles — off by default, admin-set only.
+  const [media, setMedia] = useState({
+    videoEnabled: property.videoEnabled,
+    videoUrl: property.videoUrl ?? '',
+    virtualTourEnabled: property.virtualTourEnabled,
+    virtualTourUrl: property.virtualTourUrl ?? '',
+  });
 
   // id -> visible
   const [visible, setVisible] = useState<Record<string, boolean>>(() => {
@@ -113,6 +122,27 @@ export default function PropertyDetailPanel({
     );
   }
 
+  function saveMedia(next: typeof media) {
+    const prev = media;
+    setMedia(next);
+    run(
+      () => setMediaSettings({ propertyId: property.id, ...next }),
+      () => setMedia(prev),
+    );
+  }
+
+  function toggleMediaFlag(key: 'videoEnabled' | 'virtualTourEnabled', next: boolean) {
+    saveMedia({ ...media, [key]: next });
+  }
+
+  function updateMediaUrl(key: 'videoUrl' | 'virtualTourUrl', value: string) {
+    setMedia((m) => ({ ...m, [key]: value }));
+  }
+
+  function commitMediaUrl() {
+    saveMedia(media);
+  }
+
   function onRefresh() {
     setError('');
     startTransition(async () => {
@@ -196,6 +226,65 @@ export default function PropertyDetailPanel({
       </div>
 
       {error && <div className={styles.error}>{error}</div>}
+
+      <div className={styles.section}>
+        <div className={styles.sectionHead}>
+          <span className={styles.sectionName}>Media settings</span>
+          <span className={styles.sectionCount}>Off by default</span>
+        </div>
+
+        <div className={styles.fieldRow}>
+          <div className={styles.fieldText}>
+            <div className={styles.fieldLabel}>Property video</div>
+            <div className={styles.fieldValue}>
+              <input
+                className={styles.searchInput}
+                style={{ marginBottom: 0 }}
+                placeholder="Video embed URL (e.g. YouTube embed link)"
+                value={media.videoUrl}
+                onChange={(e) => updateMediaUrl('videoUrl', e.target.value)}
+                onBlur={commitMediaUrl}
+                disabled={pending}
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={media.videoEnabled}
+            aria-label="Show Property Video tab on the frontend"
+            className={`${styles.switch} ${media.videoEnabled ? styles.switchOn : ''}`}
+            onClick={() => toggleMediaFlag('videoEnabled', !media.videoEnabled)}
+            disabled={pending}
+          />
+        </div>
+
+        <div className={styles.fieldRow}>
+          <div className={styles.fieldText}>
+            <div className={styles.fieldLabel}>3D virtual tour</div>
+            <div className={styles.fieldValue}>
+              <input
+                className={styles.searchInput}
+                style={{ marginBottom: 0 }}
+                placeholder="Virtual tour URL (e.g. Matterport link)"
+                value={media.virtualTourUrl}
+                onChange={(e) => updateMediaUrl('virtualTourUrl', e.target.value)}
+                onBlur={commitMediaUrl}
+                disabled={pending}
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={media.virtualTourEnabled}
+            aria-label="Show 3D Virtual Tour tab on the frontend"
+            className={`${styles.switch} ${media.virtualTourEnabled ? styles.switchOn : ''}`}
+            onClick={() => toggleMediaFlag('virtualTourEnabled', !media.virtualTourEnabled)}
+            disabled={pending}
+          />
+        </div>
+      </div>
 
       <input
         className={styles.searchInput}
