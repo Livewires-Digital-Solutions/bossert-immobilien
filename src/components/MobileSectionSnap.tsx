@@ -63,11 +63,26 @@ export default function MobileSectionSnap() {
 
       const y = window.scrollY;
 
-      // Hero: unconditional commit to whichever edge is nearer.
+      // Hero: evaluate snapping points (top, carousel, and bottom)
       if (y >= -SNAP_EPSILON && y <= heroBottom + SNAP_EPSILON) {
-        const target = y < heroBottom / 2 ? 0 : heroBottom;
-        if (Math.abs(y - target) > SNAP_EPSILON) {
-          lenis.scrollTo(target, { duration: SNAP_DURATION });
+        const carousel = document.querySelector<HTMLElement>('.hero-right');
+        const carouselTop = carousel ? carousel.offsetTop : heroBottom;
+        
+        const points = [0, carouselTop, heroBottom];
+        let nearest = points[0];
+        let dist = Math.abs(y - nearest);
+        
+        for (const p of points) {
+          const d = Math.abs(y - p);
+          if (d < dist) {
+            dist = d;
+            nearest = p;
+          }
+        }
+        
+        // Unconditional commit to the nearest edge in Hero
+        if (dist > SNAP_EPSILON) {
+          lenis.scrollTo(nearest, { duration: SNAP_DURATION });
         }
         return;
       }

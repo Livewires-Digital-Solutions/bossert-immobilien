@@ -5220,6 +5220,11 @@ body {
   }
   .left-content {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Fill exactly the remainder of the viewport on mobile */
+    min-height: calc(100svh - 11rem);
   }
   .headline-top {
     font-size: 1.5rem;
@@ -5233,6 +5238,11 @@ body {
   }
   .right-content {
     display: none;
+  }
+  /* The carousel acting as the second part of the mobile hero */
+  .hero-right {
+    margin-top: 3rem;
+    padding-bottom: 3rem;
   }
   .bottom-area {
     flex-direction: column;
