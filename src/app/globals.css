@@ -1936,6 +1936,10 @@ body {
   background: var(--bronze, #AF8C53);
 }
 
+.hsc2-mobile-header {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .main-grid.has-carousel { align-items: flex-start; }
   .main-grid.has-carousel .left-content { max-width: 100%; margin-left: 0; }
