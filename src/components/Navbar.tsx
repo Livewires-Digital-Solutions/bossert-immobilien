@@ -197,6 +197,11 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
         {/* Mobile Left Side: Lang Toggle */}
         <div className="mobile-nav-right">
           <div className="lang-toggle mobile-lang-inline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lang-globe-icon" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
             <span
               className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
               onClick={() => setLang('en')}
@@ -249,6 +254,15 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
           <Link href="/about" className={`mobile-nav-item ${pathname === '/about' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.about}</Link>
           <Link href="/references" className={`mobile-nav-item ${pathname === '/references' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.references}</Link>
           <Link href="/knowledge" className={`mobile-nav-item ${pathname === '/knowledge' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.knowledge}</Link>
+          {!session && (
+            <Link href="/login" className="mobile-nav-item mobile-nav-item-login" onClick={() => setMenuOpen(false)}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              Login
+            </Link>
+          )}
         </div>
         <div className="mobile-nav-footer">
           {session && (
@@ -268,14 +282,6 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
             </button>
           )}
           <Link href="/contact" className="mobile-contact-btn" onClick={() => setMenuOpen(false)}>{t.nav.contact}</Link>
-          {!session && (
-            <Link href="/login" className="login-icon-btn" aria-label="Login" onClick={() => setMenuOpen(false)} style={{ margin: '0 auto', marginTop: '1rem', border: '1px solid var(--bronze)', color: 'var(--bronze)' }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </Link>
-          )}
         </div>
       </div>
     </>

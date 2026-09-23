@@ -4127,6 +4127,13 @@ body {
     letter-spacing: 0.03em;
     opacity: 0.65;
   }
+  /* The button sizes to its own content by default, so it doesn't reach
+     the card's padding edge on either side — full-width makes both its
+     edges line up exactly with the card's padding box instead. */
+  .action-prompt-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -5088,6 +5095,18 @@ body {
   padding-left: 0.5rem;
 }
 
+/* Was an unlabeled icon-only square tucked below the Contact button in
+   .mobile-nav-footer — read as a stray decorative mark, not a login
+   action. Promoted to a normal labeled nav item (icon + "Login") right
+   after Knowledge so it reads the same as every other drawer link. */
+.mobile-nav-item-login {
+  gap: 0.6rem;
+}
+.mobile-nav-item-login svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
 .mobile-nav-footer {
   display: flex;
   flex-direction: column;
@@ -5414,8 +5433,8 @@ body {
        down (in the MOBILE & TABLET OVERRIDES block) — that later rule wins
        the cascade regardless of what's set here, so both must agree or the
        logo silently renders at whichever size that override left it at. */
-    width: 69px;
-    height: 50px;
+    width: 82px;
+    height: 60px;
   }
   .mobile-drawer {
     padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
@@ -5522,6 +5541,13 @@ body {
     max-width: 100%;
     height: auto;
   }
+  /* .headline-top-s ("A More Considered Way") and .headline-mid-s ("to
+     navigate real estate") are the same font-size on desktop by design —
+     this override used to only bump .headline-mid-s, leaving
+     .headline-top-s stuck at its small desktop clamp so it rendered
+     visibly smaller than the line below it. Matched so every wrapped
+     line of the headline reads at the same size. */
+  .headline-top-s,
   .headline-mid-s {
     white-space: normal;
     font-size: clamp(2.5rem, 12vw, 4rem);
@@ -7452,8 +7478,8 @@ html[data-theme='dark'] .pc-badge-heart {
        shrank the visible logo to ~44x32px regardless of that width value,
        since this rule's !important always wins the cascade. Sized to match
        (and stay in sync with) .mobile-only-logo .logo-img above. */
-    width: 69px !important;
-    height: 50px !important;
+    width: 82px !important;
+    height: 60px !important;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7595,10 +7621,27 @@ html[data-theme='dark'] .pc-badge-heart {
     text-align: center;
   }
 
-  /* Search Filters Padding/Border */
+  /* Search Filters — revamped mobile layout. This selector was being set
+     by three separate mobile rounds (flex-basis %, then a full-width
+     !important stack, then this block) that never agreed on padding/
+     radius — see the mobile-css-override-layering memory. This is the
+     one that actually wins the cascade (last + !important), so it's the
+     one place that needs to carry the final, correct values: the search
+     bar reads as one bordered card, each filter is a full-width row
+     divided by a hairline, with no per-row radius fighting the card's
+     own rounded corners. */
+  .search-bar {
+    border: 1px solid rgba(4, 36, 51, 0.14) !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    overflow: hidden;
+  }
   .search-filter {
-    border-radius: 4px !important;
-    padding: 0.75rem 1rem !important;
+    border-radius: 0 !important;
+    padding: 1rem 1.1rem !important;
+  }
+  .search-filter:last-of-type {
+    border-bottom: none !important;
   }
   .filter-icon {
     transform: scale(0.85);
@@ -7628,10 +7671,33 @@ html[data-theme='dark'] .pc-badge-heart {
   .reveal-right {
     transform: translateX(16px) !important;
   }
-  
+  /* Mobile-only flourish — desktop's accordion cards only translate/scale
+     in; on mobile (a touch, one-card-at-a-time context, not a hover-driven
+     grid) they get a slight tilt too so the reveal reads as its own,
+     distinctly mobile moment rather than a smaller copy of the desktop
+     motion. Higher selector specificity than .reveal-up above wins it the
+     cascade despite equal !important weight. */
+  .accordion-card.reveal-up {
+    transform: translateY(22px) scale(0.96) rotate(-1.1deg) !important;
+  }
+  .accordion-card.is-revealed {
+    transform: translateY(0) scale(1) rotate(0deg) !important;
+  }
+
   /* Global snappier animation timing on mobile */
   .reveal-base, .clip-reveal, .staggered-word, .accordion-card.reveal-base {
     transition-duration: 0.4s !important;
+  }
+
+  /* Tactile tap feedback — a touch-only affordance; desktop relies on
+     :hover instead, so this is invisible there and doesn't need gating. */
+  .explore-btn:active,
+  .search-submit-btn:active,
+  .cta-submit-btn:active,
+  .hsc2-btn:active,
+  .mobile-contact-btn:active,
+  .adv-submit:active {
+    transform: scale(0.96);
   }
 }
 
