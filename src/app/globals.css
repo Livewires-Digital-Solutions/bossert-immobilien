@@ -2043,7 +2043,10 @@ body {
   .hsc2-stage {
     width: 100%;
     justify-content: flex-start;
-    padding-bottom: 3.25rem;
+    /* Reserves a dedicated band below the card for the nav buttons (44px
+       + margin) that's independent of .hsc2-wrapper's own stage→dots gap,
+       so the two spacings don't have to be reasoned about together. */
+    padding-bottom: 3.75rem;
   }
   .hsc2-card {
     width: 100%;
@@ -2052,15 +2055,17 @@ body {
     padding: 0.75rem 0.75rem 0;
   }
 
-  /* Prev/next: moved out of the card's own footprint entirely (anchored
-     to the stage's bottom edge, in the gap before the dots) instead of
-     floating beside/over it — the safest way to guarantee they never sit
-     on top of card content at a width where there's no reliable gutter
-     left over for them beside an 85vw card. */
+  /* Prev/next: moved into that reserved band below the card (bottom:0 of
+     the now-padded .hsc2-stage) instead of floating beside/over it — the
+     safest way to guarantee they never sit on top of card content at a
+     width where there's no reliable gutter left beside an 85vw card.
+     bottom:0 (not top:100%) keeps them anchored to the stage's own edge
+     regardless of card height, with a fixed 16px clearance from the card
+     above and from .hsc2-dots below (its own 1.4rem gap starts after the
+     stage's full padded box, i.e. after this band). */
   .hsc2-nav {
-    top: 100%;
-    bottom: auto;
-    transform: translateY(0.5rem);
+    top: auto;
+    bottom: 0;
     width: 44px;
     height: 44px;
   }

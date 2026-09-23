@@ -77,6 +77,7 @@ export default function HeroServicesCarousel() {
   const [noTrans, setNoTrans] = useState<number | null>(null);
   const { t } = useLanguage();
   const swipeRef = useRef<{ startX: number; startY: number; dx: number; locked: boolean } | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   const slides: ServiceSlide[] = t.heroCarousel.slides.map((slide, i) => ({
     ...slide,
@@ -98,6 +99,42 @@ export default function HeroServicesCarousel() {
   const navigate = useCallback(
     (dir: 'next' | 'prev') => {
       if (animating) return;
+
+      // Mobile: cards sit in a native scroll-snap strip, in fixed DOM
+      // order — "next/prev" means scrolling to the adjacent sibling, not
+      // relabeling data-rel. data-rel is the desktop transform-stack's
+      // mechanism (it repositions slides via CSS transform, independent
+      // of DOM order); once slides are laid out in normal flex flow for
+      // mobile, changing that label alone doesn't move anything, so scroll
+      // position and the active index would drift apart the moment this
+      // fires — including from the auto-advance timer below, not just
+      // manual navigation. handleScroll's listener re-syncs `active` (and
+      // the dots) itself once this scroll settles.
+      if (typeof window !== 'undefined' && window.innerWidth <= 768 && rootRef.current) {
+        const el = rootRef.current;
+        const children = Array.from(el.children) as HTMLElement[];
+        if (!children.length) return;
+        let currentIdx = 0;
+        let closestDist = Infinity;
+        children.forEach((child, idx) => {
+          const dist = Math.abs(child.offsetLeft - el.scrollLeft);
+          if (dist < closestDist) {
+            closestDist = dist;
+            currentIdx = idx;
+          }
+        });
+        // Wraps (not clamps) so the 5.5s auto-advance timer below keeps
+        // cycling through all slides instead of stalling at the last one.
+        const targetIdx =
+          dir === 'next'
+            ? (currentIdx + 1) % children.length
+            : (currentIdx - 1 + children.length) % children.length;
+        setAnimating(true);
+        el.scrollTo({ left: children[targetIdx].offsetLeft, behavior: 'smooth' });
+        setTimeout(() => setAnimating(false), 500);
+        return;
+      }
+
       setAnimating(true);
 
       const nextActive =
@@ -196,6 +233,7 @@ export default function HeroServicesCarousel() {
 
         <div
           className="hsc2-root"
+          ref={rootRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
