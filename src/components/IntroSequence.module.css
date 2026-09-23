@@ -167,11 +167,17 @@
   .markSlot {
     transform: translateY(calc(-50% + 18vw));
   }
+  /* Was a flat 32vw. .logoImage caps at max-width:280px, but this offset
+     stayed pure vw and kept growing past that cap — at the wide end of
+     this breakpoint (768px) it landed ~106px past the logo's actual half
+     -width, reading as two disconnected elements instead of one unit.
+     Mirrors .logoImage's own clamp (60vw / 280px) so the gap stays tight
+     (half the capped logo width + a small fixed gap) across the range. */
   .leftDoor .markSlot {
-    right: 32vw;
+    right: clamp(100px, calc(30vw + 12px), 152px);
   }
   .rightDoor .markSlot {
-    left: 32vw;
+    left: clamp(100px, calc(30vw + 12px), 152px);
   }
 }
 

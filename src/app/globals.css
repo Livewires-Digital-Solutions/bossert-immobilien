@@ -56,6 +56,10 @@
 :root {
   --navy: #042433;
   --cream: #FEFCF6;
+  /* Slightly warmer/deeper than --cream — used only to alternate section
+     backgrounds on mobile/tablet (<=1024px) so adjacent cream sections
+     read as distinct steps while scrolling a long single-page layout. */
+  --cream-alt: #F5EEE1;
   --bronze: #AF8C53;
   --white: #ffffff;
   /* Primary brand blue — "blue" always refers to this */
@@ -1644,7 +1648,11 @@ body {
   .main-grid.has-carousel .hero-headline-top,
   .main-grid.has-carousel .hero-headline-mid,
   .main-grid.has-carousel .hero-headline-bot {
-    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    /* Ceiling only — useFitTextGroup (useFitText.ts) measures against this
+       and shrinks further per-line only if a line would overflow/wrap, so
+       raising it is safe: short strings render bigger, long ones still
+       fit on one line at 320px. */
+    font-size: clamp(2.4rem, 10vw, 4rem);
   }
 }
 
@@ -5170,6 +5178,14 @@ body {
    ============================================= */
 @media (max-width: 1024px) {
 
+  /* Navbar: .mobile-only-logo previously only got display:block at
+     max-width:768px, but .desktop-nav is hidden and the 3-zone grid
+     (.navbar-row) already applies up to 1024px — leaving 769-1024px with
+     no logo rendered at all (neither desktop nor mobile version). */
+  .mobile-only-logo {
+    display: block;
+  }
+
   /* Hero */
   /* main-grid stacks into a column below this breakpoint (headline copy
      above the services carousel), which can be taller than one viewport.
@@ -5189,6 +5205,17 @@ body {
   }
   .left-content {
     max-width: 100%;
+  }
+  /* Tablet counterpart of the mobile (<=768px) rule further down: without
+     a floor here, the stacked carousel's start point just follows wherever
+     the headline text happens to end, which can land it inside the first
+     viewport before any scroll. Clearance here is hero-section's own
+     padding-top:80px (from the MOBILE & TABLET OVERRIDES block) + this
+     block's own .hero-content padding-top:7rem (112px) + this .main-grid's
+     3rem (48px) gap to .hero-right. The narrower <=768px rule further down
+     overrides this with its own (different) padding/gap total. */
+  .main-grid.has-carousel .left-content {
+    min-height: calc(100dvh - 240px);
   }
   .headline-middle {
     font-size: 6rem;
@@ -5383,7 +5410,12 @@ body {
     padding-top: max(1rem, env(safe-area-inset-top));
   }
   .mobile-only-logo .logo-img {
-    width: 85px;
+    /* Kept in sync with the .navbar .logo-img !important override further
+       down (in the MOBILE & TABLET OVERRIDES block) — that later rule wins
+       the cascade regardless of what's set here, so both must agree or the
+       logo silently renders at whichever size that override left it at. */
+    width: 69px;
+    height: 50px;
   }
   .mobile-drawer {
     padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
@@ -5450,6 +5482,17 @@ body {
   .hero-right {
     margin-top: 3rem;
     padding-bottom: 3rem;
+  }
+  /* .hero-section only has a min-height:100dvh floor, not a ceiling, so
+     the stacked carousel below simply continues wherever the headline
+     text block happens to end — on shorter copy that lands a slice of the
+     carousel inside the very first viewport, before any scroll. Giving the
+     text block itself a floor tall enough to reach the fold pushes the
+     carousel to start right at/after it instead, without capping
+     .hero-section's own height (which would clip taller content — the
+     exact bug a prior round already fixed by switching to height:auto). */
+  .main-grid.has-carousel .left-content {
+    min-height: calc(100dvh - 264px);
   }
   .bottom-area {
     flex-direction: column;
@@ -7404,7 +7447,13 @@ html[data-theme='dark'] .pc-badge-heart {
     height: 72px !important;
   }
   .navbar .logo-img {
-    height: 32px !important;
+    /* Was height:32px, which — combined with object-fit:contain and the
+       85px width set elsewhere for .mobile-only-logo .logo-img — silently
+       shrank the visible logo to ~44x32px regardless of that width value,
+       since this rule's !important always wins the cascade. Sized to match
+       (and stay in sync with) .mobile-only-logo .logo-img above. */
+    width: 69px !important;
+    height: 50px !important;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7600,6 +7649,32 @@ html[data-theme='dark'] .pc-badge-heart {
      base rule — 1px under the 44px minimum touch target. */
   .pc-btn {
     min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   SECTION VISUAL DIFFERENTIATION — MOBILE & TABLET ONLY (<=1024px)
+   IntroPromo/Services/Explore/Why (and again Action Prompt/CTA) render as
+   one uninterrupted cream block on small screens with no boundary between
+   most of them — hard to tell where one section ends and the next begins
+   while scrolling a long single-page layout (this audience skews 50+ and
+   benefits from explicit "you are here" cues over subtle ones). Alternates
+   in --cream-alt and adds a consistent thin bronze top-divider to every
+   section here, overriding the odd navy ones some already had so the whole
+   run reads as one system. Desktop is untouched — gated to <=1024px.
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .services-section,
+  .why-section {
+    background-color: var(--cream-alt);
+  }
+  .services-section,
+  .explore-section,
+  .why-section,
+  .testimonial-section,
+  .action-prompt-section,
+  .cta-section {
+    border-top: 1px solid rgba(175, 140, 83, 0.5);
   }
 }
 

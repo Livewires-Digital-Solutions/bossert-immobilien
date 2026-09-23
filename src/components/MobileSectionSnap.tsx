@@ -8,6 +8,18 @@ const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const SNAP_EPSILON = 6;
 const SETTLE_DELAY = 150;
 const SNAP_DURATION = 0.8;
+// Lenis runs with the default syncTouch:false, so on touch devices scrolling
+// is native browser momentum — Lenis only mirrors it, it doesn't drive it.
+// "No scroll event for SETTLE_DELAY" is not the same as "momentum has
+// stopped": the deceleration tail can space native scroll events further
+// apart than SETTLE_DELAY while still moving the page. Committing a
+// lenis.scrollTo() snap at that point starts an 800ms programmatic scroll
+// animation on top of scrolling that's still live, and the two fight over
+// the real scroll position — the reported "jumps up or down at random"
+// glitch. Polling velocity until it's actually ~0 before snapping avoids
+// ever starting a scrollTo while native momentum is still carrying the page.
+const VELOCITY_EPSILON = 0.05;
+const VELOCITY_POLL_INTERVAL = 100;
 // Services/Explore are long, content-heavy sections (accordion cards, the
 // property grid) — a scroll settling deep inside one of them must stay put
 // so it can be read/browsed. Only a settle within this fraction of the
@@ -106,9 +118,22 @@ export default function MobileSectionSnap() {
       }
     };
 
+    // Waits until Lenis reports the scroll has actually stopped moving
+    // (velocity ~0), not just "no scroll event recently" — see
+    // VELOCITY_EPSILON above. Re-polls at a short interval instead of
+    // re-arming the full SETTLE_DELAY so a still-decelerating page doesn't
+    // keep pushing the check back indefinitely.
+    const waitForStop = () => {
+      if (Math.abs(lenis.velocity) > VELOCITY_EPSILON) {
+        settleTimer.current = setTimeout(waitForStop, VELOCITY_POLL_INTERVAL);
+        return;
+      }
+      evaluate();
+    };
+
     const onScroll = () => {
       if (settleTimer.current) clearTimeout(settleTimer.current);
-      settleTimer.current = setTimeout(evaluate, SETTLE_DELAY);
+      settleTimer.current = setTimeout(waitForStop, SETTLE_DELAY);
     };
 
     lenis.on('scroll', onScroll);
