@@ -5522,10 +5522,9 @@ body {
     max-width: 100%;
     height: auto;
   }
+  .headline-top-s,
   .headline-mid-s {
     white-space: normal;
-    font-size: clamp(2.5rem, 12vw, 4rem);
-    letter-spacing: -1px;
   }
   .services-right {
     flex-direction: column;
@@ -5610,17 +5609,22 @@ body {
     flex-direction: column !important;
     align-items: stretch !important;
     flex-wrap: nowrap !important;
-    border: none !important;
-    padding: 0 !important;
+    background-color: var(--white) !important;
+    border: 1px solid rgba(4, 36, 51, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
     gap: 0 !important;
     overflow: visible;
   }
   .search-filter {
     flex: none !important;
     width: 100% !important;
-    padding: 0.9rem 0 !important;
+    padding: 1rem 0 !important;
     border-bottom: 1px solid rgba(4, 36, 51, 0.08) !important;
     border-radius: 0 !important;
+  }
+  .search-filter:nth-last-child(2) {
+    border-bottom: none !important;
   }
   .search-divider {
     display: none !important;
@@ -5645,6 +5649,7 @@ body {
     margin: 1rem 0 0 !important;
     border-radius: 4px !important;
     background-color: var(--bronze, #AF8C53) !important;
+    color: var(--white) !important;
   }
   .search-submit-btn:hover,
   .search-submit-btn:active {
@@ -7582,7 +7587,7 @@ html[data-theme='dark'] .pc-badge-heart {
     padding-bottom: 3rem !important;
   }
 
-  /* Selected Properties Tabs Layout */
+  /* Selected Properties Tabs Layout - Segmented Toggle */
   .search-tabs-wrapper {
     overflow-x: visible !important;
   }
@@ -7590,14 +7595,25 @@ html[data-theme='dark'] .pc-badge-heart {
     width: 100% !important;
     display: flex !important;
     justify-content: space-between !important;
-    gap: 0 !important;
+    background-color: rgba(4, 36, 51, 0.04) !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+    gap: 4px !important;
   }
   .search-tab {
-    padding: 0.6rem 0.5rem !important;
-    font-size: 0.65rem !important;
+    padding: 0.8rem 0.5rem !important;
+    font-size: 0.7rem !important;
     letter-spacing: 0.05em !important;
+    border-radius: 6px !important;
     flex: 1;
     text-align: center;
+    background-color: transparent !important;
+    color: var(--navy) !important;
+    border: none !important;
+  }
+  .search-tab.active {
+    background-color: var(--navy) !important;
+    color: var(--white) !important;
   }
 
   /* Search Filters Padding/Border */
@@ -7620,15 +7636,43 @@ html[data-theme='dark'] .pc-badge-heart {
     font-size: 1.25rem !important;
   }
 
-  /* Section Differentiation (P2) - Alternate backgrounds and dividers on mobile */
+  /* Section Differentiation (P2) - Navy section on mobile */
   .services-section, .why-section {
     background-color: var(--white) !important;
     border-top: 1px solid rgba(175, 140, 83, 0.2); /* Subtle bronze divider */
   }
   
-  .explore-section, .cta-section {
-    background-color: rgba(246, 248, 250, 0.6) !important; /* Cool off-white/navy-tint */
+  .cta-section {
+    background-color: var(--white) !important;
     border-top: 1px solid rgba(4, 36, 51, 0.08); /* Subtle navy divider */
+  }
+  
+  /* Apply navy to explore-section */
+  .explore-section {
+    background-color: var(--navy) !important; 
+    color: var(--cream) !important;
+  }
+  .explore-section .explore-headline,
+  .explore-section .explore-subtitle,
+  .explore-section .explore-desc {
+    color: var(--cream) !important;
+  }
+  .explore-section .explore-subtitle .dot {
+    background-color: var(--bronze) !important;
+  }
+  
+  /* The Property Cards have their own white background, so we force them back to navy text */
+  .explore-section .property-card,
+  .explore-section .property-card * {
+    color: var(--navy);
+  }
+  .explore-section .explore-btn {
+    color: var(--cream) !important;
+    border-color: var(--cream) !important;
+  }
+  .explore-section .explore-btn:hover {
+    color: var(--navy) !important;
+    background-color: var(--cream) !important;
   }
 
   /* Increase padding between sections on mobile for breathing room */
