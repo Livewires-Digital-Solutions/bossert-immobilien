@@ -2043,38 +2043,32 @@ body {
   .hsc2-stage {
     width: 100%;
     justify-content: flex-start;
-    /* Reserves a dedicated band below the card for the nav buttons (44px
-       + margin) that's independent of .hsc2-wrapper's own stage→dots gap,
-       so the two spacings don't have to be reasoned about together. */
-    padding-bottom: 3.75rem;
   }
   .hsc2-card {
     width: 100%;
     height: auto;
-    min-height: 25rem;
     padding: 0.75rem 0.75rem 0;
   }
+  /* .hsc2-img's base rule sizes it via flex: 0 0 44% — a percentage
+     flex-basis needs a definite-height parent to resolve against, and
+     .hsc2-card is height:auto here (deliberately, so it grows to fit
+     whatever the description/title need instead of clipping longer
+     translations). Against an auto-height parent that percentage can't
+     resolve, so the image collapsed to 0 height — invisible despite its
+     background-image being set correctly. A fixed height sidesteps that:
+     the image is always this tall regardless of the card's own height,
+     and .hsc2-body (flex: 1, unconditional) fills whatever's left. */
+  .hsc2-img {
+    flex: 0 0 11rem;
+    height: 11rem;
+  }
 
-  /* Prev/next: moved into that reserved band below the card (bottom:0 of
-     the now-padded .hsc2-stage) instead of floating beside/over it — the
-     safest way to guarantee they never sit on top of card content at a
-     width where there's no reliable gutter left beside an 85vw card.
-     bottom:0 (not top:100%) keeps them anchored to the stage's own edge
-     regardless of card height, with a fixed 16px clearance from the card
-     above and from .hsc2-dots below (its own 1.4rem gap starts after the
-     stage's full padded box, i.e. after this band). */
+  /* Arrow buttons hidden on mobile — navigation is swipe/scroll-snap only
+     here (.hsc2-root's overflow-x:auto + scroll-snap-type is untouched,
+     this only hides the visible buttons). Dots still show position and
+     are still tappable. */
   .hsc2-nav {
-    top: auto;
-    bottom: 0;
-    width: 44px;
-    height: 44px;
-  }
-  .hsc2-nav-prev {
-    left: calc(50% - 4.75rem);
-  }
-  .hsc2-nav-next {
-    right: calc(50% - 4.75rem);
-    left: auto;
+    display: none;
   }
 }
 
@@ -3986,8 +3980,9 @@ body {
     min-height: 200px;
   }
   .test-arrow-plain {
-    width: 36px;
-    height: 36px;
+    /* Was 36px — under the 44px minimum touch target. */
+    width: 44px;
+    height: 44px;
   }
   .test-quote-icon {
     font-size: 2.25rem;
@@ -5122,12 +5117,22 @@ body {
    TABLET & SMALL LAPTOP â€” max-width: 1250px
    ============================================= */
 @media (max-width: 1250px) {
-  /* Navbar: lang toggle (left) / logo (true center) / hamburger (right).
+  /* Navbar: hamburger (left) / logo (true center) / EN-DE toggle (right).
      grid-row is pinned explicitly on all three — without it, CSS Grid's
      auto-placement starts a new implicit row whenever an item's explicit
      column number is lower than the previous item's, and these are placed
-     in DOM order hamburger(3) -> logo(2) -> lang(1), which is decreasing. */
-  .navbar {
+     in DOM order hamburger(1) -> logo(2) -> lang(3), which is increasing,
+     so this matters less now than it did for the old lang/logo/hamburger
+     order, but it's kept for robustness against future DOM reordering.
+
+     The grid lives on .navbar-row, not .navbar: hamburger/logo/lang-toggle
+     are children of .navbar-row (.navbar's only child), so grid-column on
+     them only has any effect on the element that's actually their parent.
+     Grid-ing .navbar itself (as this used to) turned .navbar-row into a
+     single auto-placed item that fell into column 1 alone, collapsing the
+     unused middle/right columns to 0 and leaving everything bunched on the
+     left — the exact bug this fixes. */
+  .navbar-row {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
@@ -5137,8 +5142,8 @@ body {
   }
   .mobile-only-hamburger {
     grid-row: 1;
-    grid-column: 3;
-    justify-self: end;
+    grid-column: 1;
+    justify-self: start;
   }
   .mobile-only-logo {
     grid-row: 1;
@@ -5148,8 +5153,8 @@ body {
   .mobile-nav-right {
     display: flex;
     grid-row: 1;
-    grid-column: 1;
-    justify-self: start;
+    grid-column: 3;
+    justify-self: end;
   }
   .hamburger-btn {
     display: flex;
@@ -5414,9 +5419,15 @@ body {
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* Fill exactly the remainder of the viewport on mobile */
-    min-height: calc(100svh - 11rem);
+    /* Was justify-content:center + min-height: calc(100svh - 11rem)
+       (~636px). A second .left-content rule later in the file (the
+       catch-all block) used to override min-height to an even taller
+       ~712px, but even at 636px, centering ~360px of actual content
+       (eyebrow/headline/subhead/desc/button) inside it left a ~140px dead
+       gap above the text — content flowing naturally right after
+       .hero-content's own navbar-clearance padding reads as intentional
+       spacing instead. .hero-section keeps its own min-height: 100vh
+       separately, so the full-bleed background image is unaffected. */
   }
   .headline-top {
     font-size: 1.5rem;
@@ -5446,7 +5457,9 @@ body {
     min-height: 52px;
     justify-content: space-between;
   }
-  .scroll-indicator {
+  /* Was .scroll-indicator — that class doesn't exist in HeroSection.tsx
+     (the element is .scroll-center), so this never actually applied. */
+  .scroll-center {
     display: none;
   }
 
@@ -7449,10 +7462,20 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   
   .left-content {
-    min-height: calc(100dvh - 100px);
+    /* Was min-height: calc(100dvh - 100px) (~712px at a typical 812px-tall
+       phone) with justify-content:center — a second, later-cascading
+       .left-content rule (this one, part of the catch-all block) that
+       silently wins over the earlier, better-tuned
+       "calc(100svh - 11rem)" version elsewhere in the file, since both
+       have equal specificity and this one comes later. Against ~360px of
+       actual content (eyebrow + headline + subhead + desc + button), that
+       left ~170px of dead space centered above the text — the empty gap
+       under the navbar the client flagged. .hero-section already carries
+       its own min-height: 100vh for the full-bleed image, so this element
+       doesn't need to force a near-viewport-tall box too; sizing to its
+       own content lets the text sit right below the navbar clearance. */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding-bottom: 2rem;
   }
   
@@ -7461,7 +7484,13 @@ html[data-theme='dark'] .pc-badge-heart {
     flex-direction: column !important;
     gap: 1.5rem !important;
   }
-  input, select, textarea, .form-input, .lead-input {
+  /* Excludes checkbox/radio — this was blanket-forcing every <input> on
+     the page to width:100%/min-height:48px regardless of type, including
+     .custom-checkbox (meant to render as a 16px square). That's what
+     turned the Advanced Search checkbox into a full-width 48px dark
+     block: its own 16x16px rule (elsewhere in this file) couldn't
+     compete with this !important, unscoped-by-type selector. */
+  input:not([type="checkbox"]):not([type="radio"]), select, textarea, .form-input, .lead-input {
     min-height: 48px !important;
     width: 100% !important;
   }
@@ -7562,6 +7591,11 @@ html[data-theme='dark'] .pc-badge-heart {
   .pc-specs-grid {
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)) !important;
     gap: 0.5rem !important;
+  }
+  /* Content-driven height (padding + line-height) computes to 43px at the
+     base rule — 1px under the 44px minimum touch target. */
+  .pc-btn {
+    min-height: 44px;
   }
 }
 
