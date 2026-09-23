@@ -1948,27 +1948,132 @@ body {
      scale instead so the visual size stays close to the box it occupies. */
   .hsc2-wrapper { transform: scale(1.05); margin-top: 2.5rem; }
 }
-@media (max-width: 560px) {
-  :root { --hsc2-w: 210px; --hsc2-h: 356px; --hsc2-spread: 58px; }
-  .hsc2-nav { width: 38px; height: 38px; }
-  .hsc2-nav-prev { left: -25px; }
-  .hsc2-nav-next { right: -25px; }
-  .hsc2-card { padding: 0.7rem 0.7rem 0; gap: 0.65rem; }
-  /* Smallest phones: drop the scale entirely so the card stack can't push
-     past the viewport width or overlap the section below. */
-  .hsc2-wrapper { transform: none; margin-top: 1.5rem; }
+/* ── Mobile (<=768px): single-card scroll-snap swipe view ──
+   The desktop version stacks all three slides on the same anchor point
+   and offsets prev/next by --hsc2-spread with a scale-down + z-index, so
+   they read as a shallow 3D fan. That only works when --hsc2-spread is a
+   large fraction of --hsc2-w (true on desktop); at phone sizes spread
+   shrinks faster than the card does, so the "peeking" side cards end up
+   mostly hidden directly behind the active one instead of beside it —
+   the overlap this block fixes. HeroServicesCarousel's handleScroll/
+   handleTouchStart already gate on window.innerWidth <= 768 expecting a
+   native scrollable strip here; this supplies the CSS side of that. */
+@media (max-width: 768px) {
+  .hsc2-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 0.25rem;
+  }
+  .hsc2-mobile-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .hsc2-mobile-line {
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--bronze, #AF8C53);
+    flex-shrink: 0;
+  }
+  .hsc2-mobile-counter {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.55);
+    flex-shrink: 0;
+  }
+
+  .hsc2-root {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.85rem;
+    padding: 0 3.25rem 0 1.25rem;
+  }
+  .hsc2-root::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Every slide becomes a normal, equally-sized flex item in the scroll
+     strip instead of an absolutely-stacked, transformed one. !important
+     is needed here because the desktop [data-rel] attribute selectors
+     (e.g. .hsc2-slide[data-rel='-1']) are more specific than a plain
+     .hsc2-slide rule and would otherwise still win at this width. */
+  .hsc2-slide {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: 0 0 85vw;
+    width: 85vw;
+    height: auto;
+    scroll-snap-align: start;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    cursor: auto !important;
+    transition: opacity 0.3s ease;
+  }
+  .hsc2-slide[data-hidden='true'] {
+    opacity: 1 !important;
+  }
+
+  .hsc2-wrapper {
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    margin-top: 1.5rem;
+  }
+  .hsc2-stage {
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 3.25rem;
+  }
+  .hsc2-card {
+    width: 100%;
+    height: auto;
+    min-height: 25rem;
+    padding: 0.75rem 0.75rem 0;
+  }
+
+  /* Prev/next: moved out of the card's own footprint entirely (anchored
+     to the stage's bottom edge, in the gap before the dots) instead of
+     floating beside/over it — the safest way to guarantee they never sit
+     on top of card content at a width where there's no reliable gutter
+     left over for them beside an 85vw card. */
+  .hsc2-nav {
+    top: 100%;
+    bottom: auto;
+    transform: translateY(0.5rem);
+    width: 44px;
+    height: 44px;
+  }
+  .hsc2-nav-prev {
+    left: calc(50% - 4.75rem);
+  }
+  .hsc2-nav-next {
+    right: calc(50% - 4.75rem);
+    left: auto;
+  }
 }
-/* Real narrow phones (iPhone SE, budget Android, 320-400px): the 560px
-   tier's card + spread + nav buttons (~376px visual span) is wider than
-   the available content width and gets cropped by .hero-section's
-   overflow:hidden. Shrink further and pull the nav buttons in so the
-   whole stack — buttons included — fits inside a ~320px container. */
+
 @media (max-width: 400px) {
-  :root { --hsc2-w: 168px; --hsc2-h: 296px; --hsc2-spread: 40px; }
-  .hsc2-nav { width: 32px; height: 32px; }
-  .hsc2-nav-prev { left: -14px; }
-  .hsc2-nav-next { right: -14px; }
-  .hsc2-card { padding: 0.55rem 0.55rem 0; gap: 0.5rem; }
   .hsc2-title { font-size: 1.1rem; }
   .hsc2-desc { font-size: 0.72rem; }
   /* Longer DE/NL button labels need a bit more breathing room at this size. */
@@ -3998,6 +4103,20 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  /* Not a duplicate element — ActionPromptSection and Footer are two
+     different components that each independently render "Bossert /
+     Immobilien" (this one as the card's kicker, the footer as its closing
+     wordmark), two sections apart. Toning this one down so it reads as a
+     small pretitle rather than a second wordmark moment right before the
+     footer repeats it in full size. */
+  .action-prompt-brand {
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    opacity: 0.65;
+  }
+}
+
 @media (max-width: 480px) {
   .action-prompt-container {
     padding: 2.5rem var(--gutter);
@@ -4335,6 +4454,34 @@ body {
   font-size: 0.82rem;
   margin-top: 0.5rem;
   font-family: var(--font-inter), sans-serif;
+}
+
+@media (max-width: 768px) {
+  /* .cta-form-row is a 2-column grid (Name/Email) with no mobile override
+     anywhere in the file — the generic override block elsewhere targets
+     .form-row/.lead-form-row (different components), not this class, so
+     it was never actually stacked on phones. */
+  .cta-form-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .cta-input,
+  .cta-textarea {
+    min-height: 48px;
+  }
+  /* border-bottom-color alone (the desktop focus state) is faint —
+     rgba(4,36,51,0.18) to solid navy — and outline:none removes the
+     native ring entirely. Bronze + a thicker line reads clearly. */
+  .cta-input:focus,
+  .cta-textarea:focus {
+    border-bottom: 2px solid var(--bronze);
+    padding-bottom: calc(0.75rem - 1px);
+  }
+  .cta-submit-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 52px;
+  }
 }
 
 /* Responsive */
@@ -4877,6 +5024,32 @@ body {
   background: rgba(246, 243, 238, 0.2);
 }
 
+.mobile-drawer-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+}
+
+.mobile-drawer-lang .lang-btn {
+  color: rgba(254, 252, 246, 0.5);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0.25rem;
+}
+
+.mobile-drawer-lang .lang-btn.active {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.mobile-drawer-lang .lang-sep {
+  color: rgba(254, 252, 246, 0.3);
+}
+
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
@@ -4892,6 +5065,9 @@ body {
   letter-spacing: -0.5px;
   border-bottom: 1px solid rgba(246, 243, 238, 0.08);
   padding: 1rem 0;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
   transition: color 0.2s ease, padding-left 0.3s ease;
 }
 
@@ -5186,12 +5362,17 @@ body {
   
   .navbar {
     padding: 1.5rem 1rem;
+    padding-top: max(1.5rem, env(safe-area-inset-top));
   }
   .navbar.fixed {
     padding: 1rem 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
   }
   .mobile-only-logo .logo-img {
     width: 85px;
+  }
+  .mobile-drawer {
+    padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
   }
 
   /* Hero */
@@ -5211,7 +5392,13 @@ body {
     max-width: 100%;
   }
   .hero-section .explore-btn {
-    margin-left: 1.5rem;
+    /* Was margin-left only, which combined with the general .explore-btn
+       width:100% below to push the button 1.5rem past the container's
+       right edge. Symmetric margin + matching width keeps it centered
+       and fully on-screen. */
+    margin: 0 1.5rem;
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+    width: calc(100% - 3rem);
   }
   .main-grid {
     flex-direction: column;
@@ -5379,6 +5566,24 @@ body {
     margin-left: 0 !important;
     margin-top: 1rem;
     border-radius: 8px;
+  }
+  /* The button actually rendered by SearchSection.tsx is .search-submit-btn
+     (the .search-btn rule above targets a class that isn't used anywhere
+     in the component — dead code). Its base style sets align-self:center,
+     which keeps it a narrow centered pill even once .search-bar stacks to
+     a column above; this is what actually needs to change for a full-width
+     bronze mobile button. */
+  .search-submit-btn {
+    align-self: stretch !important;
+    width: 100% !important;
+    height: 52px !important;
+    margin: 1rem 0 0 !important;
+    border-radius: 4px !important;
+    background-color: var(--bronze, #AF8C53) !important;
+  }
+  .search-submit-btn:hover,
+  .search-submit-btn:active {
+    background-color: var(--navy) !important;
   }
   /* Advanced filters */
   .adv-grid-top {
@@ -7340,6 +7545,18 @@ html[data-theme='dark'] .pc-badge-heart {
   /* Global snappier animation timing on mobile */
   .reveal-base, .clip-reveal, .staggered-word, .accordion-card.reveal-base {
     transition-duration: 0.4s !important;
+  }
+}
+
+/* .pc-specs-grid is unintentionally swept into the ".stats-grid, ...,
+   .pc-specs-grid, ..." generic 1-column buster in the block above (meant
+   for page-level layout grids, not this compact in-card icon row) —
+   restore its intended multi-column strip specifically on phones. Placed
+   after that block so it wins the cascade despite matching specificity. */
+@media (max-width: 768px) {
+  .pc-specs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)) !important;
+    gap: 0.5rem !important;
   }
 }
 

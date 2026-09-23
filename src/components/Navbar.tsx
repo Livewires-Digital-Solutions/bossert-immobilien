@@ -226,6 +226,22 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
           </svg>
         </button>
 
+        {/* Language toggle — pinned at the top of the drawer. The navbar's own
+            EN/DE toggle sits behind the drawer (drawer z-index 2000 > navbar
+            1000) once open, so without this there was no way to switch
+            language while the menu was up. */}
+        <div className="mobile-drawer-lang">
+          <span
+            className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+            onClick={() => setLang('en')}
+          >EN</span>
+          <span className="lang-sep">|</span>
+          <span
+            className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
+            onClick={() => setLang('de')}
+          >DE</span>
+        </div>
+
         <div className="mobile-nav-links">
           <Link href="/properties" className={`mobile-nav-item ${pathname === '/properties' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.properties}</Link>
           <Link href="/owners" className={`mobile-nav-item ${pathname === '/owners' ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>{t.nav.forOwners}</Link>
