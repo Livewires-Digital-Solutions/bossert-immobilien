@@ -67,11 +67,11 @@ export default function MobileSectionSnap() {
       if (y >= -SNAP_EPSILON && y <= heroBottom + SNAP_EPSILON) {
         const carousel = document.querySelector<HTMLElement>('.hero-right');
         const carouselTop = carousel ? carousel.offsetTop : heroBottom;
-
+        
         const points = [0, carouselTop, heroBottom];
         let nearest = points[0];
         let dist = Math.abs(y - nearest);
-
+        
         for (const p of points) {
           const d = Math.abs(y - p);
           if (d < dist) {
@@ -79,19 +79,9 @@ export default function MobileSectionSnap() {
             nearest = p;
           }
         }
-
-        // Was an unconditional commit to the nearest edge whenever a
-        // settle landed anywhere in the hero range — reproduced as the
-        // reported scroll glitch: the hero is ~1.85 viewport-heights tall
-        // now (post the carousel-bleed fix below), so essentially any
-        // scroll-and-pause gesture landed "in range" and got force-jumped
-        // to whichever of [0, carouselTop, heroBottom] was nearest,
-        // regardless of how far that was or whether the user meant to
-        // stop there. Gated the same way the services/explore range below
-        // already (correctly) is — only nudge when already close to a
-        // point, never yank the user back to one from far away.
-        const threshold = window.innerHeight * EDGE_THRESHOLD_RATIO;
-        if (dist > SNAP_EPSILON && dist <= threshold) {
+        
+        // Unconditional commit to the nearest edge in Hero
+        if (dist > SNAP_EPSILON) {
           lenis.scrollTo(nearest, { duration: SNAP_DURATION });
         }
         return;

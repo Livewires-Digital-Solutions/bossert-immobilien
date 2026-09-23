@@ -1644,19 +1644,7 @@ body {
   .main-grid.has-carousel .hero-headline-top,
   .main-grid.has-carousel .hero-headline-mid,
   .main-grid.has-carousel .hero-headline-bot {
-    /* Was a 2.2rem floor — at 320-414px, 9vw stays under any reasonable
-       floor here (9vw is only ~29-37px across that range), so the floor
-       IS what renders, flat, across all four required widths; only above
-       ~622px does the vw term start exceeding it. useFitText still
-       shrinks this further per-string if it doesn't fit — this only
-       raises the ceiling it shrinks from. */
-    font-size: clamp(2.75rem, 9vw, 4rem);
-    /* Tighter than the base -0.02em: useFitText's natural-width measurement
-       includes letter-spacing directly (naturalWidth = measureText().width
-       + letterSpacing * (len-1)), so this reduces what the hook has to
-       shrink to fit, independent of the available-width change above —
-       the two levers stack rather than substitute for each other. */
-    letter-spacing: -0.04em;
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
   }
 }
 
@@ -3714,21 +3702,6 @@ body {
   border-top: 1px solid rgba(4, 36, 51, 0.15);
 }
 
-/* Section-to-section differentiation, mobile/tablet only (Testimonials is
-   already navy, Why/CTA/Action-Prompt already carry a border somewhere —
-   Services and Explore were the two identical-cream sections with no
-   boundary at all between them and their neighbors on a single-column
-   mobile scroll). Matches .why-section's existing divider treatment
-   rather than introducing a third distinct value. */
-@media (max-width: 1024px) {
-  .services-section {
-    border-top: 1px solid rgba(4, 36, 51, 0.15);
-  }
-  .explore-section {
-    border-top: 1px solid rgba(4, 36, 51, 0.15);
-  }
-}
-
 .why-container {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -5410,14 +5383,7 @@ body {
     padding-top: max(1rem, env(safe-area-inset-top));
   }
   .mobile-only-logo .logo-img {
-    /* logo.png is a single raster crest — "EST" / "1991" and the building
-       mark are pixels baked into that one image, not separate elements,
-       so their relative spacing isn't independently adjustable via CSS;
-       this width is the only lever available, and it scales everything
-       (crest + EST/1991 + wordmark) up together. Sized to its natural
-       aspect ratio's height (~69px) fitting inside the 88px navbar above
-       with a few px to spare — see that rule for why the navbar grew too. */
-    width: 95px;
+    width: 85px;
   }
   .mobile-drawer {
     padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
@@ -5425,18 +5391,9 @@ body {
 
   /* Hero */
   .hero-content {
-    /* Clears the fixed mobile logo/navbar (now 88px, up from 72px — see
-       .navbar above) with room to spare, so the accent line below doesn't
-       start under/behind it.
-       Right padding trimmed from 1.25rem: useFitText's shrink math makes
-       the rendered headline size a function of available width divided by
-       the text's natural width — raising the CSS clamp ceiling alone (see
-       .main-grid.has-carousel .hero-headline-* below) has no effect once
-       the hook is already shrinking, since the ceiling cancels out of that
-       ratio algebraically. Available width is the only lever that actually
-       moves the rendered size; the left side keeps its full inset since
-       .hero-top-group's own padding-left clears the vertical accent line. */
-    padding: 9rem 0.5rem 1.5rem 1.25rem;
+    /* Clears the fixed mobile logo (≈108px tall incl. navbar padding) with
+       room to spare, so the accent line below doesn't start under/behind it. */
+    padding: 8rem 1.25rem 1.5rem 1.25rem;
   }
   .hero-top-group {
     padding-left: 1.5rem;
@@ -5522,9 +5479,10 @@ body {
     max-width: 100%;
     height: auto;
   }
-  .headline-top-s,
   .headline-mid-s {
     white-space: normal;
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    letter-spacing: -1px;
   }
   .services-right {
     flex-direction: column;
@@ -5609,22 +5567,17 @@ body {
     flex-direction: column !important;
     align-items: stretch !important;
     flex-wrap: nowrap !important;
-    background-color: var(--white) !important;
-    border: 1px solid rgba(4, 36, 51, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 1rem !important;
+    border: none !important;
+    padding: 0 !important;
     gap: 0 !important;
     overflow: visible;
   }
   .search-filter {
     flex: none !important;
     width: 100% !important;
-    padding: 1rem 0 !important;
+    padding: 0.9rem 0 !important;
     border-bottom: 1px solid rgba(4, 36, 51, 0.08) !important;
     border-radius: 0 !important;
-  }
-  .search-filter:nth-last-child(2) {
-    border-bottom: none !important;
   }
   .search-divider {
     display: none !important;
@@ -5649,7 +5602,6 @@ body {
     margin: 1rem 0 0 !important;
     border-radius: 4px !important;
     background-color: var(--bronze, #AF8C53) !important;
-    color: var(--white) !important;
   }
   .search-submit-btn:hover,
   .search-submit-btn:active {
@@ -7439,7 +7391,7 @@ html[data-theme='dark'] .pc-badge-heart {
 .hero-headline-de .hero-headline-top,
 .hero-headline-de .hero-headline-mid,
 .hero-headline-de .hero-headline-bot {
-  font-size: clamp(2.75rem, 4vw, 4.5rem) !important;
+  font-size: clamp(2.5rem, 4vw, 4.5rem) !important;
 }
 
 /* ==========================================================================
@@ -7449,23 +7401,10 @@ html[data-theme='dark'] .pc-badge-heart {
   /* A. Navigation & Navbar */
   .navbar {
     padding: 0.5rem var(--gutter) !important;
-    /* Was 72px. The crest's true aspect ratio (revealed once the
-       height:32px !important fix above stopped squashing it) is taller
-       than wide — a width big enough to read clearly needs more vertical
-       room than 72px - 16px padding (border-box) had available. Grown
-       just enough for a 95px-wide logo at its natural ~69px height to sit
-       inside with a few px to spare, not maximized further. */
-    height: 88px !important;
+    height: 72px !important;
   }
-  /* Was height: 32px !important, decoupled from width entirely — with
-     object-fit:contain that fixed height (not the width set elsewhere)
-     was the actual binding constraint, so widening .mobile-only-logo's
-     own width rule had no visible effect: the image just gained empty
-     padding within a box it could no longer fill. height:auto restores
-     proportional scaling (matches .logo-img's own base rule, which this
-     was overriding). */
   .navbar .logo-img {
-    height: auto;
+    height: 32px !important;
   }
   
   /* Mobile Menu Drawer animation override */
@@ -7510,36 +7449,38 @@ html[data-theme='dark'] .pc-badge-heart {
 
   /* Hero Section Restructuring */
   .hero-section {
-    min-height: 100svh !important; /* P0 Fix: svh prevents glitch on URL bar hide */
+    min-height: 100dvh !important;
     height: auto !important;
-    padding-top: 70px !important;
+    padding-top: 80px !important;
     padding-bottom: 20px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
     position: relative !important;
-    /* P1 Fix: shrink carousel card globally on mobile so it fits in the single screen */
-    --hsc2-w: clamp(190px, 50vw, 240px);
   }
 
   .hero-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* P1 Fix: reduce padding */
-    padding: 0 1.25rem !important; 
   }
   
   .left-content {
+    /* Was min-height: calc(100dvh - 100px) (~712px at a typical 812px-tall
+       phone) with justify-content:center — a second, later-cascading
+       .left-content rule (this one, part of the catch-all block) that
+       silently wins over the earlier, better-tuned
+       "calc(100svh - 11rem)" version elsewhere in the file, since both
+       have equal specificity and this one comes later. Against ~360px of
+       actual content (eyebrow + headline + subhead + desc + button), that
+       left ~170px of dead space centered above the text — the empty gap
+       under the navbar the client flagged. .hero-section already carries
+       its own min-height: 100vh for the full-bleed image, so this element
+       doesn't need to force a near-viewport-tall box too; sizing to its
+       own content lets the text sit right below the navbar clearance. */
     display: flex;
     flex-direction: column;
-    padding-bottom: 1rem;
-    gap: 0.5rem; /* Tighter vertical spacing */
-  }
-  
-  .main-grid {
-    margin-top: 0.5rem !important;
-    gap: 1.5rem !important;
+    padding-bottom: 2rem;
   }
   
   /* Form stacking */
@@ -7587,7 +7528,7 @@ html[data-theme='dark'] .pc-badge-heart {
     padding-bottom: 3rem !important;
   }
 
-  /* Selected Properties Tabs Layout - Segmented Toggle */
+  /* Selected Properties Tabs Layout */
   .search-tabs-wrapper {
     overflow-x: visible !important;
   }
@@ -7595,25 +7536,14 @@ html[data-theme='dark'] .pc-badge-heart {
     width: 100% !important;
     display: flex !important;
     justify-content: space-between !important;
-    background-color: rgba(4, 36, 51, 0.04) !important;
-    border-radius: 8px !important;
-    padding: 4px !important;
-    gap: 4px !important;
+    gap: 0 !important;
   }
   .search-tab {
-    padding: 0.8rem 0.5rem !important;
-    font-size: 0.7rem !important;
+    padding: 0.6rem 0.5rem !important;
+    font-size: 0.65rem !important;
     letter-spacing: 0.05em !important;
-    border-radius: 6px !important;
     flex: 1;
     text-align: center;
-    background-color: transparent !important;
-    color: var(--navy) !important;
-    border: none !important;
-  }
-  .search-tab.active {
-    background-color: var(--navy) !important;
-    color: var(--white) !important;
   }
 
   /* Search Filters Padding/Border */
@@ -7636,51 +7566,6 @@ html[data-theme='dark'] .pc-badge-heart {
     font-size: 1.25rem !important;
   }
 
-  /* Section Differentiation (P2) - Navy section on mobile */
-  .services-section, .why-section {
-    background-color: var(--white) !important;
-    border-top: 1px solid rgba(175, 140, 83, 0.2); /* Subtle bronze divider */
-  }
-  
-  .cta-section {
-    background-color: var(--white) !important;
-    border-top: 1px solid rgba(4, 36, 51, 0.08); /* Subtle navy divider */
-  }
-  
-  /* Apply navy to explore-section */
-  .explore-section {
-    background-color: var(--navy) !important; 
-    color: var(--cream) !important;
-  }
-  .explore-section .explore-headline,
-  .explore-section .explore-subtitle,
-  .explore-section .explore-desc {
-    color: var(--cream) !important;
-  }
-  .explore-section .explore-subtitle .dot {
-    background-color: var(--bronze) !important;
-  }
-  
-  /* The Property Cards have their own white background, so we force them back to navy text */
-  .explore-section .property-card,
-  .explore-section .property-card * {
-    color: var(--navy);
-  }
-  .explore-section .explore-btn {
-    color: var(--cream) !important;
-    border-color: var(--cream) !important;
-  }
-  .explore-section .explore-btn:hover {
-    color: var(--navy) !important;
-    background-color: var(--cream) !important;
-  }
-
-  /* Increase padding between sections on mobile for breathing room */
-  .services-section, .explore-section, .why-section, .cta-section {
-    padding-top: calc(var(--section-padding) + 1.5rem) !important;
-    padding-bottom: calc(var(--section-padding) + 1rem) !important;
-  }
-
   /* D. Animations */
   .reveal-up {
     transform: translateY(16px) !important;
@@ -7693,16 +7578,6 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   .reveal-right {
     transform: translateX(16px) !important;
-  }
-  
-  /* Restore cinematic scroll animations on mobile: when the element is revealed,
-     we must clear the transform with !important to overpower the base mobile overrides above. */
-  .is-revealed.reveal-up,
-  .is-revealed.reveal-scale,
-  .is-revealed.reveal-left,
-  .is-revealed.reveal-right,
-  .accordion-card.is-revealed {
-    transform: none !important;
   }
   
   /* Global snappier animation timing on mobile */
