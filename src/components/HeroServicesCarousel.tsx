@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -69,11 +69,14 @@ function ServiceCard({
   );
 }
 
+const SWIPE_THRESHOLD = 40;
+
 export default function HeroServicesCarousel() {
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [noTrans, setNoTrans] = useState<number | null>(null);
   const { t } = useLanguage();
+  const swipeRef = useRef<{ startX: number; startY: number; dx: number; locked: boolean } | null>(null);
 
   const slides: ServiceSlide[] = t.heroCarousel.slides.map((slide, i) => ({
     ...slide,
@@ -126,8 +129,64 @@ export default function HeroServicesCarousel() {
     return () => clearTimeout(timer);
   }, [active, next]);
 
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    // Only handle touch on desktop, let native scroll handle mobile
+    if (window.innerWidth <= 768) return;
+    const touch = e.touches[0];
+    swipeRef.current = { startX: touch.clientX, startY: touch.clientY, dx: 0, locked: false };
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (window.innerWidth <= 768) return;
+    const state = swipeRef.current;
+    if (!state) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - state.startX;
+    const dy = touch.clientY - state.startY;
+    if (!state.locked) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+      // Vertical intent — release and let the page scroll normally.
+      if (Math.abs(dy) > Math.abs(dx)) {
+        swipeRef.current = null;
+        return;
+      }
+      state.locked = true;
+    }
+    state.dx = dx;
+    e.preventDefault();
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (window.innerWidth <= 768) return;
+    const state = swipeRef.current;
+    swipeRef.current = null;
+    if (!state?.locked) return;
+    if (state.dx <= -SWIPE_THRESHOLD) next();
+    else if (state.dx >= SWIPE_THRESHOLD) prev();
+  }, [next, prev]);
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    if (window.innerWidth > 768) return;
+    const el = e.currentTarget;
+    const scrollPos = el.scrollLeft;
+    const width = el.offsetWidth;
+    const index = Math.round(scrollPos / width);
+    if (index >= 0 && index < total && index !== active) {
+      setActive(index);
+    }
+  }, [active, total]);
+
   return (
     <div className="hsc2-wrapper">
+      <div className="hsc2-mobile-header">
+        <span className="hsc2-mobile-title">
+          <span className="hsc2-mobile-line" />
+          OUR SERVICES
+        </span>
+        <span className="hsc2-mobile-counter">
+          {String(active + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </span>
+      </div>
       <div className="hsc2-stage">
         <button className="hsc2-nav hsc2-nav-prev" onClick={prev} aria-label={t.heroCarousel.prevLabel}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -135,7 +194,13 @@ export default function HeroServicesCarousel() {
           </svg>
         </button>
 
-        <div className="hsc2-root">
+        <div
+          className="hsc2-root"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onScroll={handleScroll}
+        >
           {slides.map((slide, i) => {
             const r = relOf(i);
             return (
