@@ -19,13 +19,16 @@ export default function PropertiesHero() {
 
       <div className="editorial-hero-content">
         <div className="editorial-hero-middle">
-          <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
-            {t.propertiesPage.heroHeadline} <span className="italic-serif">{t.propertiesPage.heroHeadlineSerif}</span>
+          <div className={`properties-mobile-line reveal-base reveal-up delay-50 ${isVisible ? 'is-revealed' : ''}`}></div>
+          <h1 className={`editorial-headline properties-hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
+            <span className="properties-title-word">{t.propertiesPage.heroHeadline}</span>
+            <br className="properties-mobile-br" />
+            <span className="italic-serif properties-title-serif">{t.propertiesPage.heroHeadlineSerif}</span>
           </h1>
         </div>
         
         <div className="editorial-hero-bottom">
-           <p className={`editorial-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
+           <p className={`editorial-subhead properties-mobile-subhead reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}>
               {t.propertiesPage.heroSubhead}
            </p>
         </div>
@@ -34,7 +37,7 @@ export default function PropertiesHero() {
           className={`reveal-base reveal-up delay-300 ${isVisible ? 'is-revealed' : ''}`}
           style={{ marginTop: '2.5rem' }}
         >
-          <Link href="/search-profile" className="explore-btn explore-btn-dark">
+          <Link href="/search-profile" className="explore-btn explore-btn-dark properties-hero-btn">
             {t.propertiesPage.heroCta}
             <BtnArrow />
           </Link>
