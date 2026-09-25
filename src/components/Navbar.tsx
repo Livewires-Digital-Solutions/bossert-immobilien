@@ -197,20 +197,31 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
         {/* Mobile Left Side: Lang Toggle */}
         <div className="mobile-nav-right">
           <div className="lang-toggle mobile-lang-inline">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lang-globe-icon" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span
-              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-              onClick={() => setLang('en')}
-            >EN</span>
-            <span className="lang-divider">|</span>
-            <span
-              className={`lang-btn ${lang === 'de' ? 'active' : ''}`}
-              onClick={() => setLang('de')}
-            >DE</span>
+            <button
+              type="button"
+              className="mobile-lang-pill"
+              onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
+              aria-label={lang === 'en' ? 'Switch to German' : 'Auf Englisch wechseln'}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lang-globe-icon" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span className="mobile-lang-pill-code">{lang.toUpperCase()}</span>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mobile-lang-chevron" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <span className="mobile-lang-divider" aria-hidden="true"></span>
+            <button
+              type="button"
+              className="mobile-lang-alt"
+              onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
+              aria-label={lang === 'en' ? 'Auf Deutsch wechseln' : 'Switch to English'}
+            >
+              {(lang === 'en' ? 'de' : 'en').toUpperCase()}
+            </button>
           </div>
         </div>
         </div>

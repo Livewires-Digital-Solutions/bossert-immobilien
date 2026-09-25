@@ -1475,17 +1475,6 @@ body {
   transition: all 0.2s ease;
 }
 
-.mobile-lang-inline .lang-btn {
-  color: rgba(4, 36, 51, 0.4);
-}
-.mobile-lang-inline .lang-btn.active {
-  color: var(--navy);
-  font-weight: 600;
-}
-.mobile-lang-inline .lang-btn:hover {
-  color: var(--navy);
-}
-
 .lang-btn.active {
   color: var(--white);
   font-weight: 600;
@@ -3034,6 +3023,273 @@ body {
   transform: translateX(2px);
 }
 
+/* ==========================================================================
+   Card-style search widget — home page (SearchSection embedded=true).
+   Deliberate, explicit exception to the site's sharp-corner rule: rounded
+   corners here match a client-provided reference design for this widget
+   specifically. Scoped entirely to new class names (search-card*) so it
+   never touches the flat .search-bar strip still used on /properties.
+   Base + mobile rules are kept together here on purpose — see the
+   mobile-css-override-layering lesson about scattered mobile rules.
+   ========================================================================== */
+.search-card {
+  width: 100%;
+  background: var(--cream);
+  border-radius: 28px;
+  padding: 2.25rem 2.5rem 2rem;
+  box-shadow: 0 30px 70px rgba(4, 36, 51, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-card-tabs {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.search-card-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  padding: 0.9rem 1.75rem;
+  border-radius: 14px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(4, 36, 51, 0.55);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.search-card-tab svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+
+.search-card-tab:not(.active):hover {
+  color: var(--navy);
+  background: rgba(4, 36, 51, 0.05);
+}
+
+.search-card-tab.active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.search-card-tab.active svg {
+  opacity: 1;
+}
+
+.search-card-location {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--white);
+  border-radius: 18px;
+  padding: 1.1rem 1.5rem;
+  box-shadow: 0 10px 28px rgba(4, 36, 51, 0.05);
+  margin-bottom: 1rem;
+}
+
+.search-card-location-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 0.25rem 0;
+  background-color: rgba(4, 36, 51, 0.12);
+  flex-shrink: 0;
+}
+
+.locate-me-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--navy);
+  opacity: 0.6;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.locate-me-btn:hover {
+  opacity: 1;
+  background: rgba(4, 36, 51, 0.06);
+}
+
+.search-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.search-field-box {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 28px rgba(4, 36, 51, 0.05);
+  position: relative;
+  min-width: 0;
+  transition: box-shadow 0.25s ease;
+}
+
+.search-field-box.clickable {
+  cursor: pointer;
+}
+
+.search-field-box.clickable:hover {
+  box-shadow: 0 14px 32px rgba(4, 36, 51, 0.09);
+}
+
+.search-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.advanced-search-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--navy);
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.advanced-search-link:hover {
+  opacity: 1;
+}
+
+.search-card-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bronze);
+  color: var(--white);
+  border: none;
+  padding: 1.05rem 2.75rem;
+  border-radius: 14px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(175, 140, 83, 0.35);
+  transition: all 0.25s ease;
+}
+
+.search-card-submit svg {
+  stroke: var(--white);
+  transition: transform 0.25s ease;
+}
+
+.search-card-submit:hover {
+  background: var(--navy);
+}
+
+.search-card-submit:hover svg {
+  transform: translateX(2px);
+}
+
+/* Keep the advanced filters panel visually consistent with the rounded
+   card above when it expands below the embedded (home page) widget only —
+   the flat /properties page variant keeps its sharp-corner styling. */
+.search-section-embedded .advanced-filters-wrapper.open {
+  border-radius: 20px;
+}
+
+.search-section-embedded .adv-input-group,
+.search-section-embedded .adv-dropdown {
+  border-radius: 12px;
+}
+
+.search-section-embedded .adv-submit {
+  border-radius: 14px;
+}
+
+@media (max-width: 768px) {
+  .search-card {
+    padding: 1.5rem 1.25rem 1.5rem;
+    border-radius: 22px;
+  }
+  .search-card-tabs {
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: nowrap;
+  }
+  .search-card-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 0.75rem 0.4rem;
+    gap: 0.35rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+    border-radius: 12px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .search-card-tab svg {
+    width: 15px;
+    height: 15px;
+  }
+  .search-card-location {
+    padding: 0.95rem 1.1rem;
+    border-radius: 16px;
+    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+  }
+  .locate-me-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .search-card-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .search-field-box {
+    border-radius: 16px;
+    padding: 0.95rem 1.1rem;
+  }
+  .search-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .advanced-search-link {
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  .search-card-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 1.05rem 1.5rem;
+    border-radius: 14px;
+  }
+}
+
 /* Sub Row Below Search Bar */
 .search-sub-row {
   width: 100%;
@@ -3161,6 +3417,13 @@ body {
 .advanced-filters-wrapper.open .advanced-filters-content {
   opacity: 1;
   transition-delay: 0.05s;
+}
+
+/* Mobile-only Advanced Search overlay (see JSX in SearchSection.tsx). Hidden
+   by default; the max-width:768px block below turns it into a centered
+   modal card and hides the desktop .advanced-filters-wrapper instead. */
+.mobile-adv-overlay {
+  display: none;
 }
 
 .adv-grid-top {
@@ -4888,12 +5151,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   width: 44px;
   height: 44px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
   cursor: pointer;
   padding: 0;
   transition: background 0.3s ease;
@@ -4902,8 +5165,8 @@ body {
 
 .hamburger-btn span {
   display: block;
-  width: 20px;
-  height: 1.5px;
+  width: 22px;
+  height: 2px;
   background: var(--white);
   border-radius: 2px;
   transition: all 0.3s ease;
@@ -4911,14 +5174,14 @@ body {
 }
 
 .hamburger-btn.open span:nth-child(1) {
-  transform: translateY(6.5px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 .hamburger-btn.open span:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
 .hamburger-btn.open span:nth-child(3) {
-  transform: translateY(-6.5px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Mobile right-side group (lang + hamburger) */
@@ -4930,73 +5193,138 @@ body {
   gap: 1rem;
 }
 
-/* Default State (e.g. Homepage dark hero) */
+/* Mobile lang switcher: a bronze-bordered pill holding the globe icon,
+   the active language code and a dropdown chevron, plus the other
+   language as a plain button beside a divider. Mirrors the reference
+   design's mobile navbar (gold-outlined "EN" pill + "| DE"). */
 .mobile-lang-inline {
-  color: var(--white);
+  gap: 0.45rem;
 }
-.mobile-lang-inline .lang-btn {
-  color: rgba(255, 255, 255, 0.5);
+
+.mobile-lang-pill {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.65rem 0.4rem 0.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--bronze);
+  background: rgba(4, 36, 51, 0.35);
+  cursor: pointer;
+  line-height: 1;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
-.mobile-lang-inline .lang-btn.active {
-  color: var(--white);
+
+.mobile-lang-pill-code {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
 }
-.mobile-lang-inline .lang-divider {
-  color: rgba(255, 255, 255, 0.3);
+
+.mobile-lang-chevron {
+  stroke: var(--bronze);
+  flex-shrink: 0;
 }
-.mobile-lang-inline svg {
+
+.mobile-lang-divider {
+  width: 1px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.mobile-lang-alt {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+/* Default State (e.g. Homepage dark hero) */
+.mobile-lang-pill .lang-globe-icon {
   stroke: var(--white);
+}
+.mobile-lang-pill-code {
+  color: var(--white);
+}
+.mobile-lang-divider {
+  background: rgba(255, 255, 255, 0.35);
+}
+.mobile-lang-alt {
+  color: rgba(255, 255, 255, 0.85);
+}
+.mobile-lang-alt:hover {
+  color: var(--white);
 }
 
 /* Inverted State (e.g. Properties page cream background) */
-.navbar.navbar-invert .mobile-lang-inline {
-  color: var(--navy);
+.navbar.navbar-invert .mobile-lang-pill {
+  background: rgba(4, 36, 51, 0.05);
 }
-.navbar.navbar-invert .mobile-lang-inline .lang-btn {
-  color: rgba(4, 36, 51, 0.5);
-}
-.navbar.navbar-invert .mobile-lang-inline .lang-btn.active {
-  color: var(--navy);
-}
-.navbar.navbar-invert .mobile-lang-inline .lang-divider {
-  color: rgba(4, 36, 51, 0.3);
-}
-.navbar.navbar-invert .mobile-lang-inline svg {
+.navbar.navbar-invert .mobile-lang-pill .lang-globe-icon {
   stroke: var(--navy) !important;
+}
+.navbar.navbar-invert .mobile-lang-pill-code {
+  color: var(--navy);
+}
+.navbar.navbar-invert .mobile-lang-divider {
+  background: rgba(4, 36, 51, 0.3);
+}
+.navbar.navbar-invert .mobile-lang-alt {
+  color: rgba(4, 36, 51, 0.75);
+}
+.navbar.navbar-invert .mobile-lang-alt:hover {
+  color: var(--navy);
 }
 
 /* Scrolled State (Solid Navy background) */
-.navbar.fixed .mobile-lang-inline {
-  color: var(--white);
+.navbar.fixed .mobile-lang-pill {
+  background: rgba(255, 255, 255, 0.08);
 }
-.navbar.fixed .mobile-lang-inline .lang-btn {
-  color: rgba(255, 255, 255, 0.5);
-}
-.navbar.fixed .mobile-lang-inline .lang-btn.active {
-  color: var(--white);
-}
-.navbar.fixed .mobile-lang-inline .lang-divider {
-  color: rgba(255, 255, 255, 0.3);
-}
-.navbar.fixed .mobile-lang-inline svg {
+.navbar.fixed .mobile-lang-pill .lang-globe-icon {
   stroke: var(--white) !important;
+}
+.navbar.fixed .mobile-lang-pill-code {
+  color: var(--white);
+}
+.navbar.fixed .mobile-lang-divider {
+  background: rgba(255, 255, 255, 0.35);
+}
+.navbar.fixed .mobile-lang-alt {
+  color: rgba(255, 255, 255, 0.85);
+}
+.navbar.fixed .mobile-lang-alt:hover {
+  color: var(--white);
 }
 
 /* Properties pages: scrolled state stays beige, so the mobile lang toggle
    needs the navy variant instead of the white one above. */
-.navbar.navbar-properties.fixed .mobile-lang-inline {
-  color: var(--navy);
+.navbar.navbar-properties.fixed .mobile-lang-pill {
+  background: rgba(4, 36, 51, 0.05);
 }
-.navbar.navbar-properties.fixed .mobile-lang-inline .lang-btn {
-  color: rgba(4, 36, 51, 0.5);
-}
-.navbar.navbar-properties.fixed .mobile-lang-inline .lang-btn.active {
-  color: var(--navy);
-}
-.navbar.navbar-properties.fixed .mobile-lang-inline .lang-divider {
-  color: rgba(4, 36, 51, 0.3);
-}
-.navbar.navbar-properties.fixed .mobile-lang-inline svg {
+.navbar.navbar-properties.fixed .mobile-lang-pill .lang-globe-icon {
   stroke: var(--navy) !important;
+}
+.navbar.navbar-properties.fixed .mobile-lang-pill-code {
+  color: var(--navy);
+}
+.navbar.navbar-properties.fixed .mobile-lang-divider {
+  background: rgba(4, 36, 51, 0.3);
+}
+.navbar.navbar-properties.fixed .mobile-lang-alt {
+  color: rgba(4, 36, 51, 0.75);
+}
+.navbar.navbar-properties.fixed .mobile-lang-alt:hover {
+  color: var(--navy);
 }
 
 .mobile-drawer {
@@ -5165,7 +5493,14 @@ body {
      left — the exact bug this fixes. */
   .navbar-row {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    /* minmax(0, 1fr) on both side columns keeps the logo mathematically
+       centered regardless of which side's content (hamburger vs. the
+       lang pill) is wider — see the .desktop-nav comment above for the
+       same fix applied to the desktop grid. A bare 1fr's automatic
+       minimum is its content's min-content size, so the wider lang-pill
+       column would otherwise win extra track width and drag the logo
+       off-center toward it. */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
   }
   .desktop-nav {
@@ -5696,6 +6031,300 @@ body {
   }
   .adv-checkboxes {
     gap: 1rem;
+  }
+
+  /* Mobile-only Advanced Search overlay — full-screen centered modal that
+     replaces the desktop inline .advanced-filters-wrapper panel above this
+     breakpoint, but only for the embedded (home page) search widget; the
+     /properties page's plain SearchSection keeps its original inline mobile
+     panel untouched below. Matches a client-provided reference design for
+     this widget specifically (rounded card/inputs, icon-labeled sections,
+     icon-tile feature checkboxes) — a deliberate exception to the
+     sharp-corner rule, scoped to these .mobile-adv-* classes only. */
+  .search-section-embedded .advanced-filters-wrapper {
+    display: none !important;
+  }
+  .mobile-adv-overlay {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem;
+    background: rgba(4, 36, 51, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-adv-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .mobile-adv-card {
+    width: 100%;
+    max-width: 26rem;
+    max-height: calc(100vh - 2.2rem);
+    overflow-y: auto;
+    background: var(--cream);
+    border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(4, 36, 51, 0.35);
+    padding: 1.5rem 1.4rem 1.4rem;
+    transform: translateY(14px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .mobile-adv-overlay.open .mobile-adv-card {
+    transform: translateY(0) scale(1);
+  }
+  .mobile-adv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(4, 36, 51, 0.1);
+  }
+  .mobile-adv-header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+  }
+  .mobile-adv-icon-badge {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(175, 140, 83, 0.14);
+    color: var(--bronze);
+    border-radius: 10px;
+  }
+  .mobile-adv-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mobile-adv-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-shrink: 0;
+  }
+  .mobile-adv-reset-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--bronze);
+    cursor: pointer;
+  }
+  .mobile-adv-vdivider {
+    width: 1px;
+    height: 18px;
+    background: rgba(4, 36, 51, 0.15);
+  }
+  .mobile-adv-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--navy);
+    cursor: pointer;
+  }
+  .mobile-adv-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .mobile-adv-block {
+    position: relative;
+  }
+  .mobile-adv-block.clickable {
+    cursor: pointer;
+  }
+  .mobile-adv-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    opacity: 0.7;
+    margin-bottom: 0.65rem;
+  }
+  .mobile-adv-label svg {
+    color: var(--navy);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+  .mobile-adv-label.accent svg {
+    color: var(--bronze);
+    opacity: 1;
+  }
+  .mobile-adv-range {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .mobile-adv-field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    background: rgba(4, 36, 51, 0.045);
+    border-radius: 12px;
+    padding: 0.75rem 0.9rem;
+    min-width: 0;
+  }
+  .mobile-adv-field input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.88rem;
+    color: var(--navy);
+  }
+  .mobile-adv-field input::placeholder {
+    color: var(--navy);
+    opacity: 0.45;
+  }
+  .mobile-adv-field span {
+    font-size: 0.8rem;
+    color: var(--navy);
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+  .mobile-adv-select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border: 1px solid rgba(4, 36, 51, 0.15);
+    border-radius: 12px;
+    padding: 0.8rem 0.95rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.88rem;
+    color: var(--navy);
+  }
+  .mobile-adv-divider {
+    height: 1px;
+    background: rgba(4, 36, 51, 0.1);
+    margin: 0.15rem 0;
+  }
+  .mobile-adv-feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .mobile-adv-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--white);
+    border: 1px solid rgba(4, 36, 51, 0.15);
+    border-radius: 12px;
+    padding: 0.7rem 0.8rem;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.82rem;
+    color: var(--navy);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .mobile-adv-feature svg {
+    flex-shrink: 0;
+    opacity: 0.55;
+  }
+  .mobile-adv-feature input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin: 0;
+    border: 1px solid rgba(4, 36, 51, 0.25);
+    border-radius: 4px;
+    appearance: none;
+    cursor: pointer;
+  }
+  .mobile-adv-feature input[type="checkbox"]:checked {
+    background-color: var(--navy);
+    border-color: var(--navy);
+  }
+  .mobile-adv-feature.checked {
+    border-color: var(--bronze);
+    background: rgba(175, 140, 83, 0.06);
+  }
+  .mobile-adv-feature.checked svg {
+    opacity: 0.85;
+    color: var(--bronze);
+  }
+  .mobile-adv-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(4, 36, 51, 0.1);
+  }
+  .mobile-adv-results {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.85rem;
+    color: var(--navy);
+    opacity: 0.7;
+  }
+  .mobile-adv-results strong {
+    color: var(--navy);
+    opacity: 1;
+    font-weight: 700;
+  }
+  .mobile-adv-submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    height: 52px;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+  .mobile-adv-submit-btn:hover {
+    background: var(--bronze);
+  }
+  .mobile-adv-block .custom-dropdown-menu {
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 0;
   }
 
   /* Explore */
@@ -7488,7 +8117,7 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   
   /* Touch Targets */
-  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn {
+  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn, .mobile-lang-pill, .mobile-lang-alt {
     min-height: 44px;
     min-width: 44px;
     display: flex;
