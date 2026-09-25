@@ -5763,9 +5763,14 @@ body {
     background-color: var(--bronze);
     margin: 0 auto 1.5rem auto;
   }
-  .properties-mobile-br {
-    display: block;
-  }
+  /* Left as display:none (the base rule above already sets this) — the
+     headline below stacks "Our" / "Properties." via flex-direction:column,
+     so this <br> is redundant for the line break itself. It was previously
+     force-shown here (display:block) from an earlier, non-flex version of
+     this layout; left in place after the switch to flex it rendered as its
+     own empty flex item, adding a large phantom gap between the two words
+     that isn't in the client reference (see .properties-hero-headline
+     below — tight, single line-height gap between "Our" and "Properties."). */
   .properties-hero-headline {
     display: flex;
     flex-direction: column;
@@ -5801,6 +5806,16 @@ body {
     max-width: 300px;
     white-space: normal !important;
     justify-content: center;
+    /* Client reference shows this CTA solid-filled (not just outlined) on
+       phones, since touch has no hover state to reveal the desktop
+       fill-on-hover treatment. Scoped to this mobile breakpoint only —
+       desktop keeps the outline .explore-btn-dark styling untouched. */
+    background-color: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+  }
+  .properties-hero-btn .btn-arrow {
+    color: var(--white);
   }
   .properties-hero-bg {
     background-position: center 20%;
