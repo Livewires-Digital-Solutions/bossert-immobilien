@@ -17,6 +17,8 @@ interface NavbarProps {
 
 export default function Navbar({ invertOnLoad = false, navyLogo = false, contained = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { lang, setLang, t } = useLanguage();
   const { data: session } = useSession();
@@ -88,6 +90,39 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [menuOpen]);
+
+  // Close the mobile lang dropdown on an outside click or Escape
+  useEffect(() => {
+    if (!langMenuOpen) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+        setLangMenuOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLangMenuOpen(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [langMenuOpen]);
+
+  // Close the lang dropdown on route change. Adjusted during render (not an
+  // effect) per React's "resetting state without an effect" guidance —
+  // avoids the extra render-then-cleanup pass a useEffect would need here.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    if (langMenuOpen) setLangMenuOpen(false);
+  }
+
+  // The drawer sits above the lang dropdown (higher z-index), so rather than
+  // syncing a second piece of state, just fold "drawer is open" into whether
+  // the dropdown renders at all.
+  const langMenuVisible = langMenuOpen && !menuOpen;
 
   const invertClass = invertOnLoad && !isScrolled && !menuOpen ? 'navbar-invert' : '';
   const propertiesClass = navyLogo ? 'navbar-properties' : '';
@@ -196,12 +231,14 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
 
         {/* Mobile Left Side: Lang Toggle */}
         <div className="mobile-nav-right">
-          <div className="lang-toggle mobile-lang-inline">
+          <div className="lang-toggle mobile-lang-inline" ref={langMenuRef}>
             <button
               type="button"
-              className="mobile-lang-pill"
-              onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-              aria-label={lang === 'en' ? 'Switch to German' : 'Auf Englisch wechseln'}
+              className={`mobile-lang-pill ${langMenuVisible ? 'open' : ''}`}
+              onClick={() => setLangMenuOpen((open) => !open)}
+              aria-haspopup="listbox"
+              aria-expanded={langMenuVisible}
+              aria-label="Select language"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lang-globe-icon" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
@@ -213,15 +250,28 @@ export default function Navbar({ invertOnLoad = false, navyLogo = false, contain
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
-            <span className="mobile-lang-divider" aria-hidden="true"></span>
-            <button
-              type="button"
-              className="mobile-lang-alt"
-              onClick={() => setLang(lang === 'en' ? 'de' : 'en')}
-              aria-label={lang === 'en' ? 'Auf Deutsch wechseln' : 'Switch to English'}
-            >
-              {(lang === 'en' ? 'de' : 'en').toUpperCase()}
-            </button>
+            {langMenuVisible && (
+              <div className="mobile-lang-dropdown" role="listbox">
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={lang === 'en'}
+                  className={`mobile-lang-option ${lang === 'en' ? 'active' : ''}`}
+                  onClick={() => { setLang('en'); setLangMenuOpen(false); }}
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={lang === 'de'}
+                  className={`mobile-lang-option ${lang === 'de' ? 'active' : ''}`}
+                  onClick={() => { setLang('de'); setLangMenuOpen(false); }}
+                >
+                  DE
+                </button>
+              </div>
+            )}
           </div>
         </div>
         </div>

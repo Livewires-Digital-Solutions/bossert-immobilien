@@ -5162,7 +5162,7 @@ body {
   width: 44px;
   height: 44px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1.5px solid var(--bronze);
   border-radius: 12px;
   cursor: pointer;
   padding: 0;
@@ -5201,11 +5201,12 @@ body {
 }
 
 /* Mobile lang switcher: a bronze-bordered pill holding the globe icon,
-   the active language code and a dropdown chevron, plus the other
-   language as a plain button beside a divider. Mirrors the reference
-   design's mobile navbar (gold-outlined "EN" pill + "| DE"). */
+   the active language code and a dropdown chevron. Clicking it opens a
+   small floating menu (.mobile-lang-dropdown) listing EN and DE, instead
+   of showing both languages inline — mirrors the reference design's
+   mobile navbar (a single gold-outlined "EN ⌄" pill, flush to the edge). */
 .mobile-lang-inline {
-  gap: 0.45rem;
+  position: relative;
 }
 
 .mobile-lang-pill {
@@ -5234,26 +5235,56 @@ body {
 .mobile-lang-chevron {
   stroke: var(--bronze);
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-.mobile-lang-divider {
-  width: 1px;
-  height: 18px;
-  flex-shrink: 0;
+.mobile-lang-pill.open .mobile-lang-chevron {
+  transform: rotate(180deg);
 }
 
-.mobile-lang-alt {
+/* Floating menu — a fixed dark/bronze surface regardless of the navbar's
+   own color state (default/invert/fixed/properties), since it's a popover
+   sitting above the page rather than part of the bar itself. */
+.mobile-lang-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.3rem;
+  background: rgba(4, 36, 51, 0.98);
+  border: 1.5px solid var(--bronze);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  z-index: 10;
+}
+
+.mobile-lang-option {
   -webkit-appearance: none;
   appearance: none;
-  padding: 0;
+  padding: 0.45rem 0.9rem;
   background: none;
   border: none;
+  border-radius: 999px;
   cursor: pointer;
   font-family: var(--font-inter), sans-serif;
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.02em;
-  transition: color 0.2s ease;
+  color: rgba(255, 255, 255, 0.65);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mobile-lang-option:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mobile-lang-option.active {
+  color: var(--white);
+  background: rgba(175, 140, 83, 0.2);
 }
 
 /* Default State (e.g. Homepage dark hero) */
@@ -5261,15 +5292,6 @@ body {
   stroke: var(--white);
 }
 .mobile-lang-pill-code {
-  color: var(--white);
-}
-.mobile-lang-divider {
-  background: rgba(255, 255, 255, 0.35);
-}
-.mobile-lang-alt {
-  color: rgba(255, 255, 255, 0.85);
-}
-.mobile-lang-alt:hover {
   color: var(--white);
 }
 
@@ -5283,15 +5305,6 @@ body {
 .navbar.navbar-invert .mobile-lang-pill-code {
   color: var(--navy);
 }
-.navbar.navbar-invert .mobile-lang-divider {
-  background: rgba(4, 36, 51, 0.3);
-}
-.navbar.navbar-invert .mobile-lang-alt {
-  color: rgba(4, 36, 51, 0.75);
-}
-.navbar.navbar-invert .mobile-lang-alt:hover {
-  color: var(--navy);
-}
 
 /* Scrolled State (Solid Navy background) */
 .navbar.fixed .mobile-lang-pill {
@@ -5301,15 +5314,6 @@ body {
   stroke: var(--white) !important;
 }
 .navbar.fixed .mobile-lang-pill-code {
-  color: var(--white);
-}
-.navbar.fixed .mobile-lang-divider {
-  background: rgba(255, 255, 255, 0.35);
-}
-.navbar.fixed .mobile-lang-alt {
-  color: rgba(255, 255, 255, 0.85);
-}
-.navbar.fixed .mobile-lang-alt:hover {
   color: var(--white);
 }
 
@@ -5322,15 +5326,6 @@ body {
   stroke: var(--navy) !important;
 }
 .navbar.navbar-properties.fixed .mobile-lang-pill-code {
-  color: var(--navy);
-}
-.navbar.navbar-properties.fixed .mobile-lang-divider {
-  background: rgba(4, 36, 51, 0.3);
-}
-.navbar.navbar-properties.fixed .mobile-lang-alt {
-  color: rgba(4, 36, 51, 0.75);
-}
-.navbar.navbar-properties.fixed .mobile-lang-alt:hover {
   color: var(--navy);
 }
 
@@ -8170,17 +8165,12 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   
   /* Touch Targets */
-  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn, .mobile-lang-pill, .mobile-lang-alt {
+  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn, .mobile-lang-pill, .mobile-lang-option {
     min-height: 44px;
     min-width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .hamburger-btn {
-    background: transparent !important;
-    border: none !important;
   }
 
   /* B. Layout Restructuring */
