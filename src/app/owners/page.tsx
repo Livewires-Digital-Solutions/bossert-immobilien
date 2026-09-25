@@ -177,10 +177,12 @@ export default function ForOwnersPage() {
                 <span className={styles.challengeTagLine} aria-hidden="true"></span>
               </div>
 
-              <span className={styles.narrativeIndex} aria-hidden="true">01</span>
-              <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.15', color: 'var(--navy)', position: 'relative', marginBottom: '2rem' }}>
-                {data.narrative.headline}
-              </h2>
+              <div style={{ position: 'relative' }}>
+                <span className={styles.narrativeIndex} aria-hidden="true">01</span>
+                <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.15', color: 'var(--navy)', position: 'relative', marginBottom: '2rem' }}>
+                  {data.narrative.headline}
+                </h2>
+              </div>
 
               <p className={`why-subhead reveal-base reveal-up delay-200 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '1.15rem', color: 'rgba(4,36,51,0.75)', maxWidth: '32rem' }}>
                 {data.narrative.body}
