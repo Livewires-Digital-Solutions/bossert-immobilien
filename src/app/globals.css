@@ -105,6 +105,19 @@ html, body {
   overflow-x: clip;
 }
 
+html {
+  /* Without this, some mobile browsers (notably Android WebView/Chrome's
+     "font boosting") silently inflate text past its CSS font-size in
+     narrow columns to keep it "readable" — the inflation amount varies by
+     device/OS, which is why identical CSS can render with different text
+     widths (and different wrapping/clipping) on different phones. Locking
+     this to 100% makes font-size the only thing that decides text size,
+     so layouts that were tuned against one phone behave the same on
+     another. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* G-04: only two fonts on the site (Inter, The Seasons) — form controls
    don't inherit the page font by default, so they'd silently fall back to
    the browser's UI font (e.g. Arial) without this. */
@@ -2931,7 +2944,18 @@ body {
   font-weight: 400;
   color: var(--navy);
   width: 100%;
+  min-width: 0;
   padding: 0;
+  /* Matches the ellipsis safety .search-value already has below — a plain
+     <input> clips overflow text with a hard mid-character cutoff by
+     default (no "…"), which reads as broken on narrower phones where the
+     fixed-width icon/divider/locate-button siblings leave this field less
+     room than on a wider device. See the mobile font-size clamp further
+     down, which is the primary fix; this is the fallback for anything
+     still tight at the very smallest phone widths. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .search-input::placeholder {
@@ -3237,7 +3261,11 @@ body {
 
 @media (max-width: 768px) {
   .search-card {
-    padding: 1.5rem 1.25rem 1.5rem;
+    /* Fluid horizontal padding for the same reason as .search-card-location
+       below — a bit more room back for the location input on narrower
+       phones (~360px and under) instead of one flat value that's generous
+       on a 768px tablet-edge width but tight on a small phone. */
+    padding: 1.5rem clamp(0.85rem, 0.45rem + 2vw, 1.25rem) 1.5rem;
     border-radius: 22px;
   }
   .search-card-tabs {
@@ -3262,14 +3290,24 @@ body {
     height: 15px;
   }
   .search-card-location {
-    padding: 0.95rem 1.1rem;
+    /* Fluid instead of one fixed value: at the 768px edge of this
+       breakpoint these resolve to ~the old fixed numbers, but they shrink
+       continuously down to 320px instead of staying flat — narrower
+       phones (where the fixed-width icon/divider/locate-button siblings
+       below were eating a bigger share of a smaller total width) get more
+       room back for the location input instead of clipping its
+       placeholder, which is what was happening on narrower devices. */
+    padding: 0.95rem clamp(0.75rem, 0.45rem + 1.3vw, 1.1rem);
     border-radius: 16px;
     margin-bottom: 0.75rem;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 0.2rem + 1.3vw, 0.75rem);
+  }
+  .search-input {
+    font-size: clamp(0.8rem, 0.66rem + 0.6vw, 0.95rem);
   }
   .locate-me-btn {
-    width: 36px;
-    height: 36px;
+    width: clamp(30px, 6vw, 36px);
+    height: clamp(30px, 6vw, 36px);
   }
   .search-card-grid {
     grid-template-columns: 1fr;
@@ -6119,6 +6157,22 @@ body {
   .search-container {
     padding: 1.5rem !important;
     gap: 1rem;
+  }
+  /* The unscoped rule above targets the /properties flat .search-bar,
+     which needs breathing room once it grows a border on mobile (see the
+     "Search Filters — revamped mobile layout" block later in this file).
+     It has no `.search-section-embedded` exclusion though, so it was also
+     landing on the home page's rounded .search-card widget — stacking
+     ON TOP of that section's own gutter (.explore-section/.search-section
+     padding) AND the card's own internal padding, three layers deep. That
+     squeezed the visible card down to roughly 60% of the viewport width
+     with a large, uniform cream margin on all four sides — read as
+     "broken/shrunk" on some phones. This wins the cascade (more specific,
+     same !important weight, per mobile-css-override-layering) and returns
+     the embedded card to filling its intended width. */
+  .search-section-embedded .search-container {
+    padding: 0 !important;
+    gap: 0 !important;
   }
   .search-header h2 {
     font-size: 1.6rem;
