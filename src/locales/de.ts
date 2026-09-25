@@ -437,7 +437,15 @@ export const de = {
     narrative: {
       tag: 'DIE HERAUSFORDERUNG',
       headline: 'Der Verkauf oder die Vermietung einer Immobilie beinhaltet weit mehr, als die meisten erwarten.',
-      body: 'Preisunsicherheiten, Schwierigkeiten, das richtige Publikum zu erreichen, sowie rechtliche und administrative Komplexitäten—ohne professionelle Unterstützung sind Verzögerungen fast unvermeidlich. Sichern Sie sich die Sichtbarkeit und den Wert, den Ihre Immobilie verdient.'
+      body: 'Preisunsicherheiten, Schwierigkeiten, das richtige Publikum zu erreichen, sowie rechtliche und administrative Komplexitäten—ohne professionelle Unterstützung sind Verzögerungen fast unvermeidlich. Sichern Sie sich die Sichtbarkeit und den Wert, den Ihre Immobilie verdient.',
+      challenges: [
+        { label: 'Preisunsicherheit' },
+        { label: 'Das richtige Publikum erreichen' },
+        { label: 'Rechtliche & administrative Komplexität' },
+        { label: 'Verzögerungen & finanzielles Risiko' },
+      ],
+      approachTag: 'UNSER ANSATZ',
+      approachTitle: 'Professionelle Unterstützung für das beste Ergebnis.',
     },
     pillars: [
       {

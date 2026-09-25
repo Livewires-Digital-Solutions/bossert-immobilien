@@ -61,6 +61,44 @@ export default function ForOwnersPage() {
 
   const pillarModalRoute = (idx: number): typeof modalRoute => (idx === 2 ? 'valuation' : 'consultation');
 
+  const getChallengeIcon = (idx: number) => {
+    if (idx === 0) { // Pricing Uncertainty
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <ellipse cx="12" cy="6" rx="7" ry="3"></ellipse>
+          <path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"></path>
+          <path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"></path>
+        </svg>
+      );
+    } else if (idx === 1) { // Finding the Right Audience
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      );
+    } else if (idx === 2) { // Legal & Administrative Complexities
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <line x1="10" y1="9" x2="8" y2="9"></line>
+        </svg>
+      );
+    } else { // Delays & Financial Risk
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      );
+    }
+  };
+
   // Subtle magnetic tilt on the pillar cards — pure CSS-var driven, GPU transform
   // only, disabled for touch pointers and prefers-reduced-motion.
   const tiltAllowed = () => {
@@ -129,27 +167,44 @@ export default function ForOwnersPage() {
         </div>
       </div>
 
-      {/* 2. The Narrative (Cream Background) */}
-      <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '6rem' }}>
+      {/* 2. The Challenge (Cream Background) */}
+      <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '8rem' }}>
         <div className="inner-page-container">
-          <div className={`reveal-base reveal-up ${narrativeVisible ? 'is-revealed' : ''}`} style={{ marginBottom: '4rem' }}>
-            <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span>
-            <span style={{ fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--navy)', marginLeft: '0.5rem' }}>
-              {data.narrative.tag}
-            </span>
-          </div>
-
-          <div className={styles.narrativeGrid}>
+          <div className={styles.challengeGrid}>
             <div className={styles.narrativeCol}>
+              <div className={`${styles.challengeTag} reveal-base reveal-up ${narrativeVisible ? 'is-revealed' : ''}`}>
+                <span className={styles.challengeTagLabel}>{data.narrative.tag}</span>
+                <span className={styles.challengeTagLine} aria-hidden="true"></span>
+              </div>
+
               <span className={styles.narrativeIndex} aria-hidden="true">01</span>
-              <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.1', color: 'var(--navy)', position: 'relative' }}>
+              <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.15', color: 'var(--navy)', position: 'relative', marginBottom: '2rem' }}>
                 {data.narrative.headline}
               </h2>
-            </div>
-            <div className={styles.narrativeBody}>
-              <p className={`why-subhead reveal-base reveal-up delay-200 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '1.25rem', color: 'rgba(4,36,51,0.8)' }}>
+
+              <p className={`why-subhead reveal-base reveal-up delay-200 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '1.15rem', color: 'rgba(4,36,51,0.75)', maxWidth: '32rem' }}>
                 {data.narrative.body}
               </p>
+
+              <div className={`${styles.challengeStats} reveal-base reveal-up delay-300 ${narrativeVisible ? 'is-revealed' : ''}`}>
+                {data.narrative.challenges.map((item: any, idx: number) => (
+                  <div key={idx} className={styles.challengeStat}>
+                    <div className={styles.challengeStatIcon}>{getChallengeIcon(idx)}</div>
+                    <span className={styles.challengeStatLabel}>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={`${styles.challengeImgCol} reveal-base reveal-scale delay-200 ${narrativeVisible ? 'is-revealed' : ''}`}>
+              <div className={styles.challengeConnector} aria-hidden="true"></div>
+              <div className={styles.challengeApproachCard}>
+                <span className={styles.challengeApproachTag}>— {data.narrative.approachTag}</span>
+                <p className={styles.challengeApproachTitle}>{data.narrative.approachTitle}</p>
+              </div>
+              <div className={styles.challengeImgFrame}>
+                <Image src="/images/prop_villa_1787771383699.jpg" alt="" fill sizes="(max-width: 1024px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+              </div>
             </div>
           </div>
         </div>

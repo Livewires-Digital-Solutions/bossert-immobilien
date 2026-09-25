@@ -7887,14 +7887,28 @@ footer[class*="footer"],
   background-color: #042433 !important;
   color: #FEFCF6;
 }
-/* 
+/*
   NEW PROPERTY CARD DESIGN
 */
+
+/* Grid/flex items default to an automatic min-width based on their
+   content's min-content size. The ellipsis spans inside this card
+   (white-space:nowrap, so their min-content equals their full unwrapped
+   text width) bubble that width up to whichever ancestor is the actual
+   grid item — .property-card-new itself on the home page, .reveal-base
+   (its RevealCard wrapper) on /properties — forcing the single-column
+   mobile grid wider than the viewport instead of letting the card
+   shrink to the track and truncate the long onOffice address text. */
+.explore-grid.properties-main-grid > .reveal-base,
+.explore-section .explore-grid > .property-card-new {
+  min-width: 0;
+}
 
 .property-card-new {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
   background: #ffffff;
   border: 1px solid var(--gold, #9a7d54);
   border-radius: 4px;
@@ -8154,18 +8168,34 @@ footer[class*="footer"],
   margin-top: auto;
 }
 
+/* A long price (e.g. this mock's oversized "€ 2,400,000") squeezed the
+   button until its text had no room left and wrapped to two lines
+   ("VIEW / PROPERTY"), taller than every single-line button on other
+   cards — same size-inconsistency problem as the rest of this pass.
+   The price column shrinks/truncates first; the button never wraps. */
+.pc-price-col {
+  min-width: 0;
+}
+
 .pc-price {
   font-family: var(--font-serif);
   font-size: 1.75rem;
   color: var(--gold, #9a7d54);
   line-height: 1;
   margin-bottom: 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pc-price-label {
   font-size: 0.7rem;
   color: var(--text-muted, #777);
   letter-spacing: 0.05em;
+}
+
+.pc-action-col {
+  flex-shrink: 0;
 }
 
 .pc-btn {
@@ -8182,6 +8212,7 @@ footer[class*="footer"],
   align-items: center;
   gap: 0.75rem;
   text-transform: uppercase;
+  white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 

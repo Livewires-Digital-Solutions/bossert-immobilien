@@ -437,7 +437,15 @@ export const en = {
     narrative: {
       tag: 'THE CHALLENGE',
       headline: 'Selling or renting a property involves far more than most anticipate.',
-      body: 'Pricing uncertainties, difficulty reaching the right audience, legal and administrative complexities—without professional support, delays and financial drawbacks are almost inevitable. Ensure your property receives the visibility and value it deserves.'
+      body: 'Pricing uncertainties, difficulty reaching the right audience, legal and administrative complexities—without professional support, delays and financial drawbacks are almost inevitable. Ensure your property receives the visibility and value it deserves.',
+      challenges: [
+        { label: 'Pricing Uncertainty' },
+        { label: 'Finding the Right Audience' },
+        { label: 'Legal & Administrative Complexities' },
+        { label: 'Delays & Financial Risk' },
+      ],
+      approachTag: 'OUR APPROACH',
+      approachTitle: 'Professional support for the best outcome.',
     },
     pillars: [
       {
