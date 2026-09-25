@@ -4498,23 +4498,49 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Client reference screenshot (2026-09-26) shows this section unboxed on
+     phones — headline/desc/button sit directly on the cream background
+     instead of inside the bordered/padded card, and the kicker line above
+     the headline isn't shown at all (superseding the earlier "tone it down"
+     treatment below). Desktop/tablet (>768px) keeps the bordered card and
+     kicker untouched. */
+  .action-prompt-card {
+    border: none;
+    padding: 0;
+  }
+
   /* Not a duplicate element — ActionPromptSection and Footer are two
      different components that each independently render "Bossert /
      Immobilien" (this one as the card's kicker, the footer as its closing
-     wordmark), two sections apart. Toning this one down so it reads as a
-     small pretitle rather than a second wordmark moment right before the
-     footer repeats it in full size. */
+     wordmark), two sections apart. Hidden on mobile per the reference
+     above rather than just toned down. */
   .action-prompt-brand {
-    font-size: 0.8rem;
-    letter-spacing: 0.03em;
-    opacity: 0.65;
+    display: none;
   }
   /* The button sizes to its own content by default, so it doesn't reach
      the card's padding edge on either side — full-width makes both its
-     edges line up exactly with the card's padding box instead. */
+     edges line up exactly with the card's padding box instead. Reference
+     also shows it solid-filled with rounded corners on phones (touch has
+     no hover state to reveal the desktop fill-on-hover treatment) instead
+     of the desktop outline style — same mobile-only fill pattern already
+     used for .properties-hero-btn. */
   .action-prompt-btn {
     width: 100%;
     justify-content: center;
+    background-color: var(--navy);
+    color: var(--white);
+    border-radius: 14px;
+  }
+  .action-prompt-btn .btn-arrow {
+    color: var(--white);
+  }
+
+  /* Reference shows the photo below with visibly rounded corners on
+     phones — .action-prompt-image-col already has overflow:hidden so this
+     clips the Next/Image child too. Mobile-only; desktop keeps the sharp
+     corner. */
+  .action-prompt-image-col {
+    border-radius: 24px;
   }
 }
 
@@ -4524,7 +4550,7 @@ body {
   }
 
   .action-prompt-card {
-    padding: 1.75rem;
+    padding: 0;
   }
 }
 
@@ -4614,6 +4640,16 @@ body {
 
   .discreet-network-image-col {
     min-height: 16rem;
+  }
+}
+
+/* Client-provided mobile reference shows this image as a rounded card —
+   deliberate, phone-only exception to the site's sharp-corner rule (same
+   precedent as the search-card-rounded-corner-exception). Scoped to
+   <=768px only so laptop/desktop keep the flat, sharp-corner treatment. */
+@media (max-width: 768px) {
+  .discreet-network-image-col {
+    border-radius: 20px;
   }
 }
 
@@ -8003,6 +8039,20 @@ footer[class*="footer"],
   width: 20px;
   height: 1px;
   background: var(--gold, #9a7d54);
+  flex-shrink: 0;
+}
+
+/* Card height varies wildly by property (title/address length differs
+   per listing) unless clamped — this is what kept mobile cards from
+   reading as "the same size" between listings. min-width:0 lets the
+   flex child actually shrink below its text's natural width so
+   text-overflow:ellipsis has room to kick in instead of overflowing
+   the card. */
+.pc-location-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .pc-title {
@@ -8012,6 +8062,11 @@ footer[class*="footer"],
   color: var(--text-dark, #0b1a2a);
   margin: 0;
   font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .pc-summary {
@@ -8020,6 +8075,11 @@ footer[class*="footer"],
   opacity: 0.85;
   line-height: 1.5;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .pc-address {
@@ -8028,6 +8088,17 @@ footer[class*="footer"],
   gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--text-muted, #555);
+}
+
+.pc-address svg {
+  flex-shrink: 0;
+}
+
+.pc-address-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 /* SPECS GRID */
@@ -8509,8 +8580,13 @@ html[data-theme='dark'] .pc-badge-heart {
   .property-card {
     min-height: auto !important;
   }
-  .pc-content {
+  /* Was .pc-content, which matches nothing in the actual markup
+     (PropertyCard.tsx renders .pc-content-box) — this rule silently
+     never applied and desktop's 1.5rem padding won by default on
+     every phone. Fixing the selector is itself a size reduction. */
+  .pc-content-box {
     padding: 1.25rem !important;
+    gap: 0.75rem !important;
   }
   .pc-title {
     font-size: 1.25rem !important;
@@ -8563,11 +8639,35 @@ html[data-theme='dark'] .pc-badge-heart {
    .pc-specs-grid, ..." generic 1-column buster in the block above (meant
    for page-level layout grids, not this compact in-card icon row) —
    restore its intended multi-column strip specifically on phones. Placed
-   after that block so it wins the cascade despite matching specificity. */
+   after that block so it wins the cascade despite matching specificity.
+   minmax was 60px, which only leaves room for 4 columns before a 320px-
+   wide card runs out of space — the 5th spec (plot) wrapped to its own
+   row and added a full extra row of height, the single biggest
+   contributor to cards reading as oversized on mobile. Lowered so all
+   five spec items (living area/rooms/other rooms/baths/plot) share one
+   row like the approved reference card. */
 @media (max-width: 768px) {
+  /* Desktop's 4:3 crop shows a full third of the card as photo before any
+     text starts — fine at 3-per-row desktop width, but on a single-column
+     phone layout it's what made the card read as oversized before any
+     content is even reached. The approved reference card uses a wide,
+     short banner crop instead; matched here, mobile-only. */
+  .pc-image-box {
+    aspect-ratio: 5 / 2 !important;
+  }
   .pc-specs-grid {
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)) !important;
-    gap: 0.5rem !important;
+    grid-template-columns: repeat(auto-fit, minmax(42px, 1fr)) !important;
+    gap: 0.4rem !important;
+  }
+  .pc-spec-item svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .pc-spec-val {
+    font-size: 0.8rem !important;
+  }
+  .pc-spec-lbl {
+    font-size: 0.6rem !important;
   }
   /* Content-driven height (padding + line-height) computes to 43px at the
      base rule — 1px under the 44px minimum touch target. */

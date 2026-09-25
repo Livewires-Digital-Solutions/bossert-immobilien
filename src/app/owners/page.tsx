@@ -129,22 +129,6 @@ export default function ForOwnersPage() {
         </div>
       </div>
 
-      {/* Cinematic Establishing Shot */}
-      <section className="global-padding" style={{ backgroundColor: 'var(--cream)', paddingTop: '4rem', paddingBottom: '2rem' }}>
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div className={styles.shotFrame}>
-            <Image
-              src="/images/owners_editorial.jpg"
-              alt="Premium property under professional management"
-              fill
-              sizes="100vw"
-              style={{ objectFit: 'cover' }}
-              priority
-            />
-          </div>
-        </div>
-      </section>
-
       {/* 2. The Narrative (Cream Background) */}
       <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '6rem' }}>
         <div className="inner-page-container">

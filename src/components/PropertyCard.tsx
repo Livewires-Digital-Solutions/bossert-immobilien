@@ -63,6 +63,10 @@ export default function PropertyCard({
   };
 
   const imageCount = Math.max(1, galleryImages.length);
+  // onOffice location strings already read "Straße, PLZ, Ort" (zip embedded
+  // mid-string); only prepend a zip for the short "CITY / DISTRICT" mock/demo
+  // format that has none, so real addresses never show their zip twice.
+  const addressLine = /\b\d{5}\b/.test(location) ? location : `65207, ${location}`;
 
   return (
     <Link href={href} className={`property-card-new ${className}`}>
@@ -95,7 +99,8 @@ export default function PropertyCard({
       {/* Content Box */}
       <div className="pc-content-box">
         <div className="pc-location-subhead">
-          <span className="pc-line"></span> {location.toUpperCase()}
+          <span className="pc-line"></span>
+          <span className="pc-location-text">{location.toUpperCase()}</span>
         </div>
         
         <h3 className="pc-title">{title || type}</h3>
@@ -107,7 +112,7 @@ export default function PropertyCard({
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
-          <span>65207, {location}</span>
+          <span className="pc-address-text">{addressLine}</span>
         </div>
 
         {/* Specifications Grid */}
