@@ -263,7 +263,7 @@ export const en = {
   propertiesPage: {
     heroTag: 'THE COLLECTION',
     heroHeadline: 'Our',
-    heroHeadlineSerif: 'Properties.',
+    heroHeadlineSerif: 'Properties',
     heroSubhead: 'Our complete portfolio of extraordinary properties, defined by uncompromising quality and prime locations across the Rhein-Main region.',
     heroCta: 'Create a search profile and get started',
     ctaHeadline: 'Private',

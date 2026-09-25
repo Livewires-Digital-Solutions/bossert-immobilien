@@ -263,7 +263,7 @@ export const de = {
   propertiesPage: {
     heroTag: 'DIE KOLLEKTION',
     heroHeadline: 'Unsere',
-    heroHeadlineSerif: 'Immobilien.',
+    heroHeadlineSerif: 'Immobilien',
     heroSubhead: 'Unser vollständiges Portfolio außergewöhnlicher Immobilien, geprägt von kompromissloser Qualität und erstklassigen Lagen in der Rhein-Main-Region.',
     heroCta: 'Suchprofil anlegen und loslegen',
     ctaHeadline: 'Private',

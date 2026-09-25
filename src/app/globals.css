@@ -738,9 +738,6 @@ body {
   cursor: not-allowed;
 }
 
-.properties-mobile-line {
-  display: none;
-}
 .properties-mobile-br {
   display: none;
 }
@@ -3309,12 +3306,45 @@ body {
   display: none;
 }
 
+/* Bridging title shown only on mobile, between the hero's mobile photo and
+   the search card — see the mobile-only-search-title comment in
+   SearchSection.tsx. Hidden above 768px, where hideHeader keeps this
+   section header-less by design. */
+.properties-mobile-search-heading {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .properties-search-desktop-only {
     display: none !important;
   }
   .properties-search-mobile-card {
     display: flex;
+  }
+  .properties-mobile-search-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
+  }
+  .properties-mobile-search-heading-eyebrow {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+  .properties-mobile-search-heading-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 6.5vw, 2.1rem);
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0;
   }
 }
 
@@ -5753,14 +5783,11 @@ body {
      style already uses min-height+clamp; these fine-tune spacing. */
   .properties-editorial-hero {
     padding-top: 7rem;
-    padding-bottom: 8rem;
-  }
-  .properties-mobile-line {
-    display: block;
-    width: 45px;
-    height: 1px;
-    background-color: var(--bronze);
-    margin: 0 auto 1.5rem auto;
+    /* Was 8rem — paired with the -4rem pull-up below that left a large,
+       unfilled cream gap before the search card once the mobile bridging
+       title (.properties-mobile-search-heading) was added to occupy that
+       space instead. */
+    padding-bottom: 3rem;
   }
   /* Left as display:none (the base rule above already sets this) — the
      headline below stacks "Our" / "Properties." via flex-direction:column,
@@ -5781,6 +5808,11 @@ body {
     font-size: clamp(3.5rem, 15vw, 4.5rem);
     color: var(--navy);
     font-weight: 400;
+    /* Matches .properties-title-serif's reset below — without this, "Our"
+       inherits .editorial-headline's negative letter-spacing while
+       "Properties" resets to normal, so the two words render with
+       different tracking and the shorter word visually reads off-center. */
+    letter-spacing: normal;
   }
   .properties-hero-headline .properties-title-serif.italic-serif {
     font-family: var(--font-serif);
@@ -5856,8 +5888,8 @@ body {
     box-shadow: 0 24px 50px rgba(4, 36, 51, 0.22);
   }
   .properties-editorial-hero + .search-section.search-section-dark {
-    transform: translateY(-4rem);
-    margin-bottom: -4rem;
+    transform: translateY(-1.5rem);
+    margin-bottom: -1.5rem;
   }
   .editorial-headline {
     font-size: clamp(2rem, 6vw, 3rem);
@@ -6047,8 +6079,14 @@ body {
   }
 
   /* Search */
+  /* !important needed here: .search-section-dark (used on /properties) is a
+     two-class selector with higher specificity than this single-class mobile
+     rule, so without it the desktop dark padding (4.5rem/2.5rem) silently
+     wins at every width and this override never actually applies — see the
+     mobile-css-override-layering note. That desktop padding was the real
+     source of the large empty gap above the mobile search card. */
   .search-section {
-    padding: 0 1.5rem 3rem 1.5rem;
+    padding: 0 1.5rem 3rem 1.5rem !important;
   }
   .properties-grid-section {
     padding: 0 1.5rem 4rem 1.5rem;

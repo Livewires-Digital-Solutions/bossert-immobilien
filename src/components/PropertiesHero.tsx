@@ -19,7 +19,6 @@ export default function PropertiesHero() {
 
       <div className="editorial-hero-content">
         <div className="editorial-hero-middle">
-          <div className={`properties-mobile-line reveal-base reveal-up delay-50 ${isVisible ? 'is-revealed' : ''}`}></div>
           <h1 className={`editorial-headline properties-hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
             <span className="properties-title-word">{t.propertiesPage.heroHeadline}</span>
             <br className="properties-mobile-br" />

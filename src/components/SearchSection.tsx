@@ -582,6 +582,17 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
             </div>
             </div>
 
+            {/* Mobile-only bridging title for /properties — fills the gap
+                between the hero's mobile photo and the search card below
+                with actual content instead of leftover blank space. Hidden
+                above 768px, where the header is intentionally omitted
+                (hideHeader) and the search card sits flush against the
+                hero. See .properties-mobile-search-heading in globals.css. */}
+            <div className="properties-mobile-search-heading">
+              <span className="properties-mobile-search-heading-eyebrow">{t.search.tag || 'PREMIUM LIVING'}</span>
+              <h2 className="properties-mobile-search-heading-title">{t.search.headline}</h2>
+            </div>
+
             {/* Mobile-only search widget for /properties — same rounded
                 search-card layout as the home page's embedded widget (the
                 properties page's mobile search box is meant to match the
