@@ -2731,10 +2731,21 @@ body {
 
 .search-section.search-section-embedded {
   padding: 0;
-  margin-top: -2.5rem;
-  margin-bottom: -2rem;
   background: transparent;
   z-index: 20;
+}
+
+/* The negative margins below only make sense for the rounded mobile card
+   (they pull it tight against its own generous internal padding). On
+   desktop/laptop this section now shows the flat sharp-corner bar instead
+   (see .properties-search-desktop-only), which has no comparable bulk to
+   pull in — the .explore-container flex gap already spaces it correctly
+   from the header/grid, so this is scoped to mobile only. */
+@media (max-width: 768px) {
+  .search-section.search-section-embedded {
+    margin-top: -2.5rem;
+    margin-bottom: -2rem;
+  }
 }
 
 .search-section.search-section-embedded .search-container {
@@ -3333,6 +3344,18 @@ body {
     padding: 1.05rem 1.5rem;
     border-radius: 14px;
   }
+}
+
+/* Without an explicit width, this shrinks to its content's natural size
+   instead of filling .search-container — that container is a flex column
+   with align-items:center (not stretch), so a plain block child doesn't
+   stretch to the cross axis on its own. Left this unset until now because
+   /properties' .search-container is capped at --search-max (1320px), close
+   enough to typical laptop viewports that the shrink-to-fit gap was easy to
+   miss; it became obvious once the home page (whose .search-container goes
+   to 100% of the wider --container-max) started reusing this same wrapper. */
+.properties-search-desktop-only {
+  width: 100%;
 }
 
 /* /properties search widget on mobile — the client asked for the mobile

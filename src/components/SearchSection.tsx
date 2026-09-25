@@ -272,153 +272,13 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
           </div>
         )}
 
-        {embedded ? (
-          /* Card-style search widget (home page). Deliberate exception to the
-             site's usual sharp-corner rule — rounded corners here match a
-             client-provided reference design for this widget specifically. */
-          <div className="search-card">
-            <div className="search-card-tabs">
-              <button
-                type="button"
-                className={`search-card-tab ${transactionType === 'purchase' ? 'active' : ''}`}
-                onClick={() => setTransactionType('purchase')}
-              >
-                <IconHouse className="" />
-                <span>{t.search.purchase}</span>
-              </button>
-              <button
-                type="button"
-                className={`search-card-tab ${transactionType === 'rent' ? 'active' : ''}`}
-                onClick={() => setTransactionType('rent')}
-              >
-                <IconKey className="" />
-                <span>{t.search.rent}</span>
-              </button>
-              <button
-                type="button"
-                className={`search-card-tab ${transactionType === 'investment' ? 'active' : ''}`}
-                onClick={() => setTransactionType('investment')}
-              >
-                <IconChart className="" />
-                <span>{t.search.investment}</span>
-              </button>
-            </div>
-
-            {/* Location */}
-            <div className="search-card-location">
-              <IconPin />
-              <div className="filter-text-col">
-                <span className="filter-label">{t.search.location}</span>
-                <input
-                  type="text"
-                  placeholder={t.search.placeholder}
-                  className="search-input"
-                  value={location}
-                  onChange={e => setLocation(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                />
-              </div>
-              <div className="search-card-location-divider"></div>
-              <button type="button" className="locate-me-btn" aria-label="Use my current location">
-                <IconCrosshair />
-              </button>
-            </div>
-
-            <div className="search-card-grid">
-              {/* Property Type */}
-              <div className="search-field-box clickable" onClick={() => toggleDropdown('propertyType')}>
-                <div className="filter-inner">
-                  <IconHouse />
-                  <div className="filter-text-col">
-                    <span className="filter-label">{t.search.type}</span>
-                    <div className="filter-value-row">
-                      <span className="search-value">{propertyType}</span>
-                      <IconChevron up={activeDropdown === 'propertyType'} />
-                    </div>
-                  </div>
-                </div>
-                {activeDropdown === 'propertyType' && (
-                  <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
-                    <div className="dropdown-item" onClick={() => handleSelect(setPropertyType, 'Any')}>Any</div>
-                    <div className="dropdown-header">House</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Bungalow')}>Bungalow</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Semi-detached house')}>Semi-detached house</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Single-family house')}>Single-family house</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'End-of-terrace house')}>End-of-terrace house</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Terraced house')}>Terraced house</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Two-family house')}>Two-family house</div>
-                    <div className="dropdown-header">Apartment</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Penthouse apartment')}>Penthouse apartment</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Apartment')}>Apartment</div>
-                    <div className="dropdown-item sub-item" onClick={() => handleSelect(setPropertyType, 'Maisonette apartment')}>Maisonette apartment</div>
-                  </div>
-                )}
-              </div>
-
-              {/* Bedrooms */}
-              <div className="search-field-box clickable" onClick={() => toggleDropdown('bedrooms')}>
-                <div className="filter-inner">
-                  <IconBed />
-                  <div className="filter-text-col">
-                    <span className="filter-label">{t.search.bedrooms}</span>
-                    <div className="filter-value-row">
-                      <span className="search-value">{bedrooms}</span>
-                      <IconChevron up={activeDropdown === 'bedrooms'} />
-                    </div>
-                  </div>
-                </div>
-                {activeDropdown === 'bedrooms' && (
-                  <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
-                    {['Any', '1+', '2+', '3+', '4+', '5+', '6+', '7+', '8+'].map(val => (
-                      <div key={val} className="dropdown-item" onClick={() => handleSelect(setBedrooms, val)}>{val}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Year Built */}
-              <div className="search-field-box clickable" onClick={() => toggleDropdown('yearBuilt')}>
-                <div className="filter-inner">
-                  <IconCalendar />
-                  <div className="filter-text-col">
-                    <span className="filter-label">{t.search.yearBuilt}</span>
-                    <div className="filter-value-row">
-                      <span className="search-value">{yearBuilt}</span>
-                      <IconChevron up={activeDropdown === 'yearBuilt'} />
-                    </div>
-                  </div>
-                </div>
-                {activeDropdown === 'yearBuilt' && (
-                  <div className="custom-dropdown-menu" onClick={(e) => e.stopPropagation()}>
-                    {['Any year', 'Before 1900', '1900 – 1949', '1950 – 1979', '1980 – 1999', '2000 – 2009', '2010 – 2019', '2020 – 2024', '2025 or newer'].map(val => (
-                      <div key={val} className="dropdown-item" onClick={() => handleSelect(setYearBuilt, val)}>{val}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="search-card-footer">
-              <button type="button" className="advanced-search-link" onClick={() => setIsAdvancedOpen(o => !o)}>
-                <IconSliders />
-                <span>{t.search.advancedBtn}</span>
-                <IconChevron up={isAdvancedOpen} />
-              </button>
-              <button type="button" className="search-card-submit" onClick={handleSearch}>
-                <span>{t.search.searchBtn || 'Search'}</span>
-                <IconSearch />
-              </button>
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Desktop/tablet inline search bar — hidden below 768px in favor
-                of the rounded search-card layout further down, which mirrors
-                the home page's mobile search widget (the /properties mobile
-                search box is meant to match the home screen's mobile search
-                box). See .properties-search-desktop-only /
-                .properties-search-mobile-card in globals.css. */}
-            <div className="properties-search-desktop-only">
+        {/* Desktop/tablet inline search bar — hidden below 768px in favor
+            of the rounded search-card layout further down. Shared by every
+            usage (home page + /properties): sharp-corner flat bar on
+            desktop/laptop, rounded card only on mobile. See
+            .properties-search-desktop-only / .properties-search-mobile-card
+            in globals.css. */}
+        <div className="properties-search-desktop-only">
             {/* Transaction Type Tabs */}
             <div className="search-tabs-wrapper">
               <div className="search-tabs-container">
@@ -587,19 +447,22 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
                 with actual content instead of leftover blank space. Hidden
                 above 768px, where the header is intentionally omitted
                 (hideHeader) and the search card sits flush against the
-                hero. See .properties-mobile-search-heading in globals.css. */}
-            <div className="properties-mobile-search-heading">
-              <span className="properties-mobile-search-heading-eyebrow">{t.search.tag || 'PREMIUM LIVING'}</span>
-              <h2 className="properties-mobile-search-heading-title">{t.search.headline}</h2>
-            </div>
+                hero. See .properties-mobile-search-heading in globals.css.
+                Skipped on the home page (embedded): ExploreSection already
+                renders its own visible heading above the search widget at
+                every width, so this would be a duplicate. */}
+            {!embedded && (
+              <div className="properties-mobile-search-heading">
+                <span className="properties-mobile-search-heading-eyebrow">{t.search.tag || 'PREMIUM LIVING'}</span>
+                <h2 className="properties-mobile-search-heading-title">{t.search.headline}</h2>
+              </div>
+            )}
 
-            {/* Mobile-only search widget for /properties — same rounded
-                search-card layout as the home page's embedded widget (the
-                properties page's mobile search box is meant to match the
-                home screen's mobile search box). Shares the same
-                state/handlers as the desktop bar above; CSS swaps visibility
-                with it at max-width: 768px (see .properties-search-mobile-card
-                in globals.css). */}
+            {/* Mobile-only search widget — rounded search-card layout,
+                shared by every usage. Shares the same state/handlers as the
+                desktop bar above; CSS swaps visibility with it at
+                max-width: 768px (see .properties-search-mobile-card in
+                globals.css). */}
             <div className="search-card properties-search-mobile-card">
               <div className="search-card-tabs">
                 <button
@@ -734,8 +597,6 @@ export default function SearchSection({ hideHeader = false, isDarkBg = false, hi
                 </button>
               </div>
             </div>
-          </>
-        )}
 
         {/* Expandable Advanced Area */}
         <div className={`advanced-filters-wrapper ${isAdvancedOpen ? 'open' : ''}`}>
