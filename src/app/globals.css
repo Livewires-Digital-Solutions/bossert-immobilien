@@ -5183,7 +5183,7 @@ body {
   width: 44px;
   height: 44px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid var(--bronze);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   cursor: pointer;
   padding: 0;
@@ -5221,11 +5221,10 @@ body {
   gap: 1rem;
 }
 
-/* Mobile lang switcher: a bronze-bordered pill holding the globe icon,
+/* Mobile lang switcher: a thin-bordered pill holding the globe icon,
    the active language code and a dropdown chevron. Clicking it opens a
    small floating menu (.mobile-lang-dropdown) listing EN and DE, instead
-   of showing both languages inline — mirrors the reference design's
-   mobile navbar (a single gold-outlined "EN ⌄" pill, flush to the edge). */
+   of showing both languages inline. */
 .mobile-lang-inline {
   position: relative;
 }
@@ -5238,7 +5237,7 @@ body {
   gap: 0.3rem;
   padding: 0.4rem 0.65rem 0.4rem 0.4rem;
   border-radius: 999px;
-  border: 1.5px solid var(--bronze);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(4, 36, 51, 0.35);
   cursor: pointer;
   line-height: 1;
@@ -5263,7 +5262,7 @@ body {
   transform: rotate(180deg);
 }
 
-/* Floating menu — a fixed dark/bronze surface regardless of the navbar's
+/* Floating menu — a fixed dark navy surface regardless of the navbar's
    own color state (default/invert/fixed/properties), since it's a popover
    sitting above the page rather than part of the bar itself. */
 .mobile-lang-dropdown {
@@ -5276,7 +5275,7 @@ body {
   gap: 0.15rem;
   padding: 0.3rem;
   background: rgba(4, 36, 51, 0.98);
-  border: 1.5px solid var(--bronze);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 14px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   z-index: 10;
