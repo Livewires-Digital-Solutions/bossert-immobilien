@@ -42,17 +42,21 @@ export default function PropertiesHero() {
             <BtnArrow />
           </Link>
         </div>
+      </div>
 
-        {/* Mobile-only editorial photo — client reference showed an
-            arch-topped property photo under the headline/CTA on phones.
-            Reuses the home page's own hero image so it stays consistent
-            with the site's existing photography instead of a new asset.
-            Hidden entirely on tablet/desktop (.properties-hero-mobile-image
-            in globals.css), where the abstract .properties-hero-bg
-            illustration still carries the hero. */}
-        <div className={`properties-hero-mobile-image reveal-base reveal-scale delay-400 ${isVisible ? 'is-revealed' : ''}`}>
-          <div className="properties-hero-mobile-image-arch" />
-        </div>
+      {/* Mobile-only editorial photo — client reference showed a full-bleed,
+          arch-topped property photo under the headline/CTA on phones.
+          Deliberately kept OUTSIDE .editorial-hero-content (which carries
+          the gutter padding for the text block above) and as a direct child
+          of .properties-editorial-hero instead, so it can span edge-to-edge
+          the way the reference does instead of sitting inset inside the
+          text column. Reuses the home page's own hero image so it stays
+          consistent with the site's existing photography instead of a new
+          asset. Hidden entirely on tablet/desktop
+          (.properties-hero-mobile-image in globals.css), where the abstract
+          .properties-hero-bg illustration still carries the hero. */}
+      <div className={`properties-hero-mobile-image reveal-base reveal-scale delay-400 ${isVisible ? 'is-revealed' : ''}`}>
+        <div className="properties-hero-mobile-image-arch" />
       </div>
     </div>
   );
