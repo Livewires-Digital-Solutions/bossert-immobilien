@@ -27,7 +27,13 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V'];
 const MOBILE_BREAKPOINT = 1024;
 
 export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, description, pillars, images }: Props) {
-  const { ref: sectionRef, isVisible } = useScrollReveal(0.1);
+  // Separate reveal hooks for the mobile and desktop headers: both header
+  // blocks are always mounted (CSS decides which is displayed — see the
+  // bottom of this component), and IntersectionObserver never reports a
+  // `display:none` element as intersecting, so whichever layout is hidden
+  // would get stuck with isVisible=false forever if they shared one ref.
+  const { ref: mobileSectionRef, isVisible: isMobileVisible } = useScrollReveal(0.1);
+  const { ref: desktopSectionRef, isVisible: isDesktopVisible } = useScrollReveal(0.1);
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -57,25 +63,35 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
   }, [isMobile]);
 
   const totalCards = pillars.length;
-  // Each card takes up an equal share of the horizontal width minus viewport
-  const trackWidth = `${100 * totalCards}vw`;
-  const translateX = `${-scrollProgress * (totalCards - 1) * 100}vw`;
+  const totalSlides = totalCards + 1; // Add 1 for the initial intro slide
+  // Each card + intro slide takes up an equal share of the horizontal width
+  const trackWidth = `${100 * totalSlides}vw`;
+  const translateX = `${-scrollProgress * (totalSlides - 1) * 100}vw`;
 
-  if (isMobile) {
-    // Stacked, normal-scroll layout — no sticky pin, no horizontal track,
-    // no scroll-jack math. Each pillar's text and image stack vertically
-    // instead of the desktop's fixed side-by-side flex-basis split.
-    return (
-      <div style={{ backgroundColor: 'var(--navy)', padding: '5rem 6vw 4rem' }}>
-        <div ref={sectionRef} style={{ marginBottom: '3rem' }}>
+  // Both layouts below are always rendered — which one is visible is decided
+  // purely by the CSS media query at the bottom, not by the `isMobile` JS
+  // state. `isMobile` (only known after mount) previously gated a full early
+  // return, so the server-rendered HTML — and the first client frame before
+  // that effect ran — always used the desktop pinned/absolute layout, even
+  // on a narrow viewport. On real phones (slower JS boot) or SSR-only
+  // paints, that showed the desktop text overlapping the image before JS
+  // ever corrected it. A CSS-only switch is correct from the very first
+  // paint, same approach as the sticky-pin disable in ServicesOverviewCards.tsx.
+  return (
+    <>
+      {/* Mobile — stacked, normal-scroll layout. No sticky pin, no
+          horizontal track, no scroll-jack math. Each pillar's text and
+          image stack vertically instead of the desktop's side-by-side split. */}
+      <div className="hsp-mobile" style={{ backgroundColor: 'var(--navy)', padding: '5rem 6vw 4rem' }}>
+        <div ref={mobileSectionRef} style={{ marginBottom: '3rem' }}>
           <p
-            className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}
+            className={`reveal-base reveal-up ${isMobileVisible ? 'is-revealed' : ''}`}
             style={{ fontSize: '0.8rem', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--bronze)', marginBottom: '1.5rem', fontWeight: 600 }}
           >
             {tag}
           </p>
           <h2
-            className={`reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}
+            className={`reveal-base reveal-up delay-100 ${isMobileVisible ? 'is-revealed' : ''}`}
             style={{ fontSize: 'clamp(2.2rem, 8vw, 3rem)', fontWeight: 400, color: 'var(--white)', lineHeight: 1.1, letterSpacing: '-1px', marginBottom: '1.5rem' }}
           >
             {title}{' '}
@@ -84,7 +100,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
             </span>
           </h2>
           <p
-            className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}
+            className={`reveal-base reveal-up delay-200 ${isMobileVisible ? 'is-revealed' : ''}`}
             style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', fontWeight: 300 }}
           >
             {description}
@@ -117,168 +133,205 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
           })}
         </div>
       </div>
-    );
-  }
 
-  return (
-    <div
-      ref={containerRef}
-      style={{
-        height: `${(totalCards + 1) * 100}vh`,
-        position: 'relative',
-      }}
-    >
-      {/* Sticky Viewport */}
+      {/* Desktop — pinned, scroll-jacked horizontal track. */}
       <div
+        className="hsp-desktop"
+        ref={containerRef}
         style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          overflow: 'hidden',
-          backgroundColor: 'var(--navy)',
+          height: `${totalSlides * 100}vh`,
+          position: 'relative',
         }}
       >
-        {/* Section Header — fades out as user scrolls in */}
+        {/* Sticky Viewport */}
         <div
-          ref={sectionRef}
           style={{
-            position: 'absolute',
+            position: 'sticky',
             top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 20,
-            padding: '5rem 8vw 3rem',
-            maxWidth: '35rem',
-            pointerEvents: 'none',
-            opacity: scrollProgress < 0.05 ? 1 : Math.max(0, 1 - (scrollProgress - 0.05) * 25),
-            transition: 'opacity 0.1s linear',
+            height: '100vh',
+            overflow: 'hidden',
+            backgroundColor: 'var(--navy)',
           }}
         >
-          <p
-            className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}
+          {/* Section Header — fades out as user scrolls in */}
+          <div
+            ref={desktopSectionRef}
             style={{
-              fontSize: '0.8rem',
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              color: 'var(--bronze)',
-              marginBottom: '1.5rem',
-              fontWeight: 600,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 20,
+              padding: '5rem 8vw 3rem',
+              maxWidth: '35rem',
+              pointerEvents: 'none',
+              opacity: scrollProgress < 0.05 ? 1 : Math.max(0, 1 - (scrollProgress - 0.05) * 25),
+              transition: 'opacity 0.1s linear',
             }}
           >
-            {tag}
-          </p>
-          <h2
-            className={`reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}
-            style={{
-              fontSize: 'clamp(2.5rem, 4.5vw, 4rem)',
-              fontWeight: 400,
-              color: 'var(--white)',
-              lineHeight: 1.1,
-              letterSpacing: '-1px',
-              marginBottom: '1.5rem',
-            }}
-          >
-            {title}{' '}
-            <span className="italic-serif" style={{ color: 'var(--bronze)' }}>
-              {titleSerif}
+            <p
+              className={`reveal-base reveal-up ${isDesktopVisible ? 'is-revealed' : ''}`}
+              style={{
+                fontSize: '0.8rem',
+                letterSpacing: '3px',
+                textTransform: 'uppercase',
+                color: 'var(--bronze)',
+                marginBottom: '1.5rem',
+                fontWeight: 600,
+              }}
+            >
+              {tag}
+            </p>
+            <h2
+              className={`reveal-base reveal-up delay-100 ${isDesktopVisible ? 'is-revealed' : ''}`}
+              style={{
+                fontSize: 'clamp(2.5rem, 4.5vw, 4rem)',
+                fontWeight: 400,
+                color: 'var(--white)',
+                lineHeight: 1.1,
+                letterSpacing: '-1px',
+                marginBottom: '1.5rem',
+              }}
+            >
+              {title}{' '}
+              <span className="italic-serif" style={{ color: 'var(--bronze)' }}>
+                {titleSerif}
+              </span>
+            </h2>
+            <p
+              className={`reveal-base reveal-up delay-200 ${isDesktopVisible ? 'is-revealed' : ''}`}
+              style={{
+                fontSize: '1.1rem',
+                lineHeight: 1.7,
+                color: 'rgba(255,255,255,0.7)',
+                maxWidth: '560px',
+                fontWeight: 300,
+              }}
+            >
+              {description}
+            </p>
+          </div>
+
+          {/* Scroll progress indicator */}
+          <div style={{ position: 'absolute', bottom: '2.5rem', left: '8vw', zIndex: 20, display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            {pillars.map((_, i) => {
+              const currentSlideIndex = scrollProgress * (totalSlides - 1);
+              const active = Math.round(currentSlideIndex) === (i + 1);
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: active ? '2rem' : '0.5rem',
+                    height: '3px',
+                    borderRadius: '999px',
+                    backgroundColor: active ? 'var(--bronze)' : 'rgba(255,255,255,0.3)',
+                    transition: 'width 0.4s ease, background-color 0.4s ease',
+                  }}
+                />
+              );
+            })}
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', marginLeft: '1rem', letterSpacing: '1px' }}>
+              SCROLL TO EXPLORE
             </span>
-          </h2>
-          <p
-            className={`reveal-base reveal-up delay-200 ${isVisible ? 'is-revealed' : ''}`}
+          </div>
+
+          {/* Horizontal Track */}
+          <div
+            ref={trackRef}
             style={{
-              fontSize: '1.1rem',
-              lineHeight: 1.7,
-              color: 'rgba(255,255,255,0.7)',
-              maxWidth: '560px',
-              fontWeight: 300,
+              display: 'flex',
+              width: trackWidth,
+              height: '100%',
+              transform: `translateX(${translateX})`,
+              transition: 'transform 0.05s linear',
+              willChange: 'transform',
             }}
           >
-            {description}
-          </p>
-        </div>
-
-        {/* Scroll progress indicator */}
-        <div style={{ position: 'absolute', bottom: '2.5rem', left: '8vw', zIndex: 20, display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          {pillars.map((_, i) => {
-            const cardProgress = scrollProgress * (totalCards - 1);
-            const active = Math.round(cardProgress) === i;
-            return (
-              <div
-                key={i}
-                style={{
-                  width: active ? '2rem' : '0.5rem',
-                  height: '3px',
-                  borderRadius: '999px',
-                  backgroundColor: active ? 'var(--bronze)' : 'rgba(255,255,255,0.3)',
-                  transition: 'width 0.4s ease, background-color 0.4s ease',
-                }}
-              />
-            );
-          })}
-          <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', marginLeft: '1rem', letterSpacing: '1px' }}>
-            SCROLL TO EXPLORE
-          </span>
-        </div>
-
-        {/* Horizontal Track */}
-        <div
-          ref={trackRef}
-          style={{
-            display: 'flex',
-            width: trackWidth,
-            height: '100%',
-            transform: `translateX(${translateX})`,
-            transition: 'transform 0.05s linear',
-            willChange: 'transform',
-          }}
-        >
-          {pillars.map((pillar, idx) => {
-            const img = images && images[idx % images.length];
-            return (
-              <div
-                key={idx}
-                style={{
-                  width: '100vw',
-                  height: '100%',
-                  flexShrink: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8rem 8vw 6rem',
-                  gap: '6vw',
-                  boxSizing: 'border-box',
-                }}
-              >
-                {/* Left — card content */}
-                <div style={{ flex: '1 1 25rem', maxWidth: '35rem' }}>
-                  <p style={{ fontSize: 'clamp(5rem, 12vw, 10rem)', fontWeight: 300, color: 'rgba(255,255,255,0.08)', lineHeight: 1, marginBottom: '2rem', fontFamily: 'var(--font-serif)' }}>
-                    {ROMAN[idx]}
-                  </p>
-                  <h3 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.5px', marginBottom: '2rem', lineHeight: 1.1 }}>
-                    {pillar.title}
-                  </h3>
-                  <div style={{ width: '3rem', height: '2px', backgroundColor: 'var(--bronze)', marginBottom: '2rem' }} />
-                  <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: '30rem' }}>
-                    {pillar.description}
-                  </p>
+            {/* Intro Slide: Empty left side for Section Header, Image on right */}
+            <div
+              style={{
+                width: '100vw',
+                height: '100%',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                padding: '8rem 8vw 6rem',
+                gap: '6vw',
+                boxSizing: 'border-box',
+              }}
+            >
+              <div style={{ flex: '1 1 25rem', maxWidth: '35rem' }} />
+              {images && images.length > 0 && (
+                <div style={{ flex: '1 1 21.875rem', maxWidth: '32.5rem', aspectRatio: '4/5', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+                  <Image
+                    src={images[0]}
+                    alt="Philosophy Intro"
+                    fill
+                    style={{ objectFit: 'cover', filter: 'brightness(0.8)' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.6) 0%, transparent 60%)' }} />
                 </div>
+              )}
+            </div>
 
-                {/* Right — image */}
-                {img && (
-                  <div style={{ flex: '1 1 21.875rem', maxWidth: '32.5rem', aspectRatio: '4/5', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
-                    <Image
-                      src={img}
-                      alt={pillar.title}
-                      fill
-                      style={{ objectFit: 'cover', filter: 'brightness(0.8)' }}
-                    />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.6) 0%, transparent 60%)' }} />
+            {pillars.map((pillar, idx) => {
+              // Offset the image index by 1 so it doesn't repeat the intro image immediately
+              const img = images && images[(idx + 1) % images.length];
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    width: '100vw',
+                    height: '100%',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8rem 8vw 6rem',
+                    gap: '6vw',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  {/* Left — card content */}
+                  <div style={{ flex: '1 1 25rem', maxWidth: '35rem' }}>
+                    <p style={{ fontSize: 'clamp(5rem, 12vw, 10rem)', fontWeight: 300, color: 'rgba(255,255,255,0.08)', lineHeight: 1, marginBottom: '2rem', fontFamily: 'var(--font-serif)' }}>
+                      {ROMAN[idx]}
+                    </p>
+                    <h3 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 400, color: 'var(--white)', letterSpacing: '-0.5px', marginBottom: '2rem', lineHeight: 1.1 }}>
+                      {pillar.title}
+                    </h3>
+                    <div style={{ width: '3rem', height: '2px', backgroundColor: 'var(--bronze)', marginBottom: '2rem' }} />
+                    <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', fontWeight: 300, maxWidth: '30rem' }}>
+                      {pillar.description}
+                    </p>
                   </div>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* Right — image */}
+                  {img && (
+                    <div style={{ flex: '1 1 21.875rem', maxWidth: '32.5rem', aspectRatio: '4/5', position: 'relative', borderRadius: '8px', overflow: 'hidden' }}>
+                      <Image
+                        src={img}
+                        alt={pillar.title}
+                        fill
+                        style={{ objectFit: 'cover', filter: 'brightness(0.8)' }}
+                      />
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(4,36,51,0.6) 0%, transparent 60%)' }} />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .hsp-mobile { display: none; }
+        .hsp-desktop { display: block; }
+        @media (max-width: ${MOBILE_BREAKPOINT}px) {
+          .hsp-mobile { display: block; }
+          .hsp-desktop { display: none; }
+        }
+      `}} />
+    </>
   );
 }

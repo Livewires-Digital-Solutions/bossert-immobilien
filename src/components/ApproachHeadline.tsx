@@ -62,10 +62,10 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
   let currentIndex = 0;
   
   // Timeline Definitions
-  const bgFadeEnd = 0.25; // Background finishes fading in by progress 0.25
-  const textStart = 0.25; // Text starts revealing right after background finishes
-  const holdDuration = 0.3; // Hold fully lit text for the last 30% of scroll
-  const textEnd = 1 - holdDuration; // 0.70
+  const bgFadeEnd = 0.12; // Background finishes fading in by progress 0.12
+  const textStart = 0.1; // Text starts revealing almost immediately
+  const holdDuration = 0.15; // Hold fully lit text for the last 15% of scroll
+  const textEnd = 1 - holdDuration; // 0.85
   
   let bgFadeProgress = 0;
   if (progress > 0) {
@@ -75,18 +75,18 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
   const renderChars = (text: string, isItalic: boolean) => {
     return text.split('').map((char, i) => {
       const charIndex = currentIndex++;
-      // 10% window for a single character to transition from faded to solid
-      const windowSize = 0.1; 
+      // Window for a single character to transition from faded to solid
+      const windowSize = 0.06;
       
       // Distribute character thresholds between textStart and (textEnd - windowSize)
       const charThreshold = textStart + (charIndex / totalChars) * (textEnd - textStart - windowSize);
       
-      let opacity = 0.05; 
-      
+      let opacity = 0.12;
+
       if (progress > charThreshold + windowSize) {
         opacity = 1;
       } else if (progress > charThreshold) {
-        opacity = 0.05 + 0.95 * ((progress - charThreshold) / windowSize);
+        opacity = 0.12 + 0.88 * ((progress - charThreshold) / windowSize);
       }
 
       return (
@@ -108,7 +108,7 @@ export default function ApproachHeadline({ tag, l1, s1, l2, l3, s2, l4, bgImage 
   };
 
   return (
-    <div ref={containerRef} style={{ height: '400vh', position: 'relative' }}>
+    <div ref={containerRef} style={{ height: '200vh', position: 'relative' }}>
       <div 
         ref={innerRef}
         style={{ 
