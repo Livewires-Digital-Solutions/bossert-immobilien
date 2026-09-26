@@ -308,13 +308,13 @@ function ProcessCarousel({ steps, invertBackground }: { steps: ProcessStep[], in
     return () => mq.removeEventListener('change', update);
   }, []);
 
-  // Auto-advance every 5s, pausing on hover/focus and once the user has
+  // Auto-advance every 3s, pausing on hover/focus and once the user has
   // manually navigated; skipped entirely under prefers-reduced-motion.
   useEffect(() => {
     if (paused || prefersReducedMotion()) return;
     const id = setInterval(() => {
       setActive((prev) => (prev + 1) % steps.length);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(id);
   }, [paused, steps.length]);
 
@@ -453,7 +453,7 @@ export default function ProcessList({ processData, invertBackground = false, var
         <div className="timeline-layout">
           {/* Left: Sticky Header */}
           <div style={{ position: 'sticky', top: '10rem' }}>
-            <div className={`reveal-base reveal-up ${isVisible ? 'is-revealed' : ''}`}>
+            <div>
               <p className="services-subtitle" style={{ color: textColor, marginBottom: '1.5rem' }}>
                 <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {processData.tag}
               </p>
