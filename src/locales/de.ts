@@ -660,6 +660,42 @@ export const de = {
         desc: 'Warum internationale Käufer zunehmend komplett eingerichtete, designfertige Wohnungen nachfragen.',
         image: '/test_bg_estate.jpg',
         content: 'Zeit ist der ultimative Luxus. Für internationale Führungskräfte und Investoren ist der traditionelle Prozess des Kaufs, der Renovierung und der Einrichtung einer Immobilie nicht mehr attraktiv.\n\n### Die "Bezugsfertig"-Prämie\nSchlüsselfertige Immobilien – bei denen von den maßgefertigten italienischen Möbeln bis zum Besteck alles inbegriffen ist – erzielen erhebliche Aufschläge. Käufer sind bereit, bis zu 20% mehr für den Komfort zu zahlen, nur mit einem Koffer einziehen zu können.\n\n### Design als Unterscheidungsmerkmal\nIn diesem Segment muss die Inneneinrichtung Weltklasse-Standards entsprechen. Kooperationen mit renommierten Designhäusern und die Einbeziehung kuratierter Kunstsammlungen werden im schlüsselfertigen Luxusangebot zum Standard.'
+      },
+      {
+        id: 'smart-home-integration',
+        category: 'Architektur',
+        date: 'MAI 2023',
+        title: 'Smart-Home-Integration in historischen Gebäuden',
+        desc: 'Eine nahtlose Verbindung von modernster Technologie und klassischer Architektur schaffen.',
+        image: '/images/owners_editorial.jpg',
+        content: 'Die Nachfrage nach Smart-Home-Technologie beschränkt sich nicht mehr auf Neubauten. Vermögende Käufer erwarten modernste Automatisierung auch in Immobilien aus dem 19. Jahrhundert.\n\n### Unsichtbare Technologie\nDer Schlüssel zur erfolgreichen Integration in historischen Immobilien ist die Unsichtbarkeit. Lichtsteuerungssysteme, Klimamanagement und Sicherheitsprotokolle müssen in die Struktur des Gebäudes eingewoben werden, ohne dessen Ästhetik zu stören.\n\n### Marktaufschlag\nImmobilien, die historischen Charme erfolgreich mit moderner Funktionalität verbinden, erzielen konstant einen Aufpreis von 10-15% gegenüber traditionellen historischen Häusern.'
+      },
+      {
+        id: 'sustainable-luxury',
+        category: 'Architektur',
+        date: 'APRIL 2023',
+        title: 'Nachhaltiger Luxus: Der neue Standard',
+        desc: 'Wie umweltbewusstes Design den High-End-Immobilienmarkt neu gestaltet.',
+        image: '/test_bg_estate.jpg',
+        content: 'Nachhaltigkeit ist kein Schlagwort mehr, sondern eine Grundvoraussetzung für den modernen Luxuskäufer. Umweltbewusstes Design ist heute ein Merkmal der Exklusivität.\n\n### Energieautonomie\nSolarintegration, Erdwärmeheizung und fortschrittliche Isolierung werden zu Standardanforderungen. Käufer legen zunehmend Wert auf Energieautonomie und einen geringen CO2-Fußabdruck.\n\n### Nachhaltige Materialien\nDie Verwendung von lokal bezogenen, nachhaltigen Materialien – wie Altholz und Naturstein – wird hoch geschätzt. Sie verleihen einzigartigen Charakter und sprechen gleichzeitig umweltbewusste Investoren an.'
+      },
+      {
+        id: 'tax-implications',
+        category: 'Recht',
+        date: 'MÄRZ 2023',
+        title: 'Steuerliche Auswirkungen für nicht ansässige Käufer',
+        desc: 'Ein kurzer Überblick über steuerliche Überlegungen für internationale Investoren beim Kauf deutscher Immobilien.',
+        image: '/test_bg_villa.jpg',
+        content: 'Deutschland bleibt ein äußerst attraktiver Markt für internationale Investoren. Die Navigation durch die Steuerlandschaft ist jedoch entscheidend, um die Rendite zu maximieren.\n\n### Grunderwerbsteuer\nDie Grunderwerbsteuer variiert je nach Bundesland und liegt in der Regel zwischen 3,5% und 6,5%. Eine korrekte Strukturierung des Erwerbs kann diese Belastung manchmal mindern.\n\n### Kapitalerträge\nFür private Investoren sind Kapitalerträge aus Immobilien, die nach einer Haltefrist von 10 Jahren verkauft werden, in der Regel steuerfrei. Das Verständnis dieser Fristen ist für langfristige Anlagestrategien unerlässlich.'
+      },
+      {
+        id: 'commercial-investments',
+        category: 'Investment',
+        date: 'FEBRUAR 2023',
+        title: 'Diversifizierung mit gewerblichen Investitionen',
+        desc: 'Die Vorteile der Aufnahme erstklassiger Gewerbeimmobilien in Ihr Portfolio.',
+        image: '/test_bg_penthouse.jpg',
+        content: 'Während Wohnimmobilien Stabilität bieten, können erstklassige Gewerbeimmobilien eine erhebliche Renditesteigerung und Diversifizierungsvorteile bieten.\n\n### Boutique-Büroräume\nDie Post-Pandemie-Landschaft hat die Nachfrage in Richtung hochwertiger Boutique-Büroräume in zentralen Lagen verschoben. Diese Immobilien ziehen oft Premium-Mieter an, die nach einzigartigen Umgebungen suchen.\n\n### Langfristige Mietverträge\nGewerbliche Investitionen beinhalten in der Regel längere Mietvertragslaufzeiten und bieten vorhersehbare, inflationsgebundene Einkommensströme, die für Family Offices und institutionelle Investoren äußerst attraktiv sind.'
       }
     ]
   },
@@ -798,6 +834,50 @@ export const de = {
           fullDescription: 'Eine seltene Gelegenheit am Ufer des Starnberger Sees. Wir haben eine hochemotionale, filmische Vermarktungskampagne entworfen, um den einzigartigen Lebensstil dieser Immobilie einzufangen.',
           features: ['Direkter Seezugang mit privatem Bootshaus', 'Master-Suite mit Panoramablick auf den See', 'Heimkino und Spa-Bereich', 'Gästehaus auf dem Gelände', 'Von Peter Wirtz gestaltete Gärten'],
           galleryImages: ['/test_bg_villa.jpg', '/test_bg_penthouse.jpg', '/test_bg_estate.jpg']
+        },
+        {
+          id: 'alpine-chalet',
+          title: 'Alpenchalet',
+          location: 'Garmisch-Partenkirchen',
+          type: 'Verkauf',
+          image: '/test_bg_estate.jpg',
+          size: 'large',
+          fullDescription: 'Ein atemberaubendes modernes Chalet mit herrlichem Blick auf die Alpen. Der Verkauf wurde zügig an einen internationalen Käufer abgeschlossen, der einen erstklassigen Winterrückzugsort suchte.',
+          features: ['Ski-in/Ski-out Zugang', 'Panoramablick auf die Berge', 'Privater Wellnessbereich mit Sauna', 'Offener Kamin im Wohnzimmer', 'Maßgefertigte Holzarbeiten im gesamten Haus'],
+          galleryImages: ['/test_bg_estate.jpg', '/test_bg_villa.jpg', '/test_bg_penthouse.jpg']
+        },
+        {
+          id: 'urban-loft',
+          title: 'Urbanes Loft',
+          location: 'Berlin Mitte',
+          type: 'Vermietung',
+          image: '/test_bg_penthouse.jpg',
+          size: 'square',
+          fullDescription: 'Ein weitläufiges Industrie-Loft im Herzen Berlins, erfolgreich an einen renommierten Tech-Unternehmer vermietet. Die Immobilie zeichnet sich durch originalen Backstein und hohe Decken aus.',
+          features: ['Originale Industrieelemente', 'Offener Wohnbereich (200 qm)', 'Smart-Home-Technologie', 'Private Dachterrasse', 'Concierge-Service'],
+          galleryImages: ['/test_bg_penthouse.jpg', '/test_bg_estate.jpg', '/test_bg_villa.jpg']
+        },
+        {
+          id: 'country-estate',
+          title: 'Landsitz',
+          location: 'Sylt',
+          type: 'Verkauf',
+          image: '/test_bg_villa.jpg',
+          size: 'tall',
+          fullDescription: 'Ein prächtiges reetgedecktes Anwesen auf der Insel Sylt. Wir haben unser exklusives Netzwerk genutzt, um diese einzigartige Immobilie an einen anspruchsvollen Käufer zu vermitteln, der ihr Erbe zu schätzen wusste.',
+          features: ['Traditionelles Reetdach', 'Weitläufiges Privatgrundstück', 'Direkter Zugang zum Strand', 'Gästehaus', 'Reitmöglichkeiten in der Nähe'],
+          galleryImages: ['/test_bg_villa.jpg', '/test_bg_penthouse.jpg', '/test_bg_estate.jpg']
+        },
+        {
+          id: 'luxury-penthouse',
+          title: 'Luxus-Penthouse',
+          location: 'München',
+          type: 'Verkauf',
+          image: '/test_bg_penthouse.jpg',
+          size: 'square',
+          fullDescription: 'Ein hochmodernes Penthouse mit Blick auf den Englischen Garten. Diese Off-Market-Transaktion erforderte höchste Diskretion und wurde innerhalb weniger Wochen abgeschlossen.',
+          features: ['Unverbaubarer Blick auf den Englischen Garten', 'Umlaufende Terrasse', 'Privater Infinity-Pool', 'Gaggenau Chef-Küche', 'Sichere Tiefgarage für 3 Autos'],
+          galleryImages: ['/test_bg_penthouse.jpg', '/test_bg_villa.jpg', '/test_bg_estate.jpg']
         }
       ]
     }

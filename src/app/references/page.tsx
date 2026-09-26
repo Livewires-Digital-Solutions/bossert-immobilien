@@ -28,12 +28,16 @@ export default function ReferencesPage() {
   useEffect(() => {
     let cancelled = false;
     fetch('/api/references')
-      .then((res) => (res.ok ? res.json() : { references: [] }))
+      .then((res) => (res.ok ? res.json() : null))
       .then((json) => {
-        if (!cancelled) setReferences(json.references ?? []);
+        if (!cancelled && json?.references?.length > 0) {
+          setReferences(json.references);
+        } else if (!cancelled) {
+          setReferences(null); // Explicitly null to trigger fallback
+        }
       })
       .catch(() => {
-        if (!cancelled) setReferences([]);
+        if (!cancelled) setReferences(null);
       });
     return () => {
       cancelled = true;
@@ -42,11 +46,21 @@ export default function ReferencesPage() {
 
   if (!referencesPageData) return null;
 
-  const featured = references?.find((r) => r.featured) ?? null;
-  const galleryItems = (references ?? []).filter((r) => r.id !== featured?.id);
+  // Use API data if available, otherwise fallback to static translation data
+  let featuredData = null;
+  let galleryData = {
+    tag: referencesPageData.gallery.tag,
+    title: referencesPageData.gallery.title,
+    titleSerif: referencesPageData.gallery.titleSerif,
+    items: [] as any[]
+  };
 
-  const featuredData = featured
-    ? {
+  if (references && references.length > 0) {
+    const featured = references.find((r) => r.featured) ?? null;
+    const galleryItems = references.filter((r) => r.id !== featured?.id);
+    
+    if (featured) {
+      featuredData = {
         id: featured.id,
         tag: referencesPageData.featured.tag,
         title: lang === 'de' ? featured.de.title : featured.en.title,
@@ -54,21 +68,41 @@ export default function ReferencesPage() {
         description: referencesPageData.featured.description,
         image: featured.heroImage,
         stats: featured.stats,
-      }
-    : null;
-
-  const galleryData = {
-    tag: referencesPageData.gallery.tag,
-    title: referencesPageData.gallery.title,
-    titleSerif: referencesPageData.gallery.titleSerif,
-    items: galleryItems.map((r) => ({
+      };
+    }
+    
+    galleryData.items = galleryItems.map((r) => ({
       id: r.id,
       title: lang === 'de' ? r.de.title : r.en.title,
       location: r.location,
       type: r.type,
       image: r.heroImage,
-    })),
-  };
+    }));
+  } else {
+    // Fallback to static mock data
+    const staticFeatured = referencesPageData.featured;
+    if (staticFeatured) {
+      featuredData = {
+        id: staticFeatured.id,
+        tag: staticFeatured.tag,
+        title: staticFeatured.title,
+        location: staticFeatured.location,
+        description: staticFeatured.description,
+        image: staticFeatured.galleryImages?.[0] || '/test_bg_penthouse.jpg',
+        stats: staticFeatured.stats,
+      };
+    }
+    
+    if (referencesPageData.gallery?.items) {
+      galleryData.items = referencesPageData.gallery.items.map((r: any) => ({
+        id: r.id,
+        title: r.title,
+        location: r.location,
+        type: r.type,
+        image: r.image,
+      }));
+    }
+  }
 
   return (
     <main style={{ backgroundColor: 'var(--cream)', minHeight: '100vh' }}>

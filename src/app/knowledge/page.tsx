@@ -43,8 +43,8 @@ export default function KnowledgePage() {
       {/* 2. Feed & Filters */}
       <KnowledgeFeed
         data={t.knowledge}
-        dbArticles={localized ?? undefined}
-        dbFeatured={dbFeatured}
+        dbArticles={localized && localized.length > 0 ? localized : undefined}
+        dbFeatured={localized && localized.length > 0 ? dbFeatured : null}
       />
 
       {/* 3. CTA */}

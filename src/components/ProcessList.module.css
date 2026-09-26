@@ -559,6 +559,44 @@
   background: var(--bronze);
 }
 
+@media (max-width: 640px) {
+  .carouselStage {
+    height: 21rem;
+    perspective: 800px;
+  }
+
+  .carouselCard {
+    width: min(16rem, 78vw);
+    height: 18.5rem;
+    padding: 1.75rem;
+    border-radius: 14px;
+  }
+
+  .carouselNum {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .carouselTitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .carouselDesc {
+    font-size: 0.95rem;
+  }
+
+  .carouselControls {
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .carouselBtn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
 /* ── Spotlight Grid variant ── */
 
 .spotGrid {

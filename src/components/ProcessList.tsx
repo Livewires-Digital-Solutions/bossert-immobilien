@@ -280,19 +280,65 @@ function ProcessHoverAccordion({ steps, invertBackground }: { steps: ProcessStep
   );
 }
 
-// 3D Carousel variant (CoverFlow style)
+// 3D Carousel variant (CoverFlow style) — cards no longer react to
+// mouseenter. With hover-to-switch wiring, scrolling the page while the
+// cursor sat over the stack fired spurious mouseenter events as the cards
+// moved underneath the (stationary) pointer, making the stack appear to
+// animate on its own mid-scroll. Navigation is now click/button/dot driven
+// only, plus a paused-on-hover autoplay so it still advances on its own.
 function ProcessCarousel({ steps, invertBackground }: { steps: ProcessStep[], invertBackground: boolean }) {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const reduceMotionRef = useRef<boolean | null>(null);
+
+  const prefersReducedMotion = () => {
+    if (typeof window === 'undefined') return true;
+    if (reduceMotionRef.current === null) {
+      reduceMotionRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return reduceMotionRef.current;
+  };
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  // Auto-advance every 5s, pausing on hover/focus and once the user has
+  // manually navigated; skipped entirely under prefers-reduced-motion.
+  useEffect(() => {
+    if (paused || prefersReducedMotion()) return;
+    const id = setInterval(() => {
+      setActive((prev) => (prev + 1) % steps.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [paused, steps.length]);
+
+  const goTo = (idx: number) => {
+    setActive(idx);
+    setPaused(true);
+  };
 
   return (
-    <div className={styles.carouselWrap} data-invert={invertBackground ? 'true' : 'false'}>
+    <div
+      className={styles.carouselWrap}
+      data-invert={invertBackground ? 'true' : 'false'}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div className={styles.carouselStage}>
         {steps.map((step, idx) => {
           const offset = idx - active;
           const zIndex = 100 - Math.abs(offset);
-          let translateX = offset * 120;
-          let translateZ = Math.abs(offset) * -150;
-          let rotateY = offset > 0 ? -25 : offset < 0 ? 25 : 0;
+          const spread = isMobile ? 70 : 120;
+          const depth = isMobile ? 80 : 150;
+          let translateX = offset * spread;
+          let translateZ = Math.abs(offset) * -depth;
+          let rotateY = isMobile ? 0 : (offset > 0 ? -25 : offset < 0 ? 25 : 0);
           let opacity = Math.abs(offset) > 2 ? 0 : 1 - Math.abs(offset) * 0.2;
 
           return (
@@ -305,9 +351,8 @@ function ProcessCarousel({ steps, invertBackground }: { steps: ProcessStep[], in
                 opacity,
                 transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`,
               }}
-              onMouseEnter={() => setActive(idx)}
-              onFocus={() => setActive(idx)}
-              onClick={() => setActive(idx)}
+              onFocus={() => goTo(idx)}
+              onClick={() => goTo(idx)}
             >
               <div className={styles.carouselNum}>0{idx + 1}</div>
               <h3 className={styles.carouselTitle}>{step.name}</h3>
@@ -316,17 +361,17 @@ function ProcessCarousel({ steps, invertBackground }: { steps: ProcessStep[], in
           );
         })}
       </div>
-      
+
       <div className={styles.carouselControls}>
-        <button type="button" className={styles.carouselBtn} onClick={() => setActive(Math.max(0, active - 1))} disabled={active === 0}>
+        <button type="button" className={styles.carouselBtn} onClick={() => goTo(Math.max(0, active - 1))} disabled={active === 0}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
         </button>
         <div className={styles.carouselDots}>
           {steps.map((_, i) => (
-             <span key={i} className={`${styles.carouselDot} ${i === active ? styles.carouselDotActive : ''}`} onClick={() => setActive(i)} />
+             <span key={i} className={`${styles.carouselDot} ${i === active ? styles.carouselDotActive : ''}`} onClick={() => goTo(i)} />
           ))}
         </div>
-        <button type="button" className={styles.carouselBtn} onClick={() => setActive(Math.min(steps.length - 1, active + 1))} disabled={active === steps.length - 1}>
+        <button type="button" className={styles.carouselBtn} onClick={() => goTo(Math.min(steps.length - 1, active + 1))} disabled={active === steps.length - 1}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
         </button>
       </div>

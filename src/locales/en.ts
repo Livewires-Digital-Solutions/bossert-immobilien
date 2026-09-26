@@ -660,6 +660,42 @@ export const en = {
         desc: 'Why international buyers are increasingly demanding fully furnished, design-ready homes.',
         image: '/test_bg_estate.jpg',
         content: 'Time is the ultimate luxury. For international executives and investors, the traditional process of buying, renovating, and furnishing a property is no longer appealing.\n\n### The "Move-In Ready" Premium\nTurnkey properties—where everything from the bespoke Italian furniture to the silverware is included—are commanding significant premiums. Buyers are willing to pay up to 20% more for the convenience of walking in with just a suitcase.\n\n### Design as a Differentiator\nIn this segment, the interior design must meet world-class standards. Collaborations with renowned design houses and the inclusion of curated art collections are becoming standard in turnkey luxury offerings.'
+      },
+      {
+        id: 'smart-home-integration',
+        category: 'Architecture',
+        date: 'MAY 2023',
+        title: 'Smart Home Integration in Historic Buildings',
+        desc: 'Achieving a seamless blend of cutting-edge technology and classical architecture.',
+        image: '/images/owners_editorial.jpg',
+        content: 'The demand for smart home technology is no longer limited to new developments. High-net-worth buyers expect state-of-the-art automation even in 19th-century properties.\n\n### Invisible Technology\nThe key to successful integration in historic properties is invisibility. Lighting control systems, climate management, and security protocols must be woven into the fabric of the building without disrupting its aesthetic.\n\n### Market Premium\nProperties that successfully combine heritage charm with modern functionality consistently achieve a 10-15% premium over traditional historic homes.'
+      },
+      {
+        id: 'sustainable-luxury',
+        category: 'Architecture',
+        date: 'APRIL 2023',
+        title: 'Sustainable Luxury: The New Standard',
+        desc: 'How eco-conscious design is reshaping the high-end real estate market.',
+        image: '/test_bg_estate.jpg',
+        content: 'Sustainability is no longer a buzzword; it is a fundamental requirement for the modern luxury buyer. Eco-conscious design is now a marker of exclusivity.\n\n### Energy Autonomy\nSolar integration, geothermal heating, and advanced insulation are becoming standard requests. Buyers are increasingly valuing energy autonomy and a low carbon footprint.\n\n### Sustainable Materials\nThe use of locally sourced, sustainable materials—such as reclaimed wood and natural stone—is highly prized, adding unique character while appealing to environmentally conscious investors.'
+      },
+      {
+        id: 'tax-implications',
+        category: 'Legal',
+        date: 'MARCH 2023',
+        title: 'Tax Implications for Non-Resident Buyers',
+        desc: 'A brief overview of tax considerations for international investors purchasing German real estate.',
+        image: '/test_bg_villa.jpg',
+        content: 'Germany remains a highly attractive market for international investors. However, navigating the tax landscape is crucial for maximizing returns.\n\n### Real Estate Transfer Tax\nThe Real Estate Transfer Tax (Grunderwerbsteuer) varies by state, typically ranging from 3.5% to 6.5%. Structuring the acquisition correctly can sometimes mitigate this burden.\n\n### Capital Gains\nFor private investors, capital gains on real estate sold after a 10-year holding period are generally tax-free. Understanding these timelines is essential for long-term investment strategies.'
+      },
+      {
+        id: 'commercial-investments',
+        category: 'Investment',
+        date: 'FEBRUARY 2023',
+        title: 'Diversifying with Commercial Investments',
+        desc: 'Exploring the benefits of adding prime commercial real estate to your portfolio.',
+        image: '/test_bg_penthouse.jpg',
+        content: 'While residential properties offer stability, prime commercial real estate can provide significant yield enhancement and diversification benefits.\n\n### Boutique Office Spaces\nThe post-pandemic landscape has shifted demand towards high-quality, boutique office spaces in central locations. These properties often attract premium tenants seeking unique environments.\n\n### Long-Term Leases\nCommercial investments typically involve longer lease terms, providing predictable, inflation-linked income streams that are highly attractive to family offices and institutional investors.'
       }
     ]
   },
@@ -798,6 +834,50 @@ export const en = {
           fullDescription: 'A rare opportunity on the shores of Lake Starnberg. We crafted a highly emotional, cinematic marketing campaign to capture the unique lifestyle this property offers.',
           features: ['Direct lake access with private boat house', 'Master suite with panoramic lake views', 'Home cinema and spa area', 'Guest house on the premises', 'Landscaped gardens designed by Peter Wirtz'],
           galleryImages: ['/test_bg_villa.jpg', '/test_bg_penthouse.jpg', '/test_bg_estate.jpg']
+        },
+        {
+          id: 'alpine-chalet',
+          title: 'Alpine Chalet',
+          location: 'Garmisch-Partenkirchen',
+          type: 'Sale',
+          image: '/test_bg_estate.jpg',
+          size: 'large',
+          fullDescription: 'A stunning modern chalet offering breathtaking views of the Alps. The sale was concluded swiftly to an international buyer seeking a premium winter retreat.',
+          features: ['Ski-in/ski-out access', 'Panoramic mountain views', 'Private wellness area with sauna', 'Open fireplace in the living room', 'Custom woodwork throughout'],
+          galleryImages: ['/test_bg_estate.jpg', '/test_bg_villa.jpg', '/test_bg_penthouse.jpg']
+        },
+        {
+          id: 'urban-loft',
+          title: 'Urban Loft',
+          location: 'Berlin Mitte',
+          type: 'Letting',
+          image: '/test_bg_penthouse.jpg',
+          size: 'square',
+          fullDescription: 'An expansive industrial loft in the heart of Berlin, successfully let to a renowned tech entrepreneur. The property features original brickwork and soaring ceilings.',
+          features: ['Original industrial features', 'Open-plan living space (200 sqm)', 'Smart home technology', 'Private rooftop terrace', 'Concierge service'],
+          galleryImages: ['/test_bg_penthouse.jpg', '/test_bg_estate.jpg', '/test_bg_villa.jpg']
+        },
+        {
+          id: 'country-estate',
+          title: 'Country Estate',
+          location: 'Sylt',
+          type: 'Sale',
+          image: '/test_bg_villa.jpg',
+          size: 'tall',
+          fullDescription: 'A magnificent thatched-roof estate on the island of Sylt. We utilized our exclusive network to match this unique property with a discerning buyer who appreciated its heritage.',
+          features: ['Traditional thatched roof', 'Expansive private grounds', 'Direct access to the beach', 'Guest cottage', 'Equestrian facilities nearby'],
+          galleryImages: ['/test_bg_villa.jpg', '/test_bg_penthouse.jpg', '/test_bg_estate.jpg']
+        },
+        {
+          id: 'luxury-penthouse',
+          title: 'Luxury Penthouse',
+          location: 'Munich',
+          type: 'Sale',
+          image: '/test_bg_penthouse.jpg',
+          size: 'square',
+          fullDescription: 'A state-of-the-art penthouse overlooking the English Garden. This off-market transaction required the utmost discretion and was finalized within weeks.',
+          features: ['Unobstructed views of the English Garden', 'Wrap-around terrace', 'Private infinity pool', 'Gaggenau chef\'s kitchen', 'Secure underground parking for 3 cars'],
+          galleryImages: ['/test_bg_penthouse.jpg', '/test_bg_villa.jpg', '/test_bg_estate.jpg']
         }
       ]
     }
