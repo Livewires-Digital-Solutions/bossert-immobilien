@@ -615,6 +615,8 @@ export const de = {
     },
     categories: ['Alle', 'Marktberichte', 'Architektur', 'Investment', 'Recht'],
     readMore: 'Artikel lesen',
+    latestArticle: 'Neuester Artikel',
+    exploreByCategory: 'Nach Kategorie entdecken',
     featured: {
       id: 'featured',
       tag: 'Marktberichte',
