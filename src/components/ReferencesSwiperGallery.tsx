@@ -58,6 +58,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           {data.title} <br/>
           <span className="italic-serif" style={{ color: 'var(--bronze)' }}>{data.titleSerif}</span>
         </h2>
+        <div className="archive-divider" />
       </div>
 
       {/* 3D Coverflow Slider - Exactly 3 Cards */}
@@ -143,7 +144,7 @@ export default function ReferencesSwiperGallery({ data }: Props) {
                   }} />
                   
                   {/* Content */}
-                  <div style={{
+                  <div className="archive-card-content" style={{
                     position: 'absolute',
                     bottom: '2rem',
                     left: '2rem',
@@ -172,8 +173,30 @@ export default function ReferencesSwiperGallery({ data }: Props) {
                       {item.title}
                     </h3>
                     <p style={{ fontSize: '0.9rem', opacity: 0.8, fontWeight: 300 }}>
+                      <svg className="archive-pin-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
                       {item.location}
                     </p>
+                  </div>
+
+                  {/* Mobile-only CTA button, matches reference design */}
+                  <div className="archive-arrow-btn" style={{
+                    position: 'absolute',
+                    bottom: '2rem',
+                    right: '2rem',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '50%',
+                    border: '1.5px solid rgba(255,255,255,0.7)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'var(--white)'
+                  }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
                   </div>
                 </div>
               </Link>
@@ -235,6 +258,18 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           width: 350px;
           height: 500px;
         }
+
+        /* Mobile-only reference-image elements: hidden by default (desktop/tablet unchanged) */
+        .archive-divider {
+          display: none;
+        }
+        .archive-pin-icon {
+          display: none;
+        }
+        .archive-arrow-btn {
+          display: none;
+        }
+
         @media (max-width: 480px) {
           .references-slide {
             width: min(78vw, 300px);
@@ -244,6 +279,27 @@ export default function ReferencesSwiperGallery({ data }: Props) {
           .swiper-btn-next-custom {
             width: 40px !important;
             height: 40px !important;
+          }
+          .swiper-card {
+            border-radius: 28px !important;
+          }
+          .archive-divider {
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--bronze);
+            margin: 1.25rem auto 0;
+          }
+          .archive-pin-icon {
+            display: inline-block;
+            margin-right: 0.35rem;
+            vertical-align: -1px;
+          }
+          .archive-arrow-btn {
+            display: flex;
+          }
+          .archive-card-content {
+            right: 5.5rem !important;
           }
         }
 

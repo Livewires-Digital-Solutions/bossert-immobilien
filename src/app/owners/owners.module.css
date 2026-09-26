@@ -549,6 +549,35 @@
   .narrativeSection { padding-top: 4.5rem; padding-bottom: 4.5rem; }
   .narrativeHeadline { font-size: clamp(2rem, 7vw, 2.5rem); }
 
+  /* Restore the desktop-style overlay card on phones: text first, image
+     second (undoes the 1024px breakpoint's order:-1 + stacked-card
+     fallback above), matching the client-provided mobile reference. */
+  .challengeImgCol { order: 0; }
+  .narrativeIndex {
+    display: block;
+    font-size: clamp(4.5rem, 24vw, 6rem);
+    top: -1.25rem;
+    left: -0.25rem;
+  }
+  .challengeApproachCard {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    margin-bottom: 0;
+    max-width: 78%;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 1rem 2rem rgba(4, 36, 51, 0.12);
+  }
+  .challengeApproachTag { font-size: 0.62rem; margin-bottom: 0.6rem; }
+  .challengeApproachTitle { font-size: 1.2rem; }
+  .challengeConnector {
+    display: block;
+    top: -0.75rem;
+    left: -0.5rem;
+    width: 1.75rem;
+    height: 2rem;
+  }
+
   .pillarsSection { padding-top: 4.5rem; padding-bottom: 5rem; }
   .pillarsGrid { gap: 1.5rem; }
   .pillarCard { min-height: 22rem; }

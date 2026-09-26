@@ -60,9 +60,14 @@ export default function AboutPage() {
   return (
     <main style={{ backgroundColor: 'var(--cream)' }}>
       {/* 1. Hero Section — same bg image, fade, font, height and centered
-          text as the properties hero */}
-      <div className="properties-editorial-hero" ref={heroRef}>
+          text as the properties hero on tablet/desktop. On mobile the
+          "about-hero-section" class switches this to a taller, near
+          full-screen layout with the illustration arch running the full
+          height on the left and a matching accent tucked bottom-right
+          (see the "MOBILE" block in globals.css). */}
+      <div className="properties-editorial-hero about-hero-section" ref={heroRef}>
         <div className="properties-hero-bg" />
+        <div className="about-hero-mobile-accent" aria-hidden="true" />
         <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
 
@@ -71,6 +76,7 @@ export default function AboutPage() {
             <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}>
               {about.hero.title} <br /><span className="italic-serif">{about.hero.titleSerif}</span>
             </h1>
+            <div className="about-hero-divider" aria-hidden="true" />
           </div>
 
           <div className="editorial-hero-bottom">
