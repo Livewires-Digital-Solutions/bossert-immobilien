@@ -37,6 +37,18 @@
   border-right: 2px solid var(--bronze);
 }
 
+/* ── Section rhythm (desktop paddings, pulled out of inline styles so the
+   mobile block below can tighten them per-section without !important) ──── */
+.narrativeSection { padding-top: 8rem; padding-bottom: 8rem; }
+.pillarsSection { padding-top: 8rem; padding-bottom: 10rem; }
+.valuationSection { padding-top: 10rem; padding-bottom: 4rem; }
+.stepsSection { padding-bottom: 8rem; }
+.finalCtaSection { padding-top: 10rem; padding-bottom: 10rem; }
+
+.narrativeHeadline { font-size: 3rem; }
+.stepsHeadline { font-size: 2.5rem; }
+.finalCtaHeadline { font-size: 3.5rem; }
+
 /* ── The Challenge ──────────────────────────────────────────────────────── */
 .challengeGrid {
   display: grid;
@@ -188,7 +200,7 @@
 /* ── Core pillars ───────────────────────────────────────────────────────── */
 .pillarsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   gap: 2.5rem;
 }
 
@@ -525,6 +537,63 @@
   box-shadow: 0 30px 60px rgba(4, 36, 51, 0.2);
   color: var(--white);
   border-color: transparent;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────
+   Tightened section rhythm + scaled-down type, matching the compact
+   spacing already used for the shared editorial hero and bento grid at
+   these breakpoints. Grid structure below 1024px/900px is handled by the
+   existing queries further up this file — this block only covers what's
+   new to the owners page: section padding, pillar cards, and the CTAs. */
+@media (max-width: 768px) {
+  .narrativeSection { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+  .narrativeHeadline { font-size: clamp(2rem, 7vw, 2.5rem); }
+
+  .pillarsSection { padding-top: 4.5rem; padding-bottom: 5rem; }
+  .pillarsGrid { gap: 1.5rem; }
+  .pillarCard { min-height: 22rem; }
+  .pillarContent { padding: 2rem; gap: 1.25rem; }
+  .pillarTitle { font-size: 1.6rem; }
+  .pillarDesc { font-size: 1rem; }
+  /* No hover on touch — surface the CTA and corner brackets by default
+     instead of leaving them invisible until a hover that never comes. */
+  .pillarCue { opacity: 1; transform: translateY(0); }
+  .pillarCard::before,
+  .pillarCard::after { opacity: 1; }
+
+  .valuationSection { padding-top: 5rem; padding-bottom: 3rem; }
+  .bentoBigTitle { font-size: 1.9rem; }
+  .bentoBigDesc { font-size: 1rem; max-width: 100%; }
+  .bento0Content,
+  .bento3Content { padding: 1.75rem; }
+  .bentoCard:not(.bentoCardDark) { padding: 1.75rem; }
+
+  .stepsSection { padding-bottom: 4.5rem; }
+  .stepsHeadline { font-size: clamp(1.8rem, 7vw, 2.2rem); }
+  .stepsGrid { gap: 2.5rem; }
+
+  .finalCtaSection { padding-top: 5rem; padding-bottom: 5rem; }
+  .finalCtaHeadline { font-size: clamp(2rem, 8vw, 2.75rem); }
+  .finalCtaBtn {
+    /* .explore-btn-dark's own mobile rule (globals.css) sets width:auto at
+       this same breakpoint with higher selector specificity — !important
+       is required here to actually win and keep this button full-width.
+       white-space is nowrap on the shared .explore-btn base, which at
+       full width lets "Request Consultation" overflow past the button's
+       own box on narrow phones, so it's relaxed here too. */
+    padding: 1.25rem 1.5rem !important;
+    width: 100% !important;
+    border-radius: 10px;
+    white-space: normal !important;
+    font-size: 1rem !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pillarCard { min-height: 19rem; }
+  .pillarContent { padding: 1.5rem; }
+  .bentoCardDark.bento0 { min-height: 340px; }
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

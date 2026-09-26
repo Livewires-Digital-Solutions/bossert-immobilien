@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import ContactFAQ from '@/components/ContactFAQ';
 import ContactHero from '@/components/ContactHero';
+import styles from './contact.module.css';
 
 export default function ContactPage() {
   const { ref: topRef, isVisible: topVisible } = useScrollReveal(0.1);
@@ -71,8 +72,8 @@ export default function ContactPage() {
       <ContactHero />
 
       {/* 2. Top Section (Split Grid) */}
-      <section className="global-padding" ref={topRef} style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
-        <div className="inner-page-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '6rem' }}>
+      <section className={`global-padding ${styles.topSection}`} ref={topRef}>
+        <div className={`inner-page-container ${styles.topGrid}`} style={{ display: 'flex', flexWrap: 'wrap' }}>
 
           {/* Left: Info */}
           <div className={`reveal-base reveal-up ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 25rem', display: 'flex', flexDirection: 'column' }}>
@@ -113,7 +114,7 @@ export default function ContactPage() {
 
           {/* Right: The Form Card */}
           <div className={`reveal-base reveal-up delay-200 ${topVisible ? 'is-revealed' : ''}`} style={{ flex: '1 1 31.25rem' }}>
-            <div style={{ backgroundColor: 'var(--white)', padding: '3rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(4,36,51,0.03)' }}>
+            <div className={styles.formCard} style={{ backgroundColor: 'var(--white)', borderRadius: '12px', boxShadow: '0 4px 20px rgba(4,36,51,0.03)' }}>
               {success ? (
                 <div style={{ textAlign: 'center', padding: '4rem 0' }}>
                   <p className="italic-serif" style={{ fontSize: '2.5rem', color: 'var(--bronze)', marginBottom: '1rem' }}>Sent.</p>
@@ -237,7 +238,7 @@ export default function ContactPage() {
       {/* 2. Cinematic Anchor Image */}
       <section className="global-padding" ref={imageRef}>
         <div className={`inner-page-container reveal-base reveal-scale ${imageVisible ? 'is-revealed' : ''}`}>
-          <div style={{ position: 'relative', width: '100%', height: '60vh', minHeight: '31.25rem', borderRadius: '16px', overflow: 'hidden' }}>
+          <div className={styles.anchorImage} style={{ position: 'relative', width: '100%', borderRadius: '16px', overflow: 'hidden' }}>
             <Image 
               src="/images/prop_penthouse_1787771396787.jpg"
               alt="Luxury Bossert Property"

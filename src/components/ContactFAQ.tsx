@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLanguage } from '@/context/LanguageContext';
+import styles from '@/app/contact/contact.module.css';
 
 interface FAQ {
   q: string;
@@ -67,7 +68,7 @@ export default function ContactFAQ({ faqData }: Props) {
   if (apiFaqs !== null && questions.length === 0) return null;
 
   return (
-    <section className="global-padding" ref={ref} style={{ paddingTop: '8rem', paddingBottom: '10rem' }}>
+    <section className={`global-padding ${styles.faqSection}`} ref={ref}>
       <div className="inner-page-container">
         
         {/* Header */}

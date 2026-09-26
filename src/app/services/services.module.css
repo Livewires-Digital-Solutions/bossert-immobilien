@@ -1,0 +1,44 @@
+/* ==========================================================================
+   SERVICES — page-scoped mobile refinements (desktop untouched)
+   Extends the shared editorial hero, services-subtitle, explore-headline
+   and framed-card system in globals.css rather than duplicating it.
+   ========================================================================== */
+
+.introSection {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.introTextRow {
+  gap: 4rem;
+  margin-top: 4rem;
+}
+
+.highlightsGrid {
+  gap: 3rem;
+  margin-top: 6rem;
+}
+
+@media (max-width: 768px) {
+  .introSection {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .introTextRow {
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .highlightsGrid {
+    gap: 2rem 1.5rem;
+    margin-top: 3.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .highlightsGrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .highlightsGrid :global(.framed-card) {
+    padding: 1.75rem 1.25rem;
+  }
+}

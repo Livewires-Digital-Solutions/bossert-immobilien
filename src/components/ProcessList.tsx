@@ -432,14 +432,22 @@ export default function ProcessList({ processData, invertBackground = false, var
   const descColor = invertBackground ? 'rgba(254,252,246,0.7)' : 'rgba(4,36,51,0.7)';
 
   return (
-    <section className="global-padding" ref={ref} style={{ backgroundColor: bgColor, color: textColor, paddingTop: '10rem', paddingBottom: '10rem' }}>
+    <section className="global-padding process-list-section" ref={ref} style={{ backgroundColor: bgColor, color: textColor }}>
       <div className="inner-page-container">
 
         <style>{`
+          .process-list-section {
+            padding-top: 10rem;
+            padding-bottom: 10rem;
+          }
           .timeline-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 4rem;
+          }
+          .process-sticky-header {
+            position: sticky;
+            top: 10rem;
           }
           @media (min-width: 1024px) {
             .timeline-layout {
@@ -448,11 +456,30 @@ export default function ProcessList({ processData, invertBackground = false, var
               align-items: start;
             }
           }
+          /* Below 1024px the layout stacks to a single column, so a
+             sticky header would float over the process content as the
+             user scrolls past it instead of introducing it once. */
+          @media (max-width: 1023px) {
+            .process-list-section {
+              padding-top: 5rem;
+              padding-bottom: 5rem;
+            }
+            .process-sticky-header {
+              position: static;
+              margin-bottom: 3rem;
+            }
+          }
+          @media (max-width: 640px) {
+            .process-list-section {
+              padding-top: 4rem;
+              padding-bottom: 4rem;
+            }
+          }
         `}</style>
 
         <div className="timeline-layout">
           {/* Left: Sticky Header */}
-          <div style={{ position: 'sticky', top: '10rem' }}>
+          <div className="process-sticky-header">
             <div>
               <p className="services-subtitle" style={{ color: textColor, marginBottom: '1.5rem' }}>
                 <span className="dot" style={{ backgroundColor: 'var(--bronze)' }}></span> {processData.tag}

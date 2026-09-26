@@ -1,0 +1,60 @@
+/* ==========================================================================
+   CONTACT — page-scoped mobile refinements (desktop untouched)
+   Reached from the Services page hero CTA; extends the shared
+   global-padding / inner-page-container / cta-input system.
+   ========================================================================== */
+
+.topSection {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.topGrid {
+  gap: 6rem;
+}
+
+.formCard {
+  padding: 3rem;
+}
+
+.anchorImage {
+  height: 60vh;
+  min-height: 31.25rem;
+}
+
+@media (max-width: 768px) {
+  .topSection {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .topGrid {
+    gap: 3rem;
+  }
+  .formCard {
+    padding: 1.75rem;
+  }
+  .anchorImage {
+    height: 40vh;
+    min-height: 16rem;
+    border-radius: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .formCard {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+.faqSection {
+  padding-top: 8rem;
+  padding-bottom: 10rem;
+}
+
+@media (max-width: 768px) {
+  .faqSection {
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+}
+

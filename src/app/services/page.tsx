@@ -10,6 +10,7 @@ import ServicesOverviewCards from '@/components/ServicesOverviewCards';
 import ApproachHeadline from '@/components/ApproachHeadline';
 import ServicesBenefitsGrid from '@/components/ServicesBenefitsGrid';
 import TestimonialSection from '@/components/TestimonialSection';
+import styles from './services.module.css';
 
 export default function ServicesPage() {
   const { ref: introRef, isVisible: introVisible } = useScrollReveal(0.2);
@@ -27,9 +28,9 @@ export default function ServicesPage() {
       <ServicesHero />
 
       {/* 2. Intro / Problem Framing */}
-      <section className="global-padding" ref={introRef} style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
+      <section className={`global-padding ${styles.introSection}`} ref={introRef}>
         <div className="inner-page-container">
-          <ApproachHeadline 
+          <ApproachHeadline
             tag={servicesPageData.intro.tag}
             l1={servicesPageData.intro.l1}
             s1={servicesPageData.intro.s1}
@@ -38,8 +39,8 @@ export default function ServicesPage() {
             s2={servicesPageData.intro.s2}
             l4={servicesPageData.intro.l4}
           />
-          
-          <div className={`reveal-base reveal-up delay-200 ${introVisible ? 'is-revealed' : ''}`} style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', marginTop: '4rem' }}>
+
+          <div className={`${styles.introTextRow} reveal-base reveal-up delay-200 ${introVisible ? 'is-revealed' : ''}`} style={{ display: 'flex', flexWrap: 'wrap' }}>
             <div style={{ flex: '1 1 18.75rem' }}>
               <p className="why-subhead" style={{ fontSize: '1.25rem' }}>{servicesPageData.intro.textLeft}</p>
             </div>
@@ -51,11 +52,10 @@ export default function ServicesPage() {
           {/* Framed highlight cards — signature bronze-corner treatment */}
           {servicesPageData.intro.highlights && (
             <div
+              className={styles.highlightsGrid}
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '3rem',
-                marginTop: '6rem',
               }}
             >
               {servicesPageData.intro.highlights.map((h: { number: string; label: string }, idx: number) => (

@@ -168,7 +168,7 @@ export default function ForOwnersPage() {
       </div>
 
       {/* 2. The Challenge (Cream Background) */}
-      <section className="global-padding" ref={narrativeRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '8rem', paddingBottom: '8rem' }}>
+      <section className={`global-padding ${styles.narrativeSection}`} ref={narrativeRef} style={{ backgroundColor: 'var(--cream)' }}>
         <div className="inner-page-container">
           <div className={styles.challengeGrid}>
             <div className={styles.narrativeCol}>
@@ -179,7 +179,7 @@ export default function ForOwnersPage() {
 
               <div style={{ position: 'relative' }}>
                 <span className={styles.narrativeIndex} aria-hidden="true">01</span>
-                <h2 className={`explore-headline reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ fontSize: '3rem', lineHeight: '1.15', color: 'var(--navy)', position: 'relative', marginBottom: '2rem' }}>
+                <h2 className={`explore-headline ${styles.narrativeHeadline} reveal-base reveal-up delay-100 ${narrativeVisible ? 'is-revealed' : ''}`} style={{ lineHeight: '1.15', color: 'var(--navy)', position: 'relative', marginBottom: '2rem' }}>
                   {data.narrative.headline}
                 </h2>
               </div>
@@ -213,7 +213,7 @@ export default function ForOwnersPage() {
       </section>
 
       {/* 3. Core Pillars — interactive: each opens the matching consultation flow */}
-      <section className="global-padding" ref={pillarsRef} style={{ backgroundColor: 'var(--navy)', paddingTop: '8rem', paddingBottom: '10rem', position: 'relative' }}>
+      <section className={`global-padding ${styles.pillarsSection}`} ref={pillarsRef} style={{ backgroundColor: 'var(--navy)', position: 'relative' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'radial-gradient(var(--cream) 1px, transparent 1px)', backgroundSize: '40px 40px', zIndex: 0 }}></div>
 
         <div className="inner-page-container" style={{ position: 'relative', zIndex: 1 }}>
@@ -274,7 +274,7 @@ export default function ForOwnersPage() {
       <ProcessList processData={data.renting} invertBackground={true} variant="spotlight-grid" />
 
       {/* 6. Valuation & Benefits (Sharp-cornered editorial bento grid) */}
-      <section className="global-padding" ref={valuationRef} style={{ backgroundColor: 'var(--cream)', paddingTop: '10rem', paddingBottom: '4rem', position: 'relative' }}>
+      <section className={`global-padding ${styles.valuationSection}`} ref={valuationRef} style={{ backgroundColor: 'var(--cream)', position: 'relative' }}>
         <div className="inner-page-container">
 
           <div className={`reveal-base reveal-up ${valuationVisible ? 'is-revealed' : ''}`} style={{ textAlign: 'center', marginBottom: '6rem' }}>
@@ -350,10 +350,10 @@ export default function ForOwnersPage() {
       </section>
 
       {/* 6b. Valuation Steps — horizontal roadmap */}
-      <section className="global-padding" ref={stepsRef} style={{ backgroundColor: 'var(--cream)', paddingBottom: '8rem' }}>
+      <section className={`global-padding ${styles.stepsSection}`} ref={stepsRef} style={{ backgroundColor: 'var(--cream)' }}>
         <div className="inner-page-container">
           <div className={`reveal-base reveal-up ${stepsVisible ? 'is-revealed' : ''}`} style={{ textAlign: 'center', marginBottom: '4rem', paddingTop: '4rem' }}>
-            <h3 className="explore-headline" style={{ fontSize: '2.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+            <h3 className={`explore-headline ${styles.stepsHeadline}`} style={{ color: 'var(--navy)', marginBottom: '1rem' }}>
               Our Valuation Process
             </h3>
             <p className="why-subhead" style={{ maxWidth: '37.5rem', margin: '0 auto', color: 'rgba(4,36,51,0.7)', fontSize: '1.2rem' }}>
@@ -382,9 +382,9 @@ export default function ForOwnersPage() {
       <CtaSection />
 
       {/* 8. Final CTA Banner */}
-      <section className="global-padding" ref={ctaRef} style={{ backgroundColor: 'var(--cream)', color: 'var(--navy)', paddingTop: '10rem', paddingBottom: '10rem', textAlign: 'center' }}>
+      <section className={`global-padding ${styles.finalCtaSection}`} ref={ctaRef} style={{ backgroundColor: 'var(--cream)', color: 'var(--navy)', textAlign: 'center' }}>
         <div className={`inner-page-container reveal-base reveal-up ${ctaVisible ? 'is-revealed' : ''}`} style={{ maxWidth: '50rem', margin: '0 auto' }}>
-          <h2 className="explore-headline" style={{ fontSize: '3.5rem', marginBottom: '2rem' }}>
+          <h2 className={`explore-headline ${styles.finalCtaHeadline}`} style={{ marginBottom: '2rem' }}>
             Are you looking to sell, let, or gain clarity on your property's value?
           </h2>
           <p className="why-subhead" style={{ marginBottom: '4rem', fontSize: '1.3rem', opacity: 0.8, color: 'rgba(4,36,51,0.8)', marginLeft: 'auto', marginRight: 'auto' }}>
