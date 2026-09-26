@@ -480,8 +480,8 @@ export const en = {
     ],
     selling: {
       tag: 'SELLING',
-      title: 'Maximize the Value of',
-      titleSerif: 'Your Property.',
+      title: 'Maximize the Value',
+      titleSerif: 'of Your Property.',
       subhead: 'Our commitment: professional, results-driven, and personal. From valuation to handover — we support you reliably.',
       steps: [
         { name: 'Preparation', desc: 'Comprehensive property inspection, document verification, data-driven valuation, and individual sales concept.' },

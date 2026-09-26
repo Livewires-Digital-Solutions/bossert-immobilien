@@ -10065,6 +10065,18 @@ html:not(:has(.home-page)) .italic-serif {
   margin-left: 0 !important;
 }
 
+/* Knowledge feed cards — the blanket rule above swallows any inline
+   font-size on .italic-serif, so it must be re-set here with 3+ classes
+   of specificity (2 classes + html type on the blanket rule) to size
+   these headlines instead of just inheriting the surrounding text size. */
+.featured-card .featured-title.italic-serif {
+  font-size: clamp(3rem, 5vw, 4.25rem) !important;
+}
+
+.editorial-row .row-title.italic-serif {
+  font-size: clamp(2.25rem, 3vw, 3.25rem) !important;
+}
+
 /* 2. Force all body text elements to Inter */
 html:not(:has(.home-page)) body,
 html:not(:has(.home-page)) p,

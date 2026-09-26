@@ -266,7 +266,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                   </span>
                   <span style={{ color: 'rgba(254,252,246,0.5)', fontSize: '0.8rem', letterSpacing: '1px' }}>{featured.date}</span>
                 </div>
-                <h2 className="italic-serif" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', lineHeight: 1.05, marginBottom: '2rem', color: 'var(--white)' }}>
+                <h2 className="italic-serif featured-title" style={{ lineHeight: 1.05, marginBottom: '2rem', color: 'var(--white)' }}>
                   {featured.title}
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start' }}>
@@ -353,7 +353,7 @@ export default function KnowledgeFeed({ data, dbArticles, dbFeatured }: Props) {
                         <span style={{ color: 'rgba(4,36,51,0.4)', fontSize: '0.85rem', letterSpacing: '1px' }}>{article.date}</span>
                       </div>
 
-                      <h3 className="italic-serif row-title" style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', lineHeight: 1.1, color: 'var(--navy)', transition: 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' }}>
+                      <h3 className="italic-serif row-title" style={{ lineHeight: 1.1, color: 'var(--navy)', transition: 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' }}>
                         {article.title}
                       </h3>
                       
