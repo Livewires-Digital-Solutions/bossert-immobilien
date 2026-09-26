@@ -81,21 +81,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Cinematic Establishing Shot */}
-      <section className="global-padding" style={{ paddingTop: '4rem', paddingBottom: '2rem' }}>
-        <div className={`inner-page-container reveal-base reveal-scale delay-300 ${heroVisible ? 'is-revealed' : ''}`} style={{ width: '100%' }}>
-          <div style={{ width: '100%', height: '70vh', minHeight: '31.25rem', position: 'relative', borderRadius: '1.5rem', overflow: 'hidden' }}>
-            <Image
-              src="/images/owners_bg_wide.jpg"
-              alt="Bossert Immobilien Legacy"
-              fill
-              sizes="100vw"
-              style={{ objectFit: 'cover' }}
-              priority
-            />
-          </div>
-        </div>
-      </section>
         {/* 2. Our Approach (Massive Typography Layout) */}
         <section ref={heritageRef} style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
           <ApproachHeadline 

@@ -148,6 +148,7 @@ export default function HorizontalScrollPhilosophy({ tag, title, titleSerif, des
             right: 0,
             zIndex: 20,
             padding: '5rem 8vw 3rem',
+            maxWidth: '35rem',
             pointerEvents: 'none',
             opacity: scrollProgress < 0.05 ? 1 : Math.max(0, 1 - (scrollProgress - 0.05) * 25),
             transition: 'opacity 0.1s linear',

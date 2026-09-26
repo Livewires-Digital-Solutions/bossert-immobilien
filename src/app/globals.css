@@ -6208,6 +6208,17 @@ body {
   .search-section-dark .search-container {
     border: none !important;
     padding-bottom: 0 !important;
+    /* Same double-padding bug as the embedded (home page) card below, just
+       never patched for this variant: .search-section already contributes
+       1.5rem of horizontal gutter, and the unscoped .search-container rule
+       below stacks another 1.5rem on top of that for /properties' rounded
+       mobile search-card, squeezing it well in from both edges. Zeroing the
+       container's own left/right here (higher specificity wins the
+       !important tie, per mobile-css-override-layering) leaves just the
+       section's single gutter, so the card fills the width the way the
+       embedded one already does. */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   .search-container {
     padding: 1.5rem !important;
