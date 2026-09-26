@@ -319,7 +319,7 @@ export const de = {
   },
   about: {
     hero: {
-      tag: 'UNSER ERBE',
+      tag: 'ÜBER UNS',
       title: 'Ein Erbe des Vertrauens.',
       titleSerif: 'Seit 1991.',
       description: 'Gegründet auf Diskretion und tiefem lokalem Wissen, kuratieren wir außergewöhnliche Immobilien-Erlebnisse für anspruchsvolle Kunden.',
@@ -706,7 +706,7 @@ export const de = {
   },
   servicesPageData: {
     hero: {
-      tag: 'Unsere Maklertätigkeit',
+      tag: 'Unser Service',
       title: 'Expertenunterstützung auf Ihrer',
       titleSerif: 'Immobilienreise.',
       description: 'Professionell gemanagt, erfolgreich abgeschlossen.',

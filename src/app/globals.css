@@ -9211,10 +9211,10 @@ html[data-theme='dark'] .pc-badge-heart {
     margin-bottom: 0 !important;
   }
 
-  /* ---- Header: reorder title/location/price/button/specs into the
-     reference's order (price + button share a row), overlapping the
-     gallery slightly for the "bottom sheet" look — corners on both match
-     (20px) so the seam reads as one continuous curve. ---- */
+  /* ---- Header: reorder title/location/price/specs into the reference's
+     order, overlapping the gallery slightly for the "bottom sheet" look —
+     corners on both match (20px) so the seam reads as one continuous
+     curve. (Request Viewing button removed sitewide — see PropertyHeader.) ---- */
   .property-header-container {
     display: flex;
     flex-direction: row;
@@ -9245,15 +9245,8 @@ html[data-theme='dark'] .pc-badge-heart {
   }
   .property-price {
     order: 3;
-    flex: 1;
+    width: 100%;
     font-size: 1.6rem;
-  }
-  .property-header-action .explore-btn {
-    order: 4;
-    flex-shrink: 0;
-    border-radius: 8px;
-    padding: 0.7rem 1.1rem;
-    font-size: 0.6rem;
   }
   .property-commission {
     order: 5;

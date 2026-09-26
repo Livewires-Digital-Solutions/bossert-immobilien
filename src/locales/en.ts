@@ -319,7 +319,7 @@ export const en = {
   },
   about: {
     hero: {
-      tag: 'OUR HERITAGE',
+      tag: 'ABOUT',
       title: 'A legacy of trust.',
       titleSerif: 'Since 1991.',
       description: 'Founded on discretion and profound local knowledge, we curate exceptional real estate experiences tailored for discerning clients.',
@@ -708,7 +708,7 @@ export const en = {
   },
   servicesPageData: {
     hero: {
-      tag: 'Our Brokerage',
+      tag: 'Our Service',
       title: 'Expert Support Throughout Your',
       titleSerif: 'Brokerage Journey.',
       description: 'Professionally managed, successfully completed.',

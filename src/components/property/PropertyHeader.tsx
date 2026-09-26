@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Property } from '@/data/properties';
-import Button from '@/components/ui/Button';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface PropertyHeaderProps {
@@ -86,9 +85,6 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
             <strong>Käuferprovision:</strong> {property.commission}
           </div>
         )}
-        <Button variant="dark">
-          Request Viewing
-        </Button>
       </div>
     </div>
   );
