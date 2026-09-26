@@ -874,17 +874,6 @@ body {
   color: rgba(14, 21, 26, 0.8);
 }
 
-/* Mobile-only About hero accents — see the .about-hero-section rules in the
-   MOBILE block below. Hidden by default so tablet/desktop (which keeps the
-   standard .properties-editorial-hero layout) is untouched. */
-.about-hero-divider {
-  display: none;
-}
-
-.about-hero-mobile-accent {
-  display: none;
-}
-
 .properties-grid-section {
   padding: 0 var(--gutter) 6rem var(--gutter);
   background-color: #ffffff;
@@ -5998,87 +5987,7 @@ body {
   .editorial-hero-line {
     width: 30px;
   }
-
-  /* About page hero — mobile only. Client reference: a near full-screen
-     hero with the illustration arch running edge-to-edge top-to-bottom on
-     the left, a matching arch+steps accent tucked bottom-right, and the
-     heading/description sitting in the open cream space between them.
-     Scoped to .about-hero-section so the shared .properties-editorial-hero
-     rules above (properties/owners/services/references/contact/knowledge)
-     stay exactly as they are. */
-  .about-hero-section {
-    min-height: 100vh;
-    min-height: 100svh;
-    padding-top: 9rem;
-    padding-bottom: 4rem;
-  }
-  .about-hero-section .properties-hero-bg {
-    /* Base rule covers the whole hero width; anchoring left instead of
-       centered lets the source illustration's left arch run the full
-       height of this much taller mobile hero instead of being cropped
-       down to a sliver. */
-    background-position: left top;
-  }
-  .about-hero-section .properties-hero-overlay-cream {
-    /* Lighter flat wash (was 0.55) so the arch and accent keep their depth
-       on this taller layout, and the fade-to-cream only kicks in right at
-       the very bottom instead of across the last 45% — that fade was tuned
-       for the shorter hero and would otherwise wash out the bottom-right
-       accent entirely. */
-    background:
-      linear-gradient(rgba(254, 252, 246, 0.4), rgba(254, 252, 246, 0.4)),
-      linear-gradient(to bottom, rgba(254, 252, 246, 0) 88%, var(--cream) 100%);
-  }
-  .about-hero-section .editorial-headline {
-    font-size: clamp(2.4rem, 9vw, 3.2rem);
-  }
-  .about-hero-section .editorial-headline .italic-serif {
-    font-size: clamp(3rem, 11vw, 4rem);
-  }
-  .about-hero-section .editorial-hero-middle {
-    /* Caps the light "A legacy of trust." line at two short lines (as in
-       the reference) instead of the one long line it stretches to at full
-       container width — the bold serif "Since 1991." line below is short
-       enough to stay on one line regardless. 17rem leaves a clear margin
-       under the phrase's ~18.5rem natural width at this font-size so the
-       wrap is reliable across both locales (the German title is longer and
-       wraps the same way). */
-    max-width: 17rem;
-    margin: 0 auto;
-  }
-  .about-hero-section .editorial-hero-bottom {
-    max-width: 20rem;
-  }
-  .about-hero-divider {
-    display: block;
-    width: 40px;
-    height: 1px;
-    background-color: var(--bronze);
-    margin: 1.5rem auto 1.75rem;
-  }
-  .about-hero-mobile-accent {
-    display: block;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 44%;
-    /* Matches the crop taken from /properties-bg.png's right-hand arch
-       cluster (435x756px) so background-size below shows it with no
-       distortion. */
-    aspect-ratio: 435 / 756;
-    background-image: url('/properties-bg.png');
-    background-size: 398.85% auto;
-    background-position: right bottom;
-    /* Soft corner fade instead of a hard rectangle edge — this crop and the
-       full-bleed .properties-hero-bg crop above come from the same source
-       image but aren't spatially continuous, so without the fade the
-       accent's top-left edge would show as a visible seam. */
-    -webkit-mask-image: radial-gradient(circle at bottom right, black 55%, transparent 100%);
-    mask-image: radial-gradient(circle at bottom right, black 55%, transparent 100%);
-    z-index: 0;
-    pointer-events: none;
-  }
-
+  
   .navbar {
     padding: 1.5rem 1rem;
     padding-top: max(1.5rem, env(safe-area-inset-top));
