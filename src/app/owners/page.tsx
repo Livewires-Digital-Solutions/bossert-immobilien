@@ -61,6 +61,34 @@ export default function ForOwnersPage() {
 
   const pillarModalRoute = (idx: number): typeof modalRoute => (idx === 2 ? 'valuation' : 'consultation');
 
+  // Mobile-only hero icon row (Sales & Rentals / Professional Valuations /
+  // Expert Guidance) — reuses the same icon language as the pillar/challenge
+  // icons above rather than introducing a new icon set.
+  const getHeroStatIcon = (idx: number) => {
+    if (idx === 0) { // Sales & Rentals
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      );
+    } else if (idx === 1) { // Professional Valuations
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="6" y1="20" x2="6" y2="14"></line><line x1="12" y1="20" x2="12" y2="9"></line><line x1="18" y1="20" x2="18" y2="4"></line>
+        </svg>
+      );
+    } else { // Expert Guidance
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      );
+    }
+  };
+
   const getChallengeIcon = (idx: number) => {
     if (idx === 0) { // Pricing Uncertainty
       return (
@@ -143,6 +171,14 @@ export default function ForOwnersPage() {
         <Navbar invertOnLoad={true} />
 
         <div className="editorial-hero-content">
+          {/* Mobile-only eyebrow (client reference) — hidden on tablet/desktop
+              via owners.module.css, where the hero stays plain as before. */}
+          <div className={`${styles.heroMobileEyebrow} reveal-base reveal-up ${heroVisible ? 'is-revealed' : ''}`}>
+            <span className={styles.heroMobileEyebrowLine} aria-hidden="true"></span>
+            <span className={styles.heroMobileEyebrowText}>{data.hero.mobileEyebrow}</span>
+            <span className={styles.heroMobileEyebrowLine} aria-hidden="true"></span>
+          </div>
+
           <div className="editorial-hero-middle">
             <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}>
               {data.hero.title} <br /><span className="italic-serif">{data.hero.titleSerif}</span>
@@ -159,10 +195,21 @@ export default function ForOwnersPage() {
             className={`reveal-base reveal-up delay-300 ${heroVisible ? 'is-revealed' : ''}`}
             style={{ marginTop: '2.5rem' }}
           >
-            <Link href="/list-property" className="explore-btn explore-btn-dark">
+            <Link href="/list-property" className={`explore-btn explore-btn-dark ${styles.heroMobileCtaBtn}`}>
               {data.hero.cta || 'Request a no-obligation consultation'}
               <BtnArrow />
             </Link>
+          </div>
+
+          {/* Mobile-only icon-stat row (client reference) — hidden on
+              tablet/desktop, same as the eyebrow above. */}
+          <div className={`${styles.heroMobileStats} reveal-base reveal-up delay-300 ${heroVisible ? 'is-revealed' : ''}`}>
+            {data.hero.mobileStats.map((item: any, idx: number) => (
+              <div key={idx} className={styles.heroMobileStat}>
+                <div className={styles.heroMobileStatIcon}>{getHeroStatIcon(idx)}</div>
+                <span className={styles.heroMobileStatLabel}>{item.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,9 +1,99 @@
 /* ==========================================================================
-   FOR OWNERS — page-scoped styles (everything below the hero)
+   FOR OWNERS — page-scoped styles (everything below the hero, plus a
+   mobile-only hero enhancement block below)
    Sharp corners, bronze/navy/cream language, CSS-driven interaction —
    matches the home page design system (see globals.css reveal + button
    systems, which this file extends rather than duplicates).
    ========================================================================== */
+
+/* ── Mobile-only hero enhancements ─────────────────────────────────────────
+   Client reference shows the hero with an "OUR SERVICES" eyebrow, a
+   solid-filled CTA, and a 3-icon stat row on phones only — desktop/tablet
+   keeps the plain hero (no eyebrow, no stat row) exactly as it was.
+   Both blocks are always rendered (same dual-render pattern as
+   SearchSection's desktop/mobile search bar); hidden here by default and
+   switched on inside the ≤768px query below. ────────────────────────────── */
+.heroMobileEyebrow { display: none; }
+.heroMobileStats { display: none; }
+
+@media (max-width: 768px) {
+  .heroMobileEyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .heroMobileEyebrowLine {
+    width: 28px;
+    height: 1px;
+    background-color: var(--bronze);
+    opacity: 0.55;
+  }
+  .heroMobileEyebrowText {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+
+  /* Client reference shows this CTA solid-filled on phones (same reasoning
+     as .properties-hero-btn: touch has no hover state to reveal the
+     desktop fill-on-hover treatment) — desktop keeps the outline style. */
+  .heroMobileCtaBtn {
+    background-color: var(--navy);
+    color: var(--white);
+    border-color: var(--bronze);
+    width: 100%;
+    max-width: 22rem;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.5;
+  }
+  .heroMobileCtaBtn .btn-arrow {
+    color: var(--white);
+  }
+
+  .heroMobileStats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 26rem;
+  }
+  .heroMobileStat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 0 0.5rem;
+    border-left: 1px solid rgba(175, 140, 83, 0.3);
+  }
+  .heroMobileStat:first-child {
+    border-left: none;
+  }
+  .heroMobileStatIcon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(175, 140, 83, 0.12);
+    color: var(--bronze);
+  }
+  .heroMobileStatLabel {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--navy);
+  }
+}
 
 /* ── Establishing shot ─────────────────────────────────────────────────── */
 .shotFrame {

@@ -433,6 +433,12 @@ export const de = {
       titleSerif: 'Erfolgreichen Abschlüssen.',
       subhead: 'Von Verkauf und Vermietung bis hin zu professionellen Bewertungen — wir stellen sicher, dass Ihre Immobilie die Expertise erhält, die sie verdient.',
       cta: 'Jetzt unverbindlich beraten lassen',
+      mobileEyebrow: 'UNSERE LEISTUNGEN',
+      mobileStats: [
+        { label: 'Verkauf & Vermietung' },
+        { label: 'Professionelle Bewertungen' },
+        { label: 'Fachkundige Beratung' },
+      ],
     },
     narrative: {
       tag: 'DIE HERAUSFORDERUNG',

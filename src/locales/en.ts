@@ -433,6 +433,14 @@ export const en = {
       titleSerif: 'Successful Deals.',
       subhead: 'From sales and rentals to professional valuations — we ensure your property receives the expertise it deserves.',
       cta: 'Request a no-obligation consultation',
+      // Mobile-only hero additions (client reference): eyebrow + icon-stat
+      // row shown below 768px only — desktop hero is unchanged.
+      mobileEyebrow: 'OUR SERVICES',
+      mobileStats: [
+        { label: 'Sales & Rentals' },
+        { label: 'Professional Valuations' },
+        { label: 'Expert Guidance' },
+      ],
     },
     narrative: {
       tag: 'THE CHALLENGE',
