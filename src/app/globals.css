@@ -5948,27 +5948,12 @@ body {
   .properties-hero-bg {
     background-position: center 20%;
   }
-  /* Mobile-only editorial photo below the headline/CTA — client reference
-     showed a full-bleed (edge-to-edge), arch-topped property photo here on
-     phones; reuses the home page's own hero photo (/HERO BG.png) for
-     consistency with the rest of the site's photography. Kept alongside
-     the other properties-hero mobile rules in this same block per the
-     mobile-css-override-layering lesson (one place for this page's mobile
-     tweaks, not scattered).
-     Needs its own stacking context: it's a direct child of
-     .properties-editorial-hero (a positioned ancestor) sitting alongside
-     .properties-hero-bg (z-index 0) and .properties-hero-overlay-cream
-     (z-index 1), both position:absolute and covering the whole hero. As a
-     plain static-flow box it would otherwise paint BEHIND those two full-
-     bleed absolute layers per CSS stacking order, not below them in the
-     visual sense — position:relative + z-index lifts it into the same
-     positioned-descendant paint step so it actually shows up. */
+  /* Mobile-only editorial photo below the headline/CTA — removed per client
+     request; kept the JSX/markup in PropertiesHero.tsx intact and just
+     force it hidden here so it stays off on mobile the same as it already
+     was on tablet/desktop (base .properties-hero-mobile-image rule). */
   .properties-hero-mobile-image {
-    display: block;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    margin-top: 2.75rem;
+    display: none;
   }
   .properties-hero-mobile-image-arch {
     width: 100%;
