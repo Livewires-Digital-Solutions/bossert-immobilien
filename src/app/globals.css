@@ -874,6 +874,23 @@ body {
   color: rgba(14, 21, 26, 0.8);
 }
 
+/* Services hero mobile-only additions (eyebrow tag + decorative corner
+   arcs) — hidden here by default so tablet/desktop render exactly as
+   before; shown only under the max-width:768px mobile breakpoint below. */
+.services-hero-eyebrow,
+.services-hero-arc {
+  display: none;
+}
+
+/* About hero mobile-only additions (eyebrow tag + CTA) — same pattern as
+   the services hero above: hidden by default so tablet/desktop render
+   exactly as before; shown only under the max-width:768px mobile
+   breakpoint below. */
+.about-hero-eyebrow,
+.about-hero-cta-wrap {
+  display: none;
+}
+
 .properties-grid-section {
   padding: 0 var(--gutter) 6rem var(--gutter);
   background-color: #ffffff;
@@ -5987,7 +6004,170 @@ body {
   .editorial-hero-line {
     width: 30px;
   }
-  
+
+  /* Services hero — mobile-only redesign matching the client reference
+     image: eyebrow tag with flanking lines, serif headline with a bronze
+     italic sub-line, flat cream background (illustration hidden), and a
+     solid navy CTA with a gold border/arrow. Everything here is scoped
+     under .services-editorial-hero (added alongside the shared
+     .properties-editorial-hero class in ServicesHero.tsx) so it can't leak
+     into the properties/knowledge/references/contact heroes that reuse the
+     same base .properties-editorial-hero/.editorial-* classes. */
+  .services-editorial-hero .properties-hero-bg,
+  .services-editorial-hero .properties-hero-overlay-cream {
+    display: none;
+  }
+  .services-editorial-hero {
+    /* Extra breathing room below the CTA so the corner arcs sit low and
+       faint, like the reference, instead of crowding the button. */
+    padding-bottom: 8rem;
+  }
+  .services-editorial-hero .services-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .services-editorial-hero .services-hero-eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background-color: var(--bronze);
+    opacity: 0.6;
+  }
+  .services-editorial-hero .services-hero-eyebrow-text {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+  .services-editorial-hero .editorial-headline {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: clamp(2.2rem, 8.5vw, 3rem);
+    line-height: 1.15;
+  }
+  .services-editorial-hero .editorial-headline .italic-serif {
+    color: var(--bronze);
+    font-size: clamp(2.4rem, 9vw, 3.2rem);
+  }
+  .services-editorial-hero .editorial-subhead {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(14, 21, 26, 0.65);
+    padding: 0 1rem;
+  }
+  .services-editorial-hero .services-hero-btn {
+    background-color: var(--navy);
+    color: var(--white);
+    border-radius: 0;
+  }
+  .services-editorial-hero .services-hero-btn .btn-arrow {
+    color: var(--gold, #9a7d54);
+  }
+  .services-editorial-hero .services-hero-arc {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    border: 1px solid var(--bronze);
+    opacity: 0.18;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .services-editorial-hero .services-hero-arc-left {
+    width: 260px;
+    height: 260px;
+    bottom: -190px;
+    left: -130px;
+  }
+  .services-editorial-hero .services-hero-arc-right {
+    width: 300px;
+    height: 300px;
+    bottom: -230px;
+    right: -170px;
+  }
+
+  /* About hero — mobile-only redesign matching the client reference image:
+     eyebrow tag with flanking lines, serif headline (bronze italic
+     sub-line), flat cream background (illustration hidden), and a navy
+     CTA with a bronze border. Scoped under .about-editorial-hero (added
+     alongside the shared .properties-editorial-hero class in
+     src/app/about/page.tsx) so it can't leak into the properties/
+     knowledge/references/contact/services heroes that reuse the same base
+     .properties-editorial-hero/.editorial-* classes.
+     font-size/line-height below are !important because the "MOBILE &
+     TABLET OVERRIDES (<=1024px)" block further down sets a blanket
+     `h1, .h1 { font-size ... !important }` — since the headline here is an
+     <h1>, only an !important of equal-or-higher specificity can win that
+     fight regardless of source order (see mobile-css-override-layering). */
+  .about-editorial-hero .properties-hero-bg,
+  .about-editorial-hero .properties-hero-overlay-cream {
+    display: none;
+  }
+  .about-editorial-hero {
+    padding-bottom: 5rem;
+  }
+  .about-editorial-hero .about-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .about-editorial-hero .about-hero-eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background-color: var(--bronze);
+    opacity: 0.6;
+  }
+  .about-editorial-hero .about-hero-eyebrow-text {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+  .about-editorial-hero .editorial-headline {
+    font-family: var(--font-serif) !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+    line-height: 1.15 !important;
+  }
+  .about-editorial-hero .editorial-headline .italic-serif {
+    color: var(--bronze);
+    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+  }
+  .about-editorial-hero .editorial-hero-bottom {
+    max-width: 480px;
+  }
+  .about-editorial-hero .editorial-subhead {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(14, 21, 26, 0.65);
+    padding: 0 1rem;
+  }
+  .about-editorial-hero .about-hero-cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .about-editorial-hero .about-hero-btn {
+    background-color: var(--navy);
+    color: var(--white);
+    border: 1.5px solid var(--bronze);
+    border-radius: 10px;
+  }
+  .about-editorial-hero .about-hero-btn .btn-arrow {
+    color: var(--white);
+  }
+
   .navbar {
     padding: 1.5rem 1rem;
     padding-top: max(1.5rem, env(safe-area-inset-top));

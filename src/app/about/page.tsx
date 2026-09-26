@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CtaSection from '@/components/CtaSection';
@@ -9,6 +10,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import ApproachHeadline from '@/components/ApproachHeadline';
 import HorizontalScrollPhilosophy from '@/components/HorizontalScrollPhilosophy';
 import AboutStats from '@/components/AboutStats';
+import BtnArrow from '@/components/BtnArrow';
 import Image from 'next/image';
 
 export default function AboutPage() {
@@ -60,13 +62,25 @@ export default function AboutPage() {
   return (
     <main style={{ backgroundColor: 'var(--cream)' }}>
       {/* 1. Hero Section — same bg image, fade, font, height and centered
-          text as the properties hero */}
-      <div className="properties-editorial-hero" ref={heroRef}>
+          text as the properties hero. On mobile only, this is restyled to
+          match the client reference image (eyebrow tag, serif headline
+          with a bronze sub-line, and a "Get in Touch" CTA) — scoped under
+          .about-editorial-hero so laptop/desktop keep the original layout
+          shared with the properties/services/contact/references heroes. */}
+      <div className="properties-editorial-hero about-editorial-hero" ref={heroRef}>
         <div className="properties-hero-bg" />
         <div className="properties-hero-overlay-cream" />
         <Navbar invertOnLoad={true} />
 
         <div className="editorial-hero-content">
+          {about.hero.tag && (
+            <div className={`about-hero-eyebrow reveal-base reveal-up ${heroVisible ? 'is-revealed' : ''}`}>
+              <span className="about-hero-eyebrow-line" />
+              <span className="about-hero-eyebrow-text">{about.hero.tag}</span>
+              <span className="about-hero-eyebrow-line" />
+            </div>
+          )}
+
           <div className="editorial-hero-middle">
             <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${heroVisible ? 'is-revealed' : ''}`}>
               {about.hero.title} <br /><span className="italic-serif">{about.hero.titleSerif}</span>
@@ -78,6 +92,15 @@ export default function AboutPage() {
               {about.hero.description}
             </p>
           </div>
+
+          {about.hero.cta && (
+            <div className={`about-hero-cta-wrap reveal-base reveal-up delay-300 ${heroVisible ? 'is-revealed' : ''}`}>
+              <Link href="/contact" className="explore-btn explore-btn-dark about-hero-btn">
+                {about.hero.cta}
+                <BtnArrow />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
