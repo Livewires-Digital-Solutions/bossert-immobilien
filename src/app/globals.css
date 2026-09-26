@@ -6161,7 +6161,7 @@ body {
   .about-editorial-hero .about-hero-btn {
     background-color: var(--navy);
     color: var(--white);
-    border: 1.5px solid var(--bronze);
+    border: 1px solid var(--bronze);
     border-radius: 10px;
   }
   .about-editorial-hero .about-hero-btn .btn-arrow {
