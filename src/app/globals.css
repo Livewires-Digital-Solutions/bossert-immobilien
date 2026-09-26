@@ -1446,8 +1446,8 @@ body {
 .nav-item {
   color: var(--white);
   text-decoration: none;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.825rem;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
   font-weight: 400;
   letter-spacing: 0.08em;
   padding: 0.5rem 0;
@@ -1481,8 +1481,8 @@ body {
   padding: 0.6rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
   text-decoration: none;
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.825rem;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
   font-weight: 400;
   letter-spacing: 0.08em;
   transition: all 0.3s ease;
@@ -1498,8 +1498,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.825rem;
-  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6875rem;
+  font-family: var(--font-serif);
   letter-spacing: 0.08em;
   color: var(--white);
 }
@@ -3519,12 +3519,11 @@ body {
 
 /* Properties page search section: same light theme as everywhere else
    (background, tab and text colors already match the base .search-tab /
-   .search-title / etc. styles above), just with the active tab kept white
-   instead of the base's navy fill, since the tab bar itself sits on cream
-   here rather than navy. */
+   .search-title / etc. styles above); active tab uses the base navy fill
+   with white text, same as everywhere else. */
 .search-section.search-section-dark .search-tab.active {
-  background: #ffffff;
-  color: var(--navy);
+  background: var(--navy);
+  color: var(--white);
 }
 
 .advanced-search-header {
