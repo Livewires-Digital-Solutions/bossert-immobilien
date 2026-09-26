@@ -32,7 +32,9 @@ export default function ReferencesHero() {
 
         <div className="editorial-hero-middle">
           <h1 className={`editorial-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
-            {referencesPageData.hero.title} <span className="italic-serif">{referencesPageData.hero.titleSerif}</span>
+            {referencesPageData.hero.title}
+            <br />
+            <span className="italic-serif">{referencesPageData.hero.titleSerif}</span>
           </h1>
         </div>
 

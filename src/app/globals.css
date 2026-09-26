@@ -2,7 +2,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Regular'), local('The Seasons'), local('TheSeasons-Reg'), local('FONTSPRING DEMO - The Seasons Regular'), local('FONTSPRING DEMO - The Seasons'),
-       url('/fonts/theseasons-reg.otf') format('opentype');
+    url('/fonts/theseasons-reg.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -11,7 +11,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Italic'), local('TheSeasons-Italic'), local('TheSeasons-It'), local('FONTSPRING DEMO - The Seasons Italic'),
-       url('/fonts/theseasons-it.otf') format('opentype');
+    url('/fonts/theseasons-it.otf') format('opentype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -20,7 +20,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold'), local('TheSeasons-Bold'), local('TheSeasons-Bd'), local('FONTSPRING DEMO - The Seasons Bold'),
-       url('/fonts/theseasons-bd.otf') format('opentype');
+    url('/fonts/theseasons-bd.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -29,7 +29,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Bold Italic'), local('TheSeasons-BoldItalic'), local('TheSeasons-BdIt'), local('FONTSPRING DEMO - The Seasons Bold Italic'),
-       url('/fonts/theseasons-bdit.otf') format('opentype');
+    url('/fonts/theseasons-bdit.otf') format('opentype');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -38,7 +38,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light'), local('TheSeasons-Light'), local('TheSeasons-Lt'), local('FONTSPRING DEMO - The Seasons Light Regular'),
-       url('/fonts/theseasons-lt.otf') format('opentype');
+    url('/fonts/theseasons-lt.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -47,7 +47,7 @@
 @font-face {
   font-family: 'The Seasons';
   src: local('The Seasons Light Italic'), local('TheSeasons-LightItalic'), local('TheSeasons-LtIt'), local('FONTSPRING DEMO - The Seasons Light Italic'),
-       url('/fonts/theseasons-ltit.otf') format('opentype');
+    url('/fonts/theseasons-ltit.otf') format('opentype');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -101,7 +101,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   overflow-x: clip;
 }
 
@@ -121,7 +122,10 @@ html {
 /* G-04: only two fonts on the site (Inter, The Seasons) — form controls
    don't inherit the page font by default, so they'd silently fall back to
    the browser's UI font (e.g. Arial) without this. */
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
@@ -136,13 +140,16 @@ body {
   width: 10px;
   height: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--navy);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--bronze);
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cream);
 }
@@ -186,11 +193,17 @@ body {
 }
 
 @keyframes heroEnter {
-  from { transform: scale(0.98); }
-  to   { transform: scale(1.08); }
+  from {
+    transform: scale(0.98);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .hero-bg-image,
   .hero-bg-image.is-zooming {
     animation: none;
@@ -215,12 +228,29 @@ body {
   filter: blur(0);
 }
 
-.hero-section .delay-100 { transition-delay: 70ms; }
-.hero-section .delay-200 { transition-delay: 150ms; }
-.hero-section .delay-300 { transition-delay: 230ms; }
-.hero-section .delay-400 { transition-delay: 330ms; }
-.hero-section .delay-500 { transition-delay: 430ms; }
-.hero-section .delay-600 { transition-delay: 540ms; }
+.hero-section .delay-100 {
+  transition-delay: 70ms;
+}
+
+.hero-section .delay-200 {
+  transition-delay: 150ms;
+}
+
+.hero-section .delay-300 {
+  transition-delay: 230ms;
+}
+
+.hero-section .delay-400 {
+  transition-delay: 330ms;
+}
+
+.hero-section .delay-500 {
+  transition-delay: 430ms;
+}
+
+.hero-section .delay-600 {
+  transition-delay: 540ms;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hero-section .reveal-base {
@@ -231,8 +261,15 @@ body {
 }
 
 @keyframes fadeSlideDown {
-  0% { transform: translateY(-20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .hero-overlay {
@@ -241,30 +278,24 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     /* Bottom fade to navy */
     linear-gradient(to bottom, rgba(4, 36, 51, 0) 70%, var(--navy) 100%),
     /* Left side dark vignette */
-    linear-gradient(
-      to right, 
-      rgba(4, 36, 51, 0.75) 0%, 
-      rgba(4, 36, 51, 0.2) 40%, 
-      rgba(4, 36, 51, 0.3) 100%
-    ),
+    linear-gradient(to right,
+      rgba(4, 36, 51, 0.75) 0%,
+      rgba(4, 36, 51, 0.2) 40%,
+      rgba(4, 36, 51, 0.3) 100%),
     /* Primary-blue ambient glow — left side (strong) */
-    linear-gradient(
-      to right,
+    linear-gradient(to right,
       color-mix(in srgb, var(--blue) 42%, transparent) 0%,
       color-mix(in srgb, var(--blue) 24%, transparent) 30%,
       color-mix(in srgb, var(--blue-dark) 8%, transparent) 60%,
-      transparent 85%
-    ),
-    radial-gradient(
-      ellipse 80% 100% at -5% 50%,
+      transparent 85%),
+    radial-gradient(ellipse 80% 100% at -5% 50%,
       color-mix(in srgb, var(--blue) 46%, transparent) 0%,
       color-mix(in srgb, var(--blue-dark) 22%, transparent) 45%,
-      transparent 80%
-    );
+      transparent 80%);
   z-index: 1;
 }
 
@@ -300,7 +331,8 @@ body {
 .hc-center-card,
 .hc-side-card {
   background: var(--white);
-  border-radius: 12px; /* Smooth, elegant corner radius */
+  border-radius: 12px;
+  /* Smooth, elegant corner radius */
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
@@ -325,7 +357,8 @@ body {
 }
 
 .hc-side-left {
-  right: calc(50% + 120px); /* 350/2 = 175. So it overlaps by 55px */
+  right: calc(50% + 120px);
+  /* 350/2 = 175. So it overlaps by 55px */
 }
 
 .hc-side-right {
@@ -338,7 +371,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(4, 36, 51, 0.08); /* Subtle dimming */
+  background: rgba(4, 36, 51, 0.08);
+  /* Subtle dimming */
   border-radius: 12px;
   z-index: 50;
   pointer-events: none;
@@ -347,7 +381,8 @@ body {
 /* Internal Card Layout */
 .hc-image-wrap {
   width: 100%;
-  height: 48%; /* Slightly taller image */
+  height: 48%;
+  /* Slightly taller image */
   margin-bottom: 1.2rem;
 }
 
@@ -356,7 +391,8 @@ body {
   height: 100%;
   background-size: cover;
   background-position: center;
-  border-radius: 10px; /* Matching inner radius */
+  border-radius: 10px;
+  /* Matching inner radius */
 }
 
 .hc-body {
@@ -395,7 +431,7 @@ body {
   color: var(--white);
   padding: 0.8rem 1.4rem;
   border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   text-decoration: none;
   font-family: var(--font-inter), sans-serif;
   font-size: 0.7rem;
@@ -427,7 +463,8 @@ body {
 /* Nav Buttons */
 .hc-nav {
   position: absolute;
-  top: 30%; /* Align with the images, NOT the entire card, to prevent overlapping text */
+  top: 30%;
+  /* Align with the images, NOT the entire card, to prevent overlapping text */
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
@@ -455,7 +492,8 @@ body {
 }
 
 .hc-nav-prev {
-  left: calc(50% - 175px - 24px); /* Center card is 350px wide -> half is 175px. */
+  left: calc(50% - 175px - 24px);
+  /* Center card is 350px wide -> half is 175px. */
 }
 
 .hc-nav-next {
@@ -603,7 +641,7 @@ body {
 .intro-promo-body {
   font-size: 0.95rem;
   line-height: 1.8;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
   max-width: 600px;
   letter-spacing: 0.01em;
 }
@@ -666,6 +704,7 @@ body {
     padding: 6rem 2rem;
     min-height: unset;
   }
+
   .intro-promo-headline {
     font-size: 2rem;
   }
@@ -754,6 +793,7 @@ body {
 .properties-mobile-br {
   display: none;
 }
+
 .properties-hero-mobile-image {
   display: none;
 }
@@ -952,7 +992,8 @@ body {
 }
 
 .properties-grid-section .explore-container {
-  gap: 1.5rem; /* Override default 4rem gap */
+  gap: 1.5rem;
+  /* Override default 4rem gap */
 }
 
 .results-count {
@@ -1605,6 +1646,7 @@ body {
   gap: 1rem;
   letter-spacing: -3px;
 }
+
 .headline-bottom span:first-child {
   font-weight: 400;
   mix-blend-mode: exclusion;
@@ -1631,7 +1673,8 @@ body {
      out of proportion as it grows. */
   --hsc2-w: clamp(300px, calc(300px + (100vw - 1920px) * 0.143), 440px);
   --hsc2-h: calc(var(--hsc2-w) * 1.5667);
-  --hsc2-spread: calc(var(--hsc2-w) * 0.32);   /* how far the prev/next cards sit from centre */
+  --hsc2-spread: calc(var(--hsc2-w) * 0.32);
+  /* how far the prev/next cards sit from centre */
   --hsc2-side-scale: 0.85;
 }
 
@@ -1650,22 +1693,28 @@ body {
 .main-grid.has-carousel {
   align-items: center;
 }
+
 .main-grid.has-carousel .hero-right {
   margin-right: clamp(0.5rem, 3vw, 2.5rem);
 }
+
 .main-grid.has-carousel .left-content {
   max-width: var(--hero-left-max);
   margin-left: clamp(0.5rem, 2vw, 1.5rem);
 }
+
 .main-grid.has-carousel .hero-headline {
   max-width: 100%;
 }
+
 .main-grid.has-carousel .hero-headline-top {
   font-size: clamp(2.5rem, 4.5vw, 4.8rem);
 }
+
 .main-grid.has-carousel .hero-headline-mid {
   font-size: clamp(2.5rem, 4.5vw, 4.8rem);
 }
+
 .main-grid.has-carousel .hero-headline-bot {
   font-size: clamp(2.5rem, 4.5vw, 4.8rem);
 }
@@ -1676,10 +1725,12 @@ body {
     max-width: 100%;
     margin-left: 0;
   }
+
   .main-grid.has-carousel .hero-right {
     margin-right: 0;
     width: 100%;
   }
+
   .main-grid.has-carousel .hero-headline-top,
   .main-grid.has-carousel .hero-headline-mid,
   .main-grid.has-carousel .hero-headline-bot {
@@ -1732,6 +1783,7 @@ body {
   border-radius: 0;
   overflow: hidden;
 }
+
 .hsc2-img::after {
   content: '';
   position: absolute;
@@ -1773,10 +1825,12 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
-.hsc2-category > span:not(.hsc2-cat-line) {
+
+.hsc2-category>span:not(.hsc2-cat-line) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .hsc2-cat-line {
   display: inline-block;
   width: 18px;
@@ -1795,6 +1849,7 @@ body {
   margin: 0.05rem 0 0;
   overflow-wrap: break-word;
 }
+
 .hsc2-title em {
   font-style: normal;
   color: var(--bronze, #AF8C53);
@@ -1840,15 +1895,18 @@ body {
   pointer-events: auto;
   transition: background 0.28s ease;
 }
+
 .hsc2-btn:hover {
   background: var(--navy, #042433);
 }
+
 .hsc2-btn-text {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .hsc2-btn-badge {
   display: inline-flex;
   align-items: center;
@@ -1860,6 +1918,7 @@ body {
   flex-shrink: 0;
   transition: transform 0.28s ease;
 }
+
 .hsc2-btn:hover .hsc2-btn-badge {
   transform: translateX(3px);
 }
@@ -1949,14 +2008,21 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 14px 2px rgba(255, 255, 255, 0.18);
   transition: background 0.28s ease, border-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
 }
+
 .hsc2-nav:hover {
   background: var(--bronze, #AF8C53);
   border-color: var(--bronze, #AF8C53);
   color: #fff;
   box-shadow: 0 0 18px 3px rgba(175, 140, 83, 0.65);
 }
-.hsc2-nav-prev { left: -27px; }
-.hsc2-nav-next { right: -27px; }
+
+.hsc2-nav-prev {
+  left: -27px;
+}
+
+.hsc2-nav-next {
+  right: -27px;
+}
 
 /* ── Thin-line progress indicator ── */
 .hsc2-dots {
@@ -1964,6 +2030,7 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
+
 .hsc2-dot {
   width: 32px;
   height: 2px;
@@ -1974,6 +2041,7 @@ body {
   padding: 0;
   transition: width 0.35s ease, background 0.35s ease;
 }
+
 .hsc2-dot-active {
   width: 40px;
   background: var(--bronze, #AF8C53);
@@ -1984,17 +2052,32 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .main-grid.has-carousel { align-items: flex-start; }
-  .main-grid.has-carousel .left-content { max-width: 100%; margin-left: 0; }
-  .hero-right { width: 100%; justify-content: center; }
+  .main-grid.has-carousel {
+    align-items: flex-start;
+  }
+
+  .main-grid.has-carousel .left-content {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .hero-right {
+    width: 100%;
+    justify-content: center;
+  }
+
   /* The carousel is centered as its own row here, so drop the desktop-only
      leftward shift. A transform never reserves layout space, so the old
      translateY(42px) scale(1.14) painted past the wrapper's real box and
      spilled into whatever section follows once the headline+carousel stack
      no longer fits in the hero's 100vh — use real margin plus a modest
      scale instead so the visual size stays close to the box it occupies. */
-  .hsc2-wrapper { transform: scale(1.05); margin-top: 2.5rem; }
+  .hsc2-wrapper {
+    transform: scale(1.05);
+    margin-top: 2.5rem;
+  }
 }
+
 /* ── Mobile (<=768px): single-card scroll-snap swipe view ──
    The desktop version stacks all three slides on the same anchor point
    and offsets prev/next by --hsc2-spread with a scale-down + z-index, so
@@ -2013,6 +2096,7 @@ body {
     width: 100%;
     padding: 0 0.25rem;
   }
+
   .hsc2-mobile-title {
     display: flex;
     align-items: center;
@@ -2024,6 +2108,7 @@ body {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.85);
   }
+
   .hsc2-mobile-line {
     display: inline-block;
     width: 18px;
@@ -2031,6 +2116,7 @@ body {
     background: var(--bronze, #AF8C53);
     flex-shrink: 0;
   }
+
   .hsc2-mobile-counter {
     font-family: var(--font-inter), sans-serif;
     font-size: 0.6rem;
@@ -2051,6 +2137,7 @@ body {
     gap: 0.85rem;
     padding: 0 3.25rem 0 1.25rem;
   }
+
   .hsc2-root::-webkit-scrollbar {
     display: none;
   }
@@ -2077,6 +2164,7 @@ body {
     cursor: auto !important;
     transition: opacity 0.3s ease;
   }
+
   .hsc2-slide[data-hidden='true'] {
     opacity: 1 !important;
   }
@@ -2087,15 +2175,18 @@ body {
     transform: none;
     margin-top: 1.5rem;
   }
+
   .hsc2-stage {
     width: 100%;
     justify-content: flex-start;
   }
+
   .hsc2-card {
     width: 100%;
     height: auto;
     padding: 0.75rem 0.75rem 0;
   }
+
   /* .hsc2-img's base rule sizes it via flex: 0 0 44% — a percentage
      flex-basis needs a definite-height parent to resolve against, and
      .hsc2-card is height:auto here (deliberately, so it grows to fit
@@ -2120,10 +2211,20 @@ body {
 }
 
 @media (max-width: 400px) {
-  .hsc2-title { font-size: 1.1rem; }
-  .hsc2-desc { font-size: 0.72rem; }
+  .hsc2-title {
+    font-size: 1.1rem;
+  }
+
+  .hsc2-desc {
+    font-size: 0.72rem;
+  }
+
   /* Longer DE/NL button labels need a bit more breathing room at this size. */
-  .hsc2-btn { font-size: 0.56rem; letter-spacing: 0.16em; padding: 0.5rem 0.45rem 0.5rem 0.8rem; }
+  .hsc2-btn {
+    font-size: 0.56rem;
+    letter-spacing: 0.16em;
+    padding: 0.5rem 0.45rem 0.5rem 0.8rem;
+  }
 }
 
 .experience-text {
@@ -2148,7 +2249,7 @@ body {
   -webkit-backdrop-filter: blur(10px) saturate(1.8) brightness(0.9);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 24px;
-  box-shadow: 
+  box-shadow:
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 1px 0 rgba(0, 0, 0, 0.1),
     0 10px 40px rgba(0, 0, 0, 0.2);
@@ -2179,6 +2280,7 @@ body {
   padding-left: 2.5rem;
   margin-bottom: 0.75rem;
 }
+
 /* Vertical accent line — draws downward once the intro gate opens,
    instead of sitting on screen fully formed. */
 .hero-top-group::before {
@@ -2193,6 +2295,7 @@ body {
   transform: scaleY(0);
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .hero-top-group.is-revealed::before {
   transform: scaleY(1);
 }
@@ -2203,10 +2306,12 @@ body {
     transform: scaleY(1);
     opacity: 0;
   }
+
   .hero-top-group.is-revealed::before {
     opacity: 1;
   }
 }
+
 .since-text {
   font-family: var(--font-serif);
   font-size: 1.05rem;
@@ -2217,12 +2322,14 @@ body {
   margin-bottom: 1.5rem;
   font-weight: 500;
 }
+
 .hero-headline {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
   max-width: 820px;
 }
+
 .hero-headline-top {
   font-family: var(--font-serif);
   font-style: normal;
@@ -2237,6 +2344,7 @@ body {
   display: inline-block;
   max-width: 100%;
 }
+
 .hero-headline-mid {
   font-family: var(--font-serif);
   font-style: normal;
@@ -2250,9 +2358,11 @@ body {
   display: inline-block;
   max-width: 100%;
 }
+
 .hero-headline-accent {
   color: var(--white, #fff);
 }
+
 .hero-headline-bot {
   font-family: var(--font-serif);
   font-style: normal;
@@ -2265,6 +2375,7 @@ body {
   display: inline-block;
   max-width: 100%;
 }
+
 .hero-headline-bot span {
   font-weight: 300;
   opacity: 0.9;
@@ -2272,9 +2383,12 @@ body {
 
 /* Desktop: pin to a single line (nowrap) once there's enough room */
 @media (min-width: 769px) {
+
   .hero-headline-top,
   .hero-headline-mid,
-  .hero-headline-bot { white-space: nowrap; }
+  .hero-headline-bot {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2282,15 +2396,18 @@ body {
     font-size: clamp(2.2rem, 9vw, 3.5rem);
     line-height: 1.0;
   }
+
   .hero-headline-mid {
     font-size: clamp(2.2rem, 9vw, 3.5rem);
     line-height: 1.0;
   }
+
   .hero-headline-bot {
     font-size: clamp(2.2rem, 9vw, 3.5rem);
     line-height: 1.0;
   }
 }
+
 .hero-subhead {
   font-family: var(--font-serif);
   font-style: normal;
@@ -2304,6 +2421,7 @@ body {
      vertical accent line) so the whole left column shares one edge. */
   padding-left: 2.5rem;
 }
+
 .hero-desc {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(0.875rem, 1.5vw, 1rem);
@@ -2314,6 +2432,7 @@ body {
   font-weight: 300;
   padding-left: 2.5rem;
 }
+
 .hero-section .explore-btn {
   margin-left: 2.5rem;
 }
@@ -2346,7 +2465,7 @@ body {
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
   font-family: var(--font-inter), sans-serif;
   writing-mode: horizontal-tb;
 }
@@ -2355,11 +2474,9 @@ body {
 .scroll-line {
   width: 1px;
   height: 40px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.7) 0%,
-    rgba(255,255,255,0) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -2371,18 +2488,21 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.9) 50%,
-    rgba(255,255,255,0) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 0) 100%);
   animation: scrollLine 1.8s ease-in-out infinite;
 }
 
 @keyframes scrollLine {
-  0%   { top: -100%; }
-  100% { top: 100%; }
+  0% {
+    top: -100%;
+  }
+
+  100% {
+    top: 100%;
+  }
 }
 
 /* ── Global Elegant Button System ──────────────────────────────────── */
@@ -2392,7 +2512,7 @@ body {
   gap: 1.25rem;
   background: transparent;
   color: var(--white, #fff);
-  border: 1px solid rgba(255,255,255,0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   padding: 1rem 1.5rem;
   border-radius: 4px;
   text-decoration: none;
@@ -2411,6 +2531,7 @@ body {
   justify-content: center;
   flex-shrink: 0;
 }
+
 .btn-arrow svg {
   display: block;
 }
@@ -2470,6 +2591,7 @@ body {
   gap: 0.5rem;
   margin-bottom: 3rem;
 }
+
 .dot {
   width: 6px;
   height: 6px;
@@ -2480,6 +2602,7 @@ body {
 .services-headline {
   margin-bottom: 2rem;
 }
+
 .headline-top-s {
   font-family: var(--font-serif);
   font-size: clamp(1.7rem, 2.8vw, 2.6rem);
@@ -2489,6 +2612,7 @@ body {
   line-height: 1.4;
   white-space: nowrap;
 }
+
 .headline-mid-s {
   font-family: var(--font-serif);
   font-style: normal;
@@ -2500,6 +2624,7 @@ body {
   line-height: 1.4;
   white-space: nowrap;
 }
+
 .headline-mid-s span {
   font-weight: 400;
 }
@@ -2532,7 +2657,8 @@ body {
 
 .accordion-card {
   flex: 1 1 0%;
-  min-width: 0; /* Prevents flex children from overflowing the window horizontally */
+  min-width: 0;
+  /* Prevents flex children from overflowing the window horizontally */
   border-radius: 4px;
   position: relative;
   overflow: hidden;
@@ -2683,7 +2809,10 @@ body {
   transition-delay: 0.1s;
 }
 
-.card-top, .card-watermark, .card-subtitle, .card-link {
+.card-top,
+.card-watermark,
+.card-subtitle,
+.card-link {
   transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transform: translateY(0);
 }
@@ -2743,7 +2872,7 @@ body {
    on that boundary rather than sitting fully beneath it. Transform doesn't
    touch layout flow, so margin-bottom pulls the following section up by the
    same amount to close the gap this would otherwise leave behind. */
-.properties-editorial-hero + .search-section.search-section-dark {
+.properties-editorial-hero+.search-section.search-section-dark {
   position: relative;
   /* Above .properties-grid-section (z-index: 10) — this section is its own
      stacking context, so anything inside (like an open filter dropdown that
@@ -2897,9 +3026,11 @@ body {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
+
   .search-tabs-wrapper::-webkit-scrollbar {
     display: none;
   }
+
   .search-tabs-container {
     width: max-content;
   }
@@ -3305,11 +3436,13 @@ body {
     padding: 1.5rem clamp(0.85rem, 0.45rem + 2vw, 1.25rem) 1.5rem;
     border-radius: 22px;
   }
+
   .search-card-tabs {
     gap: 0.4rem;
     margin-bottom: 1.25rem;
     flex-wrap: nowrap;
   }
+
   .search-card-tab {
     flex: 1;
     justify-content: center;
@@ -3322,10 +3455,12 @@ body {
     text-align: center;
     line-height: 1.15;
   }
+
   .search-card-tab svg {
     width: 15px;
     height: 15px;
   }
+
   .search-card-location {
     /* Fluid instead of one fixed value: at the 768px edge of this
        breakpoint these resolve to ~the old fixed numbers, but they shrink
@@ -3339,31 +3474,38 @@ body {
     margin-bottom: 0.75rem;
     gap: clamp(0.5rem, 0.2rem + 1.3vw, 0.75rem);
   }
+
   .search-input {
     font-size: clamp(0.8rem, 0.66rem + 0.6vw, 0.95rem);
   }
+
   .locate-me-btn {
     width: clamp(30px, 6vw, 36px);
     height: clamp(30px, 6vw, 36px);
   }
+
   .search-card-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
   }
+
   .search-field-box {
     border-radius: 16px;
     padding: 0.95rem 1.1rem;
   }
+
   .search-card-footer {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
   }
+
   .advanced-search-link {
     justify-content: center;
     padding: 0.5rem 0;
   }
+
   .search-card-submit {
     width: 100%;
     justify-content: center;
@@ -3405,9 +3547,11 @@ body {
   .properties-search-desktop-only {
     display: none !important;
   }
+
   .properties-search-mobile-card {
     display: flex;
   }
+
   .properties-mobile-search-heading {
     display: flex;
     flex-direction: column;
@@ -3416,6 +3560,7 @@ body {
     gap: 0.6rem;
     margin-bottom: 1.75rem;
   }
+
   .properties-mobile-search-heading-eyebrow {
     font-family: var(--font-inter), sans-serif;
     font-size: 0.68rem;
@@ -3424,6 +3569,7 @@ body {
     text-transform: uppercase;
     color: var(--bronze);
   }
+
   .properties-mobile-search-heading-title {
     font-family: var(--font-serif);
     font-size: clamp(1.6rem, 6.5vw, 2.1rem);
@@ -3540,6 +3686,7 @@ body {
   overflow: hidden;
   border-top: 1px solid transparent;
 }
+
 .advanced-filters-wrapper.open {
   grid-template-rows: 1fr;
   background: var(--white);
@@ -3550,6 +3697,7 @@ body {
   box-shadow: 0 16px 36px rgba(4, 36, 51, 0.04);
   overflow: visible;
 }
+
 .advanced-filters-content {
   min-height: 0;
   display: flex;
@@ -3558,6 +3706,7 @@ body {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
+
 .advanced-filters-wrapper.open .advanced-filters-content {
   opacity: 1;
   transition-delay: 0.05s;
@@ -3610,6 +3759,7 @@ body {
   gap: 0.5rem;
   background: var(--white);
 }
+
 .adv-input-group input {
   border: none;
   background: transparent;
@@ -3620,10 +3770,12 @@ body {
   outline: none;
   min-width: 0;
 }
+
 .adv-input-group input::placeholder {
   color: var(--navy);
   opacity: 0.5;
 }
+
 .adv-input-group span {
   font-size: 0.8rem;
   color: var(--navy);
@@ -3641,6 +3793,7 @@ body {
   color: var(--navy);
   cursor: pointer;
 }
+
 .adv-dropdown svg {
   opacity: 0.4;
 }
@@ -3655,6 +3808,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .adv-checkboxes label {
   display: flex;
   align-items: center;
@@ -3663,6 +3817,7 @@ body {
   color: var(--navy);
   cursor: pointer;
 }
+
 .adv-checkboxes input[type="checkbox"] {
   width: 14px;
   height: 14px;
@@ -3671,10 +3826,12 @@ body {
   appearance: none;
   cursor: pointer;
 }
+
 .adv-checkboxes input[type="checkbox"]:checked {
   background-color: var(--navy);
   border-color: var(--navy);
 }
+
 .adv-checkboxes label svg {
   opacity: 0.6;
 }
@@ -3717,6 +3874,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .adv-submit:hover {
   background-color: var(--cream);
   color: var(--navy);
@@ -3729,6 +3887,7 @@ body {
     opacity: 0;
     transform: translateY(-10px) scale(0.95);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -3754,6 +3913,7 @@ body {
   transform-origin: top center;
   animation: dropdown-pop 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55) forwards;
 }
+
 .dropdown-item {
   padding: 0.6rem 1.5rem;
   font-size: 0.85rem;
@@ -3761,9 +3921,11 @@ body {
   cursor: pointer;
   transition: background 0.2s ease;
 }
+
 .dropdown-item:hover {
   background: rgba(4, 36, 51, 0.04);
 }
+
 .dropdown-header {
   padding: 1rem 1.5rem 0.2rem 1.5rem;
   font-size: 0.65rem;
@@ -3773,6 +3935,7 @@ body {
   opacity: 0.5;
   text-transform: uppercase;
 }
+
 .dropdown-item.sub-item {
   padding-left: 2.5rem;
   position: relative;
@@ -4331,13 +4494,27 @@ body {
 }
 
 @keyframes testFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes testFadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-6px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
 }
 
 .test-quote-text {
@@ -4394,15 +4571,18 @@ body {
   .testimonial-section {
     padding: 5rem 1.5rem;
   }
+
   .test-carousel {
     gap: 1rem;
     min-height: 200px;
   }
+
   .test-arrow-plain {
     /* Was 36px — under the 44px minimum touch target. */
     width: 44px;
     height: 44px;
   }
+
   .test-quote-icon {
     font-size: 2.25rem;
   }
@@ -4523,6 +4703,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   /* Client reference screenshot (2026-09-26) shows this section unboxed on
      phones — headline/desc/button sit directly on the cream background
      instead of inside the bordered/padded card, and the kicker line above
@@ -4542,6 +4723,7 @@ body {
   .action-prompt-brand {
     display: none;
   }
+
   /* The button sizes to its own content by default, so it doesn't reach
      the card's padding edge on either side — full-width makes both its
      edges line up exactly with the card's padding box instead. Reference
@@ -4556,6 +4738,7 @@ body {
     color: var(--white);
     border-radius: 14px;
   }
+
   .action-prompt-btn .btn-arrow {
     color: var(--white);
   }
@@ -4803,13 +4986,11 @@ body {
 .cta-col-divider {
   width: 1px;
   align-self: stretch;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(4, 36, 51, 0.15) 15%,
-    rgba(4, 36, 51, 0.15) 85%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(4, 36, 51, 0.15) 15%,
+      rgba(4, 36, 51, 0.15) 85%,
+      transparent 100%);
   margin: 0 3rem;
 }
 
@@ -4849,7 +5030,8 @@ body {
   font-weight: 400;
 }
 
-.cta-input, .cta-textarea {
+.cta-input,
+.cta-textarea {
   width: 100%;
   background: transparent;
   border: none;
@@ -4863,12 +5045,14 @@ body {
   box-sizing: border-box;
 }
 
-.cta-input::placeholder, .cta-textarea::placeholder {
+.cta-input::placeholder,
+.cta-textarea::placeholder {
   color: rgba(4, 36, 51, 0.3);
   font-weight: 300;
 }
 
-.cta-input:focus, .cta-textarea:focus {
+.cta-input:focus,
+.cta-textarea:focus {
   border-bottom-color: var(--navy);
 }
 
@@ -4919,6 +5103,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   /* .cta-form-row is a 2-column grid (Name/Email) with no mobile override
      anywhere in the file — the generic override block elsewhere targets
      .form-row/.lead-form-row (different components), not this class, so
@@ -4927,10 +5112,12 @@ body {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
   .cta-input,
   .cta-textarea {
     min-height: 48px;
   }
+
   /* border-bottom-color alone (the desktop focus state) is faint —
      rgba(4,36,51,0.18) to solid navy — and outline:none removes the
      native ring entirely. Bronze + a thicker line reads clearly. */
@@ -4939,6 +5126,7 @@ body {
     border-bottom: 2px solid var(--bronze);
     padding-bottom: calc(0.75rem - 1px);
   }
+
   .cta-submit-btn {
     width: 100%;
     justify-content: center;
@@ -4951,22 +5139,23 @@ body {
   .cta-section {
     padding: 4rem 2rem;
   }
+
   .cta-inner-card {
     grid-template-columns: 1fr;
     padding: 3rem 2.5rem;
   }
+
   .cta-col-divider {
     width: 100%;
     height: 1px;
     margin: 2.5rem 0;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(4, 36, 51, 0.15) 20%,
-      rgba(4, 36, 51, 0.15) 80%,
-      transparent 100%
-    );
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(4, 36, 51, 0.15) 20%,
+        rgba(4, 36, 51, 0.15) 80%,
+        transparent 100%);
   }
+
   .cta-text-col {
     padding-right: 0;
   }
@@ -4976,6 +5165,7 @@ body {
   .cta-form-row {
     grid-template-columns: 1fr;
   }
+
   .cta-inner-card {
     padding: 2rem 1.5rem;
   }
@@ -5152,13 +5342,11 @@ body {
   width: 1px;
   align-self: stretch;
   margin: 0 3rem;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(4, 36, 51, 0.15) 15%,
-    rgba(4, 36, 51, 0.15) 85%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(4, 36, 51, 0.15) 15%,
+      rgba(4, 36, 51, 0.15) 85%,
+      transparent 100%);
 }
 
 /* ── Right form column ── */
@@ -5173,29 +5361,31 @@ body {
     align-items: flex-start;
     padding: 7rem 1.5rem 3.5rem;
   }
+
   .auth-card {
     max-width: 460px;
     grid-template-columns: 1fr;
     padding: 2.5rem 1.75rem;
   }
+
   .auth-brand-col {
     padding-right: 0;
     gap: 1.1rem;
   }
+
   .auth-brand-note {
     display: none;
   }
+
   .auth-col-divider {
     width: 100%;
     height: 1px;
     margin: 1.75rem 0;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(4, 36, 51, 0.15) 20%,
-      rgba(4, 36, 51, 0.15) 80%,
-      transparent 100%
-    );
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(4, 36, 51, 0.15) 20%,
+        rgba(4, 36, 51, 0.15) 80%,
+        transparent 100%);
   }
 }
 
@@ -5203,6 +5393,7 @@ body {
   .auth-page {
     padding: 6.5rem 1rem 3rem;
   }
+
   .auth-card {
     padding: 2.25rem 1.35rem;
   }
@@ -5311,6 +5502,7 @@ body {
   transform: translateX(4px);
   opacity: 1;
 }
+
 /* Legacy "Footer (Reference Design)" block removed here — .site-footer-wrapper,
    .footer-image-band, .footer-nav-row, .site-footer, .footer-grid, .footer-links,
    .footer-col-title, .footer-subscribe-*, .footer-contact-block, .footer-socials,
@@ -5356,17 +5548,20 @@ body {
 .hamburger-btn.open span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
+
 .hamburger-btn.open span:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
+
 .hamburger-btn.open span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Mobile right-side group (lang + hamburger) */
 .mobile-nav-right {
-  display: none; /* hidden on desktop */
+  display: none;
+  /* hidden on desktop */
   opacity: 0;
   animation: fadeSlideDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
   align-items: center;
@@ -5463,6 +5658,7 @@ body {
 .mobile-lang-pill .lang-globe-icon {
   stroke: var(--white);
 }
+
 .mobile-lang-pill-code {
   color: var(--white);
 }
@@ -5471,9 +5667,11 @@ body {
 .navbar.navbar-invert .mobile-lang-pill {
   background: rgba(4, 36, 51, 0.05);
 }
+
 .navbar.navbar-invert .mobile-lang-pill .lang-globe-icon {
   stroke: var(--navy) !important;
 }
+
 .navbar.navbar-invert .mobile-lang-pill-code {
   color: var(--navy);
 }
@@ -5482,9 +5680,11 @@ body {
 .navbar.fixed .mobile-lang-pill {
   background: rgba(255, 255, 255, 0.08);
 }
+
 .navbar.fixed .mobile-lang-pill .lang-globe-icon {
   stroke: var(--white) !important;
 }
+
 .navbar.fixed .mobile-lang-pill-code {
   color: var(--white);
 }
@@ -5494,9 +5694,11 @@ body {
 .navbar.navbar-properties.fixed .mobile-lang-pill {
   background: rgba(4, 36, 51, 0.05);
 }
+
 .navbar.navbar-properties.fixed .mobile-lang-pill .lang-globe-icon {
   stroke: var(--navy) !important;
 }
+
 .navbar.navbar-properties.fixed .mobile-lang-pill-code {
   color: var(--navy);
 }
@@ -5604,6 +5806,7 @@ body {
 .mobile-nav-item-login {
   gap: 0.6rem;
 }
+
 .mobile-nav-item-login svg {
   flex-shrink: 0;
   opacity: 0.8;
@@ -5650,6 +5853,7 @@ body {
    TABLET & SMALL LAPTOP â€” max-width: 1250px
    ============================================= */
 @media (max-width: 1250px) {
+
   /* Navbar: hamburger (left) / logo (true center) / EN-DE toggle (right).
      grid-row is pinned explicitly on all three — without it, CSS Grid's
      auto-placement starts a new implicit row whenever an item's explicit
@@ -5677,25 +5881,30 @@ body {
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
   }
+
   .desktop-nav {
     display: none;
   }
+
   .mobile-only-hamburger {
     grid-row: 1;
     grid-column: 1;
     justify-self: start;
   }
+
   .mobile-only-logo {
     grid-row: 1;
     grid-column: 2;
     justify-self: center;
   }
+
   .mobile-nav-right {
     display: flex;
     grid-row: 1;
     grid-column: 3;
     justify-self: end;
   }
+
   .hamburger-btn {
     display: flex;
   }
@@ -5724,16 +5933,20 @@ body {
     height: auto;
     min-height: 100vh;
   }
+
   .hero-content {
     padding: 7rem 2rem 2rem 2rem;
   }
+
   .main-grid {
     flex-direction: column;
     gap: 3rem;
   }
+
   .left-content {
     max-width: 100%;
   }
+
   /* Tablet counterpart of the mobile (<=768px) rule further down: without
      a floor here, the stacked carousel's start point just follows wherever
      the headline text happens to end, which can land it inside the first
@@ -5745,15 +5958,18 @@ body {
   .main-grid.has-carousel .left-content {
     min-height: calc(100dvh - 240px);
   }
+
   .headline-middle {
     font-size: 6rem;
   }
+
   .right-content {
     max-width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
   }
+
   .bottom-area {
     flex-wrap: wrap;
     gap: 2rem;
@@ -5765,17 +5981,20 @@ body {
     flex-direction: column;
     gap: 3rem;
   }
+
   .services-left {
     flex: none;
     max-width: 100%;
     height: auto;
   }
+
   .services-footer {
     position: static;
     margin-top: 2rem;
     border-top: 1px solid rgba(4, 36, 51, 0.2);
     padding-top: 1rem;
   }
+
   .services-right {
     min-height: 500px;
     height: auto;
@@ -5786,19 +6005,24 @@ body {
   .search-section {
     padding: 0 2rem 4rem 2rem;
   }
+
   .properties-grid-section {
     padding: 0 2rem 6rem 2rem;
   }
+
   .search-bar {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
   .search-filter {
     flex: 1 1 45%;
   }
+
   .search-divider {
     display: none;
   }
+
   .adv-grid-top {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -5807,11 +6031,13 @@ body {
   .explore-section {
     padding: 4rem var(--gutter) 6rem var(--gutter);
   }
+
   .explore-header {
     grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 2rem;
   }
+
   /* Tablet Property Cards - Move details below image so it doesn't cover the photo */
   .property-card {
     aspect-ratio: unset;
@@ -5821,6 +6047,7 @@ body {
     border-radius: 12px;
     height: auto !important;
   }
+
   .property-image-wrapper {
     position: relative !important;
     width: 100% !important;
@@ -5829,9 +6056,11 @@ body {
     display: block;
     overflow: hidden;
   }
+
   .property-image {
     object-fit: cover;
   }
+
   .property-details-box {
     position: static;
     border-radius: 0 0 12px 12px;
@@ -5841,12 +6070,15 @@ body {
     width: 100%;
     min-width: 0;
   }
+
   .property-type {
     font-size: 1.4rem;
   }
+
   .property-price-tag {
     font-size: 0.95rem;
   }
+
   .property-info-row {
     flex-direction: column;
     align-items: flex-start;
@@ -5854,6 +6086,7 @@ body {
     padding-bottom: 0.8rem;
     margin-bottom: 0.8rem;
   }
+
   .property-bottom-row {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -5863,6 +6096,7 @@ body {
     width: 100%;
     min-width: 0;
   }
+
   .property-type {
     font-size: 1.4rem;
     white-space: nowrap;
@@ -5871,6 +6105,7 @@ body {
     min-width: 0;
     flex: 1;
   }
+
   .property-action-group {
     flex-shrink: 0;
   }
@@ -5879,13 +6114,16 @@ body {
   .why-section {
     padding: 6rem var(--gutter);
   }
+
   .why-container {
     grid-template-columns: 1fr;
     gap: 5rem;
   }
+
   .why-header-sticky {
     position: static;
   }
+
   .why-stat-number {
     font-size: 6rem;
   }
@@ -5901,6 +6139,7 @@ body {
   .mobile-only-logo {
     display: block;
   }
+
   /* Properties editorial hero on mobile — now content-driven since the base
      style already uses min-height+clamp; these fine-tune spacing. */
   .properties-editorial-hero {
@@ -5911,6 +6150,7 @@ body {
        space instead. */
     padding-bottom: 3rem;
   }
+
   /* Left as display:none (the base rule above already sets this) — the
      headline below stacks "Our" / "Properties." via flex-direction:column,
      so this <br> is redundant for the line break itself. It was previously
@@ -5949,71 +6189,81 @@ body {
     line-height: 1.4;
     padding: 0 1rem;
   }
-  .properties-hero-btn {
-    text-transform: uppercase;
-    font-size: 0.75rem !important;
-    letter-spacing: 1px;
-    padding: 1rem 1.5rem !important;
-    line-height: 1.5;
-    text-align: center;
-    max-width: 300px;
-    white-space: normal !important;
-    justify-content: center;
-    /* Client reference shows this CTA solid-filled (not just outlined) on
+
+.properties-hero-btn {
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  letter-spacing: 1px;
+  padding: 1rem 1.5rem !important;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 300px;
+  white-space: normal !important;
+  justify-content: center;
+  /* Client reference shows this CTA solid-filled (not just outlined) on
        phones, since touch has no hover state to reveal the desktop
        fill-on-hover treatment. Scoped to this mobile breakpoint only —
        desktop keeps the outline .explore-btn-dark styling untouched. */
-    background-color: var(--navy);
-    color: var(--white);
-    border-radius: 10px;
-  }
-  .properties-hero-btn .btn-arrow {
-    color: var(--white);
-  }
-  .properties-hero-bg {
-    background-position: center 20%;
-  }
-  /* Mobile-only editorial photo below the headline/CTA — removed per client
+  background-color: var(--navy);
+  color: var(--white);
+  border-radius: 10px;
+}
+
+.properties-hero-btn .btn-arrow {
+  color: var(--white);
+}
+
+.properties-hero-bg {
+  background-position: center 20%;
+}
+
+/* Mobile-only editorial photo below the headline/CTA — removed per client
      request; kept the JSX/markup in PropertiesHero.tsx intact and just
      force it hidden here so it stays off on mobile the same as it already
      was on tablet/desktop (base .properties-hero-mobile-image rule). */
-  .properties-hero-mobile-image {
-    display: none;
-  }
-  .properties-hero-mobile-image-arch {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background-image: url('/HERO%20BG.png');
-    background-size: cover;
-    background-position: center 58%;
-    border: 1.5px solid rgba(175, 140, 83, 0.85);
-    /* Horizontal radius at 50% (as round as the box allows) + a viewport-
+.properties-hero-mobile-image {
+  display: none;
+}
+
+.properties-hero-mobile-image-arch {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-image: url('/HERO%20BG.png');
+  background-size: cover;
+  background-position: center 58%;
+  border: 1.5px solid rgba(175, 140, 83, 0.85);
+  /* Horizontal radius at 50% (as round as the box allows) + a viewport-
        relative vertical radius (clamped) gives a deep, flat-topped "arch"
        curve on the top two corners only, scaling with screen width instead
        of a fixed px value that would look shallow on wider phones. */
-    border-radius: 50% 50% 0 0 / clamp(90px, 24vw, 170px) clamp(90px, 24vw, 170px) 0 0;
-    box-shadow: 0 24px 50px rgba(4, 36, 51, 0.22);
-  }
-  .properties-editorial-hero + .search-section.search-section-dark {
-    transform: translateY(-1.5rem);
-    margin-bottom: -1.5rem;
-  }
-  .editorial-headline {
-    font-size: clamp(2rem, 6vw, 3rem);
-    letter-spacing: -2px;
-  }
-  .editorial-headline .italic-serif {
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-  }
-  .editorial-hero-bottom {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .editorial-hero-line {
-    width: 30px;
-  }
+  border-radius: 50% 50% 0 0 / clamp(90px, 24vw, 170px) clamp(90px, 24vw, 170px) 0 0;
+  box-shadow: 0 24px 50px rgba(4, 36, 51, 0.22);
+}
 
-  /* Services hero — mobile-only redesign matching the client reference
+.properties-editorial-hero+.search-section.search-section-dark {
+  transform: translateY(-1.5rem);
+  margin-bottom: -1.5rem;
+}
+
+.editorial-headline {
+  font-size: clamp(2rem, 6vw, 3rem);
+  letter-spacing: -2px;
+}
+
+.editorial-headline .italic-serif {
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+}
+
+.editorial-hero-bottom {
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.editorial-hero-line {
+  width: 30px;
+}
+
+/* Services hero — mobile-only redesign matching the client reference
      image: eyebrow tag with flanking lines, serif headline with a bronze
      italic sub-line, flat cream background (illustration hidden), and a
      solid navy CTA with a gold border/arrow. Everything here is scoped
@@ -6021,85 +6271,97 @@ body {
      .properties-editorial-hero class in ServicesHero.tsx) so it can't leak
      into the properties/knowledge/references/contact heroes that reuse the
      same base .properties-editorial-hero/.editorial-* classes. */
-  .services-editorial-hero .properties-hero-bg,
-  .services-editorial-hero .properties-hero-overlay-cream {
-    display: none;
-  }
-  .services-editorial-hero {
-    /* Extra breathing room below the CTA so the corner arcs sit low and
-       faint, like the reference, instead of crowding the button. */
-    padding-bottom: 8rem;
-  }
-  .services-editorial-hero .services-hero-eyebrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-  }
-  .services-editorial-hero .services-hero-eyebrow-line {
-    width: 32px;
-    height: 1px;
-    background-color: var(--bronze);
-    opacity: 0.6;
-  }
-  .services-editorial-hero .services-hero-eyebrow-text {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--bronze);
-  }
-  .services-editorial-hero .editorial-headline {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: 0;
-    font-size: clamp(2.2rem, 8.5vw, 3rem);
-    line-height: 1.15;
-  }
-  .services-editorial-hero .editorial-headline .italic-serif {
-    color: var(--bronze);
-    font-size: clamp(2.4rem, 9vw, 3.2rem);
-  }
-  .services-editorial-hero .editorial-subhead {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: rgba(14, 21, 26, 0.65);
-    padding: 0 1rem;
-  }
-  .services-editorial-hero .services-hero-btn {
-    background-color: var(--navy);
-    color: var(--white);
-    border-radius: 0;
-  }
-  .services-editorial-hero .services-hero-btn .btn-arrow {
-    color: var(--gold, #9a7d54);
-  }
-  .services-editorial-hero .services-hero-arc {
-    display: block;
-    position: absolute;
-    z-index: 1;
-    border: 1px solid var(--bronze);
-    opacity: 0.18;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .services-editorial-hero .services-hero-arc-left {
-    width: 260px;
-    height: 260px;
-    bottom: -190px;
-    left: -130px;
-  }
-  .services-editorial-hero .services-hero-arc-right {
-    width: 300px;
-    height: 300px;
-    bottom: -230px;
-    right: -170px;
-  }
+.services-editorial-hero .properties-hero-bg,
+.services-editorial-hero .properties-hero-overlay-cream {
+  display: none;
+}
 
-  /* About hero — mobile-only redesign matching the client reference image:
+.services-editorial-hero {
+  /* Extra breathing room below the CTA so the corner arcs sit low and
+       faint, like the reference, instead of crowding the button. */
+  padding-bottom: 8rem;
+}
+
+.services-editorial-hero .services-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.services-editorial-hero .services-hero-eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background-color: var(--bronze);
+  opacity: 0.6;
+}
+
+.services-editorial-hero .services-hero-eyebrow-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.services-editorial-hero .editorial-headline {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: clamp(2.2rem, 8.5vw, 3rem);
+  line-height: 1.15;
+}
+
+.services-editorial-hero .editorial-headline .italic-serif {
+  color: var(--bronze);
+  font-size: clamp(2.4rem, 9vw, 3.2rem);
+}
+
+.services-editorial-hero .editorial-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(14, 21, 26, 0.65);
+  padding: 0 1rem;
+}
+
+.services-editorial-hero .services-hero-btn {
+  background-color: var(--navy);
+  color: var(--white);
+  border-radius: 0;
+}
+
+.services-editorial-hero .services-hero-btn .btn-arrow {
+  color: var(--gold, #9a7d54);
+}
+
+.services-editorial-hero .services-hero-arc {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  border: 1px solid var(--bronze);
+  opacity: 0.18;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.services-editorial-hero .services-hero-arc-left {
+  width: 260px;
+  height: 260px;
+  bottom: -190px;
+  left: -130px;
+}
+
+.services-editorial-hero .services-hero-arc-right {
+  width: 300px;
+  height: 300px;
+  bottom: -230px;
+  right: -170px;
+}
+
+/* About hero — mobile-only redesign matching the client reference image:
      eyebrow tag with flanking lines, serif headline (bronze italic
      sub-line), flat cream background (illustration hidden), and a navy
      CTA with a bronze border. Scoped under .about-editorial-hero (added
@@ -6112,71 +6374,82 @@ body {
      `h1, .h1 { font-size ... !important }` — since the headline here is an
      <h1>, only an !important of equal-or-higher specificity can win that
      fight regardless of source order (see mobile-css-override-layering). */
-  .about-editorial-hero .properties-hero-bg,
-  .about-editorial-hero .properties-hero-overlay-cream {
-    display: none;
-  }
-  .about-editorial-hero {
-    padding-bottom: 5rem;
-  }
-  .about-editorial-hero .about-hero-eyebrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-  }
-  .about-editorial-hero .about-hero-eyebrow-line {
-    width: 32px;
-    height: 1px;
-    background-color: var(--bronze);
-    opacity: 0.6;
-  }
-  .about-editorial-hero .about-hero-eyebrow-text {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--bronze);
-  }
-  .about-editorial-hero .editorial-headline {
-    font-family: var(--font-serif) !important;
-    font-weight: 400;
-    letter-spacing: 0;
-    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
-    line-height: 1.15 !important;
-  }
-  .about-editorial-hero .editorial-headline .italic-serif {
-    color: var(--bronze);
-    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
-  }
-  .about-editorial-hero .editorial-hero-bottom {
-    max-width: 480px;
-  }
-  .about-editorial-hero .editorial-subhead {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: rgba(14, 21, 26, 0.65);
-    padding: 0 1rem;
-  }
-  .about-editorial-hero .about-hero-cta-wrap {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  .about-editorial-hero .about-hero-btn {
-    background-color: var(--navy);
-    color: var(--white);
-    border: 1px solid var(--bronze);
-    border-radius: 10px;
-  }
-  .about-editorial-hero .about-hero-btn .btn-arrow {
-    color: var(--white);
-  }
+.about-editorial-hero .properties-hero-bg,
+.about-editorial-hero .properties-hero-overlay-cream {
+  display: none;
+}
 
-  /* References hero — mobile-only redesign matching the client reference
+.about-editorial-hero {
+  padding-bottom: 5rem;
+}
+
+.about-editorial-hero .about-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.about-editorial-hero .about-hero-eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background-color: var(--bronze);
+  opacity: 0.6;
+}
+
+.about-editorial-hero .about-hero-eyebrow-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.about-editorial-hero .editorial-headline {
+  font-family: var(--font-serif) !important;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+  line-height: 1.15 !important;
+}
+
+.about-editorial-hero .editorial-headline .italic-serif {
+  color: var(--bronze);
+  font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+}
+
+.about-editorial-hero .editorial-hero-bottom {
+  max-width: 480px;
+}
+
+.about-editorial-hero .editorial-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(14, 21, 26, 0.65);
+  padding: 0 1rem;
+}
+
+.about-editorial-hero .about-hero-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.about-editorial-hero .about-hero-btn {
+  background-color: var(--navy);
+  color: var(--white);
+  border: 1px solid var(--bronze);
+  border-radius: 10px;
+}
+
+.about-editorial-hero .about-hero-btn .btn-arrow {
+  color: var(--white);
+}
+
+/* References hero — mobile-only redesign matching the client reference
      image: bronze eyebrow tag with flanking lines, serif headline with a
      bronze italic sub-line, flat cream background (illustration hidden),
      and a solid navy CTA with a gold border/arrow that jumps down to the
@@ -6190,75 +6463,86 @@ body {
      further down sets a blanket `h1, .h1 { font-size ... !important }`
      that only an equal-or-higher-specificity !important can beat (see
      mobile-css-override-layering). */
-  .references-editorial-hero .properties-hero-bg,
-  .references-editorial-hero .properties-hero-overlay-cream {
-    display: none;
-  }
-  .references-editorial-hero {
-    padding-bottom: 5rem;
-  }
-  .references-editorial-hero .references-hero-eyebrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-  }
-  .references-editorial-hero .references-hero-eyebrow-line {
-    width: 32px;
-    height: 1px;
-    background-color: var(--bronze);
-    opacity: 0.6;
-  }
-  .references-editorial-hero .references-hero-eyebrow-text {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--bronze);
-  }
-  .references-editorial-hero .editorial-headline {
-    font-family: var(--font-serif) !important;
-    font-weight: 400;
-    letter-spacing: 0;
-    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
-    line-height: 1.15 !important;
-  }
-  .references-editorial-hero .editorial-headline .italic-serif {
-    color: var(--bronze);
-    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
-  }
-  .references-editorial-hero .editorial-hero-bottom {
-    max-width: 480px;
-  }
-  .references-editorial-hero .editorial-subhead {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: rgba(14, 21, 26, 0.65);
-    padding: 0 1rem;
-  }
-  .references-editorial-hero .references-hero-cta-wrap {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  .references-editorial-hero .references-hero-btn {
-    background-color: var(--navy);
-    color: var(--white);
-    border: 1px solid var(--bronze);
-    border-radius: 10px;
-    white-space: normal;
-    text-align: center;
-    justify-content: center;
-    max-width: 320px;
-  }
-  .references-editorial-hero .references-hero-btn .btn-arrow {
-    color: var(--gold, #9a7d54);
-  }
+.references-editorial-hero .properties-hero-bg,
+.references-editorial-hero .properties-hero-overlay-cream {
+  display: none;
+}
 
-  /* Owners hero — mobile-only redesign matching the client reference image:
+.references-editorial-hero {
+  padding-bottom: 5rem;
+}
+
+.references-editorial-hero .references-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.references-editorial-hero .references-hero-eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background-color: var(--bronze);
+  opacity: 0.6;
+}
+
+.references-editorial-hero .references-hero-eyebrow-text {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.references-editorial-hero .editorial-headline {
+  font-family: var(--font-serif) !important;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+  line-height: 1.15 !important;
+}
+
+.references-editorial-hero .editorial-headline .italic-serif {
+  color: var(--bronze);
+  font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+}
+
+.references-editorial-hero .editorial-hero-bottom {
+  max-width: 480px;
+}
+
+.references-editorial-hero .editorial-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(14, 21, 26, 0.65);
+  padding: 0 1rem;
+}
+
+.references-editorial-hero .references-hero-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.references-editorial-hero .references-hero-btn {
+  background-color: var(--navy);
+  color: var(--white);
+  border: 1px solid var(--bronze);
+  border-radius: 10px;
+  white-space: normal;
+  text-align: center;
+  justify-content: center;
+  max-width: 320px;
+}
+
+.references-editorial-hero .references-hero-btn .btn-arrow {
+  color: var(--gold, #9a7d54);
+}
+
+/* Owners hero — mobile-only redesign matching the client reference image:
      bronze "OWNERS" eyebrow tag with flanking lines, serif headline with a
      bronze italic sub-line, flat cream background (illustration hidden),
      and a solid navy CTA with a gold border. The eyebrow and CTA
@@ -6275,91 +6559,105 @@ body {
      TABLET OVERRIDES (<=1024px)" block further down sets a blanket
      `h1, .h1 { font-size ... !important }` that only an equal-or-higher-
      specificity !important can beat (see mobile-css-override-layering). */
-  .owners-editorial-hero .properties-hero-bg,
-  .owners-editorial-hero .properties-hero-overlay-cream {
-    display: none;
-  }
-  .owners-editorial-hero {
-    padding-bottom: 5rem;
-  }
-  .owners-editorial-hero .editorial-headline {
-    font-family: var(--font-serif) !important;
-    font-weight: 400;
-    letter-spacing: 0;
-    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
-    line-height: 1.15 !important;
-  }
-  .owners-editorial-hero .editorial-headline .italic-serif {
-    color: var(--bronze);
-    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
-  }
-  .owners-editorial-hero .editorial-hero-bottom {
-    max-width: 480px;
-  }
-  .owners-editorial-hero .editorial-subhead {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: rgba(14, 21, 26, 0.65);
-    padding: 0 1rem;
-  }
+.owners-editorial-hero .properties-hero-bg,
+.owners-editorial-hero .properties-hero-overlay-cream {
+  display: none;
+}
 
-  .navbar {
-    padding: 1.5rem 1rem;
-    padding-top: max(1.5rem, env(safe-area-inset-top));
-  }
-  .navbar.fixed {
-    padding: 1rem 1rem;
-    padding-top: max(1rem, env(safe-area-inset-top));
-  }
-  .mobile-only-logo .logo-img {
-    /* Kept in sync with the .navbar .logo-img !important override further
+.owners-editorial-hero {
+  padding-bottom: 5rem;
+}
+
+.owners-editorial-hero .editorial-headline {
+  font-family: var(--font-serif) !important;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+  line-height: 1.15 !important;
+}
+
+.owners-editorial-hero .editorial-headline .italic-serif {
+  color: var(--bronze);
+  font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+}
+
+.owners-editorial-hero .editorial-hero-bottom {
+  max-width: 480px;
+}
+
+.owners-editorial-hero .editorial-subhead {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(14, 21, 26, 0.65);
+  padding: 0 1rem;
+}
+
+.navbar {
+  padding: 1.5rem 1rem;
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+}
+
+.navbar.fixed {
+  padding: 1rem 1rem;
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.mobile-only-logo .logo-img {
+  /* Kept in sync with the .navbar .logo-img !important override further
        down (in the MOBILE & TABLET OVERRIDES block) — that later rule wins
        the cascade regardless of what's set here, so both must agree or the
        logo silently renders at whichever size that override left it at. */
-    width: 82px;
-    height: 60px;
-  }
-  .mobile-drawer {
-    padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
-  }
+  width: 82px;
+  height: 60px;
+}
 
-  /* Hero */
-  .hero-content {
-    /* Clears the fixed mobile logo (≈108px tall incl. navbar padding) with
+.mobile-drawer {
+  padding-top: max(5rem, calc(env(safe-area-inset-top) + 3.5rem));
+}
+
+/* Hero */
+.hero-content {
+  /* Clears the fixed mobile logo (≈108px tall incl. navbar padding) with
        room to spare, so the accent line below doesn't start under/behind it. */
-    padding: 8rem 1.25rem 1.5rem 1.25rem;
-  }
-  .hero-top-group {
-    padding-left: 1.5rem;
-  }
-  .hero-subhead {
-    padding-left: 1.5rem;
-  }
-  .hero-desc {
-    padding-left: 1.5rem;
-    max-width: 100%;
-  }
-  .hero-section .explore-btn {
-    /* Was margin-left only, which combined with the general .explore-btn
+  padding: 8rem 1.25rem 1.5rem 1.25rem;
+}
+
+.hero-top-group {
+  padding-left: 1.5rem;
+}
+
+.hero-subhead {
+  padding-left: 1.5rem;
+}
+
+.hero-desc {
+  padding-left: 1.5rem;
+  max-width: 100%;
+}
+
+.hero-section .explore-btn {
+  /* Was margin-left only, which combined with the general .explore-btn
        width:100% below to push the button 1.5rem past the container's
        right edge. Symmetric margin + matching width keeps it centered
        and fully on-screen. */
-    margin: 0 1.5rem;
-    margin-bottom: env(safe-area-inset-bottom, 0px);
-    width: calc(100% - 3rem);
-  }
-  .main-grid {
-    flex-direction: column;
-    margin-top: 1.5rem;
-    gap: 2rem;
-  }
-  .left-content {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    /* Base .left-content is align-items:flex-start, which (as a flex
+  margin: 0 1.5rem;
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+  width: calc(100% - 3rem);
+}
+
+.main-grid {
+  flex-direction: column;
+  margin-top: 1.5rem;
+  gap: 2rem;
+}
+
+.left-content {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* Base .left-content is align-items:flex-start, which (as a flex
        item inside .main-grid) sizes every child here — headline, subhead,
        desc, button wrapper — to its own shrink-to-fit content width
        instead of the column's actual width. With long English/German
@@ -6367,9 +6665,9 @@ body {
        overflowed past the screen edge (mid-word, no wrap) instead of
        wrapping. Stretching gives every child a real, definite width to
        wrap text against. */
-    align-items: stretch;
-    min-width: 0;
-    /* Was justify-content:center + min-height: calc(100svh - 11rem)
+  align-items: stretch;
+  min-width: 0;
+  /* Was justify-content:center + min-height: calc(100svh - 11rem)
        (~636px). A second .left-content rule later in the file (the
        catch-all block) used to override min-height to an even taller
        ~712px, but even at 636px, centering ~360px of actual content
@@ -6378,26 +6676,32 @@ body {
        .hero-content's own navbar-clearance padding reads as intentional
        spacing instead. .hero-section keeps its own min-height: 100vh
        separately, so the full-bleed background image is unaffected. */
-  }
-  .headline-top {
-    font-size: 1.5rem;
-    letter-spacing: -1px;
-  }
-  .headline-middle {
-    font-size: clamp(3.5rem, 18vw, 6rem);
-  }
-  .headline-bottom {
-    font-size: clamp(2rem, 10vw, 4rem);
-  }
-  .right-content {
-    display: none;
-  }
-  /* The carousel acting as the second part of the mobile hero */
-  .hero-right {
-    margin-top: 3rem;
-    padding-bottom: 3rem;
-  }
-  /* .hero-section only has a min-height:100dvh floor, not a ceiling, so
+}
+
+.headline-top {
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.headline-middle {
+  font-size: clamp(3.5rem, 18vw, 6rem);
+}
+
+.headline-bottom {
+  font-size: clamp(2rem, 10vw, 4rem);
+}
+
+.right-content {
+  display: none;
+}
+
+/* The carousel acting as the second part of the mobile hero */
+.hero-right {
+  margin-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* .hero-section only has a min-height:100dvh floor, not a ceiling, so
      the stacked carousel below simply continues wherever the headline
      text block happens to end — on shorter copy that lands a slice of the
      carousel inside the very first viewport, before any scroll. Giving the
@@ -6405,126 +6709,145 @@ body {
      carousel to start right at/after it instead, without capping
      .hero-section's own height (which would clip taller content — the
      exact bug a prior round already fixed by switching to height:auto). */
-  .main-grid.has-carousel .left-content {
-    min-height: calc(100dvh - 264px);
-  }
-  .bottom-area {
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-  .explore-btn {
-    width: 100%;
-    min-height: 52px;
-    justify-content: space-between;
-  }
-  /* Was .scroll-indicator — that class doesn't exist in HeroSection.tsx
-     (the element is .scroll-center), so this never actually applied. */
-  .scroll-center {
-    display: none;
-  }
+.main-grid.has-carousel .left-content {
+  min-height: calc(100dvh - 264px);
+}
 
-  /* Services */
-  .services-section {
-    height: auto;
-    flex-direction: column;
-    padding-block: 3rem;
-    gap: 2.5rem;
-  }
-  .services-left {
-    flex: none;
-    max-width: 100%;
-    height: auto;
-  }
-  /* .headline-top-s ("A More Considered Way") and .headline-mid-s ("to
+.bottom-area {
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.explore-btn {
+  width: 100%;
+  min-height: 52px;
+  justify-content: space-between;
+}
+
+/* Was .scroll-indicator — that class doesn't exist in HeroSection.tsx
+     (the element is .scroll-center), so this never actually applied. */
+.scroll-center {
+  display: none;
+}
+
+/* Services */
+.services-section {
+  height: auto;
+  flex-direction: column;
+  padding-block: 3rem;
+  gap: 2.5rem;
+}
+
+.services-left {
+  flex: none;
+  max-width: 100%;
+  height: auto;
+}
+
+/* .headline-top-s ("A More Considered Way") and .headline-mid-s ("to
      navigate real estate") are the same font-size on desktop by design —
      this override used to only bump .headline-mid-s, leaving
      .headline-top-s stuck at its small desktop clamp so it rendered
      visibly smaller than the line below it. Matched so every wrapped
      line of the headline reads at the same size. */
-  .headline-top-s,
-  .headline-mid-s {
-    white-space: normal;
-    font-size: clamp(2.5rem, 12vw, 4rem);
-    letter-spacing: -1px;
-  }
-  .services-right {
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-    gap: 0.75rem;
-  }
-  .accordion-card {
-    flex: none;
-    /* Tall enough for badge + title + subtitle + link without clipping the
+.headline-top-s,
+.headline-mid-s {
+  white-space: normal;
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  letter-spacing: -1px;
+}
+
+.services-right {
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.accordion-card {
+  flex: none;
+  /* Tall enough for badge + title + subtitle + link without clipping the
        link against the card's own overflow: hidden edge (160px cut off
        "EXPLORE PROPERTIES" mid-letter). */
-    height: 215px;
-    width: 100%;
-    transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .accordion-card:hover {
-    flex: none;
-    height: 300px;
-  }
-  .accordion-bg {
-    width: 100%;
-    height: 100%;
-  }
-  .card-watermark {
-    display: none;
-  }
-  .card-title {
-    white-space: normal;
-  }
-  .card-subtitle {
-    white-space: normal;
-  }
-  .services-footer {
-    position: static;
-    margin-top: 1.5rem;
-    border-top: 1px solid rgba(4, 36, 51, 0.2);
-    padding-top: 1rem;
-  }
+  height: 215px;
+  width: 100%;
+  transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-  /* Search */
-  /* !important needed here: .search-section-dark (used on /properties) is a
+.accordion-card:hover {
+  flex: none;
+  height: 300px;
+}
+
+.accordion-bg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-watermark {
+  display: none;
+}
+
+.card-title {
+  white-space: normal;
+}
+
+.card-subtitle {
+  white-space: normal;
+}
+
+.services-footer {
+  position: static;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.2);
+  padding-top: 1rem;
+}
+
+/* Search */
+/* !important needed here: .search-section-dark (used on /properties) is a
      two-class selector with higher specificity than this single-class mobile
      rule, so without it the desktop dark padding (4.5rem/2.5rem) silently
      wins at every width and this override never actually applies — see the
      mobile-css-override-layering note. That desktop padding was the real
      source of the large empty gap above the mobile search card. */
-  .search-section {
-    padding: 0 1.5rem 3rem 1.5rem !important;
-  }
-  .properties-grid-section {
-    padding: 0 1.5rem 4rem 1.5rem;
-    border-top: none !important;
-  }
-  .properties-results-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-top: none !important;
-  }
-  .top-pagination {
-    display: none;
-  }
-  .properties-main-grid {
-    padding-top: 0;
-  }
-  .results-controls {
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .search-section-dark .search-container {
-    border: none !important;
-    padding-bottom: 0 !important;
-    /* Same double-padding bug as the embedded (home page) card below, just
+.search-section {
+  padding: 0 1.5rem 3rem 1.5rem !important;
+}
+
+.properties-grid-section {
+  padding: 0 1.5rem 4rem 1.5rem;
+  border-top: none !important;
+}
+
+.properties-results-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-top: none !important;
+}
+
+.top-pagination {
+  display: none;
+}
+
+.properties-main-grid {
+  padding-top: 0;
+}
+
+.results-controls {
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-section-dark .search-container {
+  border: none !important;
+  padding-bottom: 0 !important;
+  /* Same double-padding bug as the embedded (home page) card below, just
        never patched for this variant: .search-section already contributes
        1.5rem of horizontal gutter, and the unscoped .search-container rule
        below stacks another 1.5rem on top of that for /properties' rounded
@@ -6533,14 +6856,16 @@ body {
        !important tie, per mobile-css-override-layering) leaves just the
        section's single gutter, so the card fills the width the way the
        embedded one already does. */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  .search-container {
-    padding: 1.5rem !important;
-    gap: 1rem;
-  }
-  /* The unscoped rule above targets the /properties flat .search-bar,
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.search-container {
+  padding: 1.5rem !important;
+  gap: 1rem;
+}
+
+/* The unscoped rule above targets the /properties flat .search-bar,
      which needs breathing room once it grows a border on mobile (see the
      "Search Filters — revamped mobile layout" block later in this file).
      It has no `.search-section-embedded` exclusion though, so it was also
@@ -6552,81 +6877,93 @@ body {
      "broken/shrunk" on some phones. This wins the cascade (more specific,
      same !important weight, per mobile-css-override-layering) and returns
      the embedded card to filling its intended width. */
-  .search-section-embedded .search-container {
-    padding: 0 !important;
-    gap: 0 !important;
-  }
-  .search-header h2 {
-    font-size: 1.6rem;
-  }
-  .search-bar {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    flex-wrap: nowrap !important;
-    border: none !important;
-    padding: 0 !important;
-    gap: 0 !important;
-    overflow: visible;
-  }
-  .search-filter {
-    flex: none !important;
-    width: 100% !important;
-    padding: 0.9rem 0 !important;
-    border-bottom: 1px solid rgba(4, 36, 51, 0.08) !important;
-    border-radius: 0 !important;
-  }
-  .search-divider {
-    display: none !important;
-  }
-  .search-btn {
-    width: 100% !important;
-    justify-content: center;
-    margin-left: 0 !important;
-    margin-top: 1rem;
-    border-radius: 8px;
-  }
-  /* The button actually rendered by SearchSection.tsx is .search-submit-btn
+.search-section-embedded .search-container {
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.search-header h2 {
+  font-size: 1.6rem;
+}
+
+.search-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  flex-wrap: nowrap !important;
+  border: none !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  overflow: visible;
+}
+
+.search-filter {
+  flex: none !important;
+  width: 100% !important;
+  padding: 0.9rem 0 !important;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.08) !important;
+  border-radius: 0 !important;
+}
+
+.search-divider {
+  display: none !important;
+}
+
+.search-btn {
+  width: 100% !important;
+  justify-content: center;
+  margin-left: 0 !important;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
+/* The button actually rendered by SearchSection.tsx is .search-submit-btn
      (the .search-btn rule above targets a class that isn't used anywhere
      in the component — dead code). Its base style sets align-self:center,
      which keeps it a narrow centered pill even once .search-bar stacks to
      a column above; this is what actually needs to change for a full-width
      bronze mobile button. */
-  .search-submit-btn {
-    align-self: stretch !important;
-    width: 100% !important;
-    height: 52px !important;
-    margin: 1rem 0 0 !important;
-    border-radius: 4px !important;
-    background-color: var(--bronze, #AF8C53) !important;
-  }
-  .search-submit-btn:hover,
-  .search-submit-btn:active {
-    background-color: var(--navy) !important;
-  }
-  /* Advanced filters */
-  .adv-grid-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .adv-grid-bottom {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .adv-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-  .adv-submit {
-    width: 100%;
-    text-align: center;
-  }
-  .adv-checkboxes {
-    gap: 1rem;
-  }
+.search-submit-btn {
+  align-self: stretch !important;
+  width: 100% !important;
+  height: 52px !important;
+  margin: 1rem 0 0 !important;
+  border-radius: 4px !important;
+  background-color: var(--bronze, #AF8C53) !important;
+}
 
-  /* Mobile-only Advanced Search overlay — full-screen centered modal that
+.search-submit-btn:hover,
+.search-submit-btn:active {
+  background-color: var(--navy) !important;
+}
+
+/* Advanced filters */
+.adv-grid-top {
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.adv-grid-bottom {
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.adv-footer {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.adv-submit {
+  width: 100%;
+  text-align: center;
+}
+
+.adv-checkboxes {
+  gap: 1rem;
+}
+
+/* Mobile-only Advanced Search overlay — full-screen centered modal that
      replaces the desktop inline .advanced-filters-wrapper panel above this
      breakpoint, but only for the embedded (home page) search widget; the
      /properties page's plain SearchSection keeps its original inline mobile
@@ -6634,479 +6971,550 @@ body {
      this widget specifically (rounded card/inputs, icon-labeled sections,
      icon-tile feature checkboxes) — a deliberate exception to the
      sharp-corner rule, scoped to these .mobile-adv-* classes only. */
-  .search-section-embedded .advanced-filters-wrapper {
-    display: none !important;
-  }
-  .mobile-adv-overlay {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 1.1rem;
-    background: rgba(4, 36, 51, 0.55);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .mobile-adv-overlay.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-  .mobile-adv-card {
-    width: 100%;
-    max-width: 26rem;
-    max-height: calc(100vh - 2.2rem);
-    overflow-y: auto;
-    background: var(--cream);
-    border-radius: 22px;
-    box-shadow: 0 30px 70px rgba(4, 36, 51, 0.35);
-    padding: 1.5rem 1.4rem 1.4rem;
-    transform: translateY(14px) scale(0.97);
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .mobile-adv-overlay.open .mobile-adv-card {
-    transform: translateY(0) scale(1);
-  }
-  .mobile-adv-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding-bottom: 1.1rem;
-    margin-bottom: 1.1rem;
-    border-bottom: 1px solid rgba(4, 36, 51, 0.1);
-  }
-  .mobile-adv-header-title {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    min-width: 0;
-  }
-  .mobile-adv-icon-badge {
-    flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(175, 140, 83, 0.14);
-    color: var(--bronze);
-    border-radius: 10px;
-  }
-  .mobile-adv-title {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 1.3rem;
-    color: var(--navy);
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .mobile-adv-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    flex-shrink: 0;
-  }
-  .mobile-adv-reset-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--bronze);
-    cursor: pointer;
-  }
-  .mobile-adv-vdivider {
-    width: 1px;
-    height: 18px;
-    background: rgba(4, 36, 51, 0.15);
-  }
-  .mobile-adv-close-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--navy);
-    cursor: pointer;
-  }
-  .mobile-adv-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .mobile-adv-block {
-    position: relative;
-  }
-  .mobile-adv-block.clickable {
-    cursor: pointer;
-  }
-  .mobile-adv-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy);
-    opacity: 0.7;
-    margin-bottom: 0.65rem;
-  }
-  .mobile-adv-label svg {
-    color: var(--navy);
-    opacity: 0.55;
-    flex-shrink: 0;
-  }
-  .mobile-adv-label.accent svg {
-    color: var(--bronze);
-    opacity: 1;
-  }
-  .mobile-adv-range {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-  .mobile-adv-field {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.4rem;
-    background: rgba(4, 36, 51, 0.045);
-    border-radius: 12px;
-    padding: 0.75rem 0.9rem;
-    min-width: 0;
-  }
-  .mobile-adv-field input {
-    flex: 1;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    outline: none;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.88rem;
-    color: var(--navy);
-  }
-  .mobile-adv-field input::placeholder {
-    color: var(--navy);
-    opacity: 0.45;
-  }
-  .mobile-adv-field span {
-    font-size: 0.8rem;
-    color: var(--navy);
-    opacity: 0.45;
-    flex-shrink: 0;
-  }
-  .mobile-adv-select {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--white);
-    border: 1px solid rgba(4, 36, 51, 0.15);
-    border-radius: 12px;
-    padding: 0.8rem 0.95rem;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.88rem;
-    color: var(--navy);
-  }
-  .mobile-adv-divider {
-    height: 1px;
-    background: rgba(4, 36, 51, 0.1);
-    margin: 0.15rem 0;
-  }
-  .mobile-adv-feature-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-  }
-  .mobile-adv-feature {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    background: var(--white);
-    border: 1px solid rgba(4, 36, 51, 0.15);
-    border-radius: 12px;
-    padding: 0.7rem 0.8rem;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.82rem;
-    color: var(--navy);
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-  .mobile-adv-feature svg {
-    flex-shrink: 0;
-    opacity: 0.55;
-  }
-  .mobile-adv-feature input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    margin: 0;
-    border: 1px solid rgba(4, 36, 51, 0.25);
-    border-radius: 4px;
-    appearance: none;
-    cursor: pointer;
-  }
-  .mobile-adv-feature input[type="checkbox"]:checked {
-    background-color: var(--navy);
-    border-color: var(--navy);
-  }
-  .mobile-adv-feature.checked {
-    border-color: var(--bronze);
-    background: rgba(175, 140, 83, 0.06);
-  }
-  .mobile-adv-feature.checked svg {
-    opacity: 0.85;
-    color: var(--bronze);
-  }
-  .mobile-adv-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    margin-top: 1.4rem;
-    padding-top: 1.1rem;
-    border-top: 1px solid rgba(4, 36, 51, 0.1);
-  }
-  .mobile-adv-results {
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.85rem;
-    color: var(--navy);
-    opacity: 0.7;
-  }
-  .mobile-adv-results strong {
-    color: var(--navy);
-    opacity: 1;
-    font-weight: 700;
-  }
-  .mobile-adv-submit-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    border-radius: 12px;
-    height: 52px;
-    font-family: var(--font-inter), sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.25s ease;
-  }
-  .mobile-adv-submit-btn:hover {
-    background: var(--bronze);
-  }
-  .mobile-adv-block .custom-dropdown-menu {
-    left: 0;
-    right: 0;
-    width: 100%;
-    min-width: 0;
-  }
+.search-section-embedded .advanced-filters-wrapper {
+  display: none !important;
+}
 
-  /* Explore */
-  .explore-section {
-    padding: 3rem var(--gutter) 4rem var(--gutter);
-  }
-  .explore-header {
-    grid-template-columns: 1fr;
-    align-items: flex-start;
-    gap: 2rem;
-    padding-bottom: 2rem;
-  }
-  .explore-headline {
-    font-size: 2.5rem;
-  }
-  .explore-headline .italic-serif {
-    font-size: 3.5rem;
-  }
-  .explore-filters {
-    gap: 0.5rem;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    /* Hide scrollbar visually */
-    scrollbar-width: none;
-  }
-  .explore-filters::-webkit-scrollbar {
-    display: none;
-  }
-  .filter-pill {
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding: 0.5rem 1.2rem;
-    font-size: 0.75rem;
-  }
-  .explore-grid.list-view .property-card {
-    flex-direction: row;
-    height: 120px;
-    padding: 0.5rem;
-    align-items: center;
-    border-radius: 12px;
-  }
-  .explore-grid.list-view .property-image-wrapper {
-    width: 110px !important;
-    height: 110px !important;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-  .explore-grid.list-view .property-details-box {
-    width: calc(100% - 110px);
-    padding: 0 0.5rem 0 1rem;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-top: none;
-  }
-  .explore-grid.list-view .property-type {
-    font-size: 1rem;
-    margin: 0.2rem 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .explore-grid.list-view .property-location,
-  .explore-grid.list-view .property-specs {
-    font-size: 0.7rem;
-    line-height: 1.2;
-  }
-  .explore-grid.list-view .property-price-tag {
-    font-size: 0.85rem;
-    margin-top: 0.2rem;
-  }
-  .explore-grid.list-view .property-arrow-box {
-    display: none;
-  }
-  .explore-btn.explore-btn-dark {
-    width: auto;
-    align-self: flex-start;
-  }
+.mobile-adv-overlay {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem;
+  background: rgba(4, 36, 51, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
-  /* Property cards â€” details sit below image on mobile */
-  .property-card {
-    aspect-ratio: unset;
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    border-radius: 12px;
-    background: var(--white);
-    box-shadow: 0 4px 24px rgba(4, 36, 51, 0.08);
-    width: 100%;
-    min-width: 0;
-  }
-  .property-image-wrapper {
-    position: relative !important;
-    width: 100% !important;
-    height: 220px !important;
-    border-radius: 12px 12px 0 0;
-    display: block;
-    overflow: hidden;
-  }
-  .property-image {
-    object-fit: cover;
-  }
-  .property-details-box {
-    position: static;
-    border-radius: 0 0 12px 12px;
-    box-shadow: none;
-    border-top: 1px solid rgba(4, 36, 51, 0.08);
-    padding: 0.8rem 1rem 1rem 1rem;
-    width: 100%;
-    min-width: 0;
-  }
-  .property-info-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.1rem;
-    padding-bottom: 0.6rem;
-    margin-bottom: 0.6rem;
-  }
-  .property-bottom-row {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-    width: 100%;
-    min-width: 0;
-  }
-  .property-type {
-    font-size: 1.15rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-    flex: 1;
-  }
-  .property-action-group {
-    flex-shrink: 0;
-  }
-  .property-price-tag {
-    font-size: 0.85rem;
-  }
-  .why-section {
-    padding: 4rem var(--gutter);
-  }
-  .why-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .why-header-sticky {
-    position: static;
-    gap: 1.5rem;
-  }
-  .why-headline {
-    font-size: 2.5rem;
-  }
-  .why-headline .italic-serif {
-    font-size: 4.5rem;
-    display: inline-block;
-    margin-left: 0.2rem;
-  }
-  .why-stat-number {
-    font-size: 5rem;
-  }
-  .why-stat-text {
-    font-size: 1rem;
-  }
-  .why-stat-block {
-    text-align: center;
-  }
+.mobile-adv-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
-  /* CTA Section */
-  .cta-section {
-    flex-direction: column;
-  }
-  .cta-image-col {
-    width: 100%;
-    min-height: 280px;
-  }
-  .cta-form-col {
-    width: 100%;
-    padding: 3rem 1.5rem;
-  }
-  .cta-form-row {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.mobile-adv-card {
+  width: 100%;
+  max-width: 26rem;
+  max-height: calc(100vh - 2.2rem);
+  overflow-y: auto;
+  background: var(--cream);
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(4, 36, 51, 0.35);
+  padding: 1.5rem 1.4rem 1.4rem;
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mobile-adv-overlay.open .mobile-adv-card {
+  transform: translateY(0) scale(1);
+}
+
+.mobile-adv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.1);
+}
+
+.mobile-adv-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.mobile-adv-icon-badge {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(175, 140, 83, 0.14);
+  color: var(--bronze);
+  border-radius: 10px;
+}
+
+.mobile-adv-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-adv-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-shrink: 0;
+}
+
+.mobile-adv-reset-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--bronze);
+  cursor: pointer;
+}
+
+.mobile-adv-vdivider {
+  width: 1px;
+  height: 18px;
+  background: rgba(4, 36, 51, 0.15);
+}
+
+.mobile-adv-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.mobile-adv-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mobile-adv-block {
+  position: relative;
+}
+
+.mobile-adv-block.clickable {
+  cursor: pointer;
+}
+
+.mobile-adv-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  opacity: 0.7;
+  margin-bottom: 0.65rem;
+}
+
+.mobile-adv-label svg {
+  color: var(--navy);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.mobile-adv-label.accent svg {
+  color: var(--bronze);
+  opacity: 1;
+}
+
+.mobile-adv-range {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.mobile-adv-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  background: rgba(4, 36, 51, 0.045);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  min-width: 0;
+}
+
+.mobile-adv-field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.88rem;
+  color: var(--navy);
+}
+
+.mobile-adv-field input::placeholder {
+  color: var(--navy);
+  opacity: 0.45;
+}
+
+.mobile-adv-field span {
+  font-size: 0.8rem;
+  color: var(--navy);
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+.mobile-adv-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 12px;
+  padding: 0.8rem 0.95rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.88rem;
+  color: var(--navy);
+}
+
+.mobile-adv-divider {
+  height: 1px;
+  background: rgba(4, 36, 51, 0.1);
+  margin: 0.15rem 0;
+}
+
+.mobile-adv-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.mobile-adv-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--white);
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.82rem;
+  color: var(--navy);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.mobile-adv-feature svg {
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+
+.mobile-adv-feature input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin: 0;
+  border: 1px solid rgba(4, 36, 51, 0.25);
+  border-radius: 4px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.mobile-adv-feature input[type="checkbox"]:checked {
+  background-color: var(--navy);
+  border-color: var(--navy);
+}
+
+.mobile-adv-feature.checked {
+  border-color: var(--bronze);
+  background: rgba(175, 140, 83, 0.06);
+}
+
+.mobile-adv-feature.checked svg {
+  opacity: 0.85;
+  color: var(--bronze);
+}
+
+.mobile-adv-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(4, 36, 51, 0.1);
+}
+
+.mobile-adv-results {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  color: var(--navy);
+  opacity: 0.7;
+}
+
+.mobile-adv-results strong {
+  color: var(--navy);
+  opacity: 1;
+  font-weight: 700;
+}
+
+.mobile-adv-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  height: 52px;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.mobile-adv-submit-btn:hover {
+  background: var(--bronze);
+}
+
+.mobile-adv-block .custom-dropdown-menu {
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Explore */
+.explore-section {
+  padding: 3rem var(--gutter) 4rem var(--gutter);
+}
+
+.explore-header {
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+
+.explore-headline {
+  font-size: 2.5rem;
+}
+
+.explore-headline .italic-serif {
+  font-size: 3.5rem;
+}
+
+.explore-filters {
+  gap: 0.5rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar visually */
+  scrollbar-width: none;
+}
+
+.explore-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.75rem;
+}
+
+.explore-grid.list-view .property-card {
+  flex-direction: row;
+  height: 120px;
+  padding: 0.5rem;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.explore-grid.list-view .property-image-wrapper {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.explore-grid.list-view .property-details-box {
+  width: calc(100% - 110px);
+  padding: 0 0.5rem 0 1rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: none;
+}
+
+.explore-grid.list-view .property-type {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.explore-grid.list-view .property-location,
+.explore-grid.list-view .property-specs {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.explore-grid.list-view .property-price-tag {
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+.explore-grid.list-view .property-arrow-box {
+  display: none;
+}
+
+.explore-btn.explore-btn-dark {
+  width: auto;
+  align-self: flex-start;
+}
+
+/* Property cards â€” details sit below image on mobile */
+.property-card {
+  aspect-ratio: unset;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 0 4px 24px rgba(4, 36, 51, 0.08);
+  width: 100%;
+  min-width: 0;
+}
+
+.property-image-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  height: 220px !important;
+  border-radius: 12px 12px 0 0;
+  display: block;
+  overflow: hidden;
+}
+
+.property-image {
+  object-fit: cover;
+}
+
+.property-details-box {
+  position: static;
+  border-radius: 0 0 12px 12px;
+  box-shadow: none;
+  border-top: 1px solid rgba(4, 36, 51, 0.08);
+  padding: 0.8rem 1rem 1rem 1rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.property-info-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.property-bottom-row {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.property-type {
+  font-size: 1.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.property-action-group {
+  flex-shrink: 0;
+}
+
+.property-price-tag {
+  font-size: 0.85rem;
+}
+
+.why-section {
+  padding: 4rem var(--gutter);
+}
+
+.why-container {
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.why-header-sticky {
+  position: static;
+  gap: 1.5rem;
+}
+
+.why-headline {
+  font-size: 2.5rem;
+}
+
+.why-headline .italic-serif {
+  font-size: 4.5rem;
+  display: inline-block;
+  margin-left: 0.2rem;
+}
+
+.why-stat-number {
+  font-size: 5rem;
+}
+
+.why-stat-text {
+  font-size: 1rem;
+}
+
+.why-stat-block {
+  text-align: center;
+}
+
+/* CTA Section */
+.cta-section {
+  flex-direction: column;
+}
+
+.cta-image-col {
+  width: 100%;
+  min-height: 280px;
+}
+
+.cta-form-col {
+  width: 100%;
+  padding: 3rem 1.5rem;
+}
+
+.cta-form-row {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
 }
 
 /* =============================================
@@ -7118,15 +7526,19 @@ body {
   .hero-content {
     padding: 5rem 1rem 1.25rem 1rem;
   }
+
   .hero-top-group {
     padding-left: 1rem;
   }
+
   .hero-subhead {
     padding-left: 1rem;
   }
+
   .hero-desc {
     padding-left: 1rem;
   }
+
   .hero-section .explore-btn {
     margin-left: 1rem;
   }
@@ -7143,9 +7555,11 @@ body {
     font-size: 2rem;
     letter-spacing: -2px;
   }
+
   .editorial-headline .italic-serif {
     font-size: 2.5rem;
   }
+
   .editorial-subhead {
     font-size: 0.9rem;
   }
@@ -7155,10 +7569,12 @@ body {
     font-size: clamp(1.8rem, 7vw, 2.5rem);
     letter-spacing: -2px;
   }
+
   .why-headline .italic-serif {
     font-size: clamp(3rem, 12vw, 4rem);
     margin-left: 0.15rem;
   }
+
   .why-stat-number {
     font-size: clamp(3.5rem, 14vw, 5.5rem);
   }
@@ -7167,6 +7583,7 @@ body {
   .accordion-card {
     height: 180px;
   }
+
   .accordion-card:hover {
     height: 280px;
   }
@@ -7186,6 +7603,7 @@ body {
     font-size: clamp(1.8rem, 8vw, 2.5rem);
     letter-spacing: -2px;
   }
+
   .explore-headline .italic-serif {
     font-size: clamp(2.5rem, 10vw, 3.5rem);
   }
@@ -7194,6 +7612,7 @@ body {
   .search-title {
     font-size: clamp(2rem, 8vw, 2.8rem);
   }
+
   .search-section {
     padding: 0 1rem 2.5rem 1rem;
   }
@@ -7241,12 +7660,15 @@ body {
   .reveal-up {
     transform: translateY(16px);
   }
+
   .reveal-scale {
     transform: translateY(16px) scale(0.97);
   }
+
   .reveal-left {
     transform: translateX(-16px);
   }
+
   .reveal-right {
     transform: translateX(16px);
   }
@@ -7259,12 +7681,29 @@ body {
 }
 
 /* Delay utilities for staggered animations */
-.delay-100 { transition-delay: 100ms; }
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
-.delay-500 { transition-delay: 500ms; }
-.delay-600 { transition-delay: 600ms; }
+.delay-100 {
+  transition-delay: 100ms;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+.delay-500 {
+  transition-delay: 500ms;
+}
+
+.delay-600 {
+  transition-delay: 600ms;
+}
 
 /* Reduced motion: the global reveal system (.reveal-base/.reveal-up/.reveal-scale
    + any inline transition-delay used for grid stagger, e.g. RevealCard/RevealSection)
@@ -7276,6 +7715,7 @@ body {
     transition-delay: 0ms !important;
     transform: none !important;
   }
+
   .reveal-up,
   .reveal-scale,
   .reveal-left,
@@ -7348,9 +7788,11 @@ body {
   .expertise-section {
     padding: 4rem 2rem;
   }
+
   .expertise-headline {
     margin-bottom: 3rem;
   }
+
   .expertise-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -7366,6 +7808,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -7424,60 +7867,72 @@ body {
   overflow: hidden;
   position: relative;
 }
+
 /* 1 image */
 .gallery-mosaic[data-count="1"] {
   grid-template-columns: 1fr;
 }
+
 /* 2 images */
 .gallery-mosaic[data-count="2"] {
   grid-template-columns: 1fr 1fr;
 }
+
 /* 3 images */
 .gallery-mosaic[data-count="3"] {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
+
 .gallery-mosaic[data-count="3"] .gallery-main {
   grid-row: 1 / 3;
 }
+
 /* 4 images */
 .gallery-mosaic[data-count="4"] {
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
+
 .gallery-mosaic[data-count="4"] .gallery-main {
   grid-row: 1 / 3;
 }
+
 .gallery-mosaic[data-count="4"] .item-3 {
   grid-column: 2 / 4;
 }
+
 /* 5+ images */
 .gallery-mosaic[data-count="5"] {
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
+
 .gallery-mosaic[data-count="5"] .gallery-main {
   grid-row: 1 / 3;
 }
 
-.gallery-main, .gallery-mosaic-item {
+.gallery-main,
+.gallery-mosaic-item {
   position: relative;
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 
-.gallery-main::after, .gallery-mosaic-item::after {
+.gallery-main::after,
+.gallery-mosaic-item::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   pointer-events: none;
   transition: background 0.3s ease;
 }
 
-.gallery-main:hover::after, .gallery-mosaic-item:hover::after {
-  background: rgba(0,0,0,0.1);
+.gallery-main:hover::after,
+.gallery-mosaic-item:hover::after {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .gallery-more-overlay {
@@ -7508,14 +7963,15 @@ body {
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.2s ease;
   z-index: 10;
 }
+
 .show-all-photos-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes lightboxFadeIn {
@@ -7523,6 +7979,7 @@ body {
     opacity: 0;
     backdrop-filter: blur(0px);
   }
+
   to {
     opacity: 1;
     backdrop-filter: blur(12px);
@@ -7593,6 +8050,7 @@ body {
     opacity: 0;
     transform: scale(0.95) translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -7611,6 +8069,7 @@ body {
     opacity: 0.2;
     transform: scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -8056,60 +8515,62 @@ body {
     grid-template-rows: 1fr !important;
     height: 100%;
   }
+
   .gallery-mosaic-item {
     display: none;
   }
+
   .show-all-photos-btn {
     bottom: 1rem;
     right: 1rem;
   }
-  
+
   /* Header Stacking */
   .property-header-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
   }
-  
+
   .property-header-action {
     text-align: left;
     width: 100%;
     align-items: flex-start;
   }
-  
+
   /* Media Tabs */
   .media-tabs-header {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  
+
   .media-tab-btn {
     font-size: 0.9rem;
     padding: 0.4rem 0.8rem;
   }
-  
+
   .media-iframe {
     height: 350px;
   }
-  
+
   /* Location POIs */
   .location-pois-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   /* Mortgage Calc */
   .calc-row {
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   /* Lightbox */
   .lightbox-content {
     width: 95vw;
     height: 60vh;
   }
-  
+
   .lightbox-nav {
     padding: 1rem;
   }
@@ -8154,43 +8615,79 @@ body {
 .cta-section.cta-inverted {
   background-color: var(--navy);
 }
+
 .cta-section.cta-inverted .cta-form-col {
   background-color: var(--navy);
 }
+
 .cta-section.cta-inverted .cta-headline {
   color: var(--white);
 }
+
 .cta-section.cta-inverted .cta-subhead {
   color: rgba(254, 252, 246, 0.7);
 }
-.cta-section.cta-inverted .cta-input, 
+
+.cta-section.cta-inverted .cta-input,
 .cta-section.cta-inverted .cta-textarea {
   color: var(--white);
   border-bottom: 1px solid rgba(254, 252, 246, 0.2);
 }
+
 .cta-section.cta-inverted .cta-input::placeholder,
 .cta-section.cta-inverted .cta-textarea::placeholder {
   color: rgba(254, 252, 246, 0.4);
 }
-.cta-section.cta-inverted .cta-input:focus, 
+
+.cta-section.cta-inverted .cta-input:focus,
 .cta-section.cta-inverted .cta-textarea:focus {
   border-bottom: 1px solid var(--bronze);
   outline: none;
 }
+
 .cta-section.cta-inverted .explore-btn-dark {
   background-color: var(--white);
   color: var(--navy);
 }
+
 .cta-section.cta-inverted .explore-btn-dark .explore-icon-wrapper {
   background-color: var(--navy);
   color: var(--white);
 }
-.login-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 0; color: var(--white); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.4); }
-.login-icon-btn:hover { background: rgba(255,255,255,0.1); }
-.navbar.navbar-invert .login-icon-btn { color: var(--navy); border-color: rgba(4,36,51,0.4); }
-.navbar.navbar-invert .login-icon-btn:hover { background: rgba(4,36,51,0.05); }
-.navbar.navbar-properties.fixed .login-icon-btn { color: var(--navy); border-color: rgba(4,36,51,0.4); }
-.navbar.navbar-properties.fixed .login-icon-btn:hover { background: rgba(4,36,51,0.05); }
+
+.login-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  color: var(--white);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.login-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar.navbar-invert .login-icon-btn {
+  color: var(--navy);
+  border-color: rgba(4, 36, 51, 0.4);
+}
+
+.navbar.navbar-invert .login-icon-btn:hover {
+  background: rgba(4, 36, 51, 0.05);
+}
+
+.navbar.navbar-properties.fixed .login-icon-btn {
+  color: var(--navy);
+  border-color: rgba(4, 36, 51, 0.4);
+}
+
+.navbar.navbar-properties.fixed .login-icon-btn:hover {
+  background: rgba(4, 36, 51, 0.05);
+}
 
 /* Matches the .desktop-nav hide threshold above (max-width: 1250px) —
    previously min-width: 1025px, which left a ~225px gap (1025-1250px)
@@ -8210,6 +8707,7 @@ footer[class*="footer"],
   background-color: #042433 !important;
   color: #FEFCF6;
 }
+
 /*
   NEW PROPERTY CARD DESIGN
 */
@@ -8222,8 +8720,8 @@ footer[class*="footer"],
    (its RevealCard wrapper) on /properties — forcing the single-column
    mobile grid wider than the viewport instead of letting the card
    shrink to the track and truncate the long onOffice address text. */
-.explore-grid.properties-main-grid > .reveal-base,
-.explore-section .explore-grid > .property-card-new {
+.explore-grid.properties-main-grid>.reveal-base,
+.explore-section .explore-grid>.property-card-new {
   min-width: 0;
 }
 
@@ -8330,7 +8828,7 @@ footer[class*="footer"],
   justify-content: center;
   cursor: pointer;
   color: var(--text-dark, #1a1a1a);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -8576,7 +9074,7 @@ html[data-theme='dark'] .pc-badge-type,
 html[data-theme='dark'] .pc-badge-heart {
   background: #222;
   color: var(--text-light, #f5f5f5);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================================
@@ -8585,10 +9083,12 @@ html[data-theme='dark'] .pc-badge-heart {
 
 /* Curtain Clip Reveal */
 .clip-reveal {
-  clip-path: inset(10% 45% 10% 45%); /* Starts as a slit in the middle */
+  clip-path: inset(10% 45% 10% 45%);
+  /* Starts as a slit in the middle */
   transform: scale(1.05);
   transition: clip-path 1.8s cubic-bezier(0.77, 0, 0.175, 1), transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .clip-reveal.is-revealed {
   clip-path: inset(0% 0% 0% 0%);
   transform: scale(1);
@@ -8609,6 +9109,7 @@ html[data-theme='dark'] .pc-badge-heart {
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
   transform-origin: left bottom;
 }
+
 .is-revealed .staggered-word {
   transform: translateY(0) rotate(0);
   opacity: 1;
@@ -8620,13 +9121,17 @@ html[data-theme='dark'] .pc-badge-heart {
   overflow: hidden;
   cursor: pointer;
 }
+
 .editorial-card .editorial-img {
   transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
-  filter: grayscale(100%) contrast(1.1); /* Starts black and white */
+  filter: grayscale(100%) contrast(1.1);
+  /* Starts black and white */
 }
+
 .editorial-card:hover .editorial-img {
   transform: scale(1.04);
-  filter: grayscale(0%) contrast(1); /* Fades to color */
+  filter: grayscale(0%) contrast(1);
+  /* Fades to color */
 }
 
 /* Magnetic Button (CSS approximation) */
@@ -8646,6 +9151,7 @@ html[data-theme='dark'] .pc-badge-heart {
   text-align: center;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, color 0.4s ease;
 }
+
 .magnetic-btn:hover {
   transform: scale(1.1);
   background: var(--bronze);
@@ -8659,20 +9165,26 @@ html[data-theme='dark'] .pc-badge-heart {
   gap: 2rem;
   align-items: center;
 }
+
 .editorial-item-wide {
   grid-column: span 8;
 }
+
 .editorial-item-narrow {
   grid-column: span 4;
 }
+
 .editorial-item-offset {
   margin-top: clamp(1rem, 10vw, 4rem);
 }
 
 @media (max-width: 900px) {
-  .editorial-item-wide, .editorial-item-narrow {
+
+  .editorial-item-wide,
+  .editorial-item-narrow {
     grid-column: span 12;
   }
+
   .editorial-item-offset {
     margin-top: 0;
   }
@@ -8685,9 +9197,11 @@ html[data-theme='dark'] .pc-badge-heart {
   line-height: 1.85;
   color: rgba(4, 36, 51, 0.82);
 }
-.article-body > * + * {
+
+.article-body>*+* {
   margin-top: 1.6rem;
 }
+
 .article-body h2,
 .article-body h3 {
   font-family: var(--font-serif);
@@ -8696,29 +9210,36 @@ html[data-theme='dark'] .pc-badge-heart {
   font-style: normal;
   line-height: 1.15;
 }
+
 .article-body h2 {
   font-size: 2.4rem;
   margin-top: 3.5rem;
 }
+
 .article-body h3 {
   font-size: 2rem;
   margin-top: 3rem;
 }
+
 .article-body p {
   margin: 0;
 }
+
 .article-body a {
   color: var(--bronze);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
 .article-body ul,
 .article-body ol {
   padding-left: 1.5rem;
 }
-.article-body li + li {
+
+.article-body li+li {
   margin-top: 0.5rem;
 }
+
 .article-body blockquote {
   border-left: 4px solid var(--bronze);
   padding-left: 2rem;
@@ -8729,9 +9250,11 @@ html[data-theme='dark'] .pc-badge-heart {
   line-height: 1.6;
   color: var(--navy);
 }
+
 .article-body blockquote p {
   margin: 0;
 }
+
 .article-body img,
 .article-body .article-img {
   max-width: 100%;
@@ -8740,6 +9263,7 @@ html[data-theme='dark'] .pc-badge-heart {
   margin: 2.5rem 0;
   border-radius: 8px;
 }
+
 .article-body strong {
   color: var(--navy);
 }
@@ -8755,11 +9279,13 @@ html[data-theme='dark'] .pc-badge-heart {
    MOBILE & TABLET OVERRIDES (<= 1024px)
    ========================================================================== */
 @media (max-width: 1024px) {
+
   /* A. Navigation & Navbar */
   .navbar {
     padding: 0.5rem var(--gutter) !important;
     height: 72px !important;
   }
+
   .navbar .logo-img {
     /* Was height:32px, which — combined with object-fit:contain and the
        85px width set elsewhere for .mobile-only-logo .logo-img — silently
@@ -8769,14 +9295,20 @@ html[data-theme='dark'] .pc-badge-heart {
     width: 82px !important;
     height: 60px !important;
   }
-  
+
   /* Mobile Menu Drawer animation override */
   .mobile-drawer {
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease !important;
   }
-  
+
   /* Touch Targets */
-  .mobile-nav-item, .lang-btn, .hamburger-btn, .mobile-drawer-close, .contact-btn, .mobile-lang-pill, .mobile-lang-option {
+  .mobile-nav-item,
+  .lang-btn,
+  .hamburger-btn,
+  .mobile-drawer-close,
+  .contact-btn,
+  .mobile-lang-pill,
+  .mobile-lang-option {
     min-height: 44px;
     min-width: 44px;
     display: flex;
@@ -8822,7 +9354,7 @@ html[data-theme='dark'] .pc-badge-heart {
     display: flex;
     flex-direction: column;
   }
-  
+
   .left-content {
     /* Was min-height: calc(100dvh - 100px) (~712px at a typical 812px-tall
        phone) with justify-content:center — a second, later-cascading
@@ -8840,19 +9372,25 @@ html[data-theme='dark'] .pc-badge-heart {
     flex-direction: column;
     padding-bottom: 2rem;
   }
-  
+
   /* Form stacking */
-  .form-row, .lead-form-row {
+  .form-row,
+  .lead-form-row {
     flex-direction: column !important;
     gap: 1.5rem !important;
   }
+
   /* Excludes checkbox/radio — this was blanket-forcing every <input> on
      the page to width:100%/min-height:48px regardless of type, including
      .custom-checkbox (meant to render as a 16px square). That's what
      turned the Advanced Search checkbox into a full-width 48px dark
      block: its own 16x16px rule (elsewhere in this file) couldn't
      compete with this !important, unscoped-by-type selector. */
-  input:not([type="checkbox"]):not([type="radio"]), select, textarea, .form-input, .lead-input {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea,
+  .form-input,
+  .lead-input {
     min-height: 48px !important;
     width: 100% !important;
   }
@@ -8862,14 +9400,18 @@ html[data-theme='dark'] .pc-badge-heart {
     --section-padding: 60px !important;
     --gutter: 1.25rem !important;
   }
-  
-  h1, .h1 {
+
+  h1,
+  .h1 {
     font-size: clamp(2rem, 8vw, 2.75rem) !important;
     line-height: 1.1 !important;
   }
-  h2, .h2 {
+
+  h2,
+  .h2 {
     font-size: clamp(1.75rem, 6vw, 2.25rem) !important;
   }
+
   .staggered-text {
     font-size: clamp(1.5rem, 5vw, 2.25rem) !important;
   }
@@ -8879,7 +9421,7 @@ html[data-theme='dark'] .pc-badge-heart {
     height: 40vh !important;
     min-height: 300px;
   }
-  
+
   /* What We Do (Services) Spacing */
   .services-section {
     padding-top: 3rem !important;
@@ -8890,12 +9432,14 @@ html[data-theme='dark'] .pc-badge-heart {
   .search-tabs-wrapper {
     overflow-x: visible !important;
   }
+
   .search-tabs-container {
     width: 100% !important;
     display: flex !important;
     justify-content: space-between !important;
     gap: 0 !important;
   }
+
   .search-tab {
     padding: 0.6rem 0.5rem !important;
     font-size: 0.65rem !important;
@@ -8919,13 +9463,16 @@ html[data-theme='dark'] .pc-badge-heart {
     box-shadow: none !important;
     overflow: hidden;
   }
+
   .search-filter {
     border-radius: 0 !important;
     padding: 1rem 1.1rem !important;
   }
+
   .search-filter:last-of-type {
     border-bottom: none !important;
   }
+
   .filter-icon {
     transform: scale(0.85);
   }
@@ -8934,6 +9481,7 @@ html[data-theme='dark'] .pc-badge-heart {
   .property-card {
     min-height: auto !important;
   }
+
   /* Was .pc-content, which matches nothing in the actual markup
      (PropertyCard.tsx renders .pc-content-box) — this rule silently
      never applied and desktop's 1.5rem padding won by default on
@@ -8942,6 +9490,7 @@ html[data-theme='dark'] .pc-badge-heart {
     padding: 1.25rem !important;
     gap: 0.75rem !important;
   }
+
   .pc-title {
     font-size: 1.25rem !important;
   }
@@ -8950,15 +9499,19 @@ html[data-theme='dark'] .pc-badge-heart {
   .reveal-up {
     transform: translateY(16px) !important;
   }
+
   .reveal-scale {
     transform: translateY(16px) scale(0.97) !important;
   }
+
   .reveal-left {
     transform: translateX(-16px) !important;
   }
+
   .reveal-right {
     transform: translateX(16px) !important;
   }
+
   /* Mobile-only flourish — desktop's accordion cards only translate/scale
      in; on mobile (a touch, one-card-at-a-time context, not a hover-driven
      grid) they get a slight tilt too so the reveal reads as its own,
@@ -8968,12 +9521,16 @@ html[data-theme='dark'] .pc-badge-heart {
   .accordion-card.reveal-up {
     transform: translateY(22px) scale(0.96) rotate(-1.1deg) !important;
   }
+
   .accordion-card.is-revealed {
     transform: translateY(0) scale(1) rotate(0deg) !important;
   }
 
   /* Global snappier animation timing on mobile */
-  .reveal-base, .clip-reveal, .staggered-word, .accordion-card.reveal-base {
+  .reveal-base,
+  .clip-reveal,
+  .staggered-word,
+  .accordion-card.reveal-base {
     transition-duration: 0.4s !important;
   }
 
@@ -9001,6 +9558,7 @@ html[data-theme='dark'] .pc-badge-heart {
    five spec items (living area/rooms/other rooms/baths/plot) share one
    row like the approved reference card. */
 @media (max-width: 768px) {
+
   /* Desktop's 4:3 crop shows a full third of the card as photo before any
      text starts — fine at 3-per-row desktop width, but on a single-column
      phone layout it's what made the card read as oversized before any
@@ -9009,20 +9567,25 @@ html[data-theme='dark'] .pc-badge-heart {
   .pc-image-box {
     aspect-ratio: 5 / 2 !important;
   }
+
   .pc-specs-grid {
     grid-template-columns: repeat(auto-fit, minmax(42px, 1fr)) !important;
     gap: 0.4rem !important;
   }
+
   .pc-spec-item svg {
     width: 20px !important;
     height: 20px !important;
   }
+
   .pc-spec-val {
     font-size: 0.8rem !important;
   }
+
   .pc-spec-lbl {
     font-size: 0.6rem !important;
   }
+
   /* Content-driven height (padding + line-height) computes to 43px at the
      base rule — 1px under the 44px minimum touch target. */
   .pc-btn {
@@ -9042,10 +9605,12 @@ html[data-theme='dark'] .pc-badge-heart {
    run reads as one system. Desktop is untouched — gated to <=1024px.
    ========================================================================== */
 @media (max-width: 1024px) {
+
   .services-section,
   .why-section {
     background-color: var(--cream-alt);
   }
+
   .services-section,
   .explore-section,
   .why-section,
@@ -9058,14 +9623,24 @@ html[data-theme='dark'] .pc-badge-heart {
 
 /* Global Prefers Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
-  .reveal-base, .reveal-up, .reveal-scale, .reveal-left, .reveal-right, .clip-reveal, .staggered-word, .is-revealed {
+
+  .reveal-base,
+  .reveal-up,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right,
+  .clip-reveal,
+  .staggered-word,
+  .is-revealed {
     transform: none !important;
     filter: none !important;
     transition: opacity 0.2s linear !important;
@@ -9096,15 +9671,18 @@ html[data-theme='dark'] .pc-badge-heart {
 .gallery-mobile-carousel {
   display: none;
 }
+
 /* Next/Image's `fill` prop needs a positioned ancestor regardless of
    display — set unconditionally (harmless while the slide is hidden via
    .gallery-mobile-carousel above) so it doesn't warn on desktop. */
 .gallery-mobile-slide {
   position: relative;
 }
+
 .spec-pill-icon {
   display: none;
 }
+
 .map-expand-btn {
   display: none;
 }
@@ -9116,11 +9694,13 @@ html[data-theme='dark'] .pc-badge-heart {
   .gallery-mosaic {
     display: none;
   }
+
   .property-gallery-container {
     height: auto;
     border-radius: 20px;
     margin-bottom: 0;
   }
+
   .gallery-mobile-carousel {
     display: block;
     position: relative;
@@ -9128,6 +9708,7 @@ html[data-theme='dark'] .pc-badge-heart {
     border-radius: 20px;
     overflow: hidden;
   }
+
   .gallery-mobile-track {
     display: flex;
     height: 100%;
@@ -9136,15 +9717,18 @@ html[data-theme='dark'] .pc-badge-heart {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
+
   .gallery-mobile-track::-webkit-scrollbar {
     display: none;
   }
+
   .gallery-mobile-slide {
     flex: 0 0 100%;
     height: 100%;
     scroll-snap-align: center;
     cursor: pointer;
   }
+
   .gallery-mobile-dots {
     position: absolute;
     bottom: 14px;
@@ -9155,6 +9739,7 @@ html[data-theme='dark'] .pc-badge-heart {
     gap: 6px;
     z-index: 5;
   }
+
   .gallery-dot {
     width: 6px;
     height: 6px;
@@ -9162,11 +9747,13 @@ html[data-theme='dark'] .pc-badge-heart {
     background: rgba(255, 255, 255, 0.55);
     transition: width 0.25s ease, background 0.25s ease;
   }
+
   .gallery-dot.active {
     width: 18px;
     border-radius: 3px;
     background: var(--white);
   }
+
   .show-all-photos-btn {
     display: none;
   }
@@ -9183,15 +9770,34 @@ html[data-theme='dark'] .pc-badge-heart {
   .property-side-col {
     display: contents;
   }
+
   .property-details-grid {
     gap: 1rem !important;
   }
-  .property-section { order: 1; }
-  .mortgage-calculator-widget { order: 2; }
-  .property-media-tabs-container { order: 3; }
-  .property-location-container { order: 4; }
-  .location-pois-widget { order: 5; }
-  .agent-widget { order: 6; }
+
+  .property-section {
+    order: 1;
+  }
+
+  .mortgage-calculator-widget {
+    order: 2;
+  }
+
+  .property-media-tabs-container {
+    order: 3;
+  }
+
+  .property-location-container {
+    order: 4;
+  }
+
+  .location-pois-widget {
+    order: 5;
+  }
+
+  .agent-widget {
+    order: 6;
+  }
 
   /* ---- Shared mobile card system — white, generously rounded, soft
      shadow. margin-bottom is zeroed everywhere so spacing between cards
@@ -9226,36 +9832,43 @@ html[data-theme='dark'] .pc-badge-heart {
     position: relative;
     z-index: 2;
   }
+
   .property-header-main,
   .property-header-action {
     display: contents;
   }
+
   .property-title {
     order: 1;
     width: 100%;
     font-size: 1.9rem !important;
     margin-bottom: 0;
   }
+
   .property-location {
     order: 2;
     width: 100%;
     font-size: 0.85rem;
     margin-bottom: 0;
   }
+
   .property-price {
     order: 3;
     width: 100%;
     font-size: 1.6rem;
   }
+
   .property-commission {
     order: 5;
     width: 100%;
   }
+
   .property-specs-pills {
     order: 6;
     width: 100%;
     gap: 0.6rem;
   }
+
   .spec-pill {
     display: inline-flex;
     align-items: center;
@@ -9264,6 +9877,7 @@ html[data-theme='dark'] .pc-badge-heart {
     padding: 0.45rem 0.85rem;
     border-radius: 999px;
   }
+
   .spec-pill-icon {
     display: inline-flex;
     flex-shrink: 0;
@@ -9286,10 +9900,12 @@ html[data-theme='dark'] .pc-badge-heart {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.9rem 1rem !important;
   }
+
   .property-amenities-list li {
     font-size: 0.92rem;
     gap: 0.5rem;
   }
+
   .property-amenities-list li::before {
     content: '';
     flex-shrink: 0;
@@ -9315,6 +9931,7 @@ html[data-theme='dark'] .pc-badge-heart {
     margin-bottom: 1.25rem;
     justify-content: space-between;
   }
+
   .media-tabs-header:has(.media-tab-btn:only-child) .media-tab-btn {
     all: unset;
     font-family: var(--font-serif);
@@ -9322,12 +9939,14 @@ html[data-theme='dark'] .pc-badge-heart {
     font-weight: 300;
     color: var(--navy);
   }
+
   .media-tabs-header:has(.media-tab-btn:only-child)::after {
     content: '\203A';
     font-size: 1.5rem;
     color: rgba(4, 36, 51, 0.4);
     line-height: 1;
   }
+
   .floorplan-card {
     background: rgba(4, 36, 51, 0.03);
     border-radius: 12px;
@@ -9340,14 +9959,17 @@ html[data-theme='dark'] .pc-badge-heart {
     position: relative;
     margin-bottom: 0;
   }
+
   .location-map-wrapper iframe {
     height: 260px;
     border-radius: 14px !important;
   }
+
   .map-placeholder {
     height: 260px;
     border-radius: 14px;
   }
+
   .map-expand-btn {
     display: flex;
     position: absolute;
@@ -9375,15 +9997,18 @@ html[data-theme='dark'] .pc-badge-heart {
     background: var(--cream-alt);
     box-shadow: none;
   }
+
   .agent-widget h3 {
     font-family: var(--font-inter), sans-serif;
     font-size: 1.05rem;
     font-weight: 600;
     margin-bottom: 0.6rem;
   }
+
   .agent-widget p {
     font-size: 0.9rem;
   }
+
   .agent-widget .explore-btn {
     justify-content: center;
     border-radius: 8px;
@@ -9395,9 +10020,84 @@ html[data-theme='dark'] .pc-badge-heart {
   .widget-title {
     font-size: 1.4rem;
   }
+
   .calc-result {
     border-radius: 12px;
   }
 }
 
+/* === OVERRIDE FOR NON-HOME PAGES === 
+   User requested that all headings (h1-h6, editorial headlines, etc.) 
+   strictly use the Seasons font (var(--font-serif)) and all body text, 
+   including paragraphs, use the Inter font (var(--font-inter)) across 
+   all pages except the home page.
+*/
 
+/* 1. Force all headings and specific heading classes to Seasons */
+html:not(:has(.home-page)) h1,
+html:not(:has(.home-page)) h2,
+html:not(:has(.home-page)) h3,
+html:not(:has(.home-page)) h4,
+html:not(:has(.home-page)) h5,
+html:not(:has(.home-page)) h6,
+html:not(:has(.home-page)) .editorial-headline,
+html:not(:has(.home-page)) .explore-headline,
+html:not(:has(.home-page)) .why-headline,
+html:not(:has(.home-page)) .italic-serif,
+html:not(:has(.home-page)) .services-subtitle,
+html:not(:has(.home-page)) .properties-hero-headline,
+html:not(:has(.home-page)) .approach-headline,
+html:not(:has(.home-page)) span.properties-title-word,
+html:not(:has(.home-page)) .editorial-headline span.properties-title-word,
+html:not(:has(.home-page)) .properties-title-word,
+html:not(:has(.home-page)) span.properties-title-serif,
+html:not(:has(.home-page)) .editorial-headline span.properties-title-serif,
+html:not(:has(.home-page)) .properties-title-serif {
+  font-family: var(--font-serif) !important;
+  letter-spacing: normal !important;
+}
+
+/* Force .italic-serif to match the rest of the heading text on non-home pages */
+html:not(:has(.home-page)) .italic-serif {
+  font-style: normal !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  margin-left: 0 !important;
+}
+
+/* 2. Force all body text elements to Inter */
+html:not(:has(.home-page)) body,
+html:not(:has(.home-page)) p,
+html:not(:has(.home-page)) li,
+html:not(:has(.home-page)) a,
+html:not(:has(.home-page)) div,
+html:not(:has(.home-page)) span,
+html:not(:has(.home-page)) .editorial-subhead,
+html:not(:has(.home-page)) .explore-subhead,
+html:not(:has(.home-page)) .why-subhead,
+html:not(:has(.home-page)) .body-text {
+  font-family: var(--font-inter), sans-serif !important;
+}
+
+/* Ensure spans and divs inside headings don't inherit the forced Inter font 
+   and instead inherit the serif font from their parent heading */
+html:not(:has(.home-page)) h1 span,
+html:not(:has(.home-page)) h1 div,
+html:not(:has(.home-page)) h2 span,
+html:not(:has(.home-page)) h2 div,
+html:not(:has(.home-page)) h3 span,
+html:not(:has(.home-page)) h3 div,
+html:not(:has(.home-page)) h4 span,
+html:not(:has(.home-page)) h4 div,
+html:not(:has(.home-page)) h5 span,
+html:not(:has(.home-page)) h5 div,
+html:not(:has(.home-page)) h6 span,
+html:not(:has(.home-page)) h6 div,
+html:not(:has(.home-page)) .editorial-headline span,
+html:not(:has(.home-page)) .editorial-headline div,
+html:not(:has(.home-page)) .explore-headline span,
+html:not(:has(.home-page)) .explore-headline div,
+html:not(:has(.home-page)) .why-headline span,
+html:not(:has(.home-page)) .why-headline div {
+  font-family: inherit !important;
+}

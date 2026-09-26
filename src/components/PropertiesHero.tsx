@@ -20,9 +20,9 @@ export default function PropertiesHero() {
       <div className="editorial-hero-content">
         <div className="editorial-hero-middle">
           <h1 className={`editorial-headline properties-hero-headline reveal-base reveal-up delay-100 ${isVisible ? 'is-revealed' : ''}`}>
-            <span className="properties-title-word">{t.propertiesPage.heroHeadline}</span>
+            <span className="properties-title-word" style={{ fontFamily: 'var(--font-serif)', letterSpacing: 'normal' }}>{t.propertiesPage.heroHeadline}</span>
             <br className="properties-mobile-br" />
-            <span className="italic-serif properties-title-serif">{t.propertiesPage.heroHeadlineSerif}</span>
+            <span className="italic-serif properties-title-serif" style={{ fontFamily: 'var(--font-serif)', letterSpacing: 'normal' }}>{t.propertiesPage.heroHeadlineSerif}</span>
           </h1>
         </div>
         
