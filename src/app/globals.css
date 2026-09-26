@@ -6036,11 +6036,14 @@ body {
     font-size: clamp(3rem, 11vw, 4rem);
   }
   .about-hero-section .editorial-hero-middle {
-    /* Caps the light "A legacy of trust." line at roughly two short lines
-       (as in the reference) instead of the one long line it stretches to
-       at full container width — the bold serif "Since 1991." line below is
-       short enough to stay on one line regardless. */
-    max-width: 19rem;
+    /* Caps the light "A legacy of trust." line at two short lines (as in
+       the reference) instead of the one long line it stretches to at full
+       container width — the bold serif "Since 1991." line below is short
+       enough to stay on one line regardless. 17rem leaves a clear margin
+       under the phrase's ~18.5rem natural width at this font-size so the
+       wrap is reliable across both locales (the German title is longer and
+       wraps the same way). */
+    max-width: 17rem;
     margin: 0 auto;
   }
   .about-hero-section .editorial-hero-bottom {
