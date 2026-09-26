@@ -435,14 +435,9 @@ export const en = {
       titleSerif: 'Successful Deals.',
       subhead: 'From sales and rentals to professional valuations — we ensure your property receives the expertise it deserves.',
       cta: 'Request a no-obligation consultation',
-      // Mobile-only hero additions (client reference): eyebrow + icon-stat
-      // row shown below 768px only — desktop hero is unchanged.
-      mobileEyebrow: 'OUR SERVICES',
-      mobileStats: [
-        { label: 'Sales & Rentals' },
-        { label: 'Professional Valuations' },
-        { label: 'Expert Guidance' },
-      ],
+      // Mobile-only hero eyebrow (client reference), shown below 768px
+      // only — desktop hero is unchanged.
+      mobileEyebrow: 'Owners',
     },
     narrative: {
       tag: 'THE CHALLENGE',
@@ -776,7 +771,8 @@ export const en = {
       tag: 'OUR REFERENCES',
       title: 'Successfully brokered',
       titleSerif: 'dream homes.',
-      description: 'From exclusive penthouses to historic villas - take a look at our selected reference properties. Every successfully brokered property tells its own story of trust, discretion, and first-class service.'
+      description: 'From exclusive penthouses to historic villas - take a look at our selected reference properties. Every successfully brokered property tells its own story of trust, discretion, and first-class service.',
+      cta: 'Explore Our Reference'
     },
     featured: {
       id: 'featured',

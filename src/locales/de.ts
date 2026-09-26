@@ -435,12 +435,7 @@ export const de = {
       titleSerif: 'Erfolgreichen Abschlüssen.',
       subhead: 'Von Verkauf und Vermietung bis hin zu professionellen Bewertungen — wir stellen sicher, dass Ihre Immobilie die Expertise erhält, die sie verdient.',
       cta: 'Jetzt unverbindlich beraten lassen',
-      mobileEyebrow: 'UNSERE LEISTUNGEN',
-      mobileStats: [
-        { label: 'Verkauf & Vermietung' },
-        { label: 'Professionelle Bewertungen' },
-        { label: 'Fachkundige Beratung' },
-      ],
+      mobileEyebrow: 'Eigentümer',
     },
     narrative: {
       tag: 'DIE HERAUSFORDERUNG',
@@ -774,7 +769,8 @@ export const de = {
       tag: 'UNSERE REFERENZEN',
       title: 'Erfolgreich vermittelte',
       titleSerif: 'Traumimmobilien.',
-      description: 'Von exklusiven Penthäusern bis hin zu historischen Villen – werfen Sie einen Blick auf unsere ausgewählten Referenzobjekte. Jede erfolgreich vermittelte Immobilie erzählt ihre eigene Geschichte von Vertrauen, Diskretion und erstklassigem Service.'
+      description: 'Von exklusiven Penthäusern bis hin zu historischen Villen – werfen Sie einen Blick auf unsere ausgewählten Referenzobjekte. Jede erfolgreich vermittelte Immobilie erzählt ihre eigene Geschichte von Vertrauen, Diskretion und erstklassigem Service.',
+      cta: 'Unsere Referenzen entdecken'
     },
     featured: {
       id: 'featured',

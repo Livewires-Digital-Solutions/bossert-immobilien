@@ -891,6 +891,15 @@ body {
   display: none;
 }
 
+/* References hero mobile-only additions (eyebrow tag + CTA) — same pattern
+   as the services/about heroes above: hidden by default so tablet/desktop
+   render exactly as before; shown only under the max-width:768px mobile
+   breakpoint below. */
+.references-hero-eyebrow,
+.references-hero-cta-wrap {
+  display: none;
+}
+
 .properties-grid-section {
   padding: 0 var(--gutter) 6rem var(--gutter);
   background-color: #ffffff;
@@ -6168,6 +6177,134 @@ body {
     color: var(--white);
   }
 
+  /* References hero — mobile-only redesign matching the client reference
+     image: bronze eyebrow tag with flanking lines, serif headline with a
+     bronze italic sub-line, flat cream background (illustration hidden),
+     and a solid navy CTA with a gold border/arrow that jumps down to the
+     gallery already rendered further down this same page. Scoped under
+     .references-editorial-hero (added alongside the shared
+     .properties-editorial-hero class in ReferencesHero.tsx) so it can't
+     leak into the properties/knowledge/about/services/contact heroes that
+     reuse the same base .properties-editorial-hero/.editorial-* classes.
+     font-size/line-height below are !important for the same reason as the
+     about hero above — the "MOBILE & TABLET OVERRIDES (<=1024px)" block
+     further down sets a blanket `h1, .h1 { font-size ... !important }`
+     that only an equal-or-higher-specificity !important can beat (see
+     mobile-css-override-layering). */
+  .references-editorial-hero .properties-hero-bg,
+  .references-editorial-hero .properties-hero-overlay-cream {
+    display: none;
+  }
+  .references-editorial-hero {
+    padding-bottom: 5rem;
+  }
+  .references-editorial-hero .references-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .references-editorial-hero .references-hero-eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background-color: var(--bronze);
+    opacity: 0.6;
+  }
+  .references-editorial-hero .references-hero-eyebrow-text {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bronze);
+  }
+  .references-editorial-hero .editorial-headline {
+    font-family: var(--font-serif) !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+    line-height: 1.15 !important;
+  }
+  .references-editorial-hero .editorial-headline .italic-serif {
+    color: var(--bronze);
+    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+  }
+  .references-editorial-hero .editorial-hero-bottom {
+    max-width: 480px;
+  }
+  .references-editorial-hero .editorial-subhead {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(14, 21, 26, 0.65);
+    padding: 0 1rem;
+  }
+  .references-editorial-hero .references-hero-cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .references-editorial-hero .references-hero-btn {
+    background-color: var(--navy);
+    color: var(--white);
+    border: 1px solid var(--bronze);
+    border-radius: 10px;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    max-width: 320px;
+  }
+  .references-editorial-hero .references-hero-btn .btn-arrow {
+    color: var(--gold, #9a7d54);
+  }
+
+  /* Owners hero — mobile-only redesign matching the client reference image:
+     bronze "OWNERS" eyebrow tag with flanking lines, serif headline with a
+     bronze italic sub-line, flat cream background (illustration hidden),
+     and a solid navy CTA with a gold border. The eyebrow and CTA
+     treatments themselves live in owners.module.css (CSS-module classes
+     are already page-scoped, so they didn't need the extra global class);
+     only the shared global classes — the background layers and
+     .editorial-headline/.italic-serif — need scoping here, under
+     .owners-editorial-hero (added alongside the shared
+     .properties-editorial-hero class in src/app/owners/page.tsx) so it
+     can't leak into the properties/knowledge/about/services/references/
+     contact heroes that reuse the same base .properties-editorial-hero/
+     .editorial-* classes. font-size/line-height below are !important for
+     the same reason as the about/references heroes above — the "MOBILE &
+     TABLET OVERRIDES (<=1024px)" block further down sets a blanket
+     `h1, .h1 { font-size ... !important }` that only an equal-or-higher-
+     specificity !important can beat (see mobile-css-override-layering). */
+  .owners-editorial-hero .properties-hero-bg,
+  .owners-editorial-hero .properties-hero-overlay-cream {
+    display: none;
+  }
+  .owners-editorial-hero {
+    padding-bottom: 5rem;
+  }
+  .owners-editorial-hero .editorial-headline {
+    font-family: var(--font-serif) !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: clamp(2.2rem, 8.5vw, 3rem) !important;
+    line-height: 1.15 !important;
+  }
+  .owners-editorial-hero .editorial-headline .italic-serif {
+    color: var(--bronze);
+    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+  }
+  .owners-editorial-hero .editorial-hero-bottom {
+    max-width: 480px;
+  }
+  .owners-editorial-hero .editorial-subhead {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(14, 21, 26, 0.65);
+    padding: 0 1rem;
+  }
+
   .navbar {
     padding: 1.5rem 1rem;
     padding-top: max(1.5rem, env(safe-area-inset-top));
@@ -8934,6 +9071,340 @@ html[data-theme='dark'] .pc-badge-heart {
     filter: none !important;
     transition: opacity 0.2s linear !important;
     transition-delay: 0ms !important;
+  }
+}
+
+/* ==========================================================================
+   PROPERTY DETAIL PAGE — MOBILE-ONLY APP-STYLE REDESIGN (<=768px)
+   Client supplied a 3-screen mobile reference: rounded photo carousel with
+   dot pagination feeding into a floating white "bottom sheet" facts card,
+   a mortgage-calculator + floor-plans card, and a map + nearby-POIs +
+   contact card. Desktop/laptop is untouched — every rule below is gated to
+   max-width:768px. This whole block is placed at the very end of the file,
+   after the catch-all "MOBILE & TABLET OVERRIDES" block (~8621) whose
+   !important rules would otherwise silently win over anything written
+   earlier for .property-amenities-list / .gallery-mosaic /
+   .property-details-grid — see the mobile-css-override-layering pattern
+   documented above the "PHASE 2 - RESPONSIVE QUERIES" section. Rounded
+   corners here are a deliberate reference-driven mobile-only exception to
+   the sharp-corner rule, the same precedent already set for the rounded
+   mobile search card.
+
+   New elements introduced only for this treatment (the mobile gallery
+   carousel, the spec-pill icons, the map expand button) are hidden by
+   default here so they never render on desktop/tablet, then switched on
+   inside the media query below. */
+.gallery-mobile-carousel {
+  display: none;
+}
+/* Next/Image's `fill` prop needs a positioned ancestor regardless of
+   display — set unconditionally (harmless while the slide is hidden via
+   .gallery-mobile-carousel above) so it doesn't warn on desktop. */
+.gallery-mobile-slide {
+  position: relative;
+}
+.spec-pill-icon {
+  display: none;
+}
+.map-expand-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* ---- Gallery: swap the desktop mosaic for a swipeable single-photo
+     carousel with dot pagination. ---- */
+  .gallery-mosaic {
+    display: none;
+  }
+  .property-gallery-container {
+    height: auto;
+    border-radius: 20px;
+    margin-bottom: 0;
+  }
+  .gallery-mobile-carousel {
+    display: block;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .gallery-mobile-track {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery-mobile-track::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery-mobile-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    cursor: pointer;
+  }
+  .gallery-mobile-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 5;
+  }
+  .gallery-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transition: width 0.25s ease, background 0.25s ease;
+  }
+  .gallery-dot.active {
+    width: 18px;
+    border-radius: 3px;
+    background: var(--white);
+  }
+  .show-all-photos-btn {
+    display: none;
+  }
+
+  /* ---- Reorder the two-column layout into the reference's 3 mobile
+     "screens" (facts / calculator+floor-plans / map+POIs+contact) without
+     touching desktop's 2fr/1fr split. The column wrappers carry no styling
+     of their own (verified — no .property-main-col/.property-side-col
+     rule exists anywhere else in this file), so turning them into
+     display:contents boxes is safe: their children become direct grid
+     items of .property-details-grid and can be freely reordered with
+     `order`, same trick used for the header below. */
+  .property-main-col,
+  .property-side-col {
+    display: contents;
+  }
+  .property-details-grid {
+    gap: 1rem !important;
+  }
+  .property-section { order: 1; }
+  .mortgage-calculator-widget { order: 2; }
+  .property-media-tabs-container { order: 3; }
+  .property-location-container { order: 4; }
+  .location-pois-widget { order: 5; }
+  .agent-widget { order: 6; }
+
+  /* ---- Shared mobile card system — white, generously rounded, soft
+     shadow. margin-bottom is zeroed everywhere so spacing between cards
+     comes solely from the grid `gap` above and stays even regardless of
+     which component landed where via `order`. ---- */
+  .property-header-container,
+  .property-section,
+  .property-media-tabs-container,
+  .property-location-container,
+  .mortgage-calculator-widget,
+  .property-sidebar-widget {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(4, 36, 51, 0.06);
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 0 !important;
+  }
+
+  /* ---- Header: reorder title/location/price/button/specs into the
+     reference's order (price + button share a row), overlapping the
+     gallery slightly for the "bottom sheet" look — corners on both match
+     (20px) so the seam reads as one continuous curve. ---- */
+  .property-header-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.85rem;
+    column-gap: 1rem;
+    border-bottom: none;
+    margin-top: -1rem;
+    position: relative;
+    z-index: 2;
+  }
+  .property-header-main,
+  .property-header-action {
+    display: contents;
+  }
+  .property-title {
+    order: 1;
+    width: 100%;
+    font-size: 1.9rem !important;
+    margin-bottom: 0;
+  }
+  .property-location {
+    order: 2;
+    width: 100%;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+  .property-price {
+    order: 3;
+    flex: 1;
+    font-size: 1.6rem;
+  }
+  .property-header-action .explore-btn {
+    order: 4;
+    flex-shrink: 0;
+    border-radius: 8px;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.6rem;
+  }
+  .property-commission {
+    order: 5;
+    width: 100%;
+  }
+  .property-specs-pills {
+    order: 6;
+    width: 100%;
+    gap: 0.6rem;
+  }
+  .spec-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+  }
+  .spec-pill-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: rgba(4, 36, 51, 0.55);
+  }
+
+  /* ---- Section titles: the generic h2 rule in the catch-all block above
+     (clamp(1.75rem, 6vw, 2.25rem) !important) reads oversized against this
+     card system's tighter padding — this wins on specificity (class beats
+     element) despite matching !important weight. ---- */
+  .property-section-title {
+    font-size: 1.35rem !important;
+    margin-bottom: 1rem;
+  }
+
+  /* ---- Amenities: 2-column checklist with a checkmark, overriding the
+     generic 1-column mobile grid-buster above for this list specifically
+     (same !important + later-source-wins pattern). ---- */
+  .property-amenities-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.9rem 1rem !important;
+  }
+  .property-amenities-list li {
+    font-size: 0.92rem;
+    gap: 0.5rem;
+  }
+  .property-amenities-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #2f8f5b;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* ---- Media tabs: when only one media type exists (the reference's own
+     case — this listing's mock data has no video/tour toggle on, only
+     floor plans), a single-button tab bar is pointless chrome. Reskin the
+     sole button as a plain section heading with a decorative chevron
+     instead of a clickable pill; with 2+ tabs the normal pill styling
+     still applies unchanged. */
+  .media-tabs-header:has(.media-tab-btn:only-child) {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 1.25rem;
+    justify-content: space-between;
+  }
+  .media-tabs-header:has(.media-tab-btn:only-child) .media-tab-btn {
+    all: unset;
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--navy);
+  }
+  .media-tabs-header:has(.media-tab-btn:only-child)::after {
+    content: '\203A';
+    font-size: 1.5rem;
+    color: rgba(4, 36, 51, 0.4);
+    line-height: 1;
+  }
+  .floorplan-card {
+    background: rgba(4, 36, 51, 0.03);
+    border-radius: 12px;
+    padding: 0.75rem;
+  }
+
+  /* ---- Location map: match the card radius, room for the expand
+     button. ---- */
+  .location-map-wrapper {
+    position: relative;
+    margin-bottom: 0;
+  }
+  .location-map-wrapper iframe {
+    height: 260px;
+    border-radius: 14px !important;
+  }
+  .map-placeholder {
+    height: 260px;
+    border-radius: 14px;
+  }
+  .map-expand-btn {
+    display: flex;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    color: var(--navy);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(4, 36, 51, 0.15);
+    z-index: 5;
+  }
+
+  /* ---- Nearby Schools / Public Transport widget ---- */
+  .location-pois-widget .poi-title {
+    font-size: 1rem;
+  }
+
+  /* ---- Contact widget: warm cream card instead of the subtle navy-tinted
+     white the desktop sidebar uses, full-width centered CTA. ---- */
+  .agent-widget {
+    background: var(--cream-alt);
+    box-shadow: none;
+  }
+  .agent-widget h3 {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .agent-widget p {
+    font-size: 0.9rem;
+  }
+  .agent-widget .explore-btn {
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  /* ---- Mortgage calculator: slightly tighter heading + a more rounded
+     result box to match the reference (desktop's white/shadow card
+     treatment already carries over via the shared card system above). ---- */
+  .widget-title {
+    font-size: 1.4rem;
+  }
+  .calc-result {
+    border-radius: 12px;
   }
 }
 

@@ -16,6 +16,20 @@ export default function PropertyGallery({ images, fallbackImage }: PropertyGalle
   const mosaicImages = displayImages.slice(0, 5);
   const dataCount = Math.min(displayImages.length, 5);
 
+  // Mobile-only swipeable carousel (desktop keeps the mosaic grid above,
+  // hidden/shown purely via CSS — see .gallery-mobile-carousel in
+  // globals.css). Tracks the active dot from real scroll position instead
+  // of a controlled-scroll approach so native touch swipe still feels
+  // native.
+  const mobileTrackRef = React.useRef<HTMLDivElement>(null);
+  const [mobileActiveSlide, setMobileActiveSlide] = useState(0);
+
+  const handleMobileTrackScroll = () => {
+    const el = mobileTrackRef.current;
+    if (!el || el.clientWidth === 0) return;
+    setMobileActiveSlide(Math.round(el.scrollLeft / el.clientWidth));
+  };
+
   const openLightbox = (index: number = 0) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
   
@@ -73,6 +87,33 @@ export default function PropertyGallery({ images, fallbackImage }: PropertyGalle
             </svg>
             Show all photos
           </button>
+        )}
+      </div>
+
+      {/* Mobile swipeable carousel — separate markup from the desktop
+          mosaic above so each breakpoint gets its own layout; CSS toggles
+          which one is visible (see .gallery-mobile-carousel). */}
+      <div className="gallery-mobile-carousel">
+        <div className="gallery-mobile-track" ref={mobileTrackRef} onScroll={handleMobileTrackScroll}>
+          {displayImages.map((img, idx) => (
+            <div className="gallery-mobile-slide" key={idx} onClick={() => openLightbox(idx)}>
+              <Image
+                src={img}
+                alt={`Property view ${idx + 1}`}
+                fill
+                className="gallery-image"
+                style={{ objectFit: 'cover' }}
+                priority={idx === 0}
+              />
+            </div>
+          ))}
+        </div>
+        {displayImages.length > 1 && (
+          <div className="gallery-mobile-dots">
+            {displayImages.map((_, idx) => (
+              <span key={idx} className={`gallery-dot ${idx === mobileActiveSlide ? 'active' : ''}`} />
+            ))}
+          </div>
         )}
       </div>
 

@@ -8,8 +8,6 @@ interface PropertyMediaTabsProps {
 }
 
 export default function PropertyMediaTabs({ property }: PropertyMediaTabsProps) {
-  const [activeTab, setActiveTab] = useState<'video' | 'tour' | 'floorplans'>('video');
-
   // P-04: Video & 3D tour only show when an admin has explicitly switched them
   // on for this property (off by default) AND content exists for them.
   // Documents (brochure/EPC) are a future, login-gated feature — never
@@ -18,6 +16,14 @@ export default function PropertyMediaTabs({ property }: PropertyMediaTabsProps) 
   const showVideo = Boolean(property.videoEnabled && property.videoUrl);
   const showTour = Boolean(property.virtualTourEnabled && property.virtualTourUrl);
   const showFloorPlans = Boolean(property.floorPlans && property.floorPlans.length > 0);
+
+  // Default to whichever tab is actually available first — a hardcoded
+  // 'video' default left the panel blank whenever video wasn't enabled
+  // (the common case, since it's off by default) until the visitor
+  // manually clicked another tab.
+  const [activeTab, setActiveTab] = useState<'video' | 'tour' | 'floorplans'>(
+    showVideo ? 'video' : showTour ? 'tour' : 'floorplans',
+  );
 
   const hasMedia = showVideo || showTour || showFloorPlans;
 

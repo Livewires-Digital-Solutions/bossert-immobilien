@@ -95,18 +95,20 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 <CuratedPropertyFacts sections={sections} />
               ) : (
                 <>
-                  <RevealSection className="property-section">
-                    <h2 className="property-section-title">Eckdaten</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(12.5rem, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
-                      {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
-                      {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
-                      {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
-                      {property.bedrooms && <div><strong>Schlafzimmer:</strong><br/>{property.bedrooms}</div>}
-                      {property.bathrooms && <div><strong>Badezimmer:</strong><br/>{property.bathrooms}</div>}
-                      {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
-                      {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
-                    </div>
-                  </RevealSection>
+                  {(property.livingArea || property.plotArea || property.rooms || property.bedrooms || property.bathrooms || property.buildYear || property.condition) && (
+                    <RevealSection className="property-section">
+                      <h2 className="property-section-title">Eckdaten</h2>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(12.5rem, 1fr))', gap: '1.5rem', marginBottom: '2rem', color: 'var(--navy)' }}>
+                        {property.livingArea && <div><strong>Wohnfläche:</strong><br/>{property.livingArea}</div>}
+                        {property.plotArea && <div><strong>Grundstücksfläche:</strong><br/>{property.plotArea}</div>}
+                        {property.rooms && <div><strong>Zimmer:</strong><br/>{property.rooms}</div>}
+                        {property.bedrooms && <div><strong>Schlafzimmer:</strong><br/>{property.bedrooms}</div>}
+                        {property.bathrooms && <div><strong>Badezimmer:</strong><br/>{property.bathrooms}</div>}
+                        {property.buildYear && <div><strong>Baujahr:</strong><br/>{property.buildYear}</div>}
+                        {property.condition && <div><strong>Zustand:</strong><br/>{property.condition}</div>}
+                      </div>
+                    </RevealSection>
+                  )}
 
                   {property.energy && (
                     <RevealSection className="property-section" delay={80}>

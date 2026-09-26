@@ -162,22 +162,27 @@
     height: auto;
   }
   .mark {
-    font-size: clamp(32px, 10vw, 53px);
+    /* Shrunk from clamp(32px,10vw,53px) — at phone widths (~320-430px) the
+       old size left no room for "1991" to fit between the logo and the
+       screen edge, so it ran off-screen. Sized to always fit inside the
+       tightened offset below, down to a 320px-wide phone. */
+    font-size: clamp(18px, 5.5vw, 32px);
   }
   .markSlot {
     transform: translateY(calc(-50% + 18vw));
   }
-  /* Was a flat 32vw. .logoImage caps at max-width:280px, but this offset
-     stayed pure vw and kept growing past that cap — at the wide end of
-     this breakpoint (768px) it landed ~106px past the logo's actual half
-     -width, reading as two disconnected elements instead of one unit.
-     Mirrors .logoImage's own clamp (60vw / 280px) so the gap stays tight
-     (half the capped logo width + a small fixed gap) across the range. */
+  /* Offset now derives straight from .logoImage's own half-width
+     (min(30vw, 140px), from its 60vw/280px-max sizing) plus a small fixed
+     gap, so the mark always sits snug against the arch instead of out
+     near the screen edge — was clamp(100px, 30vw+12px, 152px), which at
+     phone widths pushed EST/1991 past the viewport edge and clipped them
+     (see PR discussion / mobile screenshot). Moving the offset in also
+     frees the room the shrunk .mark text needs to stay fully on-screen. */
   .leftDoor .markSlot {
-    right: clamp(100px, calc(30vw + 12px), 152px);
+    right: calc(min(30vw, 140px) + 8px);
   }
   .rightDoor .markSlot {
-    left: clamp(100px, calc(30vw + 12px), 152px);
+    left: calc(min(30vw, 140px) + 8px);
   }
 }
 

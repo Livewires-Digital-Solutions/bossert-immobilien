@@ -110,7 +110,7 @@ export default function ReferencesPage() {
       {/* 1. Hero Section */}
       <ReferencesHero />
 
-      <div className="inner-page-container">
+      <div className="inner-page-container" id="reference-gallery">
         {/* 2. Featured Cinematic Reveal */}
         {featuredData && <FeaturedReferenceCurtain data={featuredData} />}
 

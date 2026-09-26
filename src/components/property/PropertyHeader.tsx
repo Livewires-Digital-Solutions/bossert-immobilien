@@ -9,6 +9,41 @@ interface PropertyHeaderProps {
   property: Property;
 }
 
+// Mobile-only pill icons (hidden on desktop via CSS — see .spec-pill-icon in
+// globals.css) matched by keyword so this works regardless of language.
+function SpecPillIcon({ label }: { label: string }) {
+  const lower = label.toLowerCase();
+  const common = { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+
+  if (lower.includes('bed') || lower.includes('zimmer') || lower.includes('schlaf')) {
+    return (
+      <svg {...common} className="spec-pill-icon" aria-hidden="true">
+        <path d="M2 18v-6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6" />
+        <path d="M2 18v2M22 18v2" />
+        <path d="M4 12V8a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2" />
+        <path d="M2 14h20" />
+      </svg>
+    );
+  }
+  if (lower.includes('bath')) {
+    return (
+      <svg {...common} className="spec-pill-icon" aria-hidden="true">
+        <path d="M9 6 6.5 3.5A1.5 1.5 0 0 0 5.4 3H5a2 2 0 0 0-2 2v9a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5v-2" />
+        <path d="M3 12h18" />
+        <path d="M8 18v2M16 18v2" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common} className="spec-pill-icon" aria-hidden="true">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+      <path d="M16 3h3a2 2 0 0 1 2 2v3" />
+      <path d="M21 16v3a2 2 0 0 1-2 2h-3" />
+      <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+    </svg>
+  );
+}
+
 export default function PropertyHeader({ property }: PropertyHeaderProps) {
   const { t } = useLanguage();
   const displayType = (t as any).propertyTranslations?.types?.[property.type] || property.type;
@@ -32,9 +67,15 @@ export default function PropertyHeader({ property }: PropertyHeaderProps) {
           {property.location}
         </p>
         <div className="property-specs-pills property-reveal-item delay-3">
-          {displaySpecs.split('•').map((spec, idx) => (
-            <span key={idx} className="spec-pill">{spec.trim()}</span>
-          ))}
+          {displaySpecs.split('•').map((spec, idx) => {
+            const trimmed = spec.trim();
+            return (
+              <span key={idx} className="spec-pill">
+                <SpecPillIcon label={trimmed} />
+                {trimmed}
+              </span>
+            );
+          })}
         </div>
       </div>
       
