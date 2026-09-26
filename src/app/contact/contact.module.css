@@ -15,11 +15,252 @@
 
 .formCard {
   padding: 3rem;
+  border: 1px solid rgba(4, 36, 51, 0.08);
+  border-radius: 4px;
 }
 
 .anchorImage {
   height: 60vh;
   min-height: 31.25rem;
+}
+
+/* ===== Intro column — eyebrow + heading + description ===== */
+.introEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.introEyebrowLine {
+  width: 32px;
+  height: 1px;
+  background-color: var(--bronze);
+  opacity: 0.6;
+}
+
+.introEyebrowText {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.introHeading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.18;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin: 0 0 1.5rem;
+}
+
+.introHeading .italic-serif {
+  color: var(--bronze);
+}
+
+.introDescription {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(4, 36, 51, 0.65);
+  max-width: 32rem;
+  margin: 0 0 3rem;
+}
+
+/* ===== Contact info list ===== */
+.infoStack {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoRow {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(4, 36, 51, 0.1);
+}
+
+.infoRow:first-child {
+  padding-top: 0;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(175, 140, 83, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ===== Form card header ===== */
+.formCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.formCardEyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin: 0 0 0.5rem;
+}
+
+.formCardTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 2.5vw, 2.25rem);
+  color: var(--navy);
+  margin: 0;
+}
+
+.formCardHint {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(4, 36, 51, 0.55);
+  max-width: 16rem;
+  text-align: right;
+  margin: 0;
+}
+
+.formCardDivider {
+  height: 1px;
+  background-color: rgba(4, 36, 51, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* ===== Form fields — boxed style ===== */
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.boxField {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid rgba(4, 36, 51, 0.15);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.88rem;
+  color: var(--navy);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.boxField::placeholder {
+  color: rgba(4, 36, 51, 0.4);
+}
+
+.boxField:focus {
+  border-color: var(--bronze);
+}
+
+.boxTextarea {
+  resize: vertical;
+  min-height: 7.5rem;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectField {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+
+.selectChevron {
+  position: absolute;
+  top: 50%;
+  right: 1.1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--navy);
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  background-color: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  padding: 1.05rem 1.5rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitBtn:hover {
+  background-color: var(--bronze);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.consentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.consentCheckbox {
+  accent-color: var(--navy);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.consentLabel {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(4, 36, 51, 0.65);
+}
+
+.consentLabel a {
+  color: var(--navy);
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -38,11 +279,39 @@
     min-height: 16rem;
     border-radius: 12px !important;
   }
+  .introHeading {
+    font-size: clamp(2.1rem, 8vw, 2.6rem);
+  }
+  .introDescription {
+    margin-bottom: 2.25rem;
+  }
+  .formCardHeader {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .formCardHint {
+    text-align: left;
+    max-width: none;
+  }
+  .formCardDivider {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
   .formCard {
     padding: 1.5rem 1.25rem;
+  }
+  .introEyebrowLine {
+    width: 24px;
   }
 }
 

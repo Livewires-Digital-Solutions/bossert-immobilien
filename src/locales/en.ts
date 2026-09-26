@@ -392,6 +392,18 @@ export const en = {
       titleSerif: 'Us.',
       subhead: 'We\'re here to help you find the right property.',
     },
+    intro: {
+      eyebrow: 'Get In Touch',
+      titleLine1: 'We\'re Here',
+      titleLine2: 'to ',
+      titleLine2Accent: 'Assist You.',
+      description: 'Whether you are looking to buy, sell, rent, or need a professional valuation — our team is ready to help you with personalized advice and reliable support.',
+    },
+    formCard: {
+      eyebrow: 'Send Us A Message',
+      title: 'Contact Us',
+      hint: 'Fill out the form below and our team will get back to you as soon as possible.',
+    },
     info: {
       locationTitle: 'Office Location',
       phoneTitle: 'Phone',

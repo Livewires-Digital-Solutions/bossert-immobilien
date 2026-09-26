@@ -392,6 +392,18 @@ export const de = {
       titleSerif: 'uns.',
       subhead: 'Wir helfen Ihnen gerne, die richtige Immobilie zu finden.',
     },
+    intro: {
+      eyebrow: 'Kontaktieren Sie Uns',
+      titleLine1: 'Wir Sind Hier,',
+      titleLine2: 'um ',
+      titleLine2Accent: 'Ihnen Zu Helfen.',
+      description: 'Ob Sie kaufen, verkaufen, mieten oder eine professionelle Bewertung benötigen — unser Team unterstützt Sie mit persönlicher Beratung und zuverlässigem Support.',
+    },
+    formCard: {
+      eyebrow: 'Senden Sie Uns Eine Nachricht',
+      title: 'Kontaktieren Sie Uns',
+      hint: 'Füllen Sie das Formular aus und unser Team meldet sich so schnell wie möglich bei Ihnen.',
+    },
     info: {
       locationTitle: 'Bürostandort',
       phoneTitle: 'Telefon',
